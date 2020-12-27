@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CrowdfindingApp.Data\CrowdfindingApp.Data.csproj" />
     <ProjectReference Include="..\CrowdfindingApp.Core\CrowdfindingApp.Core.csproj" />
+    <ProjectReference Include="..\CrowdfindingApp.Data\CrowdfindingApp.Data.csproj" />
   </ItemGroup>
 
 
