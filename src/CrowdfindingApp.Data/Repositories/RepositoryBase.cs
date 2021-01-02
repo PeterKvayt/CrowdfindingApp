@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Linq;
 using CrowdfindingApp.Core.Interfaces.Data;
 
 namespace CrowdfindingApp.Data.Repositories
