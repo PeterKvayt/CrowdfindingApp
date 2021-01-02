@@ -24,11 +24,10 @@ namespace CrowdfindingApp.Api
             services.AddDbContext<IDataProvider, DataProvider>(options => 
                 options.UseSqlServer(Config.GetConnectionString(Configuration.Connection)));
 
-            services.AddAuthentication();
-
-            services.AddHandlers();
-
-            services.AddControllers();
+            services.AddAuthentication()
+                    .AddHandlers()
+                    .AddSwaggerGen()
+                    .AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,6 +40,13 @@ namespace CrowdfindingApp.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSwagger()
+               .UseSwaggerUI(config =>
+               {
+                   config.SwaggerEndpoint("/swagger/v1/swagger.json", "Api");
+                   config.RoutePrefix = string.Empty;
+               });
 
             app.UseAuthentication();
             app.UseAuthorization();
