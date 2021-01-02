@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.1">
       <PrivateAssets>all</PrivateAssets>
@@ -18,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CrowdfindingApp.Common\CrowdfindingApp.Common.csproj" />
     <ProjectReference Include="..\CrowdfindingApp.Core\CrowdfindingApp.Core.csproj" />
     <ProjectReference Include="..\CrowdfindingApp.Data\CrowdfindingApp.Data.csproj" />
   </ItemGroup>

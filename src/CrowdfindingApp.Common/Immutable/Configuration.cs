@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Core.Immutable
+namespace CrowdfindingApp.Common.Immutable
 {
     public static class Configuration
     {

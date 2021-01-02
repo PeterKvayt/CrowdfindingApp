@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Core.Enums
+namespace CrowdfindingApp.Common.Enums
 {
     public enum SocialNetworks
     {

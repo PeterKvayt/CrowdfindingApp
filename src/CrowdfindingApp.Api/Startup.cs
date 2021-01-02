@@ -1,4 +1,4 @@
-using CrowdfindingApp.Core.Immutable;
+using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Core.Interfaces.Data;
 using CrowdfindingApp.Data;
 using Microsoft.AspNetCore.Builder;
@@ -24,6 +24,10 @@ namespace CrowdfindingApp.Api
             services.AddDbContext<IDataProvider, DataProvider>(options => 
                 options.UseSqlServer(Config.GetConnectionString(Configuration.Connection)));
 
+            services.AddAuthentication();
+
+            services.AddHandlers();
+
             services.AddControllers();
         }
 
@@ -38,6 +42,7 @@ namespace CrowdfindingApp.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
