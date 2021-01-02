@@ -1,5 +1,7 @@
+using Autofac;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Core.Interfaces.Data;
+using CrowdfindingApp.Core.Services.User;
 using CrowdfindingApp.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,12 +14,20 @@ namespace CrowdfindingApp.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Config = configuration;
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+
+            Config = builder.Build();
         }
 
-        public IConfiguration Config { get; }
+        public IConfigurationRoot Config { get; private set; }
+
+        public ILifetimeScope AutofacContainer { get; private set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -25,9 +35,13 @@ namespace CrowdfindingApp.Api
                 options.UseSqlServer(Config.GetConnectionString(Configuration.Connection)));
 
             services.AddAuthentication()
-                    .AddHandlers()
                     .AddSwaggerGen()
                     .AddControllers();
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule<UserModule>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

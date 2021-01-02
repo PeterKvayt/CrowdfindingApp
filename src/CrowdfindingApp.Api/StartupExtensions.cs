@@ -27,10 +27,5 @@ namespace CrowdfindingApp.Api
 
             return services;
         }
-
-        public static IServiceCollection AddHandlers(this IServiceCollection services)
-        {
-            return services;
-        }
     }
 }

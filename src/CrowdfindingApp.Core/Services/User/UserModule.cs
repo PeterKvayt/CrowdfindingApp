@@ -1,18 +1,18 @@
-﻿using CrowdfindingApp.Core.Services.User.Handlers;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Autofac;
+using CrowdfindingApp.Core.Services.User.Handlers;
 
 namespace CrowdfindingApp.Core.Services.User
 {
-    public class UserModule
+    public class UserModule : Module
     {
-        public UserModule(IServiceCollection services)
+        protected override void Load(ContainerBuilder builder)
         {
-            RegisterHandlers(services);
+            RegisterHandlers(builder);
         }
 
-        private IServiceCollection RegisterHandlers(IServiceCollection services)
+        private void RegisterHandlers(ContainerBuilder builder)
         {
-            return services.AddSingleton<GetTokenRequestHandler>();
+            builder.RegisterType<GetTokenRequestHandler>().AsSelf().SingleInstance();
         }
     }
 }
