@@ -56,7 +56,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
         {
             var reply = new ReplyMessage<TokenInfo>();
 
-            var identity = await GetIdentityAsync(request.UserName, request.Password);
+            var identity = await GetIdentityAsync(request.UserName);
             if(identity == null)
             {
                 reply.AddObjectNotFoundError();
@@ -80,7 +80,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             return reply;
         }
 
-        private async Task<ClaimsIdentity> GetIdentityAsync(string username, string password)
+        private async Task<ClaimsIdentity> GetIdentityAsync(string username)
         {
             var user = await _userRepository.GetUserByUserNameOrNullAsync(username);
             var role = await _roleRepository.GetRoleByIdOrNullAsync(user.RoleId);
