@@ -1,0 +1,36 @@
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
+
+namespace CrowdfindingApp.Api.Middlewares
+{
+    public class AuthTokenInterceptor
+    {
+        private const string _authorizationHeader = "Authorization";
+        private readonly RequestDelegate _next;
+
+        public AuthTokenInterceptor(RequestDelegate next)
+        {
+            _next = next;
+        }
+
+        public async Task InvokeAsync(HttpContext context)
+        {
+            var result = context.Request.Headers.TryGetValue(_authorizationHeader, out StringValues tokenValues);
+            if(result && !string.IsNullOrEmpty(tokenValues))
+            {
+                var token = tokenValues.First();
+                token = "Bearer " + token;
+
+                result = context.Request.Headers.Remove(_authorizationHeader);
+                if(result)
+                {
+                    context.Request.Headers.Add(_authorizationHeader, token);
+                }
+            }
+
+            await _next.Invoke(context);
+        }
+    }
+}

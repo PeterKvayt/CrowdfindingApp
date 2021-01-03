@@ -1,4 +1,5 @@
 using Autofac;
+using CrowdfindingApp.Api.Middlewares;
 using CrowdfindingApp.Common.Helpers;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Core.Interfaces.Data;
@@ -53,24 +54,26 @@ namespace CrowdfindingApp.Api
 
         public void Configure(IApplicationBuilder app)
         {
-            if(Environment.IsDevelopment())
+            if(Environment.IsProduction())
+            {
+                app.UseHttpsRedirection();
+            }
+            else
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
             app.UseSwagger()
-               .UseSwaggerUI(config =>
-               {
-                   config.SwaggerEndpoint("/swagger/v1/swagger.json", "Api");
-                   config.RoutePrefix = string.Empty;
-               });
+                .UseSwaggerUI(config =>
+                {
+                    config.SwaggerEndpoint("/swagger/v1/swagger.json", "Api");
+                    config.RoutePrefix = string.Empty;
+                })
+                .UseRouting()
+                .UseMiddleware<AuthTokenInterceptor>();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthentication()
+                .UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
