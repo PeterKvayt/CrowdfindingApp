@@ -30,6 +30,7 @@ namespace CrowdfindingApp.Data.Repositories
         public async Task InsertUserAsync(User user)
         {
             await Storage.Users.AddAsync(user);
+            await Storage.SaveChangesAsync();
         }
 
         private IQueryable<User> GetQuery(UserFilter filter)

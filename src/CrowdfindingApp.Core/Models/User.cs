@@ -11,6 +11,7 @@ namespace CrowdfindingApp.Core.Models
         public string MiddleName { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }
+        public string Salt { get; set; }
         public bool EmailConfirmed { get; set; }
         public bool Active { get; set; }
         public DateTime CreatedDateTime { get; set; }

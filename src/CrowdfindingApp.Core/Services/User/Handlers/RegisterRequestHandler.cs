@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.DataTransfers.User;
 using CrowdfindingApp.Common.Handlers;
@@ -23,12 +24,12 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             _hasher = hasher ?? throw new ArgumentNullException(nameof(hasher));
         }
 
-        protected override async Task<ReplyMessageBase> ValidateRequestMessage(RegisterRequestMessage requestMessage)
+        protected override async Task<ReplyMessageBase> ValidateRequestMessageAsync(RegisterRequestMessage requestMessage)
         {
             var reply = new ReplyMessageBase();
 
             var userWithEmail = await _userRepository.GetUsersAsync(new UserFilter { Email = new List<string> { requestMessage.Email } });
-            if(userWithEmail != null)
+            if(userWithEmail.Any())
             {
                 return reply.AddValidationError(ErrorKeys.UniqueEmail);
             }
@@ -43,11 +44,13 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
 
         protected override async Task<ReplyMessage<RegistrationResultInfo>> ExecuteAsync(RegisterRequestMessage request)
         {
+            var (passwordHash, salt) = _hasher.GetHashWithSalt(request.Password);
             var user = new Models.User()
             {
                 Id = new Guid(),
                 Email = request.Email.ToUpperInvariant(),
-                PasswordHash = _hasher.GetHash(request.Password),
+                PasswordHash = passwordHash,
+                Salt = salt,
                 CreatedDateTime = DateTime.UtcNow,
                 RoleId = new Guid(Roles.DefaultUser),
                 Active = true,

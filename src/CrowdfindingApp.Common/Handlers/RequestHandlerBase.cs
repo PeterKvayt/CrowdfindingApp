@@ -13,7 +13,7 @@ namespace CrowdfindingApp.Common.Handlers
             return Task.FromResult(ReplyMessageBase.Empty);
         }
 
-        protected virtual Task<ReplyMessageBase> ValidateRequestMessage(TRequest requestMessage)
+        protected virtual Task<ReplyMessageBase> ValidateRequestMessageAsync(TRequest requestMessage)
         {
             return Task.FromResult(ReplyMessageBase.Empty);
         }
@@ -35,7 +35,7 @@ namespace CrowdfindingApp.Common.Handlers
                 return reply;
             }
 
-            var validationResult = await ValidateRequestMessage(requestMessage);
+            var validationResult = await ValidateRequestMessageAsync(requestMessage);
             if(!validationResult.Success)
             {
                 var reply = new TReply();

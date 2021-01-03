@@ -18,7 +18,7 @@ namespace CrowdfindingApp.Api.Controllers
             _registerHandler = registerHandler ?? throw new ArgumentNullException(nameof(registerHandler));
         }
 
-        [HttpGet("token")]
+        [HttpPost("token")]
         public async Task<IActionResult> GetTokenAsync(GetTokenRequestMessage request)
         {
             var reply = await _getTokenHandler.HandleAsync(request);

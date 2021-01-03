@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.DataTransfers.User;
 using CrowdfindingApp.Common.Handlers;
+using CrowdfindingApp.Common.Helpers;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.User;
@@ -17,18 +18,45 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
     {
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
+        private readonly IHasher _hasher;
 
-        public GetTokenRequestHandler(IUserRepository userRepository, IRoleRepository roleRepository)
+        public GetTokenRequestHandler(IUserRepository userRepository, IRoleRepository roleRepository, IHasher hasher)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
+            _hasher = hasher ?? throw new ArgumentNullException(nameof(hasher));
+        }
+
+        protected override async Task<ReplyMessageBase> ValidateRequestMessageAsync(GetTokenRequestMessage requestMessage)
+        {
+            // ToDo: implement operation context
+            var reply = await base.ValidateRequestMessageAsync(requestMessage);
+
+            var user = await _userRepository.GetUserByUserNameOrNullAsync(requestMessage.UserName.ToUpperInvariant());
+            if(user == null)
+            {
+                return reply.AddObjectNotFoundError();
+            }
+
+            if(!_hasher.Equals(user.PasswordHash, requestMessage.Password, user.Salt))
+            {
+                return reply.AddNotAuthorizedError();
+            }
+
+            var role = await _roleRepository.GetRoleByIdOrNullAsync(user.RoleId);
+            if(role == null)
+            {
+                return reply.AddObjectNotFoundError();
+            }
+
+            return reply;
         }
 
         protected override async Task<ReplyMessage<TokenInfo>> ExecuteAsync(GetTokenRequestMessage request)
         {
             var reply = new ReplyMessage<TokenInfo>();
 
-            var identity = await GetIdentityOrNullAsync(request.Login, request.Password);
+            var identity = await GetIdentityAsync(request.UserName, request.Password);
             if(identity == null)
             {
                 reply.AddObjectNotFoundError();
@@ -52,20 +80,10 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             return reply;
         }
 
-        private async Task<ClaimsIdentity> GetIdentityOrNullAsync(string username, string password)
+        private async Task<ClaimsIdentity> GetIdentityAsync(string username, string password)
         {
             var user = await _userRepository.GetUserByUserNameOrNullAsync(username);
-            if(user == null)
-            {
-                return null;
-            }
-
             var role = await _roleRepository.GetRoleByIdOrNullAsync(user.RoleId);
-            if(role == null)
-            {
-                return null;
-            }
-
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
