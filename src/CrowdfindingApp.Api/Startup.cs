@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace CrowdfindingApp.Api
 {
@@ -54,14 +53,9 @@ namespace CrowdfindingApp.Api
 
         public void Configure(IApplicationBuilder app)
         {
-            if(Environment.IsProduction())
-            {
-                app.UseHttpsRedirection();
-            }
-            else
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseMiddleware<ExceptionInterceptor>();
+
+            //app.UseDeveloperExceptionPage();
 
             app.UseSwagger()
                 .UseSwaggerUI(config =>
