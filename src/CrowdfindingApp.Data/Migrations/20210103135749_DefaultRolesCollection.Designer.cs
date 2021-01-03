@@ -4,14 +4,16 @@ using CrowdfindingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CrowdfindingApp.Data.Migrations
 {
     [DbContext(typeof(DataProvider))]
-    partial class DataProviderModelSnapshot : ModelSnapshot
+    [Migration("20210103135749_DefaultRolesCollection")]
+    partial class DefaultRolesCollection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -13,6 +13,7 @@ namespace CrowdfindingApp.Core.Services.User
         private void RegisterHandlers(ContainerBuilder builder)
         {
             builder.RegisterType<GetTokenRequestHandler>().AsSelf().SingleInstance();
+            builder.RegisterType<RegisterRequestHandler>().AsSelf().SingleInstance();
         }
     }
 }

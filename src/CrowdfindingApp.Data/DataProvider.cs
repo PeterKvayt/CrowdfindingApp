@@ -1,4 +1,6 @@
-﻿using CrowdfindingApp.Core.Interfaces.Data;
+﻿using System;
+using System.Collections.Generic;
+using CrowdfindingApp.Core.Interfaces.Data;
 using CrowdfindingApp.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +28,26 @@ namespace CrowdfindingApp.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<BaseModel>();
+
+            modelBuilder.Entity<Role>().HasData(_defaultRoles);
+
             base.OnModelCreating(modelBuilder);
         }
+
+        private List<Role> _defaultRoles = new List<Role>
+        {
+            new Role
+            {
+                Id = new Guid(Common.Immutable.Roles.DefaultUser),
+                Name = "DefaultUser",
+                Permissions = string.Empty
+            },
+            new Role
+            {
+                Id = new Guid(Common.Immutable.Roles.Admin),
+                Name = "Admin",
+                Permissions = string.Empty
+            },
+        };
     }
 }

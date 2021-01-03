@@ -1,4 +1,5 @@
 using Autofac;
+using CrowdfindingApp.Common.Helpers;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Core.Interfaces.Data;
 using CrowdfindingApp.Core.Services.User;
@@ -22,6 +23,8 @@ namespace CrowdfindingApp.Api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
+            Environment = env;
+
             Config = builder.Build();
         }
 
@@ -29,24 +32,28 @@ namespace CrowdfindingApp.Api
 
         public ILifetimeScope AutofacContainer { get; private set; }
 
-        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
+        public IWebHostEnvironment Environment { get; private set; }
+
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<IDataProvider, DataProvider>(options => 
                 options.UseSqlServer(Config.GetConnectionString(Configuration.Connection)));
 
-            services.AddAuthentication(env)
+            services.AddAuthentication(Environment)
                     .AddSwaggerGen()
                     .AddControllers();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            builder.RegisterType<Hasher>().AsImplementedInterfaces();
+
             builder.RegisterModule<UserModule>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if(env.IsDevelopment())
+            if(Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

@@ -10,18 +10,25 @@ namespace CrowdfindingApp.Api.Controllers
     public class UsersController : Controller
     {
         private GetTokenRequestHandler _getTokenHandler;
+        private RegisterRequestHandler _registerHandler;
 
-        public UsersController(GetTokenRequestHandler tokenHandler)
+        public UsersController(GetTokenRequestHandler tokenHandler, RegisterRequestHandler registerHandler)
         {
             _getTokenHandler = tokenHandler ?? throw new ArgumentNullException(nameof(tokenHandler));
+            _registerHandler = registerHandler ?? throw new ArgumentNullException(nameof(registerHandler));
         }
-
 
         [HttpGet("token")]
         public async Task<IActionResult> GetTokenAsync(GetTokenRequestMessage request)
         {
             var reply = await _getTokenHandler.HandleAsync(request);
+            return Json(reply);
+        }
 
+        [HttpPost("register")]
+        public async Task<IActionResult> GetTokenAsync(RegisterRequestMessage request)
+        {
+            var reply = await _registerHandler.HandleAsync(request);
             return Json(reply);
         }
     }

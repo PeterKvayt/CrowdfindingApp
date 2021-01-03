@@ -27,6 +27,11 @@ namespace CrowdfindingApp.Data.Repositories
             return GetQuery(filter).ToListAsync();
         }
 
+        public async Task InsertUserAsync(User user)
+        {
+            await Storage.Users.AddAsync(user);
+        }
+
         private IQueryable<User> GetQuery(UserFilter filter)
         {
             IQueryable<User> query = Storage.Users;

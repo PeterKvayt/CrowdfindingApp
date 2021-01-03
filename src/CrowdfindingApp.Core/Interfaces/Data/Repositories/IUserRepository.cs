@@ -10,5 +10,7 @@ namespace CrowdfindingApp.Core.Interfaces.Data.Repositories
         Task<User> GetUserByUserNameOrNullAsync(string userName);
 
         Task<List<User>> GetUsersAsync(UserFilter filter);
+
+        Task InsertUserAsync(User user);
     }
 }
