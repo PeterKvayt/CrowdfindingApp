@@ -29,12 +29,12 @@ namespace CrowdfindingApp.Api
 
         public ILifetimeScope AutofacContainer { get; private set; }
 
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
         {
             services.AddDbContext<IDataProvider, DataProvider>(options => 
                 options.UseSqlServer(Config.GetConnectionString(Configuration.Connection)));
 
-            services.AddAuthentication()
+            services.AddAuthentication(env)
                     .AddSwaggerGen()
                     .AddControllers();
         }
