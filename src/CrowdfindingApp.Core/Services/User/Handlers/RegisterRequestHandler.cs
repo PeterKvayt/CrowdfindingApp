@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.DataTransfers.User;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Helpers;
 using CrowdfindingApp.Common.Immutable;
@@ -13,7 +12,7 @@ using CrowdfindingApp.Core.Services.User.Filters;
 
 namespace CrowdfindingApp.Core.Services.User.Handlers
 {
-    public class RegisterRequestHandler : RequestHandlerBase<RegisterRequestMessage, ReplyMessage<RegistrationResultInfo>>
+    public class RegisterRequestHandler : RequestHandlerBase<RegisterRequestMessage, ReplyMessageBase>
     {
         private readonly IUserRepository _userRepository;
         private readonly IHasher _hasher;
@@ -42,7 +41,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             return reply;
         }
 
-        protected override async Task<ReplyMessage<RegistrationResultInfo>> ExecuteAsync(RegisterRequestMessage request)
+        protected override async Task<ReplyMessageBase> ExecuteAsync(RegisterRequestMessage request)
         {
             var (passwordHash, salt) = _hasher.GetHashWithSalt(request.Password);
             var user = new Models.User()
@@ -62,10 +61,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
 
             // ToDo: Add feature to send email comfirmation
 
-            return new ReplyMessage<RegistrationResultInfo> 
-            { 
-                Value = new RegistrationResultInfo { Success = true} 
-            };
+            return new ReplyMessageBase(); 
         }
     }
 }
