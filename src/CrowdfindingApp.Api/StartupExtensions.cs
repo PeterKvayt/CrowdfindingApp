@@ -1,4 +1,8 @@
-﻿using CrowdfindingApp.Common.Immutable;
+﻿using Autofac;
+using CrowdfindingApp.Common.Immutable;
+using CrowdfindingApp.Core.Services.Role;
+using CrowdfindingApp.Core.Services.User;
+using CrowdfindingApp.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +32,18 @@ namespace CrowdfindingApp.Api
                     });
 
             return services;
+        }
+
+        public static void RegisterRepositories(this ContainerBuilder builder)
+        {
+            builder.RegisterType<RoleRepository>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<UserRepository>().AsImplementedInterfaces().SingleInstance();
+        }
+
+        public static void RegisterModules(this ContainerBuilder builder)
+        {
+            builder.RegisterModule<UserModule>();
+            builder.RegisterModule<RoleModule>();
         }
     }
 }

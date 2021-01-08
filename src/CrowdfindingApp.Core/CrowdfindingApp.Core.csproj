@@ -20,4 +20,19 @@
     <ProjectReference Include="..\CrowdfindingApp.Common\CrowdfindingApp.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Services\User\Resources\ActionMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ActionMessages.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Services\User\Resources\ActionMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

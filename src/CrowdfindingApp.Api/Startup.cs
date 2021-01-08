@@ -1,6 +1,5 @@
 using Autofac;
 using CrowdfindingApp.Api.Middlewares;
-using CrowdfindingApp.Api.Modules;
 using CrowdfindingApp.Common.Helpers;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Core.Interfaces.Data;
@@ -48,8 +47,8 @@ namespace CrowdfindingApp.Api
         {
             builder.RegisterType<Hasher>().AsImplementedInterfaces();
 
-            builder.RegisterModule<UserModule>();
-            builder.RegisterModule<RoleModule>();
+            builder.RegisterRepositories();
+            builder.RegisterModules();
         }
 
         public void Configure(IApplicationBuilder app)
