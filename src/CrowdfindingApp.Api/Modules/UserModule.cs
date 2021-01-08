@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CrowdfindingApp.Core.Services.User;
 using CrowdfindingApp.Core.Services.User.Handlers;
 using CrowdfindingApp.Data.Repositories;
 
@@ -10,6 +11,7 @@ namespace CrowdfindingApp.Api.Modules
         {
             RegisterHandlers(builder);
 
+            builder.RegisterType<UserProfile>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<UserRepository>().AsImplementedInterfaces().SingleInstance();
         }
 

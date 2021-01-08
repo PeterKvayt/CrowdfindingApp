@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CrowdfindingApp.Data.Repositories
 {
-    public class UserRepository : RepositoryBase, IUserRepository
+    public class UserRepository : RepositoryBase<User>, IUserRepository
     {
         public UserRepository(IDataProvider storage) : base(storage)
         {
@@ -35,7 +35,7 @@ namespace CrowdfindingApp.Data.Repositories
 
         private IQueryable<User> GetQuery(UserFilter filter)
         {
-            IQueryable<User> query = Storage.Users;
+            var query = GetQuery();
 
             if(filter.Active.HasValue)
             {
