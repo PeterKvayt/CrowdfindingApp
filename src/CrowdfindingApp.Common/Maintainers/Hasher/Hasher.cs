@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace CrowdfindingApp.Common.Helpers
+namespace CrowdfindingApp.Common.Maintainers.Hasher
 {
     public class Hasher : IHasher
     {

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CrowdfindingApp.Common;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Core.Services.Role;
 using CrowdfindingApp.Core.Services.User;
@@ -44,6 +45,7 @@ namespace CrowdfindingApp.Api
         {
             builder.RegisterModule<UserModule>();
             builder.RegisterModule<RoleModule>();
+            builder.RegisterModule<CommonModule>();
         }
     }
 }

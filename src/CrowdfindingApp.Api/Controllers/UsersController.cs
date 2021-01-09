@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Localization;
 using CrowdfindingApp.Common.Messages.User;
 using CrowdfindingApp.Core.Services.User.Handlers;
@@ -20,48 +21,48 @@ namespace CrowdfindingApp.Api.Controllers
             _registerHandler = registerHandler ?? throw new ArgumentNullException(nameof(registerHandler));
         }
 
-        [HttpPost("token")]
+        [HttpPost(Endpoints.User.Token)]
         public async Task<IActionResult> GetTokenAsync(GetTokenRequestMessage request)
         {
             var reply = await _getTokenHandler.HandleAsync(request);
             return Respond(reply);
         }
 
-        [HttpPost("register")]
+        [HttpPost(Endpoints.User.Register)]
         public async Task<IActionResult> GetTokenAsync(RegisterRequestMessage request)
         {
             var reply = await _registerHandler.HandleAsync(request);
             return Respond(reply);
         }
 
-        [HttpGet("forgot-password")]
+        [HttpGet(Endpoints.User.ForgotPassword)]
         public async Task<IActionResult> ForgotPasswordAsync(GetTokenRequestMessage request)
         {
             throw new NotImplementedException();
         }
 
-        [HttpGet("reset-password")]
+        [HttpGet(Endpoints.User.ResetPassword)]
         [Authorize]
         public async Task<IActionResult> ResetPasswordAsync(GetTokenRequestMessage request)
         {
             throw new NotImplementedException();
         }
 
-        [HttpGet("user-info")]
+        [HttpGet(Endpoints.User.UserInfo)]
         [Authorize]
         public async Task<IActionResult> UserInfoAsync(GetTokenRequestMessage request)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPut("user-info")]
+        [HttpPut(Endpoints.User.UpdateUser)]
         [Authorize]
         public async Task<IActionResult> UpdateUserInfoAsync(GetTokenRequestMessage request)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPut("change-password")]
+        [HttpPut(Endpoints.User.ChangePassword)]
         [Authorize]
         public async Task<IActionResult> ChangePasswordAsync(GetTokenRequestMessage request)
         {

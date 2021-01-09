@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Helpers
+namespace CrowdfindingApp.Common.Maintainers.Hasher
 {
     public interface IHasher
     {
