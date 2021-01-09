@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="col-12">
+    <h3>Мои проекты</h3>
+  </div>
+  <app-project-card *ngFor='let project of projects' class="col-lg-3 col-md-6 col-sm-12" 
+  [card]='project' [editable]='true' (editEvent)='onEditClick($event)' (ondeleteEvent)='onDeleteClick($event)'></app-project-card>
+</div>

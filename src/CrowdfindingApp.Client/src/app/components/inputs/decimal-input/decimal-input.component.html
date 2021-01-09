@@ -1,0 +1,16 @@
+<div class="form-group">
+
+  <label class="control-label">{{item.label}}</label>
+
+  <input #decimalInput
+    type='text'
+    [placeholder]='item.placeholder'
+    [ngModel]='item.value'
+    [min]='item.min'
+    [max]='item.max' 
+    (ngModelChange)='onValueChange($event)'
+    class="form-control" />
+
+  <span *ngIf='!item.valid' class="text-danger">{{item.errorText}}</span>
+
+</div>

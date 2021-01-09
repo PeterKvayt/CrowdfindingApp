@@ -1,0 +1,16 @@
+<div class="form-group">
+
+  <label class="control-label">{{item.label}}</label>
+
+  <input 
+    type='text' 
+    [placeholder]='item.placeholder'
+    [maxLength]='item.max' 
+    [minLength]='item.min' 
+    [ngModel]='item.value' 
+    (ngModelChange)='onValueChange($event)' 
+    class="form-control" />
+
+  <span *ngIf='!item.valid' class="text-danger">{{item.errorText}}</span>
+
+</div>

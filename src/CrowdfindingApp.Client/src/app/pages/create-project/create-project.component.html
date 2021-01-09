@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-lg-3 offset-lg-3 sign-in-wrapper">
+
+    <h2>Создание проекта</h2>
+
+    <app-text-input [(item)]='nameInput'></app-text-input>
+    <app-text-input [(item)]='descriptionInput'></app-text-input>
+    <app-decimal-input [(item)]='purposeInput'></app-decimal-input>
+
+    <fieldset class="form-group">
+      <label>Введите ссылку на картинку</label>   
+      <input [(ngModel)]='imageInput' class="form-control" placeholder="Ссылка к картинке"/>
+    </fieldset>
+
+    <fieldset class="text-center">
+      <button (click)='onCreateClick()' class="btn btn-primary btn-block">Создать</button>
+    </fieldset>
+  </div>
+  <div class="col-lg-6"></div>
+</div>
+

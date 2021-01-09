@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-lg-3 offset-lg-3 sign-up-wrapper">
+  
+      <h2>Регистрация</h2>
+  
+      <fieldset class="form-group">
+        <span>У вас есть аккаунт? </span>   
+        <a [routerLink]="['/sign-in']">Войти</a>
+      </fieldset>
+  
+      <app-text-input [(item)]='emailInput'></app-text-input>
+      <app-password-input [(item)]='passwordInput'></app-password-input>
+      <app-password-input [(item)]='confirmPasswordInput'></app-password-input>
+  
+      <fieldset class="text-center">
+        <button (click)='onSignUpClick()' class="btn btn-primary btn-block">Зарегистрироваться</button>
+      </fieldset>
+
+    </div>
+    <div class="col-lg-6"></div>
+  </div>
+  
