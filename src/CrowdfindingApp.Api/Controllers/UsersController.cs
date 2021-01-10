@@ -6,7 +6,6 @@ using CrowdfindingApp.Common.Messages.User;
 using CrowdfindingApp.Core.Services.User.Handlers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace CrowdfindingApp.Api.Controllers
 {
@@ -17,17 +16,20 @@ namespace CrowdfindingApp.Api.Controllers
         private RegisterRequestHandler _registerHandler;
         private ForgotPasswordRequestHandler _forgotPasswordRequestHandler;
         private ResetPasswordRequestHandler _resetPasswordRequestHandler;
+        private GetUserInfoRequestHandler _getUserInfoRequestHandler;
 
         public UsersController(GetTokenRequestHandler tokenHandler,
             RegisterRequestHandler registerHandler,
             IResourceProvider resourceProvider,
             ForgotPasswordRequestHandler forgotPasswordRequestHandler,
-            ResetPasswordRequestHandler resetPasswordRequestHandler) : base(resourceProvider)
+            ResetPasswordRequestHandler resetPasswordRequestHandler,
+            GetUserInfoRequestHandler getUserInfoRequestHandler) : base(resourceProvider)
         {
             _getTokenHandler = tokenHandler ?? throw new ArgumentNullException(nameof(tokenHandler));
             _registerHandler = registerHandler ?? throw new ArgumentNullException(nameof(registerHandler));
             _forgotPasswordRequestHandler = forgotPasswordRequestHandler ?? throw new ArgumentNullException(nameof(forgotPasswordRequestHandler));
             _resetPasswordRequestHandler = resetPasswordRequestHandler ?? throw new ArgumentNullException(nameof(resetPasswordRequestHandler));
+            _getUserInfoRequestHandler = getUserInfoRequestHandler ?? throw new ArgumentNullException(nameof(getUserInfoRequestHandler));
         }
 
         [HttpPost(Endpoints.User.Token)]
@@ -60,11 +62,13 @@ namespace CrowdfindingApp.Api.Controllers
             return Respond(reply);
         }
 
-        [HttpGet(Endpoints.User.UserInfo)]
+        [HttpGet(Endpoints.User.UserInfo + "/{id}")]
         [Authorize]
-        public async Task<IActionResult> UserInfoAsync(GetTokenRequestMessage request)
+        public async Task<IActionResult> UserInfoAsync(string id)
         {
-            throw new NotImplementedException();
+            var request = new GetUserInfoRequestMessage { Id = id };
+            var reply = await _getUserInfoRequestHandler.HandleAsync(request);
+            return Respond(reply);
         }
 
         [HttpPut(Endpoints.User.UpdateUser)]

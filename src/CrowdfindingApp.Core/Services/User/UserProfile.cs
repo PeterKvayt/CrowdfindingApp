@@ -14,13 +14,12 @@ namespace CrowdfindingApp.Core.Services.User
         public UserProfile()
         {
             CreateMap<Models.User, UserInfo>()
-                .BeforeMap((src, dest, opt) => _cachedRoles = opt.Items.ToDictionary(_ => _.Key, _ => _.Value.ToString()))
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(x => GetRoleName(x.RoleId)));
+                .ForMember(dest => dest.Role, opt => opt.MapFrom((src, dest, destMember, ctx) => GetRoleName(src.RoleId, ctx.Items.ToDictionary(_ => _.Key, _ => _.Value.ToString()))));
         }
 
-        private string GetRoleName(Guid guid)
+        private string GetRoleName(Guid guid, IDictionary<string, string> roles)
         {
-            return _cachedRoles.FirstOrDefault(_ => _.Key == guid.ToString()).Value
+            return roles.FirstOrDefault(_ => _.Key == guid.ToString()).Value
                 ?? throw new KeyNotFoundException($"There is no role with id {guid}");
         }
     }

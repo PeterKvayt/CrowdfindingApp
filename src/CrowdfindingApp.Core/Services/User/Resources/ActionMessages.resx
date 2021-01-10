@@ -123,6 +123,9 @@
   <data name="InvalidToken" xml:space="preserve">
     <value>Невалидный токен.</value>
   </data>
+  <data name="InvalidUserId" xml:space="preserve">
+    <value>Данного пользователя не существует.</value>
+  </data>
   <data name="PasswordConfirmationFail" xml:space="preserve">
     <value>Пароли не совпадают.</value>
   </data>

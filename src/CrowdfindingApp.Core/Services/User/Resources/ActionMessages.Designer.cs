@@ -79,6 +79,15 @@ namespace CrowdfindingApp.Core.Services.User.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Данного пользователя не существует..
+        /// </summary>
+        internal static string InvalidUserId {
+            get {
+                return ResourceManager.GetString("InvalidUserId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Пароли не совпадают..
         /// </summary>
         internal static string PasswordConfirmationFail {
