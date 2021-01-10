@@ -3,24 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Helpers;
 using CrowdfindingApp.Common.Immutable;
+using CrowdfindingApp.Common.Maintainers.Hasher;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.User;
 using CrowdfindingApp.Core.Interfaces.Data.Repositories;
 using CrowdfindingApp.Core.Services.User.Filters;
+using CrowdfindingApp.Core.Services.User.Helpers;
 
 namespace CrowdfindingApp.Core.Services.User.Handlers
 {
-    public class RegisterRequestHandler : RequestHandlerBase<RegisterRequestMessage, ReplyMessageBase>
+    public class RegisterRequestHandler : NullOperationContextRequestHandler<RegisterRequestMessage, ReplyMessageBase>
     {
         private readonly IUserRepository _userRepository;
         private readonly IHasher _hasher;
+        private readonly PasswordValidator _passwordValidator;
 
         public RegisterRequestHandler(IUserRepository userRepository, IHasher hasher)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _hasher = hasher ?? throw new ArgumentNullException(nameof(hasher));
+            _passwordValidator = new PasswordValidator();
         }
 
         protected override async Task<ReplyMessageBase> ValidateRequestMessageAsync(RegisterRequestMessage requestMessage)
@@ -33,9 +36,14 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
                 return reply.AddValidationError(ErrorKeys.UniqueEmail);
             }
 
-            if(requestMessage.Password.Length < 2)
+            if(!_passwordValidator.Validate(requestMessage.Password))
             {
-                return reply.AddValidationError(ErrorKeys.PasswordLength);
+                return reply.AddValidationError(ErrorKeys.InvalidPassword);
+            }
+
+            if(!_passwordValidator.Confirm(requestMessage.Password, requestMessage.ConfirmPassword))
+            {
+                return reply.AddValidationError(ErrorKeys.PasswordConfirmationFail);
             }
 
             return reply;

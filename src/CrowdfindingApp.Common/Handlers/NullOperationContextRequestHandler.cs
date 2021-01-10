@@ -4,24 +4,29 @@ using CrowdfindingApp.Common.Messages;
 
 namespace CrowdfindingApp.Common.Handlers
 {
-    public abstract class RequestHandlerBase<TRequest, TReply, TOperationContext>
-        where TRequest : MessageBase, new()
+    public abstract class NullOperationContextRequestHandler<TRequest, TReply> : RequestHandlerBase<TRequest, TReply, NullOperationContext>
+         where TRequest : MessageBase, new()
         where TReply : ReplyMessageBase, new()
-        where TOperationContext : new()
     {
         protected virtual Task<ReplyMessageBase> PreExecuteAsync(TRequest request)
         {
             return Task.FromResult(ReplyMessageBase.Empty);
         }
 
-        protected virtual Task<(ReplyMessageBase, TOperationContext)> ValidateRequestMessageAsync(TRequest requestMessage)
+        protected virtual async Task<ReplyMessageBase> ValidateRequestMessageAsync(TRequest requestMessage)
         {
-            return Task.FromResult((ReplyMessageBase.Empty, new TOperationContext()));
+            var (reply, ctx) = await base.ValidateRequestMessageAsync(requestMessage);
+            return reply;
         }
 
-        protected abstract Task<TReply> ExecuteAsync(TRequest request, TOperationContext ctx);
+        protected override sealed Task<TReply> ExecuteAsync(TRequest request, NullOperationContext ctx)
+        {
+            return ExecuteAsync(request);
+        }
 
-        public virtual async Task<TReply> HandleAsync(TRequest requestMessage)
+        protected abstract Task<TReply> ExecuteAsync(TRequest request);
+
+        public override async Task<TReply> HandleAsync(TRequest requestMessage)
         {
             if(requestMessage == null)
             {
@@ -36,7 +41,7 @@ namespace CrowdfindingApp.Common.Handlers
                 return reply;
             }
 
-            var (validationResult, ctx) = await ValidateRequestMessageAsync(requestMessage);
+            var validationResult = await ValidateRequestMessageAsync(requestMessage);
             if(!validationResult.Success)
             {
                 var reply = new TReply();
@@ -44,7 +49,7 @@ namespace CrowdfindingApp.Common.Handlers
                 return reply;
             }
 
-            return await ExecuteAsync(requestMessage, ctx);
+            return await ExecuteAsync(requestMessage);
         }
     }
 }

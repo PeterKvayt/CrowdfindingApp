@@ -63,9 +63,27 @@ namespace CrowdfindingApp.Core.Services.User.Resources {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Пароль недостаточной длины..
         /// </summary>
-        internal static string PasswordLength {
+        internal static string InvalidPassword {
             get {
-                return ResourceManager.GetString("PasswordLength", resourceCulture);
+                return ResourceManager.GetString("InvalidPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Невалидный токен..
+        /// </summary>
+        internal static string InvalidToken {
+            get {
+                return ResourceManager.GetString("InvalidToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Пароли не совпадают..
+        /// </summary>
+        internal static string PasswordConfirmationFail {
+            get {
+                return ResourceManager.GetString("PasswordConfirmationFail", resourceCulture);
             }
         }
         

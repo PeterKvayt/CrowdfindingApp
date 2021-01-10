@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PasswordLength" xml:space="preserve">
+  <data name="InvalidPassword" xml:space="preserve">
     <value>Пароль недостаточной длины.</value>
+  </data>
+  <data name="InvalidToken" xml:space="preserve">
+    <value>Невалидный токен.</value>
+  </data>
+  <data name="PasswordConfirmationFail" xml:space="preserve">
+    <value>Пароли не совпадают.</value>
   </data>
   <data name="UniqueEmail" xml:space="preserve">
     <value>Данный Email занят.</value>

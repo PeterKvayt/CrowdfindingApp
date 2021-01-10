@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Extensions;
@@ -17,9 +18,29 @@ namespace CrowdfindingApp.Data.Repositories
             
         }
 
-        public async Task<User> GetUserByUserNameOrNullAsync(string userName)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
-            return await Storage.Users.FirstOrDefaultAsync(_ => _.UserName == userName);
+            return await Storage.Users.FirstOrDefaultAsync(_ => _.Email == email);
+        }
+
+        public async Task<User> GetUserByIdAsync(Guid id)
+        {
+            return await Storage.Users.FirstOrDefaultAsync(_ => _.Id == id);
+        }
+
+        public async Task UpdatePasswordAsync(Guid id, string passwordHash, string salt)
+        {
+            var user = await GetUserByIdAsync(id);
+            if(user == null)
+            {
+                throw new ArgumentException($"User with id: {id} not exists.");
+            }
+
+            user.PasswordHash = passwordHash;
+            user.Salt = salt;
+
+            Storage.Users.Update(user);
+            await Storage.SaveChangesAsync();
         }
 
         public Task<List<User>> GetUsersAsync(UserFilter filter)

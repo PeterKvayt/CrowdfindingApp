@@ -5,8 +5,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.DataTransfers.User;
 using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Helpers;
 using CrowdfindingApp.Common.Immutable;
+using CrowdfindingApp.Common.Maintainers.Hasher;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.User;
 using CrowdfindingApp.Core.Interfaces.Data.Repositories;
@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CrowdfindingApp.Core.Services.User.Handlers
 {
-    public class GetTokenRequestHandler : RequestHandlerBase<GetTokenRequestMessage, ReplyMessage<TokenInfo>>
+    public class GetTokenRequestHandler : RequestHandlerBase<GetTokenRequestMessage, ReplyMessage<TokenInfo>, ClaimsIdentity>
     {
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
@@ -27,44 +27,44 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             _hasher = hasher ?? throw new ArgumentNullException(nameof(hasher));
         }
 
-        protected override async Task<ReplyMessageBase> ValidateRequestMessageAsync(GetTokenRequestMessage requestMessage)
+        protected override async Task<(ReplyMessageBase, ClaimsIdentity)> ValidateRequestMessageAsync(GetTokenRequestMessage requestMessage)
         {
-            // ToDo: implement operation context
-            var reply = await base.ValidateRequestMessageAsync(requestMessage);
+            var (reply, ctx) = await base.ValidateRequestMessageAsync(requestMessage);
 
-            var user = await _userRepository.GetUserByUserNameOrNullAsync(requestMessage.UserName.ToUpperInvariant());
+            var user = await _userRepository.GetUserByEmailAsync(requestMessage.Email.ToUpperInvariant());
             if(user == null)
             {
-                return reply.AddObjectNotFoundError();
+                reply.AddObjectNotFoundError();
+                return (reply, ctx);
             }
 
             if(!_hasher.Equals(user.PasswordHash, requestMessage.Password, user.Salt))
             {
-                return reply.AddNotAuthorizedError();
+                reply.AddNotAuthorizedError();
+                return (reply, ctx);
             }
 
             var role = await _roleRepository.GetRoleByIdOrNullAsync(user.RoleId);
             if(role == null)
             {
-                return reply.AddObjectNotFoundError();
+                reply.AddObjectNotFoundError();
+                return (reply, ctx);
             }
 
-            return reply;
+            ctx = GetIdentity(user, role);
+
+            return (reply, ctx);
         }
 
-        protected override async Task<ReplyMessage<TokenInfo>> ExecuteAsync(GetTokenRequestMessage request)
+        protected override async Task<ReplyMessage<TokenInfo>> ExecuteAsync(GetTokenRequestMessage request, ClaimsIdentity identity)
+        {
+            return await Task.Run(() =>  Execute(request, identity));
+        }
+
+        private ReplyMessage<TokenInfo> Execute(GetTokenRequestMessage request, ClaimsIdentity identity)
         {
             var reply = new ReplyMessage<TokenInfo>();
-
-            var identity = await GetIdentityAsync(request.UserName);
-            if(identity == null)
-            {
-                reply.AddObjectNotFoundError();
-                return reply;
-            }
-
             var now = DateTime.UtcNow;
-
             var token = new JwtSecurityToken(
                     issuer: AuthenticationOptions.ValidIssuer,
                     audience: AuthenticationOptions.ValidAudience,
@@ -80,17 +80,15 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             return reply;
         }
 
-        private async Task<ClaimsIdentity> GetIdentityAsync(string username)
+        private  ClaimsIdentity GetIdentity(Models.User user, Models.Role role)
         {
-            var user = await _userRepository.GetUserByUserNameOrNullAsync(username);
-            var role = await _roleRepository.GetRoleByIdOrNullAsync(user.RoleId);
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, role.Name)
             };
 
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            var claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             
             return claimsIdentity;
         }
