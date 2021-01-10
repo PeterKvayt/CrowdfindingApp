@@ -30,6 +30,7 @@ namespace CrowdfindingApp.Core.Services.User
             builder.RegisterType<GetTokenRequestHandler>().AsSelf().SingleInstance();
             builder.RegisterType<ForgotPasswordRequestHandler>().AsSelf().SingleInstance();
             builder.RegisterType<ResetPasswordRequestHandler>().AsSelf().SingleInstance();
+            builder.RegisterType<GetUserInfoRequestHandler>().AsSelf().SingleInstance();
         }
     }
 }
