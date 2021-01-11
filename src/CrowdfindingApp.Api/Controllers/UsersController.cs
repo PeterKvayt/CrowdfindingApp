@@ -18,6 +18,7 @@ namespace CrowdfindingApp.Api.Controllers
         private ResetPasswordRequestHandler _resetPasswordRequestHandler;
         private GetUserInfoRequestHandler _getUserInfoRequestHandler;
         private UpdateUserRequestHandler _updateUserRequestHandler;
+        private ChangePasswordRequestHandler _changePasswordRequestHandler;
 
         public UsersController(GetTokenRequestHandler tokenHandler,
             RegisterRequestHandler registerHandler,
