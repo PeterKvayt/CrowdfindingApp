@@ -96,5 +96,11 @@ namespace CrowdfindingApp.Data.Repositories
 
             return query;
         }
+
+        public async Task UpdateUserAsync(User user)
+        {
+            Storage.Users.Update(user);
+            await Storage.SaveChangesAsync();
+        }
     }
 }

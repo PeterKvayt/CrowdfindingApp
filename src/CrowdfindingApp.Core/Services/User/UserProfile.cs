@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using CrowdfindingApp.Common.DataTransfers.User;
+using CrowdfindingApp.Common.Messages.User;
 
 namespace CrowdfindingApp.Core.Services.User
 {
@@ -12,6 +13,10 @@ namespace CrowdfindingApp.Core.Services.User
         {
             CreateMap<Models.User, UserInfo>()
                 .ForMember(dest => dest.Role, opt => opt.MapFrom((src, dest, destMember, ctx) => GetRoleName(src.RoleId, ctx.Items.ToDictionary(_ => _.Key, _ => _.Value.ToString()))));
+
+            CreateMap<UpdateUserRequestMessage, Models.User>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(_ => new Guid(_.Id)));
+
         }
 
         private string GetRoleName(Guid guid, IDictionary<string, string> roles)

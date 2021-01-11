@@ -8,5 +8,6 @@ namespace CrowdfindingApp.Core.Services.User
         public const string InvalidToken = nameof(InvalidToken);
         public const string PasswordConfirmationFail = nameof(PasswordConfirmationFail);
         public const string InvalidUserId = nameof(InvalidUserId);
+        public const string UserIdIsNullOrEmpty = nameof(UserIdIsNullOrEmpty);
     }
 }

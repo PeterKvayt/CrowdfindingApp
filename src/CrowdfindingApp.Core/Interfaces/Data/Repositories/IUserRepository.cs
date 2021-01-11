@@ -13,5 +13,12 @@ namespace CrowdfindingApp.Core.Interfaces.Data.Repositories
         Task InsertUserAsync(User user);
         Task<User> GetUserByIdAsync(Guid id);
         Task UpdatePasswordAsync(Guid id, string passwordHash, string salt);
+
+        /// <summary>
+        /// Update user info. Search user by id.
+        /// </summary>
+        /// <param name="user">Already updated user. </param>
+        /// <returns></returns>
+        Task UpdateUserAsync(User user);
     }
 }
