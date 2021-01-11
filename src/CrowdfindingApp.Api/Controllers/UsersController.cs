@@ -25,7 +25,8 @@ namespace CrowdfindingApp.Api.Controllers
             ForgotPasswordRequestHandler forgotPasswordRequestHandler,
             ResetPasswordRequestHandler resetPasswordRequestHandler,
             GetUserInfoRequestHandler getUserInfoRequestHandler,
-            UpdateUserRequestHandler updateUserRequestHandler) : base(resourceProvider)
+            UpdateUserRequestHandler updateUserRequestHandler,
+            ChangePasswordRequestHandler changePasswordRequestHandler) : base(resourceProvider)
         {
             _getTokenHandler = tokenHandler ?? throw new ArgumentNullException(nameof(tokenHandler));
             _registerHandler = registerHandler ?? throw new ArgumentNullException(nameof(registerHandler));
@@ -33,6 +34,7 @@ namespace CrowdfindingApp.Api.Controllers
             _resetPasswordRequestHandler = resetPasswordRequestHandler ?? throw new ArgumentNullException(nameof(resetPasswordRequestHandler));
             _getUserInfoRequestHandler = getUserInfoRequestHandler ?? throw new ArgumentNullException(nameof(getUserInfoRequestHandler));
             _updateUserRequestHandler = updateUserRequestHandler ?? throw new ArgumentNullException(nameof(updateUserRequestHandler));
+            _changePasswordRequestHandler = changePasswordRequestHandler ?? throw new ArgumentNullException(nameof(changePasswordRequestHandler));
         }
 
         [HttpPost(Endpoints.User.Token)]
@@ -83,9 +85,10 @@ namespace CrowdfindingApp.Api.Controllers
 
         [HttpPut(Endpoints.User.ChangePassword)]
         [Authorize]
-        public async Task<IActionResult> ChangePasswordAsync(GetTokenRequestMessage request)
+        public async Task<IActionResult> ChangePasswordAsync(ChangePasswordRequestMessage request)
         {
-            throw new NotImplementedException();
+            var reply = await _changePasswordRequestHandler.HandleAsync(request);
+            return Respond(reply);
         }
     }
 }
