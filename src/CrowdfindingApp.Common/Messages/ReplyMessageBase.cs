@@ -7,10 +7,6 @@ namespace CrowdfindingApp.Common.Messages
 {
     public class ReplyMessageBase : MessageBase
     {
-        public static readonly string ObjectNotFoundMessageKey = "ObjectNotFoundMsg";
-        public static readonly string ValidationMessageKey = "ValidationFailedMsg";
-        public static readonly string SystemErrorMessageKey = "SystemErrorMsg";
-
         public ReplyMessageBase()
             : this(null)
         { }

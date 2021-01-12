@@ -3,18 +3,10 @@ namespace CrowdfindingApp.Common.DataTransfers.Errors
 {
     public class SystemErrorInfo : ErrorInfo
     {
-        public SystemErrorInfo()
-            : this(string.Empty, string.Empty)
-        {
-        }
-
-        public SystemErrorInfo(string message)
-            : base(message)
-        {
-        }
+        public const string SystemErrorMessageKey = nameof(SystemErrorMessageKey);
 
         public SystemErrorInfo(string key, string message)
-            : base(key, message)
+            : base(key ?? SystemErrorMessageKey, message)
         {
         }
     }

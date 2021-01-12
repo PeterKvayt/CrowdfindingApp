@@ -46,6 +46,8 @@ namespace CrowdfindingApp.Api
         {
             builder.RegisterRepositories();
             builder.RegisterModules();
+            builder.RegisterResourceProviders();
+            builder.RegisterAutoMapper();
         }
 
         public void Configure(IApplicationBuilder app)

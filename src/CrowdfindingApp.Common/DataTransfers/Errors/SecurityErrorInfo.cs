@@ -3,18 +3,10 @@ namespace CrowdfindingApp.Common.DataTransfers.Errors
 {
     class SecurityErrorInfo : ErrorInfo
     {
-        public SecurityErrorInfo()
-            : this(string.Empty, string.Empty)
-        {
-        }
-
-        public SecurityErrorInfo(string message)
-            : base(message)
-        {
-        }
+        public const string SecurityErrorMessageKey = nameof(SecurityErrorMessageKey);
 
         public SecurityErrorInfo(string key, string message)
-            : base(key, message)
+            : base(key ?? SecurityErrorMessageKey, message)
         {
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using CrowdfindingApp.Common.DataTransfers.Errors;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Localization;
 using CrowdfindingApp.Common.Messages;
@@ -44,13 +45,30 @@ namespace CrowdfindingApp.Api.Controllers
         {
             foreach(var error in reply.Errors)
             {
-                if(error.Message.IsPresent() || error.Key.IsNullOrEmpty())
+                if(error.Message.IsPresent())
                 {
-                    continue;
+                    error.Key = null;
                 }
+                else if(error.Key.IsPresent())
+                {
+                    var message = _resourceProvider.GetString(error.Key, error.Parameters ?? Array.Empty<object>());
 
-                error.Message = _resourceProvider.GetString(error.Key, error.Parameters ?? Array.Empty<object>());
-                error.Key = null;
+                    if(!message.Equals(error.Key, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        error.Message = message;
+                        error.Key = null;
+                    }
+                    else
+                    {
+                        error.Key = "EmptyKey";
+                        error.Message = "Not found message for key";
+                    }
+                }
+                else
+                {
+                    error.Key = "EmptyKey";
+                    error.Message = "Not found message for key";
+                }
             }
 
             return HttpStatusCode.BadRequest;

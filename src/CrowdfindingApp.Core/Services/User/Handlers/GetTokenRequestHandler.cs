@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.DataTransfers.User;
+using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Maintainers.Hasher;
@@ -30,6 +31,18 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
         protected override async Task<(ReplyMessageBase, ClaimsIdentity)> ValidateRequestMessageAsync(GetTokenRequestMessage requestMessage)
         {
             var (reply, ctx) = await base.ValidateRequestMessageAsync(requestMessage);
+
+            if(requestMessage.Email.IsNullOrEmpty())
+            {
+                reply.AddValidationError(ErrorKeys.EmptyEmail);
+                return (reply, ctx);
+            }
+
+            if(requestMessage.Password.IsNullOrEmpty())
+            {
+                reply.AddValidationError(ErrorKeys.EmptyPassword);
+                return (reply, ctx);
+            }
 
             var user = await _userRepository.GetUserByEmailAsync(requestMessage.Email.ToUpperInvariant());
             if(user == null)

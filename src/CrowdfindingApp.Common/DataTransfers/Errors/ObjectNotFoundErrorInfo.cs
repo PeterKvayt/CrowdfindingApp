@@ -1,20 +1,12 @@
 ﻿
 namespace CrowdfindingApp.Common.DataTransfers.Errors
 {
-    class ObjectNotFoundErrorInfo : ErrorInfo
+    public class ObjectNotFoundErrorInfo : ErrorInfo
     {
-        public ObjectNotFoundErrorInfo()
-            : this(string.Empty, string.Empty)
-        {
-        }
-
-        public ObjectNotFoundErrorInfo(string message)
-            : base(message)
-        {
-        }
+        public const string ObjectNotFoundMessageKey = nameof(ObjectNotFoundMessageKey);
 
         public ObjectNotFoundErrorInfo(string key, string message)
-            : base(key, message)
+            : base(key ?? ObjectNotFoundMessageKey, message)
         {
         }
     }

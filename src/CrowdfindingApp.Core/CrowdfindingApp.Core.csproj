@@ -32,6 +32,7 @@
     <EmbeddedResource Update="Services\User\Resources\ActionMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ActionMessages.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 
