@@ -46,7 +46,7 @@ namespace CrowdfindingApp.Api.Controllers
         }
 
         [HttpPost(Endpoints.User.Register)]
-        public async Task<IActionResult> GetTokenAsync(RegisterRequestMessage request)
+        public async Task<IActionResult> RegisterAsync(RegisterRequestMessage request)
         {
             var reply = await _registerHandler.HandleAsync(request);
             return Respond(reply);

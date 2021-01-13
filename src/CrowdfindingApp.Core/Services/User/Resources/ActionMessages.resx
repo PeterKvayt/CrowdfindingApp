@@ -124,7 +124,7 @@
     <value>Поле пароля должно быть заполнено.</value>
   </data>
   <data name="InvalidPasswordLength" xml:space="preserve">
-    <value>Пароль недостаточной длины.</value>
+    <value>Минимальная количество символов пароля: {0}.</value>
   </data>
   <data name="InvalidToken" xml:space="preserve">
     <value>Невалидный токен.</value>
@@ -136,6 +136,6 @@
     <value>Пароли не совпадают.</value>
   </data>
   <data name="UniqueEmail" xml:space="preserve">
-    <value>Данный Email занят.</value>
+    <value>Email "{0}" занят.</value>
   </data>
 </root>

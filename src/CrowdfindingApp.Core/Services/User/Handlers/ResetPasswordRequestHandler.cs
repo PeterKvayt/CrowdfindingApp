@@ -44,9 +44,10 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
                 return (reply, operationСontext);
             }
 
-            if(!_passwordValidator.Validate(requestMessage.Password))
+            var validationResult = _passwordValidator.Validate(requestMessage.Password);
+            if(!validationResult.Success)
             {
-                reply.AddValidationError(ErrorKeys.InvalidPasswordLength);
+                reply.Merge(validationResult);
                 return (reply, operationСontext);
             }
 

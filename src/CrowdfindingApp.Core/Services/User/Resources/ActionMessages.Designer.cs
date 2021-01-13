@@ -79,7 +79,7 @@ namespace CrowdfindingApp.Core.Services.User.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Пароль недостаточной длины..
+        ///   Ищет локализованную строку, похожую на Минимальная количество символов пароля: {0}..
         /// </summary>
         internal static string InvalidPasswordLength {
             get {
@@ -115,7 +115,7 @@ namespace CrowdfindingApp.Core.Services.User.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Данный Email занят..
+        ///   Ищет локализованную строку, похожую на Email &quot;{0}&quot; занят..
         /// </summary>
         internal static string UniqueEmail {
             get {

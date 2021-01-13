@@ -1,5 +1,6 @@
 ﻿
 using CrowdfindingApp.Common.Extensions;
+using CrowdfindingApp.Common.Messages;
 
 namespace CrowdfindingApp.Core.Services.User.Helpers
 {
@@ -12,24 +13,38 @@ namespace CrowdfindingApp.Core.Services.User.Helpers
 
         private const int MinLength = 2;
 
-        private bool ValidLength(string password)
+        private void ValidateLength(string password, ReplyMessageBase reply)
         {
-            return password.Length >= MinLength;
+            if(password.Length < MinLength)
+            {
+                reply.AddValidationError(key: ErrorKeys.InvalidPasswordLength, parameters: MinLength);
+            }
         }
 
         private string[] SpecialSymbols => new string[] { "" };
 
-        private bool HasSpecialSymbol(string password)
+        private void ValidateOnSpecialSymbols(string password, ReplyMessageBase reply)
         {
             // ToDo: Implement method
-            return true;
         }
 
-        public bool Validate(string password)
+        public ReplyMessageBase Validate(string password)
         {
-            return password.IsPresent() 
-                && HasSpecialSymbol(password) 
-                && ValidLength(password);
+            var reply = new ReplyMessageBase();
+
+            if(password.IsNullOrEmpty())
+            {
+                return reply.AddValidationError(ErrorKeys.EmptyPassword);
+            }
+
+            ValidateLength(password, reply);
+            if(!reply.Success)
+            {
+                return reply;
+            }
+
+            ValidateOnSpecialSymbols(password, reply);
+            return reply;
         }
     }
 }

@@ -48,9 +48,10 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
                 return reply.AddSecurityError();
             }
 
-            if(!_passwordValidator.Validate(requestMessage.NewPassword))
+            var validationResult = _passwordValidator.Validate(requestMessage.NewPassword);
+            if(!validationResult.Success)
             {
-                return reply.AddValidationError(ErrorKeys.InvalidPasswordLength);
+                return reply.Merge(validationResult);
             }
 
             if(!_passwordValidator.Confirm(requestMessage.NewPassword, requestMessage.ConfirmPassword))

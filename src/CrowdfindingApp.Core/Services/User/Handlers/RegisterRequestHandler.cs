@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Maintainers.Hasher;
@@ -30,20 +31,31 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
         {
             var reply = new ReplyMessageBase();
 
-            var userWithEmail = await _userRepository.GetUsersAsync(new UserFilter { Email = new List<string> { requestMessage.Email } });
-            if(userWithEmail.Any())
+            if(requestMessage.Email.IsNullOrEmpty())
             {
-                return reply.AddValidationError(ErrorKeys.UniqueEmail);
+                return reply.AddValidationError(ErrorKeys.EmptyEmail);
             }
 
-            if(!_passwordValidator.Validate(requestMessage.Password))
+            if(requestMessage.Password.IsNullOrEmpty())
             {
-                return reply.AddValidationError(ErrorKeys.InvalidPasswordLength);
+                return reply.AddValidationError(ErrorKeys.EmptyPassword);
             }
 
             if(!_passwordValidator.Confirm(requestMessage.Password, requestMessage.ConfirmPassword))
             {
                 return reply.AddValidationError(ErrorKeys.PasswordConfirmationFail);
+            }
+
+            var validationResult = _passwordValidator.Validate(requestMessage.Password);
+            if(!validationResult.Success)
+            {
+                return reply.Merge(validationResult);
+            }
+
+            var userWithEmail = await _userRepository.GetUsersAsync(new UserFilter { Email = new List<string> { requestMessage.Email } });
+            if(userWithEmail.Any())
+            {
+                return reply.AddValidationError(key: ErrorKeys.UniqueEmail, parameters: requestMessage.Email);
             }
 
             return reply;
