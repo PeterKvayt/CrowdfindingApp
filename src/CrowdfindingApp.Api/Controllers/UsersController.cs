@@ -41,14 +41,14 @@ namespace CrowdfindingApp.Api.Controllers
         [HttpPost(Endpoints.User.Token)]
         public async Task<IActionResult> GetTokenAsync(GetTokenRequestMessage request)
         {
-            var reply = await _getTokenHandler.HandleAsync(request);
+            var reply = await _getTokenHandler.HandleAsync(request, User);
             return Respond(reply);
         }
 
         [HttpPost(Endpoints.User.Register)]
         public async Task<IActionResult> RegisterAsync(RegisterRequestMessage request)
         {
-            var reply = await _registerHandler.HandleAsync(request);
+            var reply = await _registerHandler.HandleAsync(request, User);
             return Respond(reply);
         }
 
@@ -56,14 +56,14 @@ namespace CrowdfindingApp.Api.Controllers
         public async Task<IActionResult> ForgotPasswordAsync(string email)
         {
             var request = new ForgotPasswordRequestMessage { Email = email };
-            var reply = await _forgotPasswordRequestHandler.HandleAsync(request);
+            var reply = await _forgotPasswordRequestHandler.HandleAsync(request, User);
             return Respond(reply);
         }
 
         [HttpPost(Endpoints.User.ResetPassword)]
         public async Task<IActionResult> ResetPasswordAsync(ResetPasswordRequestMessage request)
         {
-            var reply = await _resetPasswordRequestHandler.HandleAsync(request);
+            var reply = await _resetPasswordRequestHandler.HandleAsync(request, User);
             return Respond(reply);
         }
 
@@ -72,7 +72,7 @@ namespace CrowdfindingApp.Api.Controllers
         public async Task<IActionResult> UserInfoAsync(string id)
         {
             var request = new GetUserInfoRequestMessage { Id = id };
-            var reply = await _getUserInfoRequestHandler.HandleAsync(request);
+            var reply = await _getUserInfoRequestHandler.HandleAsync(request, User);
             return Respond(reply);
         }
 
@@ -80,7 +80,7 @@ namespace CrowdfindingApp.Api.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateUserInfoAsync(UpdateUserRequestMessage request)
         {
-            var reply = await _updateUserRequestHandler.HandleAsync(request);
+            var reply = await _updateUserRequestHandler.HandleAsync(request, User);
             return Respond(reply);
         }
 
@@ -88,7 +88,7 @@ namespace CrowdfindingApp.Api.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePasswordAsync(ChangePasswordRequestMessage request)
         {
-            var reply = await _changePasswordRequestHandler.HandleAsync(request);
+            var reply = await _changePasswordRequestHandler.HandleAsync(request, User);
             return Respond(reply);
         }
     }

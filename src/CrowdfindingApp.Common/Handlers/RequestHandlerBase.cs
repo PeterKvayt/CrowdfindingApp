@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Messages;
 
@@ -9,6 +10,8 @@ namespace CrowdfindingApp.Common.Handlers
         where TReply : ReplyMessageBase, new()
         where TOperationContext : new()
     {
+        protected virtual ClaimsPrincipal User { get; set; }
+
         protected virtual Task<ReplyMessageBase> PreExecuteAsync(TRequest request)
         {
             return Task.FromResult(ReplyMessageBase.Empty);
@@ -21,8 +24,10 @@ namespace CrowdfindingApp.Common.Handlers
 
         protected abstract Task<TReply> ExecuteAsync(TRequest request, TOperationContext ctx);
 
-        public virtual async Task<TReply> HandleAsync(TRequest requestMessage)
+        public virtual async Task<TReply> HandleAsync(TRequest requestMessage, ClaimsPrincipal user)
         {
+            User = user;
+
             if(requestMessage == null)
             {
                 throw new ArgumentNullException(nameof(requestMessage));

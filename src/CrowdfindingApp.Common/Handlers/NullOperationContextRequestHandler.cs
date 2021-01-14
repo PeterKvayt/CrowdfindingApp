@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Messages;
 
@@ -26,8 +27,10 @@ namespace CrowdfindingApp.Common.Handlers
 
         protected abstract Task<TReply> ExecuteAsync(TRequest request);
 
-        public override async Task<TReply> HandleAsync(TRequest requestMessage)
+        public override async Task<TReply> HandleAsync(TRequest requestMessage, ClaimsPrincipal user)
         {
+            User = user;
+
             if(requestMessage == null)
             {
                 throw new ArgumentNullException(nameof(requestMessage));
