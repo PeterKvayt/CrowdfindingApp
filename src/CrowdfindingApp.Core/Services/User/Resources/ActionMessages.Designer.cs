@@ -70,11 +70,29 @@ namespace CrowdfindingApp.Core.Services.User.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Поле Имя не заполнено..
+        /// </summary>
+        internal static string EmptyName {
+            get {
+                return ResourceManager.GetString("EmptyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Поле пароля должно быть заполнено..
         /// </summary>
         internal static string EmptyPassword {
             get {
                 return ResourceManager.GetString("EmptyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Поле Фамилия не заполнено..
+        /// </summary>
+        internal static string EmptySurname {
+            get {
+                return ResourceManager.GetString("EmptySurname", resourceCulture);
             }
         }
         

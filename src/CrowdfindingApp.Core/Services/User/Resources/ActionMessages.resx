@@ -120,8 +120,14 @@
   <data name="EmptyEmail" xml:space="preserve">
     <value>Поле email должно быть заполнено.</value>
   </data>
+  <data name="EmptyName" xml:space="preserve">
+    <value>Поле Имя не заполнено.</value>
+  </data>
   <data name="EmptyPassword" xml:space="preserve">
     <value>Поле пароля должно быть заполнено.</value>
+  </data>
+  <data name="EmptySurname" xml:space="preserve">
+    <value>Поле Фамилия не заполнено.</value>
   </data>
   <data name="InvalidPasswordLength" xml:space="preserve">
     <value>Минимальная количество символов пароля: {0}.</value>

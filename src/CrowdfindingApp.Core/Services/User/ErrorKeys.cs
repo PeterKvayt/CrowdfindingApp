@@ -11,5 +11,7 @@ namespace CrowdfindingApp.Core.Services.User
         public const string UserIdIsNullOrEmpty = nameof(UserIdIsNullOrEmpty);
         public const string EmptyEmail = nameof(EmptyEmail);
         public const string EmptyPassword = nameof(EmptyPassword);
+        public const string EmptyName = nameof(EmptyName);
+        public const string EmptySurname = nameof(EmptySurname);
     }
 }
