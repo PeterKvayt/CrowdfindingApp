@@ -60,7 +60,6 @@ namespace CrowdfindingApp.Api.Controllers
                     }
                     else
                     {
-                        error.Key = "EmptyKey";
                         error.Message = "Not found message for key";
                     }
                 }
