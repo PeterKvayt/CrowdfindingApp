@@ -37,6 +37,12 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
                 return reply.AddValidationError(ErrorKeys.InvalidUserId);
             }
 
+            var contextUserId = User.GetUserId();
+            if(contextUserId != guid)
+            {
+                return reply.AddSecurityError();
+            }
+
             var user = await _userRepository.GetUserByIdAsync(guid);
             if(user == null)
             {
