@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace CrowdfindingApp.Api
 {
@@ -39,20 +40,24 @@ namespace CrowdfindingApp.Api
             return services;
         }
 
-        public static void RegisterRepositories(this ContainerBuilder builder)
+        public static ContainerBuilder RegisterRepositories(this ContainerBuilder builder)
         {
             builder.RegisterType<RoleRepository>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<UserRepository>().AsImplementedInterfaces().SingleInstance();
+
+            return builder;
         }
 
-        public static void RegisterModules(this ContainerBuilder builder)
+        public static ContainerBuilder RegisterModules(this ContainerBuilder builder)
         {
             builder.RegisterModule<RoleModule>();
             builder.RegisterModule<UserModule>();
             builder.RegisterModule<CommonModule>();
+
+            return builder;
         }
 
-        public static void RegisterResourceProviders(this ContainerBuilder builder)
+        public static ContainerBuilder RegisterResourceProviders(this ContainerBuilder builder)
         {
             // ToDo: implement resource providers in modules.
             var providers = new List<(string, Assembly)>
@@ -62,13 +67,14 @@ namespace CrowdfindingApp.Api
             };
 
             builder.Register(ctx => new ResourceProvider(providers)).AsImplementedInterfaces().SingleInstance();
+            return builder;
         }
 
         /// <summary>
         /// Register all mapping profiles. Should be called after all profiles registrations.
         /// </summary>
         /// <param name="builder">Container builder.</param>
-        public static void RegisterAutoMapper(this ContainerBuilder builder)
+        public static ContainerBuilder RegisterAutoMapper(this ContainerBuilder builder)
         {
             builder.Register(ctx => new MapperConfiguration(cfg =>
             {
@@ -79,6 +85,37 @@ namespace CrowdfindingApp.Api
             }));
 
             builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().SingleInstance();
+
+            return builder;
+        }
+
+        public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
+        {
+            return services.AddSwaggerGen(config =>
+            {
+                var authenticationTypeId = "Authentication";
+                config.AddSecurityDefinition(authenticationTypeId, new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme.",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                });
+                config.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme()
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = authenticationTypeId
+                            },
+                            In = ParameterLocation.Header,
+                        },
+                        new List<string>()
+                    }
+                });
+            });
         }
     }
 }

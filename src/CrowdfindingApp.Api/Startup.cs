@@ -38,7 +38,7 @@ namespace CrowdfindingApp.Api
                 options.UseSqlServer(Config.GetConnectionString(Configuration.Connection)));
 
             services.AddAuthentication(Environment)
-                    .AddSwaggerGen()
+                    .ConfigureSwagger()
                     .AddControllers();
         }
 
