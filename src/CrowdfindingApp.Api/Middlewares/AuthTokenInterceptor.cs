@@ -8,6 +8,7 @@ namespace CrowdfindingApp.Api.Middlewares
     public class AuthTokenInterceptor
     {
         private const string _authorizationHeader = "Authorization";
+        private const string _authorizationScheme = "Bearer";
         private readonly RequestDelegate _next;
 
         public AuthTokenInterceptor(RequestDelegate next)
@@ -21,7 +22,10 @@ namespace CrowdfindingApp.Api.Middlewares
             if(result && !string.IsNullOrEmpty(tokenValues))
             {
                 var token = tokenValues.First();
-                token = "Bearer " + token;
+                if(!token.Contains($"{_authorizationScheme} "))
+                {
+                    token = $"{_authorizationScheme} {token}";
+                }
 
                 result = context.Request.Headers.Remove(_authorizationHeader);
                 if(result)
