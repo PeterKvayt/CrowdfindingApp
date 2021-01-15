@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CrowdfindingApp.Common.DataTransfers.User;
+using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.User;
@@ -11,7 +12,7 @@ using CrowdfindingApp.Core.Interfaces.Data.Repositories;
 
 namespace CrowdfindingApp.Core.Services.User.Handlers
 {
-    public class GetUserInfoRequestHandler : RequestHandlerBase<GetUserInfoRequestMessage, ReplyMessage<UserInfo>, Models.User>
+    public class GetUserInfoRequestHandler : NullOperationContextRequestHandler<GetUserInfoRequestMessage, ReplyMessage<UserInfo>>
     {
         private IUserRepository _userRepository;
         private IMapper _mapper;
@@ -24,30 +25,10 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
         }
 
-        protected override async Task<(ReplyMessageBase, Models.User)> ValidateRequestMessageAsync(GetUserInfoRequestMessage requestMessage)
-        {
-            var (reply, user) = await base.ValidateRequestMessageAsync(requestMessage);
-
-            if(!Guid.TryParse(requestMessage.Id, out Guid userId))
-            {
-                reply.AddValidationError(ErrorKeys.InvalidUserId);
-                return (reply, user);
-            }
-
-            user = await _userRepository.GetUserByIdAsync(userId);
-            if(user == null)
-            {
-                reply.AddValidationError(ErrorKeys.InvalidUserId);
-                return (reply, user);
-            }
-
-            return (reply, user);
-        }
-
-        protected override async Task<ReplyMessage<UserInfo>> ExecuteAsync(GetUserInfoRequestMessage request, Models.User user)
+        protected override async Task<ReplyMessage<UserInfo>> ExecuteAsync(GetUserInfoRequestMessage request)
         {
             var reply = new ReplyMessage<UserInfo>();
-
+            var user = await _userRepository.GetUserByIdAsync(User.GetUserId());
             var roles = await _roleRepository.GetNamesAsync();
             var roleNames = roles.ToDictionary(x => x.Key.ToString(), x => x.Value);
 

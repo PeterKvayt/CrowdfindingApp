@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using Autofac;
 using AutoMapper;
@@ -115,6 +117,11 @@ namespace CrowdfindingApp.Api
                         new List<string>()
                     }
                 });
+
+                var apiDocs = Path.Combine(AppContext.BaseDirectory, $"{typeof(Startup).Assembly.GetName().Name}.xml");
+                config.IncludeXmlComments(apiDocs);
+                var commonDocs = Path.Combine(AppContext.BaseDirectory, $"{typeof(CommonModule).Assembly.GetName().Name}.xml");
+                config.IncludeXmlComments(commonDocs);
             });
         }
     }

@@ -38,6 +38,9 @@ namespace CrowdfindingApp.Api.Controllers
             _changePasswordRequestHandler = changePasswordRequestHandler ?? throw new ArgumentNullException(nameof(changePasswordRequestHandler));
         }
 
+        /// <summary>
+        /// Returns token for user.
+        /// </summary>
         [HttpPost(Endpoints.User.Token)]
         public async Task<IActionResult> GetTokenAsync(GetTokenRequestMessage request)
         {
@@ -45,6 +48,9 @@ namespace CrowdfindingApp.Api.Controllers
             return Respond(reply);
         }
 
+        /// <summary>
+        /// Register user.
+        /// </summary>
         [HttpPost(Endpoints.User.Register)]
         public async Task<IActionResult> RegisterAsync(RegisterRequestMessage request)
         {
@@ -52,6 +58,9 @@ namespace CrowdfindingApp.Api.Controllers
             return Respond(reply);
         }
 
+        /// <summary>
+        /// Send on email link for recover password.
+        /// </summary>
         [HttpGet(Endpoints.User.ForgotPassword + "/{email}")]
         public async Task<IActionResult> ForgotPasswordAsync(string email)
         {
@@ -60,6 +69,9 @@ namespace CrowdfindingApp.Api.Controllers
             return Respond(reply);
         }
 
+        /// <summary>
+        /// Reset password.
+        /// </summary>
         [HttpPost(Endpoints.User.ResetPassword)]
         public async Task<IActionResult> ResetPasswordAsync(ResetPasswordRequestMessage request)
         {
@@ -67,15 +79,20 @@ namespace CrowdfindingApp.Api.Controllers
             return Respond(reply);
         }
 
-        [HttpGet(Endpoints.User.UserInfo + "/{id}")]
+        /// <summary>
+        /// Return uset info.
+        /// </summary>
+        [HttpGet(Endpoints.User.UserInfo)]
         [Authorize]
-        public async Task<IActionResult> UserInfoAsync(string id)
+        public async Task<IActionResult> UserInfoAsync()
         {
-            var request = new GetUserInfoRequestMessage { Id = id };
-            var reply = await _getUserInfoRequestHandler.HandleAsync(request, User);
+            var reply = await _getUserInfoRequestHandler.HandleAsync(new GetUserInfoRequestMessage(), User);
             return Respond(reply);
         }
 
+        /// <summary>
+        /// Updates user.
+        /// </summary>
         [HttpPut(Endpoints.User.UpdateUser)]
         [Authorize]
         public async Task<IActionResult> UpdateUserInfoAsync(UpdateUserRequestMessage request)
@@ -84,6 +101,9 @@ namespace CrowdfindingApp.Api.Controllers
             return Respond(reply);
         }
 
+        /// <summary>
+        /// Change password.
+        /// </summary>
         [HttpPut(Endpoints.User.ChangePassword)]
         [Authorize]
         public async Task<IActionResult> ChangePasswordAsync(ChangePasswordRequestMessage request)
