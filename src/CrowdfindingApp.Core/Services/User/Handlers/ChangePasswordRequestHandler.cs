@@ -27,23 +27,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
         {
             var reply = await base.ValidateRequestMessageAsync(requestMessage);
 
-            if(requestMessage.Id.IsNullOrEmpty())
-            {
-                return reply.AddValidationError(ErrorKeys.UserIdIsNullOrEmpty);
-            }
-
-            if(!Guid.TryParse(requestMessage.Id, out Guid guid))
-            {
-                return reply.AddValidationError(ErrorKeys.InvalidUserId);
-            }
-
-            var contextUserId = User.GetUserId();
-            if(contextUserId != guid)
-            {
-                return reply.AddSecurityError();
-            }
-
-            var user = await _userRepository.GetUserByIdAsync(guid);
+            var user = await _userRepository.GetUserByIdAsync(User.GetUserId());
             if(user == null)
             {
                 return reply.AddObjectNotFoundError();
@@ -72,7 +56,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
         {
             var (newPasswordHash, newSalt) = _hasher.GetHashWithSalt(request.NewPassword);
 
-            await _userRepository.UpdatePasswordAsync(new Guid(request.Id), newPasswordHash, newSalt);
+            await _userRepository.UpdatePasswordAsync(User.GetUserId(), newPasswordHash, newSalt);
 
             return new ReplyMessageBase();
         }
