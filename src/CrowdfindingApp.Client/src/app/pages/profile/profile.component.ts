@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Base } from '../Base';
-import { AccountService } from 'src/app/services/account.service';
+import { UserService } from 'src/app/services/user.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -14,7 +14,7 @@ export class ProfileComponent extends Base implements OnInit {
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
-    public accountService: AccountService,
+    public accountService: UserService,
     private titleService: Title
   ) {
     super(router, activatedRoute);

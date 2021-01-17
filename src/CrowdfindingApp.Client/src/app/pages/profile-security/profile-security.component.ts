@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Base } from '../Base';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AccountService } from 'src/app/services/account.service';
+import { UserService } from 'src/app/services/user.service';
 import { PasswordInput } from 'src/app/components/inputs/password-input/PasswordInut';
-import { ChangePasswordViewModel } from 'src/app/view-models/account/ChangePasswordViewModel';
 import { Title } from '@angular/platform-browser';
+import { ChangePasswordRequestMessage } from 'src/app/models/requests/user/ChangePasswordRequestMessage';
 
 @Component({
   selector: 'app-profile-security',
@@ -18,7 +18,7 @@ export class ProfileSecurityComponent extends Base implements OnInit {
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
-    public accountService: AccountService,
+    public accountService: UserService,
     private titleService: Title
   ) { super(router, activatedRoute); }
 
@@ -27,10 +27,10 @@ export class ProfileSecurityComponent extends Base implements OnInit {
   }
 
   public onPasswordChangeClick(): void {
-    const model: ChangePasswordViewModel = {
-      currentPassword: this.currentPasswordInput.value,
+    const model: ChangePasswordRequestMessage = {
+      oldPassword: this.currentPasswordInput.value,
       newPassword: this.newPasswordInput.value,
-      confirmNewPassword: this.confirmNewPasswordInput.value
+      confirmPassword: this.confirmNewPasswordInput.value
     };
 
       this.subscriptions.add(

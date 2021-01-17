@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Base } from '../Base';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PasswordInput } from 'src/app/components/inputs/password-input/PasswordInut';
-import { AccountService } from 'src/app/services/account.service';
-import { ResetPasswordViewModel } from 'src/app/view-models/account/ResetPasswordViewModel';
+import { UserService } from 'src/app/services/user.service';
 import { Title } from '@angular/platform-browser';
+import { ResetPasswordRequestMessage } from 'src/app/models/requests/user/ResetPasswordRequestMessage';
 
 @Component({
   selector: 'app-reset-password',
@@ -19,7 +19,7 @@ export class ResetPasswordComponent extends Base implements OnInit  {
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
-    private accountService: AccountService,
+    private accountService: UserService,
     private titleService: Title
     ) {
       super(router, activatedRoute);
@@ -31,9 +31,9 @@ export class ResetPasswordComponent extends Base implements OnInit  {
   }
 
   public onResetPasswordClick(): void {
-    const model: ResetPasswordViewModel = {
-      newPassword: this.newPasswordInput.value,
-      confirmNewPassword: this.confirmPasswordInput.value,
+    const model: ResetPasswordRequestMessage = {
+      password: this.newPasswordInput.value,
+      confirmPassword: this.confirmPasswordInput.value,
       token: this.token
     };
     this.subscriptions.add(

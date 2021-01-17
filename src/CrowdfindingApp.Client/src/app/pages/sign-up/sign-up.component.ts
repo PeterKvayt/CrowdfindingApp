@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from 'src/app/services/account.service';
-import { SignUpModel } from 'src/app/models/SignUpModel';
+import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Base } from '../Base';
 import { TextInput } from 'src/app/components/inputs/text-input/TextInput';
 import { PasswordInput } from 'src/app/components/inputs/password-input/PasswordInut';
 import { Title } from '@angular/platform-browser';
+import { RegisterRequestMessage } from 'src/app/models/requests/user/RegisterRequestMessage';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +19,7 @@ export class SignUpComponent extends Base implements OnInit {
   public confirmPasswordInput: PasswordInput = { label: 'Подтвердите пароль' };
 
   constructor(
-    private accountService: AccountService,
+    private accountService: UserService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
     private titleService: Title
@@ -32,9 +32,8 @@ export class SignUpComponent extends Base implements OnInit {
   }
 
   public onSignUpClick(): void {
+    var user = new RegisterRequestMessage(this.emailInput.value, this.passwordInput.value, this.confirmPasswordInput.value);
 
-    var user: SignUpModel = new SignUpModel(this.emailInput.value, this.passwordInput.value, this.confirmPasswordInput.value);
-    
     this.subscriptions.add(
       this.accountService.signUp(user)
         .subscribe(

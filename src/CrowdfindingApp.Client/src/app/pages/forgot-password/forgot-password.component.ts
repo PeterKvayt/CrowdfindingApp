@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Base } from '../Base';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TextInput } from 'src/app/components/inputs/text-input/TextInput';
-import { AccountService } from 'src/app/services/account.service';
+import { UserService } from 'src/app/services/user.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -17,7 +17,7 @@ export class ForgotPasswordComponent extends Base implements OnInit {
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
-    private accountService: AccountService,
+    private accountService: UserService,
     private titleService: Title
     ) {
     super(router, activatedRoute);

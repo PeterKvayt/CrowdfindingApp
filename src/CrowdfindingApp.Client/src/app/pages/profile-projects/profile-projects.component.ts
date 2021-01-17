@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Base } from '../Base';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProjectService } from 'src/app/services/project.service';
-import { ProjectCardViewModel } from 'src/app/view-models/ProjectCardViewModel';
+// import { ProjectCardViewModel } from 'src/app/view-models/ProjectCardViewModel';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -21,7 +21,7 @@ export class ProfileProjectsComponent extends Base implements OnInit {
       super(router, activatedRoute);
   }
   
-  public projects: ProjectCardViewModel[] = [];
+  // public projects: ProjectCardViewModel[] = [];
 
   public ngOnInit(): void {
     this.titleService.setTitle('Мои проекты');
@@ -29,15 +29,15 @@ export class ProfileProjectsComponent extends Base implements OnInit {
   }
 
   private setProjects(): void {
-    this.subscriptions.add(
-      this.projectService.getUserProjects().subscribe(
-        (response: ProjectCardViewModel[]) => {
-          this.projects = response;
-        },
-        error => { 
-          this.handleError(error);
-         }
-      )
+    // this.subscriptions.add(
+    //   this.projectService.getUserProjects().subscribe(
+    //     (response: ProjectCardViewModel[]) => {
+    //       this.projects = response;
+    //     },
+    //     error => { 
+    //       this.handleError(error);
+    //      }
+    //   )
     )
   }
 
@@ -57,11 +57,11 @@ export class ProfileProjectsComponent extends Base implements OnInit {
   }
 
   private deleteProjectById(id: string){
-    for (let index = 0; index < this.projects.length; index++) {
-      if (this.projects[index].id === id) {
-        this.projects = this.projects.splice(index, 1);
-        break;
-      }
-    }
+    // for (let index = 0; index < this.projects.length; index++) {
+    //   if (this.projects[index].id === id) {
+    //     this.projects = this.projects.splice(index, 1);
+    //     break;
+    //   }
+    // }
   }
 }

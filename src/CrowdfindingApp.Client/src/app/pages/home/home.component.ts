@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectCardViewModel } from '../../view-models/ProjectCardViewModel';
 import { Base } from '../Base';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProjectService } from 'src/app/services/project.service';
@@ -20,23 +19,23 @@ export class HomeComponent extends Base implements OnInit {
       super(router, activatedRoute);
   }
   
-  public projects: ProjectCardViewModel[] = [];
+  // public projects: ProjectCardViewModel[] = [];
 
   public ngOnInit(): void {
     this.titleService.setTitle('Главная');
-    this.setProjects();
+    // this.setProjects();
   }
 
-  private setProjects(): void {
-    this.subscriptions.add(
-      this.projectService.getProjects().subscribe(
-        (response: ProjectCardViewModel[]) => {
-          this.projects = response.slice(0,4);
-        },
-        error => { 
-          this.handleError(error);
-         }
-      )
-    )
-  }
+  // private setProjects(): void {
+  //   this.subscriptions.add(
+  //     this.projectService.getProjects().subscribe(
+  //       (response: ProjectCardViewModel[]) => {
+  //         this.projects = response.slice(0,4);
+  //       },
+  //       error => { 
+  //         this.handleError(error);
+  //        }
+  //     )
+  //   )
+  // }
 }

@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Base } from '../Base';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TextInput } from 'src/app/components/inputs/text-input/TextInput';
-import { UserViewModel } from 'src/app/view-models/account/UserViewModel';
-import { AccountService } from 'src/app/services/account.service';
+import { UserService } from 'src/app/services/user.service';
 import { Title } from '@angular/platform-browser';
+import { UpdateUserRequestMessage } from 'src/app/models/requests/user/UpdateUserRequestMessage';
+import { ReplyMessage } from 'src/app/models/replies/ReplyMessage';
+import { UserInfo } from 'src/app/models/replies/user/UserInfo';
 
 @Component({
   selector: 'app-profile-info',
@@ -17,7 +19,7 @@ export class ProfileInfoComponent extends Base implements OnInit {
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
-    public accountService: AccountService,
+    public accountService: UserService,
     private titleService: Title
   ) { super(router, activatedRoute); }
 
@@ -27,24 +29,24 @@ export class ProfileInfoComponent extends Base implements OnInit {
   }
 
   public onUpdateUserInfoClick(): void {
-    const model: UserViewModel = new UserViewModel(this.emailInput.value, this.nameInput.value);
-    this.subscriptions.add(
-      this.accountService.updateUserInfo(model).subscribe(
-        () => { },
-        error => {
-          console.log(error); 
-          // this.handleError(error); 
-        }
-      )
-    )
+    // const model: UpdateUserRequestMessage = new UpdateUserRequestMessage(this.emailInput.value, this.nameInput.value);
+    // this.subscriptions.add(
+    //   this.accountService.updateUserInfo(model).subscribe(
+    //     () => { },
+    //     error => {
+    //       console.log(error); 
+    //       // this.handleError(error); 
+    //     }
+    //   )
+    // )
   }
 
   private setOnInitUserInfos(): void {
     this.subscriptions.add(
       this.accountService.getUserInfo().subscribe(
-        (response: UserViewModel) => {
-          this.nameInput.value = response.name;
-          this.emailInput.value = response.email;
+        (response: ReplyMessage<UserInfo>) => {
+          // this.nameInput.value = response.name;
+          // this.emailInput.value = response.email;
         },
         error => { this.handleError(error); }
       )

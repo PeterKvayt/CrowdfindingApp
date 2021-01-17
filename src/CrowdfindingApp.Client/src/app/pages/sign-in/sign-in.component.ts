@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from 'src/app/services/account.service';
-import { SignInModel } from 'src/app/models/SignInModel';
-import { ISignInResponse } from 'src/app/interfaces/ISignInResponse';
+import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Base } from '../Base';
 import { TextInput } from 'src/app/components/inputs/text-input/TextInput';
 import { PasswordInput } from 'src/app/components/inputs/password-input/PasswordInut';
-import { ErrorModel } from 'src/app/models/ErrorModel';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { Title } from '@angular/platform-browser';
+import { GetTokenRequestMessage } from 'src/app/models/requests/user/GetTokenRequestMessage';
+import { TokenInfo } from 'src/app/models/replies/user/TokenInfo';
 
 @Component({
   selector: 'app-sign-in',
@@ -23,7 +22,7 @@ export class SignInComponent extends Base implements OnInit {
   public succesSignIn = true;
 
   constructor(
-    private accountService: AccountService,
+    private accountService: UserService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
     private authService: AuthenticationService,
@@ -38,13 +37,13 @@ export class SignInComponent extends Base implements OnInit {
   }
 
   public onSignInClick(): void {
-    const user: SignInModel = {
+    const user: GetTokenRequestMessage = {
       email: this.emailInput.value,
       password: this.passwordInput.value
     };
     this.subscriptions.add(
       this.accountService.signIn(user).subscribe(
-        (response: ISignInResponse) => {
+        (response: TokenInfo) => {
           this.authService.setToken(response.token);
           this.redirect('profile');
         },
