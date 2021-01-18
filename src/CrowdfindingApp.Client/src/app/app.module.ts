@@ -4,28 +4,28 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './views/home/home.component';
+import { HomeComponent } from './pages/home/home.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { HttpService } from './services/http.service';
-import { SignInComponent } from './views/sign-in/sign-in.component';
-import { SignUpComponent } from './views/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
-import { AccountService } from './services/account.service';
+import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { UserService } from './services/user.service';
 import { AuthenticationGuardService } from './services/auth.guard.service';
-import { ProfileComponent } from './views/profile/profile.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { JwtModule } from '@auth0/angular-jwt';
-import { CreateProjectComponent } from './views/create-project/create-project.component';
+import { CreateProjectComponent } from './pages/create-project/create-project.component';
 import { ProjectService } from './services/project.service';
-import { ErrorComponent } from './views/error/error.component';
+import { ErrorComponent } from './pages/error/error.component';
 import { ParamInterceptor } from './services/request.interceptor.service';
-import { ProfileProjectsComponent } from './views/profile-projects/profile-projects.component';
+import { ProfileProjectsComponent } from './pages/profile-projects/profile-projects.component';
 import { TextInputComponent } from './components/inputs/text-input/text-input.component';
 import { PasswordInputComponent } from './components/inputs/password-input/password-input.component';
 import { DecimalInputComponent } from './components/inputs/decimal-input/decimal-input.component';
-import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
-import { ProfileInfoComponent } from './views/profile-info/profile-info.component';
-import { ProfileSecurityComponent } from './views/profile-security/profile-security.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { ProfileInfoComponent } from './pages/profile-info/profile-info.component';
+import { ProfileSecurityComponent } from './pages/profile-security/profile-security.component';
 import { AuthenticationService } from './services/auth.service';
 
 @NgModule({
@@ -74,7 +74,7 @@ import { AuthenticationService } from './services/auth.service';
   ],
   providers: [
     HttpService,
-    AccountService,
+    UserService,
     ProjectService,
     AuthenticationGuardService,
     {

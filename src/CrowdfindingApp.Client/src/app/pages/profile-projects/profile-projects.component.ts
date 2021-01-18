@@ -38,7 +38,7 @@ export class ProfileProjectsComponent extends Base implements OnInit {
     //       this.handleError(error);
     //      }
     //   )
-    )
+    // )
   }
 
   public onEditClick(id){

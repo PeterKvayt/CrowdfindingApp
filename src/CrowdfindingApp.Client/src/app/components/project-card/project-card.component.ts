@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ProjectCardViewModel } from '../../view-models/ProjectCardViewModel';
+import { ProjectCard } from './ProjectCard';
+
 
 @Component({
   selector: 'app-project-card',
@@ -11,7 +12,7 @@ export class ProjectCardComponent implements OnInit {
   constructor() { }
   
   @Input() editable: boolean;
-  @Input() card: ProjectCardViewModel;
+  @Input() card: ProjectCard;
 
   @Output() deleteEvent = new EventEmitter<string>();
   @Output() editEvent = new EventEmitter<string>();

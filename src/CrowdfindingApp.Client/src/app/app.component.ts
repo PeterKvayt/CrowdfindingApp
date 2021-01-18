@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Base } from './views/Base';
+import { Base } from './pages/Base';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
 @Component({
