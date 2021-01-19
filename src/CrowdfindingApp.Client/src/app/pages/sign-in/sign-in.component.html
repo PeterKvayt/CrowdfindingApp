@@ -1,33 +1,33 @@
 <div class="row">
   <div class="col-lg-6 left-section">
-    <!-- <div class="row">
-      <div class="col-lg- offset-lg-3 sign-in-wrapper"> -->
-    
-        <h2>Вход</h2>
-    
-        <fieldset class="form-group">
-          <span>У вас нет аккаунта? </span>   
-          <a [routerLink]="['/sign-up']">Зарегистрироваться</a>
-        </fieldset>
-    
-        <span *ngIf='!succesSignIn' class='text-danger'>Неверные email или пароль.</span>
-    
-        <app-text-input [(item)]='emailInput'></app-text-input>
-        <app-password-input [(item)]='passwordInput'></app-password-input>
-    
-        <fieldset class="text-center">
-          <button (click)='onSignInClick()' class="btn btn-primary btn-block">Войти</button>
-        </fieldset>
-    
-        <fieldset class="form-group">
-          <span>Забыли пароль? </span>   
-          <a [routerLink]="['/forgot-password']">Восстановить доступ</a>
-        </fieldset>
-      <!-- </div>
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3 sign-in-wrapper">
+          <h2>Вход</h2>
+      
+          <fieldset class="form-group">
+            <span>У вас нет аккаунта? </span>   
+            <a [routerLink]="['/sign-up']">Зарегистрироваться</a>
+          </fieldset>
+      
+          <span *ngIf='!succesSignIn' class='text-danger'>Неверные email или пароль.</span>
+      
+          <app-text-input [(item)]='emailInput'></app-text-input>
+          <app-password-input [(item)]='passwordInput'></app-password-input>
+      
+          <fieldset class="text-center">
+            <button (click)='onSignInClick()' class="btn btn-primary btn-block">Войти</button>
+          </fieldset>
+      
+          <fieldset class="form-group">
+            <span>Забыли пароль? </span>   
+            <a [routerLink]="['/forgot-password']">Восстановить доступ</a>
+          </fieldset>
 
-    </div> -->
+        </div>
+
+    </div>
   </div>
   <div class="col-lg-6 right-section">
-
+    <img class="background-image" src="assets/img/sign-in.webp" alt="sad">
   </div>
 </div>

@@ -1,12 +1,15 @@
 .sign-in-wrapper{
-  background-color: var(--bg-dark);
   height: 500px;
 }
 
 .left-section{
-
+  padding-top: 3rem;
 }
 
 .right-section{
-  background-image: url('../../../assets/img/sign-in.webp')
+  padding: 0;
+}
+
+.background-image{
+  width: 100%;
 }

@@ -16,8 +16,8 @@ import { TokenInfo } from 'src/app/models/replies/user/TokenInfo';
 })
 export class SignInComponent extends Base implements OnInit {
   
-  public emailInput: TextInput = { label: 'Email' };
-  public passwordInput: PasswordInput = { label: 'Пароль'};
+  public emailInput: TextInput = { label: 'Email', placeholder: 'example@mail.by' };
+  public passwordInput: PasswordInput = { label: 'Пароль', placeholder: '$uperP4$$vv0rD'};
 
   public succesSignIn = true;
 
