@@ -1,4 +1,4 @@
- import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
@@ -23,6 +23,7 @@ import { ProfileProjectsComponent } from './pages/profile-projects/profile-proje
 import { TextInputComponent } from './components/inputs/text-input/text-input.component';
 import { PasswordInputComponent } from './components/inputs/password-input/password-input.component';
 import { DecimalInputComponent } from './components/inputs/decimal-input/decimal-input.component';
+import { RegularBtnComponent } from './components/buttons/regular-btn/regular-btn.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { ProfileInfoComponent } from './pages/profile-info/profile-info.component';
 import { ProfileSecurityComponent } from './pages/profile-security/profile-security.component';
@@ -46,7 +47,8 @@ import { AuthenticationService } from './services/auth.service';
     DecimalInputComponent,
     ResetPasswordComponent,
     ProfileInfoComponent,
-    ProfileSecurityComponent
+    ProfileSecurityComponent,
+    RegularBtnComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
