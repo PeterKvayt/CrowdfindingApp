@@ -15,10 +15,8 @@ import { TokenInfo } from 'src/app/models/replies/user/TokenInfo';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent extends Base implements OnInit {
-  
   public emailInput: TextInput = { label: 'Email', placeholder: 'example@mail.by' };
   public passwordInput: PasswordInput = { label: 'Пароль', placeholder: '$uperP4$$vv0rD'};
-
   public succesSignIn = true;
 
   constructor(
@@ -37,25 +35,25 @@ export class SignInComponent extends Base implements OnInit {
   }
 
   public onSignInClick(): void {
-    const user: GetTokenRequestMessage = {
-      email: this.emailInput.value,
-      password: this.passwordInput.value
-    };
-    this.subscriptions.add(
-      this.accountService.signIn(user).subscribe(
-        (response: TokenInfo) => {
-          this.authService.setToken(response.token);
-          this.redirect('profile');
-        },
-        (error) => { 
-          console.log(error);
-          // if (error.statusCode !== 400) {
-          //   this.handleError(error);
-          // } else {
-          //   this.succesSignIn = false;
-          // }
-        }
-      )
-    );
+    // const user: GetTokenRequestMessage = {
+    //   email: this.emailInput.value,
+    //   password: this.passwordInput.value
+    // };
+    // this.subscriptions.add(
+    //   this.accountService.signIn(user).subscribe(
+    //     (response: TokenInfo) => {
+    //       this.authService.setToken(response.token);
+    //       this.redirect('profile');
+    //     },
+    //     (error) => { 
+    //       console.log(error);
+    //       // if (error.statusCode !== 400) {
+    //       //   this.handleError(error);
+    //       // } else {
+    //       //   this.succesSignIn = false;
+    //       // }
+    //     }
+    //   )
+    // );
   }
 }

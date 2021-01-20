@@ -13,9 +13,9 @@
       
           <app-text-input [(item)]='emailInput'></app-text-input>
           <app-password-input [(item)]='passwordInput'></app-password-input>
-      
+          
           <fieldset class="text-center">
-            <button (click)='onSignInClick()' class="btn btn-primary btn-block">Войти</button>
+              <app-regular-btn value='Войти' (click)='onSignInClick()'></app-regular-btn>
           </fieldset>
       
           <fieldset class="form-group">
@@ -28,6 +28,6 @@
     </div>
   </div>
   <div class="col-lg-6 right-section">
-    <img class="background-image" src="assets/img/sign-in.webp" alt="sad">
+    <img class="background-image" src="assets/img/sign-in.webp" alt="sign in image">
   </div>
 </div>
