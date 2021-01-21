@@ -1,9 +1,17 @@
 <ng-container *ngIf="!link;else href_btn">
-    <div [class]='class'>{{value}}</div>
+    <div [class]='class'>
+      <i *ngIf='icoBefore && ico' [class]='"fas fa-" + ico + " fa-fw"'></i>
+      {{value}} 
+      <i *ngIf='!icoBefore && ico' [class]='"fas fa-" + ico + " fa-fw"'></i>
+    </div>
 </ng-container>
 
 <ng-container>
   <ng-template #href_btn>
-    <a [class]='class' [href]='link'>{{value}}</a>
+    <a [class]='class' [href]='link'>
+      <i *ngIf='icoBefore && ico' [class]='"fas fa-" + ico + " fa-fw"'></i>
+      {{value}} 
+      <i *ngIf='!icoBefore && ico' [class]='"fas fa-" + ico + " fa-fw"'></i>
+    </a>
   </ng-template>
 </ng-container>  
