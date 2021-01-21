@@ -1,4 +1,4 @@
-.regular-btn{
+.regular-btn, .fluid-regular-btn{
   color: var(--regular);
   background-color: var(--bg-ligth);
   border: 1px solid var(--border-btn);
@@ -16,17 +16,22 @@
   -khtml-user-select: none;
   user-select: none;
 }
-.regular-btn:hover{
+
+.fluid-regular-btn{
+  display: block;
+}
+
+.regular-btn, .fluid-regular-btn:hover{
   color: #fff;
   text-decoration: none;
   outline: none;
 }
 
-.regular-btn:hover::before{
+.regular-btn, .fluid-regular-btn:hover::before{
   height: 180%;
 }
 
-.regular-btn::before{
+.regular-btn, .fluid-regular-btn::before{
   content: "";
   position: absolute;
   bottom: 0;

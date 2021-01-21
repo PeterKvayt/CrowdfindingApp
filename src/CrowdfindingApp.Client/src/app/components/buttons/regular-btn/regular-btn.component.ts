@@ -9,9 +9,13 @@ export class RegularBtnComponent implements OnInit {
 
   @Input() link: string;
   @Input() value: string;
+  @Input() fluid: boolean;
+
+  public class: string;
 
   public ngOnInit(): void {
     this.link = this.link === undefined ? null : this.link;
     this.value = this.value === undefined ? 'emplty value' : this.value;
+    this.class = this.fluid ? 'fluid-regular-btn' : 'regular-btn';
   }
 }

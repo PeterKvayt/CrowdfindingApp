@@ -1,9 +1,9 @@
 <ng-container *ngIf="!link;else href_btn">
-    <div class="regular-btn">{{value}}</div>
+    <div [class]='class'>{{value}}</div>
 </ng-container>
 
 <ng-container>
   <ng-template #href_btn>
-    <a class='regular-btn' [href]='link'>{{value}}</a>
+    <a [class]='class' [href]='link'>{{value}}</a>
   </ng-template>
 </ng-container>  
