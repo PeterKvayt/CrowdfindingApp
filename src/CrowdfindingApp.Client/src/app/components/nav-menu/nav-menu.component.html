@@ -17,6 +17,7 @@
           <li *ngFor='let item of navItems' class="nav-item" [class.hide-nav-item]='!item.show'>
             <a class="nav-link text-dark" [routerLink]="[item.route]" (click)='onNavItemClick($event)'>
               {{item.value}}
+              <i *ngIf='item.ico' [class]='"fas fa-"+ item.ico +" fa-fw"'></i>
             </a>
           </li>
         </ul>

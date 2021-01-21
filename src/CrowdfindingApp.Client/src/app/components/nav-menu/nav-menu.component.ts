@@ -9,9 +9,9 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 })
 export class NavMenuComponent implements OnInit {
   public navItems: NavItem[] = [
-    new NavItem('Профиль', 'profile'),
-    new NavItem('Войти', 'sign-in'),
-    new NavItem('Выйти', 'sign-in'),
+    new NavItem('Профиль', 'profile', 'user-circle'),
+    new NavItem('Войти', 'sign-in', 'sign-in-alt'),
+    new NavItem('Выйти', 'sign-in', 'sign-out-alt' ),
   ];
   constructor(
     private authService: AuthenticationService

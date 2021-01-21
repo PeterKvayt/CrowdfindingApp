@@ -21,3 +21,6 @@ html {
   display: none;
 }
 
+.nav-link{
+  font-weight: 700;
+}
