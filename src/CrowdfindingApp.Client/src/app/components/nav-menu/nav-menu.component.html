@@ -12,15 +12,26 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
-          <li *ngFor='let item of navItems' class="nav-item" [class.hide-nav-item]='!item.show'>
-            <a class="nav-link text-dark" [routerLink]="[item.route]" (click)='onNavItemClick($event)'>
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-center" [ngClass]="{ show: isExpanded }">
+
+        <ul class="navbar-nav">
+          <li *ngFor='let item of navsHolder.centralNavs' class="nav-item" [class.hide-nav-item]='!item.show'>
+            <a class="nav-link" [routerLink]="[item.route]" (click)='onNavItemClick($event)'>
               {{item.value}}
-              <i *ngIf='item.ico' [class]='"fas fa-"+ item.ico +" fa-fw"'></i>
+              <i *ngIf='item.ico' [class]='item.ico + " fa-fw"'></i>
             </a>
           </li>
         </ul>
+
+        <ul class="navbar-nav">
+          <li *ngFor='let item of navsHolder.rightNavs' class="nav-item" [class.hide-nav-item]='!item.show'>
+            <a class="nav-link" [routerLink]="[item.route]" (click)='onNavItemClick($event)'>
+              {{item.value}}
+              <i *ngIf='item.ico' [class]='item.ico + " fa-fw"'></i>
+            </a>
+          </li>
+        </ul>
+
       </div>
 
     </div>

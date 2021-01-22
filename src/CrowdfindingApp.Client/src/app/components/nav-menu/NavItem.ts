@@ -5,6 +5,6 @@ export class NavItem {
     public ico?: string,
     public show?: boolean,
   ) {
-    this.show = false;
+    this.show = this.show === undefined ? false : show;
   }
 }
