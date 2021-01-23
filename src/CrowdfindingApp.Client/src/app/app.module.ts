@@ -24,6 +24,7 @@ import { TextInputComponent } from './components/inputs/text-input/text-input.co
 import { PasswordInputComponent } from './components/inputs/password-input/password-input.component';
 import { DecimalInputComponent } from './components/inputs/decimal-input/decimal-input.component';
 import { RegularBtnComponent } from './components/buttons/regular-btn/regular-btn.component';
+import { PreloaderComponent } from './components/preloader/preloader.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { ProfileInfoComponent } from './pages/profile-info/profile-info.component';
 import { ProfileSecurityComponent } from './pages/profile-security/profile-security.component';
@@ -48,7 +49,8 @@ import { AuthenticationService } from './services/auth.service';
     ResetPasswordComponent,
     ProfileInfoComponent,
     ProfileSecurityComponent,
-    RegularBtnComponent
+    RegularBtnComponent,
+    PreloaderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -86,6 +88,6 @@ import { AuthenticationService } from './services/auth.service';
     },
     AuthenticationService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, PreloaderComponent]
 })
 export class AppModule { }

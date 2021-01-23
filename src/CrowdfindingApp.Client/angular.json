@@ -27,7 +27,8 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/css/global-colors.css",
               "src/assets/css/global-styles.css",
-              "src/assets/css/font-awesome.all.min.css"
+              "src/assets/css/preloader.css",
+               "src/assets/css/font-awesome.all.min.css"
             ],
             "scripts": []
           },
