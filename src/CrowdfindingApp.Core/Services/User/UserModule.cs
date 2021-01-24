@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using Autofac;
+﻿using Autofac;
 using AutoMapper;
-using CrowdfindingApp.Common.Localization;
 using CrowdfindingApp.Core.Services.User.Handlers;
 
 namespace CrowdfindingApp.Core.Services.User
 {
-    public class UserModule : Autofac.Module
+    public class UserModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
