@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CrowdfindingApp.Api.Controllers
 {
     [ApiController]
+    [Route("[controller]")]
     public class UsersController : BaseController
     {
         private GetTokenRequestHandler _getTokenHandler;
