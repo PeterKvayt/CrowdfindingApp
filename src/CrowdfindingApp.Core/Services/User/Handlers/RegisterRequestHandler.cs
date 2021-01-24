@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Immutable;
+using CrowdfindingApp.Common.Maintainers.EmailSender;
 using CrowdfindingApp.Common.Maintainers.Hasher;
+using CrowdfindingApp.Common.Maintainers.TokenManager;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.User;
 using CrowdfindingApp.Core.Interfaces.Data.Repositories;
@@ -18,12 +20,16 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
     {
         private readonly IUserRepository _userRepository;
         private readonly IHasher _hasher;
+        private readonly ITokenManager _tokenManager;
+        private readonly IEmailSender _emailSender;
         private readonly PasswordValidator _passwordValidator;
 
-        public RegisterRequestHandler(IUserRepository userRepository, IHasher hasher)
+        public RegisterRequestHandler(IUserRepository userRepository, IHasher hasher, ITokenManager tokenManager, IEmailSender emailSender)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _hasher = hasher ?? throw new ArgumentNullException(nameof(hasher));
+            _tokenManager = tokenManager ?? throw new ArgumentNullException(nameof(tokenManager));
+            _emailSender = emailSender ?? throw new ArgumentNullException(nameof(emailSender));
             _passwordValidator = new PasswordValidator();
         }
 
@@ -79,7 +85,8 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
 
             await _userRepository.InsertUserAsync(user);
 
-            // ToDo: Add feature to send email comfirmation
+            var emailConfirmationToken = _tokenManager.GetConfirmEmailToken(user.Id);
+            await _emailSender.SendEmailConfirmationAsync(user.Email, emailConfirmationToken);
 
             return new ReplyMessageBase(); 
         }
