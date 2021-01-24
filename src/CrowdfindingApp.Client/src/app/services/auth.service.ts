@@ -8,11 +8,12 @@ export class AuthenticationService {
   constructor(public jwtHelper: JwtHelperService) { }
   public isAuthenticated(): boolean {
     const token = sessionStorage.getItem(Settings.accessToken);
-    if (token !== null) {
+    if (token) {
       return !this.jwtHelper.isTokenExpired(token);
-    } else {
-      return false;
     }
+
+    return false;
+
   }
   public signOut(): void {
     sessionStorage.removeItem(Settings.accessToken);
