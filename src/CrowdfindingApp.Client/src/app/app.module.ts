@@ -28,6 +28,7 @@ import { PreloaderComponent } from './components/preloader/preloader.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { ProfileInfoComponent } from './pages/profile-info/profile-info.component';
 import { ProfileSecurityComponent } from './pages/profile-security/profile-security.component';
+import { EmailConfirmationComponent } from './pages/email-confirmation/email-confirmation.component';
 import { AuthenticationService } from './services/auth.service';
 
 @NgModule({
@@ -50,7 +51,8 @@ import { AuthenticationService } from './services/auth.service';
     ProfileInfoComponent,
     ProfileSecurityComponent,
     RegularBtnComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    EmailConfirmationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -62,6 +64,7 @@ import { AuthenticationService } from './services/auth.service';
       { path: 'sign-up', component: SignUpComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       { path: 'reset-password', component: ResetPasswordComponent },
+      { path: 'email-confirmation', component: EmailConfirmationComponent },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/projects', component: ProfileProjectsComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/create-project', component: CreateProjectComponent, canActivate: [AuthenticationGuardService] },
