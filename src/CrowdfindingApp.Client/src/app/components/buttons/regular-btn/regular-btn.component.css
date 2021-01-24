@@ -21,17 +21,20 @@
   display: block;
 }
 
-.regular-btn, .fluid-regular-btn:hover{
+.regular-btn:hover,
+.fluid-regular-btn:hover{
   color: #fff;
   text-decoration: none;
   outline: none;
 }
 
-.regular-btn, .fluid-regular-btn:hover::before{
+.regular-btn:hover::before,
+.fluid-regular-btn:hover::before{
   height: 180%;
 }
 
-.regular-btn, .fluid-regular-btn::before{
+.regular-btn::before,
+.fluid-regular-btn::before{
   content: "";
   position: absolute;
   bottom: 0;
