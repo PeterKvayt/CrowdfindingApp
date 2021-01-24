@@ -9,14 +9,15 @@ namespace CrowdfindingApp.Common.Maintainers.TokenManager
         private const char _splitter = ';';
         private readonly ICryptoProvider _cryptoProvider;
 
-        private const string ResetPasswordPurpose = "ResetPasswordToken";
+        private const string ResetPasswordToken = nameof(ResetPasswordToken);
+        private const string ConfirmEmailToken = nameof(ConfirmEmailToken);
 
         public TokenManager(ICryptoProvider cryptoProvider)
         {
             _cryptoProvider = cryptoProvider ?? throw new ArgumentNullException(nameof(cryptoProvider));
         }
 
-        private bool TryGetValuesFromResetPasswordToken(string token, out Guid userId, out DateTime tokenCreatedDate)
+        private bool TryGetValuesFromToken(string token, out Guid userId, out DateTime tokenCreatedDate, string tokenName)
         {
             userId = Guid.Empty;
             tokenCreatedDate = new DateTime();
@@ -27,7 +28,7 @@ namespace CrowdfindingApp.Common.Maintainers.TokenManager
             {
                 var values = data.Split(_splitter);
 
-                if(values[2] != ResetPasswordPurpose)
+                if(values[2].Equals(tokenName, StringComparison.InvariantCulture))
                 {
                     return false;
                 }
@@ -50,14 +51,9 @@ namespace CrowdfindingApp.Common.Maintainers.TokenManager
             }
         }
 
-        public string GetResetPasswordToken(Guid guid)
+        private bool ValidateToken(string token, out Guid userId, string purpose)
         {
-            return _cryptoProvider.Encrypt($"{guid}{_splitter}{DateTime.UtcNow}{_splitter}{ResetPasswordPurpose}");
-        }
-
-        public bool ValidateResetPasswordToken(string token, out Guid userId)
-        {
-            var success = TryGetValuesFromResetPasswordToken(token, out userId, out DateTime createdDateTime);
+            var success = TryGetValuesFromToken(token, out userId, out DateTime createdDateTime, purpose);
             if(success)
             {
                 return !IsExpired(createdDateTime);
@@ -75,5 +71,34 @@ namespace CrowdfindingApp.Common.Maintainers.TokenManager
 
             return timeDifference > expirationPeriod.TotalMinutes;
         }
+
+        #region Reset password methods
+
+        public string GetResetPasswordToken(Guid guid)
+        {
+            return _cryptoProvider.Encrypt($"{guid}{_splitter}{DateTime.UtcNow}{_splitter}{ResetPasswordToken}");
+        }
+
+        public bool ValidateResetPasswordToken(string token, out Guid userId)
+        {
+            return ValidateToken(token, out userId, ResetPasswordToken);
+        }
+
+        #endregion
+
+        #region Confirm email methods
+
+        public string GetConfirmEmailToken(Guid guid)
+        {
+            return _cryptoProvider.Encrypt($"{guid}{_splitter}{DateTime.UtcNow}{_splitter}{ConfirmEmailToken}");
+        }
+
+        public bool ValidateConfirmEmailToken(string token, out Guid userId)
+        {
+            return ValidateToken(token, out userId, ConfirmEmailToken);
+        }
+
+        #endregion
+
     }
 }
