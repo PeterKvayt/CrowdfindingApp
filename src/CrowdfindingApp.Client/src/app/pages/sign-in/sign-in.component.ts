@@ -8,6 +8,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { Title } from '@angular/platform-browser';
 import { GetTokenRequestMessage } from 'src/app/models/requests/user/GetTokenRequestMessage';
 import { TokenInfo } from 'src/app/models/replies/user/TokenInfo';
+import { ReplyMessage } from 'src/app/models/replies/ReplyMessage';
 
 @Component({
   selector: 'app-sign-in',
@@ -35,25 +36,25 @@ export class SignInComponent extends Base implements OnInit {
   }
 
   public onSignInClick(): void {
-    // const user: GetTokenRequestMessage = {
-    //   email: this.emailInput.value,
-    //   password: this.passwordInput.value
-    // };
-    // this.subscriptions.add(
-    //   this.accountService.signIn(user).subscribe(
-    //     (response: TokenInfo) => {
-    //       this.authService.setToken(response.token);
-    //       this.redirect('profile');
-    //     },
-    //     (error) => { 
-    //       console.log(error);
-    //       // if (error.statusCode !== 400) {
-    //       //   this.handleError(error);
-    //       // } else {
-    //       //   this.succesSignIn = false;
-    //       // }
-    //     }
-    //   )
-    // );
+    const user: GetTokenRequestMessage = {
+      email: this.emailInput.value,
+      password: this.passwordInput.value
+    };
+    this.subscriptions.add(
+      this.accountService.signIn(user).subscribe(
+        (response: ReplyMessage<TokenInfo>) => {
+          this.authService.setToken(response.value.token);
+          this.redirect('profile');
+        },
+        (error) => { 
+          console.log(error);
+          // if (error.statusCode !== 400) {
+          //   this.handleError(error);
+          // } else {
+          //   this.succesSignIn = false;
+          // }
+        }
+      )
+    );
   }
 }
