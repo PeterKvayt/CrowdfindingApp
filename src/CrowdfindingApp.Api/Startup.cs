@@ -39,6 +39,7 @@ namespace CrowdfindingApp.Api
 
             services.AddAuthentication(Environment)
                     .ConfigureSwagger()
+                    .AddSingleton(Config)
                     .AddControllers();
         }
 
