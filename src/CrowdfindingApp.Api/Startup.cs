@@ -56,6 +56,11 @@ namespace CrowdfindingApp.Api
 
             //app.UseDeveloperExceptionPage();
 
+            app.UseCors(config => 
+                config.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseSwagger()
                 .UseSwaggerUI(config =>
                 {
