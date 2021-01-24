@@ -15,8 +15,6 @@ export class NavItemInitializer {
       this.signInNav,
       this.signOutNav,
     ];
-
-    this.prepareNavItems();
   }
 
   public centralNavs: NavItem[];

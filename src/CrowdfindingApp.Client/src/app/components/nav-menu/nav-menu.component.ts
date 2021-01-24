@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { NavItemInitializer } from './NavItemsInitializer';
-import { NavItem } from './NavItem';
 
 @Component({
   selector: 'app-nav-menu',
@@ -26,11 +25,11 @@ export class NavMenuComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-
+    this.navsHolder.prepareNavItems();
   }
 
   public onNavItemClick(event): void {
-    if (event.target.innerText === this.navsHolder.signOutNav.value) {
+    if (event.target.innerText.trim() === this.navsHolder.signOutNav.value) {
       this.authService.signOut();
     }
   }
