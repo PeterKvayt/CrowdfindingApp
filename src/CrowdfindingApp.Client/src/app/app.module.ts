@@ -88,6 +88,6 @@ import { AuthenticationService } from './services/auth.service';
     },
     AuthenticationService
   ],
-  bootstrap: [AppComponent, PreloaderComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
