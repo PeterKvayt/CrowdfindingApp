@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Net.Mail;
-using System.Reflection;
+﻿using System.Net.Mail;
 using Autofac;
-using CrowdfindingApp.Common.Localization;
 using CrowdfindingApp.Common.Maintainers.CryptoProvider;
 using CrowdfindingApp.Common.Maintainers.EmailSender;
 using CrowdfindingApp.Common.Maintainers.Hasher;
@@ -10,7 +7,7 @@ using CrowdfindingApp.Common.Maintainers.TokenManager;
 
 namespace CrowdfindingApp.Common
 {
-    public class CommonModule : Autofac.Module
+    public class CommonModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -18,7 +15,6 @@ namespace CrowdfindingApp.Common
             builder.RegisterType<EmailSender>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<CryptoProvider>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<TokenManager>().AsImplementedInterfaces().SingleInstance();
-
             builder.RegisterType<SmtpClient>().AsSelf().SingleInstance();
 
             //builder.RegisterInstance(new List<(string, Assembly)>()
