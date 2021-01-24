@@ -61,7 +61,7 @@ namespace CrowdfindingApp.Common.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Для подтвверждения почты перейдите по &lt;a href=&apos;{0}&apos; target=&apos;_blank&apos;&gt;ссылке&lt;/a&gt;..
+        ///   Ищет локализованную строку, похожую на Для подтвверждения почты перейдите по &lt;a href=&apos;{0}&apos; target=&apos;_blank&apos;&gt;ссылке&lt;/a&gt;&lt;br&gt;Ссылка: {0}.
         /// </summary>
         internal static string ConfirmEmailMessageBody {
             get {

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConfirmEmailMessageBody" xml:space="preserve">
-    <value>Для подтвверждения почты перейдите по &lt;a href='{0}' target='_blank'&gt;ссылке&lt;/a&gt;.</value>
+    <value>Для подтвверждения почты перейдите по &lt;a href='{0}' target='_blank'&gt;ссылке&lt;/a&gt;&lt;br&gt;Ссылка: {0}</value>
   </data>
   <data name="ConfirmEmailMessageSubject" xml:space="preserve">
     <value>Подтверждение почты</value>
