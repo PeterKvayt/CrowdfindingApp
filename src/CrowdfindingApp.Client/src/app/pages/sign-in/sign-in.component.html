@@ -1,33 +1,30 @@
 <div class="row">
-  <div class="col-lg-6 left-section">
-    <div class="row">
-      <div class="col-lg-6 offset-lg-3 sign-in-wrapper">
-          <h2>Вход</h2>
-      
-          <fieldset class="form-group">
-            <span>У вас нет аккаунта? </span>   
-            <a [routerLink]="['/sign-up']">Зарегистрироваться</a>
-          </fieldset>
-      
-          <span *ngIf='!succesSignIn' class='text-danger'>Неверные email или пароль.</span>
-      
-          <app-text-input [(item)]='emailInput'></app-text-input>
-          <app-password-input [(item)]='passwordInput'></app-password-input>
-          
-          <fieldset class="text-center">
-              <app-regular-btn value='Войти' fluid='true' ico='fas fa-sign-in-alt' (click)='onSignInClick()'></app-regular-btn>
-          </fieldset>
-      
-          <fieldset class="form-group">
-            <span>Забыли пароль? </span>   
-            <a [routerLink]="['/forgot-password']">Восстановить доступ</a>
-          </fieldset>
+  <div class="shape-up"></div>
+  <div class="col-lg-5 left-section">
+    <h2>Вход</h2>
+    <fieldset class="form-group">
+      <span>У вас нет аккаунта? </span>
+      <a [routerLink]="['/sign-up']">Зарегистрироваться</a>
+    </fieldset>
 
-        </div>
+    <span *ngIf='!succesSignIn' class='text-danger'>Неверные email или пароль.</span>
 
-    </div>
+    <app-text-input [(item)]='emailInput'></app-text-input>
+    <app-password-input [(item)]='passwordInput'></app-password-input>
+
+    <fieldset class="text-center">
+      <app-regular-btn value='Войти' fluid='true' ico='fas fa-sign-in-alt' (click)='onSignInClick()'></app-regular-btn>
+    </fieldset>
+
+    <fieldset class="form-group">
+      <span>Забыли пароль? </span>
+      <a [routerLink]="['/forgot-password']">Восстановить доступ</a>
+    </fieldset>
   </div>
+  <div class="shape-down"></div>
   <div class="col-lg-6 right-section">
-    <img class="background-image" src="assets/img/sign-in.webp" alt="sign in image">
+    <div class="img-wrapper">
+      <img class="background-image" src="assets/img/sign-in.webp" alt="sign in image">
+    </div>
   </div>
 </div>

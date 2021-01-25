@@ -1,13 +1,13 @@
 .row{
-  height: calc(100vh - 56.8px);
+  height: calc(100vh - var(--nav-heigth));
 }
 
 .back-shape{
   opacity: 0.1;
   position: absolute;
   border-radius: 0% 50% 50% 0%;
-  height: calc(100vh - 56.8px);
-  width: calc(100vh - 56.8px);
+  height: calc(100vh - var(--nav-heigth));
+  width: calc(100vh - var(--nav-heigth));
   top: 0;
   left: 0;
   background-color: var(--regular);
