@@ -22,9 +22,9 @@ export class PasswordInputComponent implements OnInit {
 
   public ngOnInit(): void {
     this.item.valid = this.item.valid === undefined ? true : this.item.valid;
+    this.item.placeholder = this.item.placeholder === undefined ? this.item.label : this.item.placeholder;
     // this.item.min = this.item.min === undefined ? 0 : this.item.min;
     // this.item.max = this.item.max === undefined ? Number.MAX_SAFE_INTEGER : this.item.max;
-    // this.item.placeholder = this.item.placeholder === undefined ? this.item.label : this.item.placeholder;
   }
 
   public onEyeClick(): void {
