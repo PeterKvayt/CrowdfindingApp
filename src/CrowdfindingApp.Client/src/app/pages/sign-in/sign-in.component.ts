@@ -16,8 +16,8 @@ import { ReplyMessage } from 'src/app/models/replies/ReplyMessage';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent extends Base implements OnInit {
-  public emailInput: TextInput = { label: 'Email', placeholder: 'example@mail.by' };
-  public passwordInput: PasswordInput = { label: 'Пароль', placeholder: '$uperP4$$vv0rD'};
+  public emailInput: TextInput = { label: 'Email', placeholder: 'test@user.com' };
+  public passwordInput: PasswordInput = { label: 'Пароль', placeholder: 'test'};
   public succesSignIn = true;
 
   constructor(
