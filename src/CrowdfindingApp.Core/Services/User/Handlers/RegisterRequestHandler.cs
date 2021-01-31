@@ -83,10 +83,10 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
                 EmailConfirmed = false
             };
 
-            await _userRepository.InsertUserAsync(user);
-
             var emailConfirmationToken = _tokenManager.GetConfirmEmailToken(user.Id);
             await _emailSender.SendEmailConfirmationAsync(user.Email, emailConfirmationToken);
+
+            await _userRepository.InsertUserAsync(user);
 
             return new ReplyMessageBase(); 
         }
