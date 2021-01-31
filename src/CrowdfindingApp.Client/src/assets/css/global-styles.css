@@ -1,3 +1,19 @@
 body{
   background-color: var(--bg-ligth);
 }
+
+input{
+  font-weight: 100;
+}
+
+.delicate-text{
+  font-weight: 100;
+  font-size: var(--regular-font-size);
+}
+
+::-webkit-input-placeholder{ font-weight: 100; }
+::-moz-placeholder{ font-weight: 100; }
+:-moz-placeholder{ font-weight: 100; }
+:-ms-input-placeholder{ font-weight: 100; }
+
+
