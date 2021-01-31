@@ -14,9 +14,9 @@ import { RegisterRequestMessage } from 'src/app/models/requests/user/RegisterReq
 })
 export class SignUpComponent extends Base implements OnInit {
 
-  public emailInput: TextInput = { label: 'Email' };
-  public passwordInput: PasswordInput = { label: 'Пароль' };
-  public confirmPasswordInput: PasswordInput = { label: 'Подтвердите пароль' };
+  public emailInput: TextInput = { label: 'Email', placeholder: 'test@user.com' };
+  public passwordInput: PasswordInput = { label: 'Пароль', placeholder: 'test' };
+  public confirmPasswordInput: PasswordInput = { label: 'Подтвердите пароль', placeholder: 'test' };
 
   constructor(
     private accountService: UserService,
@@ -32,10 +32,9 @@ export class SignUpComponent extends Base implements OnInit {
   }
 
   public onSignUpClick(): void {
-    var user = new RegisterRequestMessage(this.emailInput.value, this.passwordInput.value, this.confirmPasswordInput.value);
-
+    const request = new RegisterRequestMessage(this.emailInput.value, this.passwordInput.value, this.confirmPasswordInput.value);
     this.subscriptions.add(
-      this.accountService.signUp(user)
+      this.accountService.signUp(request)
         .subscribe(
           () => { this.redirect('sign-in'); },
           error => { this.handleError(error); }

@@ -1,22 +1,26 @@
 <div class="row">
-    <div class="col-lg-3 offset-lg-3 sign-up-wrapper">
-  
-      <h2>Регистрация</h2>
-  
-      <fieldset class="form-group">
-        <span>У вас есть аккаунт? </span>   
-        <a [routerLink]="['/sign-in']">Войти</a>
-      </fieldset>
-  
-      <app-text-input [(item)]='emailInput'></app-text-input>
-      <app-password-input [(item)]='passwordInput'></app-password-input>
-      <app-password-input [(item)]='confirmPasswordInput'></app-password-input>
-  
-      <fieldset class="text-center">
-        <button (click)='onSignUpClick()' class="btn btn-primary btn-block">Зарегистрироваться</button>
-      </fieldset>
+  <div class="shape-up"></div>
+  <div class="col-lg-5 left-section">
+    <span class="title">Регистрация</span>
+    <fieldset class="form-group">
+      <span class="delicate-text">У вас есть аккаунт? </span>
+      <a [routerLink]="['/sign-in']">Войти</a>
+    </fieldset>
 
-    </div>
-    <div class="col-lg-6"></div>
+    <app-text-input [(item)]='emailInput'></app-text-input>
+    <app-password-input [(item)]='passwordInput'></app-password-input>
+    <app-password-input [(item)]='confirmPasswordInput'></app-password-input>
+
+    <fieldset class="text-center">
+      <app-regular-btn value='Зарегистрироваться' fluid='true' ico='fas fa-check' (click)='onSignUpClick()'>
+      </app-regular-btn>
+    </fieldset>
+
   </div>
-  
+  <div class="shape-down"></div>
+  <div class="col-lg-6 right-section">
+    <div class="img-wrapper">
+      <img class="background-image" src="assets/img/sign-in.webp" alt="sign up image">
+    </div>
+  </div>
+</div>
