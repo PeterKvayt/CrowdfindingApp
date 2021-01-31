@@ -12,10 +12,7 @@
   left: 0;
   background-color: var(--regular);
 }
-.sub-header{
-  font-weight: 100;
-  font-size: 18px;
-}
+
 .content-wrapper{
   margin-top: 15rem;
   margin-left: 8rem;
