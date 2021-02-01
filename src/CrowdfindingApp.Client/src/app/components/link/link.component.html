@@ -1,0 +1,11 @@
+<ng-container *ngIf='href'>
+  <a class="link delicate-text" [href]='href'>{{value}}</a>
+</ng-container>
+
+<ng-container *ngIf='route'>
+  <a class="link delicate-text" [routerLink]='[route]'>{{value}}</a>
+</ng-container>
+
+<ng-container *ngIf='empty !== null && empty !== undefined'>
+  <span class="link delicate-text">{{value}}</span>
+</ng-container>

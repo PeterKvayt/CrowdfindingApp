@@ -31,6 +31,7 @@ import { ProfileSecurityComponent } from './pages/profile-security/profile-secur
 import { EmailConfirmationComponent } from './pages/email-confirmation/email-confirmation.component';
 import { EmailConfirmedComponent } from './pages/email-confirmed/email-confirmed.component';
 import { AuthenticationService } from './services/auth.service';
+import { LinkComponent } from './components/link/link.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { AuthenticationService } from './services/auth.service';
     RegularBtnComponent,
     PreloaderComponent,
     EmailConfirmationComponent,
-    EmailConfirmedComponent
+    EmailConfirmedComponent,
+    LinkComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
