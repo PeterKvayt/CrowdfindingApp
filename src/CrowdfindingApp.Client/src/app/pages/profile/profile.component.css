@@ -1,3 +1,31 @@
+.profile-photo{
+  width: 100%;
+  display: block;
+}
+
+.profile-name{
+  font-size: 35px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.profile-full-info{
+  display: block;
+  margin-bottom: 8px;
+}
+
+.payment-history{
+  display: block;
+  margin-bottom: 8px;
+  padding: 5px 0;
+}
+
+.projects-section{
+  margin-top: 2rem;
+}
+
 .btn{
   margin-right: 5px;
 }

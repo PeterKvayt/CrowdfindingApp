@@ -1,5 +1,49 @@
 <div class="row">
 
+<div class="col-12 profile-section">
+  <div class="row">
+    <div class="col-lg-3 col-mg-6 col-sm-12">
+        <img class="profile-photo" *ngIf='!userInfo.photo' src="assets/img/default-avatar.png" alt="avatar2">
+        <img class="profile-photo" *ngIf='userInfo.photo' [src]='userInfo.photo' alt="avatar">
+    </div>
+    <div class="col-lg-8">
+      <span class="profile-name">{{userInfo.name}} {{userInfo.surname}}</span>
+
+      <div class="profile-full-info">
+          <i class="fas fa-info fa-fw"></i>
+          <app-link empty value='Подробная информация'></app-link>
+        </div>
+
+      <div class="payment-history">
+          <i class="fas fa-history fa-fw"></i>
+        <app-link empty value='История платежей'></app-link>
+      </div>
+
+      <div>
+        <app-regular-btn value='Редактировать данные' ico='fas fa-cog'></app-regular-btn>
+      </div>
+      <div>
+        <app-regular-btn value='Выйти из учетной записи' ico='fas fa-sign-out-alt' (click)='onSignOutClick()'></app-regular-btn>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="col-12 projects-section">
+  <div class="row">
+    <div class="col-4">
+        <app-regular-btn value='Мои проекты' fluid='true'></app-regular-btn>
+    </div>
+    <div class="col-4">
+        <app-regular-btn value='Поддержал' fluid='true'></app-regular-btn>
+    </div>
+    <div class="col-4">
+        <app-regular-btn value='Черновики' fluid='true'></app-regular-btn>
+    </div>
+  </div>
+
+</div>
+
   <div class="col-lg-3 col-md-6 col-sm-12">
     <a [routerLink]="['/profile/create-project']" class="card-link">
       <h4>Создать проект</h4>
