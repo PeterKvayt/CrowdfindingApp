@@ -13,7 +13,6 @@ export class NavItemInitializer {
     this.rightNavs = [
       this.profileNav,
       this.signInNav,
-      this.signOutNav,
     ];
   }
 
@@ -26,17 +25,14 @@ export class NavItemInitializer {
   public searchNav = new NavItem('Поиск', 'search', 'fas fa-search', true );
   public profileNav = new NavItem('Профиль', 'profile', 'fas fa-user-circle');
   public signInNav = new NavItem('Войти', 'sign-in', 'fas fa-sign-in-alt');
-  public signOutNav = new NavItem('Выйти', 'sign-in', 'fas fa-sign-out-alt' );
 
   public prepareNavItems(): void {
     if (this.authService.isAuthenticated()) {
       this.profileNav.show = true;
       this.signInNav.show = false;
-      this.signOutNav.show = true;
     } else {
       this.profileNav.show = false;
       this.signInNav.show = true;
-      this.signOutNav.show = false;
     }
   }
 }

@@ -16,7 +16,7 @@
 
         <ul class="navbar-nav">
           <li *ngFor='let item of navsHolder.centralNavs' class="nav-item" [class.hide-nav-item]='!item.show'>
-            <a class="nav-link" [routerLink]="[item.route]" (click)='onNavItemClick($event)'>
+            <a class="nav-link" [routerLink]="[item.route]">
               {{item.value}}
               <i *ngIf='item.ico' [class]='item.ico + " fa-fw"'></i>
             </a>
@@ -25,7 +25,7 @@
 
         <ul class="navbar-nav">
           <li *ngFor='let item of navsHolder.rightNavs' class="nav-item" [class.hide-nav-item]='!item.show'>
-            <a class="nav-link" [routerLink]="[item.route]" (click)='onNavItemClick($event)'>
+            <a class="nav-link" [routerLink]="[item.route]">
               {{item.value}}
               <i *ngIf='item.ico' [class]='item.ico + " fa-fw"'></i>
             </a>

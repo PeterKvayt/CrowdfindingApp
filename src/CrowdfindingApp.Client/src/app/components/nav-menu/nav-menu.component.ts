@@ -27,10 +27,4 @@ export class NavMenuComponent implements OnInit {
   public ngOnInit(): void {
     this.navsHolder.prepareNavItems();
   }
-
-  public onNavItemClick(event): void {
-    if (event.target.innerText.trim() === this.navsHolder.signOutNav.value) {
-      this.authService.signOut();
-    }
-  }
 }
