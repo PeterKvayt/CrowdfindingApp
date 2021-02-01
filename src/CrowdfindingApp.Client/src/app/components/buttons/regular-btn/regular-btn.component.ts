@@ -16,7 +16,7 @@ export class RegularBtnComponent implements OnInit {
   public class: string;
   
   public ngOnInit(): void {
-    this.link = this.link === undefined ? null : this.link;
+    this.link = this.link === undefined ? null : '/' + this.link;
     this.value = this.value === undefined ? 'emplty value' : this.value;
     this.class = this.fluid ? 'fluid-regular-btn' : 'regular-btn';
   }

@@ -8,7 +8,7 @@
 
 <ng-container>
   <ng-template #href_btn>
-    <a [class]='class' [href]='link'>
+    <a [class]='class' [routerLink]='[link]'>
       <i *ngIf='icoBefore && ico' [class]='ico + " fa-fw"'></i>
       {{value}} 
       <i *ngIf='!icoBefore && ico' [class]='ico + " fa-fw"'></i>

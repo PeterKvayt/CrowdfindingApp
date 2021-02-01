@@ -19,6 +19,7 @@
 
 .fluid-regular-btn{
   display: block;
+  text-align: center;
 }
 
 .regular-btn:hover,
