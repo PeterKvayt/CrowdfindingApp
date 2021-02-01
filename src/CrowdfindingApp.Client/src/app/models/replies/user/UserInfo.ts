@@ -5,6 +5,7 @@ export class UserInfo {
     public name: string,
     public surname: string,
     public middleName: string,
-    public email: string
+    public email: string,
+    public photo: string
   ) { }
 }
