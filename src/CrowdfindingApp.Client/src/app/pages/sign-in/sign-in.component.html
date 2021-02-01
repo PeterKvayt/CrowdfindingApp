@@ -4,7 +4,7 @@
     <span class="title">Вход</span>
     <fieldset class="form-group">
       <span class="delicate-text">У вас нет аккаунта? </span>
-      <a [routerLink]="['/sign-up']">Зарегистрироваться</a>
+      <app-link value='Зарегистрироваться' route='sign-up'></app-link>
     </fieldset>
 
     <span *ngIf='!succesSignIn' class='text-danger'>Неверные email или пароль.</span>
@@ -18,7 +18,7 @@
 
     <fieldset class="form-group">
       <span class="delicate-text">Забыли пароль? </span>
-      <a [routerLink]="['/forgot-password']">Восстановить доступ</a>
+      <app-link value='Восстановить доступ' route='forgot-password'></app-link>
     </fieldset>
   </div>
   <div class="shape-down"></div>
