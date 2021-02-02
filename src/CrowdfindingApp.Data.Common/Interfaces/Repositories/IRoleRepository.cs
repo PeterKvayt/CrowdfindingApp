@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CrowdfindingApp.Core.Models;
+using CrowdfindingApp.Data.Common.Models;
 
-namespace CrowdfindingApp.Core.Interfaces.Data.Repositories
+namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
 {
     public interface IRoleRepository
     {

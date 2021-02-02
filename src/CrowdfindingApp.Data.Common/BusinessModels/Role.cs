@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-
-namespace CrowdfindingApp.Core.Models
+﻿
+namespace CrowdfindingApp.Data.Common.Models
 {
     public sealed class Role : BaseModel
     {

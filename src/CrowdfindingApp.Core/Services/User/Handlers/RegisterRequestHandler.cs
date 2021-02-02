@@ -10,9 +10,9 @@ using CrowdfindingApp.Common.Maintainers.Hasher;
 using CrowdfindingApp.Common.Maintainers.TokenManager;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.User;
-using CrowdfindingApp.Core.Interfaces.Data.Repositories;
-using CrowdfindingApp.Core.Services.User.Filters;
 using CrowdfindingApp.Core.Services.User.Helpers;
+using CrowdfindingApp.Data.Common.Filters;
+using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.User.Handlers
 {
@@ -70,7 +70,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
         protected override async Task<ReplyMessageBase> ExecuteAsync(RegisterRequestMessage request)
         {
             var (passwordHash, salt) = _hasher.GetHashWithSalt(request.Password);
-            var user = new Models.User()
+            var user = new Data.Common.Models.User()
             {
                 Id = new Guid(),
                 Email = request.Email.ToUpperInvariant(),

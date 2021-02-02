@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using CrowdfindingApp.Core.Models;
+using CrowdfindingApp.Data.Common.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrowdfindingApp.Core.Interfaces.Data
+namespace CrowdfindingApp.Data.Common.Interfaces
 {
     public interface IDataProvider
     {

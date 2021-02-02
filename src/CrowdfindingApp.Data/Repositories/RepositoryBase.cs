@@ -1,8 +1,8 @@
 ﻿
 using System;
 using System.Linq;
-using CrowdfindingApp.Core.Interfaces.Data;
-using CrowdfindingApp.Core.Models;
+using CrowdfindingApp.Data.Common.Interfaces;
+using CrowdfindingApp.Data.Common.Models;
 
 namespace CrowdfindingApp.Data.Repositories
 {

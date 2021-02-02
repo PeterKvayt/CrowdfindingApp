@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Core.Models
+namespace CrowdfindingApp.Data.Common.Models
 {
     public sealed class Category : BaseModel
     {

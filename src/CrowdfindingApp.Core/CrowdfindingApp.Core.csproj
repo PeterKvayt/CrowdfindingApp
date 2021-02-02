@@ -7,17 +7,18 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Project\" />
     <Folder Include="Services\Order\" />
+    <Folder Include="Services\Project\Handlers\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CrowdfindingApp.Common\CrowdfindingApp.Common.csproj" />
+    <ProjectReference Include="..\CrowdfindingApp.Data.Common\CrowdfindingApp.Data.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

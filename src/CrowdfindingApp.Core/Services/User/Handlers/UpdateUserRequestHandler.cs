@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Core.Interfaces.Data.Repositories;
 using CrowdfindingApp.Common.Messages.User;
 using AutoMapper;
 using CrowdfindingApp.Common.Extensions;
+using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.User.Handlers
 {
-    public class UpdateUserRequestHandler : RequestHandlerBase<UpdateUserRequestMessage, ReplyMessageBase, Models.User>
+    public class UpdateUserRequestHandler : RequestHandlerBase<UpdateUserRequestMessage, ReplyMessageBase, Data.Common.Models.User>
     {
         private IUserRepository _userRepository;
         private IMapper _mapper;
@@ -20,7 +20,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        protected override async Task<(ReplyMessageBase, Models.User)> ValidateRequestMessageAsync(UpdateUserRequestMessage requestMessage)
+        protected override async Task<(ReplyMessageBase, Data.Common.Models.User)> ValidateRequestMessageAsync(UpdateUserRequestMessage requestMessage)
         {
             var (reply, user) = await base.ValidateRequestMessageAsync(requestMessage);
 
@@ -64,9 +64,9 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             return (reply, user);
         }
 
-        protected override async Task<ReplyMessageBase> ExecuteAsync(UpdateUserRequestMessage request, Models.User userForUpdate)
+        protected override async Task<ReplyMessageBase> ExecuteAsync(UpdateUserRequestMessage request, Data.Common.Models.User userForUpdate)
         {
-            var userSnapshot = _mapper.Map<Models.User>(request);
+            var userSnapshot = _mapper.Map<Data.Common.Models.User>(request);
 
             PrepareUser(userSnapshot, userForUpdate);
 
@@ -75,7 +75,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             return new ReplyMessageBase();
         }
 
-        private void PrepareUser(Models.User snapshot, Models.User user)
+        private void PrepareUser(Data.Common.Models.User snapshot, Data.Common.Models.User user)
         {
             user.UserName = snapshot.UserName;
             user.Email = snapshot.Email;

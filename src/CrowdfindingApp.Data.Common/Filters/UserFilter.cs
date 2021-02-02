@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CrowdfindingApp.Core.Services.User.Filters
+namespace CrowdfindingApp.Data.Common.Filters
 {
     public class UserFilter
     {

@@ -1,8 +1,8 @@
 using Autofac;
 using CrowdfindingApp.Api.Middlewares;
 using CrowdfindingApp.Common.Immutable;
-using CrowdfindingApp.Core.Interfaces.Data;
 using CrowdfindingApp.Data;
+using CrowdfindingApp.Data.Common.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

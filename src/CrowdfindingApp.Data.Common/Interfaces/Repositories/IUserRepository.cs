@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CrowdfindingApp.Core.Models;
-using CrowdfindingApp.Core.Services.User.Filters;
+using CrowdfindingApp.Data.Common.Filters;
+using CrowdfindingApp.Data.Common.Models;
 
-namespace CrowdfindingApp.Core.Interfaces.Data.Repositories
+namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
 {
     public interface IUserRepository
     {

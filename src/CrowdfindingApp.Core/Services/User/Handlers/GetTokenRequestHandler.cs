@@ -10,7 +10,7 @@ using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Maintainers.Hasher;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.User;
-using CrowdfindingApp.Core.Interfaces.Data.Repositories;
+using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CrowdfindingApp.Core.Services.User.Handlers
@@ -93,7 +93,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             return reply;
         }
 
-        private  ClaimsIdentity GetIdentity(Models.User user, Models.Role role)
+        private  ClaimsIdentity GetIdentity(Data.Common.Models.User user, Data.Common.Models.Role role)
         {
             var claims = new List<Claim>
             {

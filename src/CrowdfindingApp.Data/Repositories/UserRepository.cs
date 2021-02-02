@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Core.Interfaces.Data;
-using CrowdfindingApp.Core.Interfaces.Data.Repositories;
-using CrowdfindingApp.Core.Models;
-using CrowdfindingApp.Core.Services.User.Filters;
+using CrowdfindingApp.Data.Common.Filters;
+using CrowdfindingApp.Data.Common.Interfaces;
+using CrowdfindingApp.Data.Common.Interfaces.Repositories;
+using CrowdfindingApp.Data.Common.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrowdfindingApp.Data.Repositories

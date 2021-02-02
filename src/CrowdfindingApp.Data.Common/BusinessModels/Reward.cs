@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CrowdfindingApp.Core.Models
+namespace CrowdfindingApp.Data.Common.Models
 {
     public sealed class Reward : BaseModel
     {

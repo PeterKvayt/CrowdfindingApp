@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrowdfindingApp.Core.Interfaces.Data;
-using CrowdfindingApp.Core.Models;
+using CrowdfindingApp.Data.Common.Interfaces;
+using CrowdfindingApp.Data.Common.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrowdfindingApp.Data
@@ -38,13 +38,13 @@ namespace CrowdfindingApp.Data
         {
             new Role
             {
-                Id = new Guid(Common.Immutable.Roles.DefaultUser),
+                Id = new Guid(CrowdfindingApp.Common.Immutable.Roles.DefaultUser),
                 Name = "DefaultUser",
                 Permissions = string.Empty
             },
             new Role
             {
-                Id = new Guid(Common.Immutable.Roles.Admin),
+                Id = new Guid(CrowdfindingApp.Common.Immutable.Roles.Admin),
                 Name = "Admin",
                 Permissions = string.Empty
             },

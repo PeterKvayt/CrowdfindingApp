@@ -11,11 +11,11 @@ namespace CrowdfindingApp.Core.Services.User
     {
         public UserProfile()
         {
-            CreateMap<Models.User, UserInfo>()
+            CreateMap<Data.Common.Models.User, UserInfo>()
                 .ForMember(dest => dest.Photo, opt => opt.MapFrom(source => source.Image))
                 .ForMember(dest => dest.Role, opt => opt.MapFrom((src, dest, destMember, ctx) => GetRoleName(src.RoleId, ctx.Items.ToDictionary(_ => _.Key, _ => _.Value.ToString()))));
 
-            CreateMap<UpdateUserRequestMessage, Models.User>();
+            CreateMap<UpdateUserRequestMessage, Data.Common.Models.User>();
 
         }
 

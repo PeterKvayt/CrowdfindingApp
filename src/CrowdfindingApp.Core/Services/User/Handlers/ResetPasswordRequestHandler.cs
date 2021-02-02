@@ -6,12 +6,12 @@ using CrowdfindingApp.Common.Maintainers.Hasher;
 using CrowdfindingApp.Common.Maintainers.TokenManager;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.User;
-using CrowdfindingApp.Core.Interfaces.Data.Repositories;
 using CrowdfindingApp.Core.Services.User.Helpers;
+using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.User.Handlers
 {
-    public class ResetPasswordRequestHandler : RequestHandlerBase<ResetPasswordRequestMessage, ReplyMessageBase, Models.User>
+    public class ResetPasswordRequestHandler : RequestHandlerBase<ResetPasswordRequestMessage, ReplyMessageBase, Data.Common.Models.User>
     {
         private readonly IUserRepository _userRepository;
         private readonly IHasher _hasher;
@@ -26,7 +26,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             _passwordValidator = new PasswordValidator();
         }
 
-        protected override async Task<(ReplyMessageBase, Models.User)> ValidateRequestMessageAsync(ResetPasswordRequestMessage requestMessage)
+        protected override async Task<(ReplyMessageBase, Data.Common.Models.User)> ValidateRequestMessageAsync(ResetPasswordRequestMessage requestMessage)
         {
             var (reply, operationСontext) = await base.ValidateRequestMessageAsync(requestMessage);
 
@@ -60,7 +60,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             return (reply, operationСontext);
         }
 
-        protected override async Task<ReplyMessageBase> ExecuteAsync(ResetPasswordRequestMessage request, Models.User user)
+        protected override async Task<ReplyMessageBase> ExecuteAsync(ResetPasswordRequestMessage request, Data.Common.Models.User user)
         {
             var reply = await PreExecuteAsync(request);
 

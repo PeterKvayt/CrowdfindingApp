@@ -8,7 +8,7 @@ using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.User;
-using CrowdfindingApp.Core.Interfaces.Data.Repositories;
+using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.User.Handlers
 {

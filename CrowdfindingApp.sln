@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrowdfindingApp.Api", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrowdfindingApp.Data", "src\CrowdfindingApp.Data\CrowdfindingApp.Data.csproj", "{8D2482FF-BC95-46AD-B734-3846E6706AEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrowdfindingApp.Common", "src\CrowdfindingApp.Common\CrowdfindingApp.Common.csproj", "{FD25DD74-F25C-4D1B-84D8-4C5645DDA6F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrowdfindingApp.Common", "src\CrowdfindingApp.Common\CrowdfindingApp.Common.csproj", "{FD25DD74-F25C-4D1B-84D8-4C5645DDA6F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrowdfindingApp.Data.Common", "src\CrowdfindingApp.Data.Common\CrowdfindingApp.Data.Common.csproj", "{3A85172E-AB54-430C-B87C-98FD2B5E94AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{FD25DD74-F25C-4D1B-84D8-4C5645DDA6F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD25DD74-F25C-4D1B-84D8-4C5645DDA6F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD25DD74-F25C-4D1B-84D8-4C5645DDA6F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A85172E-AB54-430C-B87C-98FD2B5E94AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A85172E-AB54-430C-B87C-98FD2B5E94AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A85172E-AB54-430C-B87C-98FD2B5E94AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A85172E-AB54-430C-B87C-98FD2B5E94AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
