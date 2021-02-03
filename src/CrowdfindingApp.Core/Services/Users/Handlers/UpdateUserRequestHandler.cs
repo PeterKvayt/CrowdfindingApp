@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.User;
+using CrowdfindingApp.Common.Messages.Users;
 using AutoMapper;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
-namespace CrowdfindingApp.Core.Services.User.Handlers
+namespace CrowdfindingApp.Core.Services.Users.Handlers
 {
     public class UpdateUserRequestHandler : RequestHandlerBase<UpdateUserRequestMessage, ReplyMessageBase, Data.Common.Models.User>
     {

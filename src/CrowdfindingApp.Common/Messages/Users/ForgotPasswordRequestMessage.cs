@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrowdfindingApp.Common.Messages.User
+namespace CrowdfindingApp.Common.Messages.Users
 {
     public class ForgotPasswordRequestMessage : MessageBase
     {

@@ -5,10 +5,10 @@ using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Maintainers.EmailSender;
 using CrowdfindingApp.Common.Maintainers.TokenManager;
 using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.User;
+using CrowdfindingApp.Common.Messages.Users;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
-namespace CrowdfindingApp.Core.Services.User.Handlers
+namespace CrowdfindingApp.Core.Services.Users.Handlers
 {
     public class ForgotPasswordRequestHandler : NullOperationContextRequestHandler<ForgotPasswordRequestMessage, ReplyMessageBase>
     {

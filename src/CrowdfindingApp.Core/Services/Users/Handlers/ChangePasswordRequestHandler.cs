@@ -4,11 +4,11 @@ using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Maintainers.Hasher;
 using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.User;
-using CrowdfindingApp.Core.Services.User.Helpers;
+using CrowdfindingApp.Common.Messages.Users;
+using CrowdfindingApp.Core.Services.Users.Helpers;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
-namespace CrowdfindingApp.Core.Services.User.Handlers
+namespace CrowdfindingApp.Core.Services.Users.Handlers
 {
     public class ChangePasswordRequestHandler : NullOperationContextRequestHandler<ChangePasswordRequestMessage, ReplyMessageBase>
     {

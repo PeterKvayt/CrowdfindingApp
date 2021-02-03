@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using AutoMapper;
-using CrowdfindingApp.Core.Services.User.Handlers;
+using CrowdfindingApp.Core.Services.Users.Handlers;
 
-namespace CrowdfindingApp.Core.Services.User
+namespace CrowdfindingApp.Core.Services.Users
 {
     public class UserModule : Module
     {

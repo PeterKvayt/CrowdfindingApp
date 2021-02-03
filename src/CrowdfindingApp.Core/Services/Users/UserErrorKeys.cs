@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Core.Services.User
+namespace CrowdfindingApp.Core.Services.Users
 {
     public class UserErrorKeys
     {

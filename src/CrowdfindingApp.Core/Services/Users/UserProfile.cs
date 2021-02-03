@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using CrowdfindingApp.Common.DataTransfers.User;
-using CrowdfindingApp.Common.Messages.User;
+using CrowdfindingApp.Common.DataTransfers.Users;
+using CrowdfindingApp.Common.Messages.Users;
 
-namespace CrowdfindingApp.Core.Services.User
+namespace CrowdfindingApp.Core.Services.Users
 {
     public class UserProfile : Profile
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CrowdfindingApp.Core.Services.User.Resources {
+namespace CrowdfindingApp.Core.Services.Users.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace CrowdfindingApp.Core.Services.User.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CrowdfindingApp.Core.Services.User.Resources.ActionMessages", typeof(ActionMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CrowdfindingApp.Core.Services.Users.Resources.ActionMessages", typeof(ActionMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

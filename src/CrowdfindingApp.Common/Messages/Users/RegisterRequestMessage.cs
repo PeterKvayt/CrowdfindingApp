@@ -1,9 +1,10 @@
 ﻿
-namespace CrowdfindingApp.Common.Messages.User
+namespace CrowdfindingApp.Common.Messages.Users
 {
-    public class ResetPasswordRequestMessage : MessageBase
+    public class RegisterRequestMessage : MessageBase
     {
-        public string Token { get; set; }
+        /// <example>test@user.com</example>
+        public string Email { get; set; }
         /// <example>test</example>
         public string Password { get; set; }
         /// <example>test</example>

@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.DataTransfers.User;
+using CrowdfindingApp.Common.DataTransfers.Users;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Maintainers.Hasher;
 using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.User;
+using CrowdfindingApp.Common.Messages.Users;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 using Microsoft.IdentityModel.Tokens;
 
-namespace CrowdfindingApp.Core.Services.User.Handlers
+namespace CrowdfindingApp.Core.Services.Users.Handlers
 {
     public class GetTokenRequestHandler : RequestHandlerBase<GetTokenRequestMessage, ReplyMessage<TokenInfo>, ClaimsIdentity>
     {

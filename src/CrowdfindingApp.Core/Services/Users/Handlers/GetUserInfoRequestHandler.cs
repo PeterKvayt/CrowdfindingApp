@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CrowdfindingApp.Common.DataTransfers.User;
+using CrowdfindingApp.Common.DataTransfers.Users;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.User;
+using CrowdfindingApp.Common.Messages.Users;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
-namespace CrowdfindingApp.Core.Services.User.Handlers
+namespace CrowdfindingApp.Core.Services.Users.Handlers
 {
     public class GetUserInfoRequestHandler : NullOperationContextRequestHandler<GetUserInfoRequestMessage, ReplyMessage<UserInfo>>
     {

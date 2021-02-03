@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Messages.User
+namespace CrowdfindingApp.Common.Messages.Users
 {
     public class UpdateUserRequestMessage : MessageBase
     {

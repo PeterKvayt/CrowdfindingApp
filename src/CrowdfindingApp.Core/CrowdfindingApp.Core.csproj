@@ -26,7 +26,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
-    <Compile Update="Services\User\Resources\ActionMessages.Designer.cs">
+    <Compile Update="Services\Users\Resources\ActionMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ActionMessages.resx</DependentUpon>
@@ -38,7 +38,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Services\User\Resources\ActionMessages.resx">
+    <EmbeddedResource Update="Services\Users\Resources\ActionMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ActionMessages.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

@@ -9,7 +9,7 @@ using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Localization;
 using CrowdfindingApp.Core.Services.Projects;
 using CrowdfindingApp.Core.Services.Role;
-using CrowdfindingApp.Core.Services.User;
+using CrowdfindingApp.Core.Services.Users;
 using CrowdfindingApp.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
@@ -67,7 +67,7 @@ namespace CrowdfindingApp.Api
             // ToDo: implement resource providers in modules.
             var providers = new List<(string, Assembly)>
             {
-                ("CrowdfindingApp.Core.Services.User.Resources.ActionMessages", typeof(UserModule).Assembly),
+                ("CrowdfindingApp.Core.Services.Users.Resources.ActionMessages", typeof(UserModule).Assembly),
                 ("CrowdfindingApp.Core.Services.Projects.Resources.ErrorMessages", typeof(ProjectModule).Assembly),
                 ("CrowdfindingApp.Common.Resources.EmailResources", typeof(CommonModule).Assembly),
             };

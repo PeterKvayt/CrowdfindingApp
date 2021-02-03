@@ -2,7 +2,7 @@
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Messages;
 
-namespace CrowdfindingApp.Core.Services.User.Helpers
+namespace CrowdfindingApp.Core.Services.Users.Helpers
 {
     public class PasswordValidator
     {
