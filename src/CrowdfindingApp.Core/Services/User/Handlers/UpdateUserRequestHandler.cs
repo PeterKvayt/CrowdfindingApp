@@ -26,19 +26,19 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
 
             if(requestMessage.Email.IsNullOrEmpty())
             {
-                reply.AddValidationError(ErrorKeys.EmptyEmail);
+                reply.AddValidationError(UserErrorKeys.EmptyEmail);
                 return (reply, user);
             }
 
             if(requestMessage.Name.IsNullOrEmpty())
             {
-                reply.AddValidationError(ErrorKeys.EmptyName);
+                reply.AddValidationError(UserErrorKeys.EmptyName);
                 return (reply, user);
             }
 
             if(requestMessage.Surname.IsNullOrEmpty())
             {
-                reply.AddValidationError(ErrorKeys.EmptySurname);
+                reply.AddValidationError(UserErrorKeys.EmptySurname);
                 return (reply, user);
             }
 
@@ -56,7 +56,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
                 var emailIsFree = await _userRepository.GetUserByEmailAsync(requestMessage.Email) == null;
                 if(!emailIsFree)
                 {
-                    reply.AddValidationError(ErrorKeys.UniqueEmail);
+                    reply.AddValidationError(UserErrorKeys.UniqueEmail);
                     return (reply, user);
                 }
             }

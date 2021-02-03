@@ -7,6 +7,7 @@ using AutoMapper;
 using CrowdfindingApp.Common;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Localization;
+using CrowdfindingApp.Core.Services.Projects;
 using CrowdfindingApp.Core.Services.Role;
 using CrowdfindingApp.Core.Services.User;
 using CrowdfindingApp.Data.Repositories;
@@ -46,6 +47,7 @@ namespace CrowdfindingApp.Api
         {
             builder.RegisterType<RoleRepository>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<UserRepository>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<ProjectRepository>().AsImplementedInterfaces().SingleInstance();
 
             return builder;
         }
@@ -54,6 +56,7 @@ namespace CrowdfindingApp.Api
         {
             builder.RegisterModule<RoleModule>();
             builder.RegisterModule<UserModule>();
+            builder.RegisterModule<ProjectModule>();
             builder.RegisterModule<CommonModule>();
 
             return builder;
@@ -65,6 +68,7 @@ namespace CrowdfindingApp.Api
             var providers = new List<(string, Assembly)>
             {
                 ("CrowdfindingApp.Core.Services.User.Resources.ActionMessages", typeof(UserModule).Assembly),
+                ("CrowdfindingApp.Core.Services.Projects.Resources.ErrorMessages", typeof(ProjectModule).Assembly),
                 ("CrowdfindingApp.Common.Resources.EmailResources", typeof(CommonModule).Assembly),
             };
 
@@ -78,6 +82,7 @@ namespace CrowdfindingApp.Api
         /// <param name="builder">Container builder.</param>
         public static ContainerBuilder RegisterAutoMapper(this ContainerBuilder builder)
         {
+            builder.RegisterType<CommonProfile>().As<Profile>().SingleInstance();
             builder.Register(ctx => new MapperConfiguration(cfg =>
             {
                 foreach(var profile in ctx.Resolve<IList<Profile>>())

@@ -10,9 +10,9 @@ namespace CrowdfindingApp.Core.Services.User
         {
             RegisterHandlers(builder);
 
+            builder.RegisterType<UserProfile>().As<Profile>().SingleInstance();
             // Repository registration in startup extensions.
 
-            builder.RegisterType<UserProfile>().As<Profile>().SingleInstance();
 
             //builder.RegisterType<ResourceProvider>()
             //    .WithParameter((x, _) => x.Name == "stringResources", (_, __) => new List<(string, Assembly)>()

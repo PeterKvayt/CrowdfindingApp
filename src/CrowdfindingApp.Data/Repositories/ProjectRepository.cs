@@ -8,6 +8,7 @@ using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.Interfaces;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 using CrowdfindingApp.Data.Common.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrowdfindingApp.Data.Repositories
 {
@@ -53,6 +54,26 @@ namespace CrowdfindingApp.Data.Repositories
         public async Task<List<Project>> GetProjects(ProjectFilter filter, Paging paging)
         {
             return await GetQuery(filter).ToPagedListAsync(paging);
+        }
+
+        public async Task<Project> GetById(Guid id)
+        {
+            return await Storage.Projects.FirstOrDefaultAsync(_ => _.Id == id);
+        }
+
+        public async Task<Guid> InsertDraftProject(Project project)
+        {
+            project.Id = new Guid();
+            await Storage.Projects.AddAsync(project);
+            await Storage.SaveChangesAsync();
+
+            return project.Id;
+        }
+
+        public async Task UpdateDraftProject(Project project)
+        {
+            Storage.Projects.Update(project);
+            await Storage.SaveChangesAsync();
         }
     }
 }

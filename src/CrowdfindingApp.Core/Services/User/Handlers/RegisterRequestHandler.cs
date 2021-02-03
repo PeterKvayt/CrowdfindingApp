@@ -39,17 +39,17 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
 
             if(requestMessage.Email.IsNullOrEmpty())
             {
-                return reply.AddValidationError(ErrorKeys.EmptyEmail);
+                return reply.AddValidationError(UserErrorKeys.EmptyEmail);
             }
 
             if(requestMessage.Password.IsNullOrEmpty())
             {
-                return reply.AddValidationError(ErrorKeys.EmptyPassword);
+                return reply.AddValidationError(UserErrorKeys.EmptyPassword);
             }
 
             if(!_passwordValidator.Confirm(requestMessage.Password, requestMessage.ConfirmPassword))
             {
-                return reply.AddValidationError(ErrorKeys.PasswordConfirmationFail);
+                return reply.AddValidationError(UserErrorKeys.PasswordConfirmationFail);
             }
 
             var validationResult = _passwordValidator.Validate(requestMessage.Password);
@@ -61,7 +61,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             var userWithEmail = await _userRepository.GetUsersAsync(new UserFilter { Email = new List<string> { requestMessage.Email } });
             if(userWithEmail.Any())
             {
-                return reply.AddValidationError(key: ErrorKeys.UniqueEmail, parameters: requestMessage.Email);
+                return reply.AddValidationError(key: UserErrorKeys.UniqueEmail, parameters: requestMessage.Email);
             }
 
             return reply;

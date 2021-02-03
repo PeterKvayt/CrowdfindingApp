@@ -46,7 +46,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
 
             if(!_passwordValidator.Confirm(requestMessage.NewPassword, requestMessage.ConfirmPassword))
             {
-                return reply.AddValidationError(ErrorKeys.PasswordConfirmationFail);
+                return reply.AddValidationError(UserErrorKeys.PasswordConfirmationFail);
             }
 
             return reply;

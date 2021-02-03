@@ -17,7 +17,7 @@ namespace CrowdfindingApp.Core.Services.User.Helpers
         {
             if(password.Length < MinLength)
             {
-                reply.AddValidationError(key: ErrorKeys.InvalidPasswordLength, parameters: MinLength);
+                reply.AddValidationError(key: UserErrorKeys.InvalidPasswordLength, parameters: MinLength);
             }
         }
 
@@ -34,7 +34,7 @@ namespace CrowdfindingApp.Core.Services.User.Helpers
 
             if(password.IsNullOrEmpty())
             {
-                return reply.AddValidationError(ErrorKeys.EmptyPassword);
+                return reply.AddValidationError(UserErrorKeys.EmptyPassword);
             }
 
             ValidateLength(password, reply);

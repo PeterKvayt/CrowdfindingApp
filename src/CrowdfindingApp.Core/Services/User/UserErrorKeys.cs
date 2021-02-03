@@ -1,7 +1,7 @@
 ﻿
 namespace CrowdfindingApp.Core.Services.User
 {
-    public class ErrorKeys
+    public class UserErrorKeys
     {
         public const string UniqueEmail = nameof(UniqueEmail);
         public const string InvalidPasswordLength = nameof(InvalidPasswordLength);

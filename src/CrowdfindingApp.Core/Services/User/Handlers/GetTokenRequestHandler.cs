@@ -34,13 +34,13 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
 
             if(requestMessage.Email.IsNullOrEmpty())
             {
-                reply.AddValidationError(ErrorKeys.EmptyEmail);
+                reply.AddValidationError(UserErrorKeys.EmptyEmail);
                 return (reply, ctx);
             }
 
             if(requestMessage.Password.IsNullOrEmpty())
             {
-                reply.AddValidationError(ErrorKeys.EmptyPassword);
+                reply.AddValidationError(UserErrorKeys.EmptyPassword);
                 return (reply, ctx);
             }
 

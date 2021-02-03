@@ -33,7 +33,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
             Guid userId;
             if(requestMessage.Token.IsNullOrEmpty() || !_tokenManager.ValidateResetPasswordToken(requestMessage.Token, out userId))
             {
-                reply.AddValidationError(ErrorKeys.InvalidToken);
+                reply.AddValidationError(UserErrorKeys.InvalidToken);
                 return (reply, operationСontext);
             }
 
@@ -53,7 +53,7 @@ namespace CrowdfindingApp.Core.Services.User.Handlers
 
             if(!_passwordValidator.Confirm(requestMessage.Password, requestMessage.ConfirmPassword))
             {
-                reply.AddValidationError(ErrorKeys.PasswordConfirmationFail);
+                reply.AddValidationError(UserErrorKeys.PasswordConfirmationFail);
                 return (reply, operationСontext);
             }
 

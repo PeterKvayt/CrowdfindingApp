@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Services\Order\" />
-    <Folder Include="Services\Project\Handlers\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Services\Projects\Resources\ErrorMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
+    </Compile>
     <Compile Update="Services\User\Resources\ActionMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -30,6 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Services\Projects\Resources\ErrorMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Services\User\Resources\ActionMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ActionMessages.Designer.cs</LastGenOutput>
