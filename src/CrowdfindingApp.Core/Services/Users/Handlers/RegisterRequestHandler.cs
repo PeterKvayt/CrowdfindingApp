@@ -77,7 +77,7 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
                 PasswordHash = passwordHash,
                 Salt = salt,
                 CreatedDateTime = DateTime.UtcNow,
-                RoleId = new Guid(Roles.DefaultUser),
+                RoleId = new Guid(Common.Immutable.Roles.DefaultUser),
                 Active = true,
                 UserName = request.Email.ToUpperInvariant(),
                 EmailConfirmed = false

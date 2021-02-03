@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace CrowdfindingApp.Core.Services.Role
+namespace CrowdfindingApp.Core.Services.Roles
 {
     public class RoleModule : Module
     {

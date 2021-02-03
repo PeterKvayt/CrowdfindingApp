@@ -8,7 +8,7 @@ using CrowdfindingApp.Common;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Localization;
 using CrowdfindingApp.Core.Services.Projects;
-using CrowdfindingApp.Core.Services.Role;
+using CrowdfindingApp.Core.Services.Roles;
 using CrowdfindingApp.Core.Services.Users;
 using CrowdfindingApp.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
