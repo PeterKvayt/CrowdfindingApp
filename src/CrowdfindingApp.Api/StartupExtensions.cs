@@ -70,6 +70,7 @@ namespace CrowdfindingApp.Api
                 ("CrowdfindingApp.Core.Services.Users.Resources.ActionMessages", typeof(UserModule).Assembly),
                 ("CrowdfindingApp.Core.Services.Projects.Resources.ErrorMessages", typeof(ProjectModule).Assembly),
                 ("CrowdfindingApp.Common.Resources.EmailResources", typeof(CommonModule).Assembly),
+                ("CrowdfindingApp.Common.Resources.CommonErrorMessages", typeof(CommonModule).Assembly),
             };
 
             builder.Register(ctx => new ResourceProvider(providers)).AsImplementedInterfaces().SingleInstance();

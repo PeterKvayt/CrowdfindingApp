@@ -2,7 +2,7 @@
 
 namespace CrowdfindingApp.Common.DataTransfers.Project
 {
-    public class ProjectDraftInfo
+    public class DraftProjectInfo
     {
         public string Id { get; set; }
         public string CategoryId { get; set; }

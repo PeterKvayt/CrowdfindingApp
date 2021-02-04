@@ -2,8 +2,8 @@
 
 namespace CrowdfindingApp.Common.Messages.Projects
 {
-    public class SaveDraftProjectRequestMessage : MessageBase
+    public class ProjectSearchRequestMessage : SearchMessageBase<ProjectFilterInfo>
     {
-        public DraftProjectInfo Data { get; set; }
+
     }
 }

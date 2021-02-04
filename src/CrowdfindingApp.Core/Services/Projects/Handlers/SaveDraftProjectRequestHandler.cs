@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
+using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Projects;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
@@ -32,7 +33,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
             if((requestMessage.Data?.CategoryId?.IsPresent() ?? false) && !Guid.TryParse(requestMessage.Data.CategoryId, out Guid _))
             {
-                return reply.AddValidationError(ProjectErrorKeys.InvalidCategoryId, parameters: requestMessage.Data.CategoryId);
+                return reply.AddValidationError(CommonErrorMessageKeys.InvalidCategoryId, parameters: requestMessage.Data.CategoryId);
             }
 
             return reply;

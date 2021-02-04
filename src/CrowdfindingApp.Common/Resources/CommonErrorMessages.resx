@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidCategoryId" xml:space="preserve">
+    <value>Категории с Id: "{0}" не найдено.</value>
+  </data>
+  <data name="InvalidIdFormat" xml:space="preserve">
+    <value>Невалидный формат Id: "{0}".</value>
+  </data>
 </root>

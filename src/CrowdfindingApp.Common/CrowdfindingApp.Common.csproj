@@ -18,19 +18,32 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\CrowdfindingApp.Data.Common\CrowdfindingApp.Data.Common.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\EmailResources.Designer.cs">
+    <Compile Update="Resources\EmailResources - Копировать.Designer.cs">
+      <DependentUpon>EmailResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>EmailResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CommonErrorMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CommonErrorMessages.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\CommonErrorMessages.resx">
+      <LastGenOutput>CommonErrorMessages.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\EmailResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EmailResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>CommonErrorMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -8,6 +8,6 @@ namespace CrowdfindingApp.Core.Services.Projects
 {
     public static class ProjectErrorKeys
     {
-        public const string InvalidCategoryId = nameof(InvalidCategoryId);
+        
     }
 }

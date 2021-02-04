@@ -18,6 +18,7 @@ namespace CrowdfindingApp.Common.Immutable
         public static class Project
         {
             public const string SaveDraft = "save-draft";
+            public const string Search = "search";
         }
     }
 }

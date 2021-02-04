@@ -17,7 +17,8 @@ namespace CrowdfindingApp.Core.Services.Projects
         private void RegisterHandlers(ContainerBuilder builder)
         {
             builder.RegisterType<SaveDraftProjectRequestHandler>().AsSelf().SingleInstance();
-            
+            builder.RegisterType<ProjectSearchRequestHandler>().AsSelf().SingleInstance();
+
         }
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CrowdfindingApp.Core.Services.Projects.Resources {
+namespace CrowdfindingApp.Common.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace CrowdfindingApp.Core.Services.Projects.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ErrorMessages {
+    internal class CommonErrorMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ErrorMessages() {
+        internal CommonErrorMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CrowdfindingApp.Core.Services.Projects.Resources.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CrowdfindingApp.Common.Resources.CommonErrorMessages", typeof(CommonErrorMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,24 @@ namespace CrowdfindingApp.Core.Services.Projects.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Категории с Id: &quot;{0}&quot; не найдено..
+        /// </summary>
+        internal static string InvalidCategoryId {
+            get {
+                return ResourceManager.GetString("InvalidCategoryId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Невалидный формат Id: &quot;{0}&quot;..
+        /// </summary>
+        internal static string InvalidIdFormat {
+            get {
+                return ResourceManager.GetString("InvalidIdFormat", resourceCulture);
             }
         }
     }
