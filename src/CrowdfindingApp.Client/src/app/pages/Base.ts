@@ -1,6 +1,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OnDestroy } from '@angular/core';
+import { ErrorInfo } from '../models/common/ErrorInfo';
 
 export class Base implements OnDestroy {
 

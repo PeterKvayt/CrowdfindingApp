@@ -31,7 +31,9 @@ import { ProfileSecurityComponent } from './pages/profile-security/profile-secur
 import { EmailConfirmationComponent } from './pages/email-confirmation/email-confirmation.component';
 import { EmailConfirmedComponent } from './pages/email-confirmed/email-confirmed.component';
 import { AuthenticationService } from './services/auth.service';
+import { MessageService } from './services/message.service';
 import { LinkComponent } from './components/link/link.component';
+import { MessageComponent } from './components/message/message.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { LinkComponent } from './components/link/link.component';
     PreloaderComponent,
     EmailConfirmationComponent,
     EmailConfirmedComponent,
-    LinkComponent
+    LinkComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -85,6 +88,7 @@ import { LinkComponent } from './components/link/link.component';
     })
   ],
   providers: [
+    MessageService,
     HttpService,
     UserService,
     ProjectService,

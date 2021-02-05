@@ -1,0 +1,14 @@
+.message-wrapper{
+  position: absolute;
+  z-index: 100;
+}
+
+.error-message{
+  cursor: pointer;
+  background-color: var(--regular);
+  color: var(--ligth-regular);
+  padding: 5px;
+  margin: 3px;
+  border-radius: 3px;
+  border: 1px solid var(--ligth-regular);
+}

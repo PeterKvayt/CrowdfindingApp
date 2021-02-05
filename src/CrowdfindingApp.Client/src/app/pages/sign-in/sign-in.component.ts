@@ -9,6 +9,8 @@ import { Title } from '@angular/platform-browser';
 import { GetTokenRequestMessage } from 'src/app/models/requests/user/GetTokenRequestMessage';
 import { TokenInfo } from 'src/app/models/replies/user/TokenInfo';
 import { ReplyMessage } from 'src/app/models/replies/ReplyMessage';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -18,14 +20,14 @@ import { ReplyMessage } from 'src/app/models/replies/ReplyMessage';
 export class SignInComponent extends Base implements OnInit {
   public emailInput: TextInput = { label: 'Email', placeholder: 'test@user.com' };
   public passwordInput: PasswordInput = { label: 'Пароль', placeholder: 'test'};
-  public succesSignIn = true;
 
   constructor(
     private accountService: UserService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
     private authService: AuthenticationService,
-    private titleService: Title
+    private titleService: Title,
+    public messageService: MessageService
   ) { super(router, activatedRoute); }
 
   public ngOnInit(): void {
@@ -45,14 +47,10 @@ export class SignInComponent extends Base implements OnInit {
         (response: ReplyMessage<TokenInfo>) => {
           this.authService.setToken(response.value.token);
           this.redirect('profile');
-        },
-        (error) => { 
-          console.log(error);
-          // if (error.statusCode !== 400) {
-          //   this.handleError(error);
-          // } else {
-          //   this.succesSignIn = false;
-          // }
+        }
+        ,
+        (error: HttpErrorResponse) => { 
+          this.messageService.addErrorRange(error.error.errors);
         }
       )
     );

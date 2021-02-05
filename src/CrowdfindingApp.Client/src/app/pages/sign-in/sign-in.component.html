@@ -6,8 +6,7 @@
       <span class="delicate-text">У вас нет аккаунта? </span>
       <app-link value='Зарегистрироваться' route='sign-up'></app-link>
     </fieldset>
-
-    <span *ngIf='!succesSignIn' class='text-danger'>Неверные email или пароль.</span>
+    <!-- <span *ngIf='!succesSignIn' class='text-danger'>Неверные email или пароль.</span> -->
 
     <app-text-input [(item)]='emailInput'></app-text-input>
     <app-password-input [(item)]='passwordInput'></app-password-input>
