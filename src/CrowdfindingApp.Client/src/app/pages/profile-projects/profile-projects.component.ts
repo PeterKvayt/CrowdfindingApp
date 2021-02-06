@@ -48,10 +48,7 @@ export class ProfileProjectsComponent extends Base implements OnInit {
   public onDeleteClick(id: string){
     this.subscriptions.add(
       this.projectService.delete(id).subscribe(
-        () =>  { this.deleteProjectById(id); },
-        error => {
-          this.handleError(error);
-        }
+        () =>  { this.deleteProjectById(id); }
       )
     )
   }

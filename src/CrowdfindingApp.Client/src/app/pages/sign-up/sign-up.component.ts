@@ -36,8 +36,7 @@ export class SignUpComponent extends Base implements OnInit {
     this.subscriptions.add(
       this.accountService.signUp(request)
         .subscribe(
-          () => { this.redirect('sign-in'); },
-          error => { this.handleError(error); }
+          x => { this.redirect('sign-in'); }
         )
     );
   }

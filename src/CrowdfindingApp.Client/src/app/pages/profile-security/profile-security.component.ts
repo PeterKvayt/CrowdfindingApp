@@ -34,10 +34,7 @@ export class ProfileSecurityComponent extends Base implements OnInit {
     };
 
       this.subscriptions.add(
-        this.accountService.changePassword(model).subscribe(
-          () => {},
-          error => { this.handleError(error); }
-        )
-      )
+        this.accountService.changePassword(model).subscribe()
+      );
   }
 }

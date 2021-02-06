@@ -30,8 +30,7 @@ export class ForgotPasswordComponent extends Base implements OnInit {
   public onPasswordRecoveryClick(): void {
     this.subscriptions.add(
       this.accountService.forgotPassword(this.emailInput.value).subscribe(
-        () => { this.redirect('sign-in'); },
-        error => { this.handleError(error); }
+        () => { this.redirect('sign-in'); }
       )
     )
   }

@@ -31,10 +31,7 @@ export class HomeComponent extends Base implements OnInit {
   //     this.projectService.getProjects().subscribe(
   //       (response: ProjectCardViewModel[]) => {
   //         this.projects = response.slice(0,4);
-  //       },
-  //       error => { 
-  //         this.handleError(error);
-  //        }
+  //       }
   //     )
   //   )
   // }

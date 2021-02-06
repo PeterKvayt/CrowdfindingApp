@@ -38,8 +38,7 @@ export class ResetPasswordComponent extends Base implements OnInit  {
     };
     this.subscriptions.add(
       this.accountService.resetPassword(model).subscribe(
-        () => { this.redirect('sign-in'); },
-        error => { this.handleError(error); }
+        () => { this.redirect('sign-in'); }
       )
     )
   }

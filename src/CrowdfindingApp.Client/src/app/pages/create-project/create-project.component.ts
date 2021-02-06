@@ -42,8 +42,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   //   };
   //   this.subscriptions.add(
   //     this.projectService.create(project).subscribe(
-  //       () => { this.redirect('profile'); },
-  //       error => { this.handleError(error); }
+  //       () => { this.redirect('profile'); }
   //     )
   //   );
   // }

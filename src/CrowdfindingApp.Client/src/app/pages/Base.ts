@@ -27,14 +27,14 @@ export class Base implements OnDestroy {
     this.router.navigate([route]);
   }
 
-  public handleError(error: any): void {
-    this.router.navigate(['error/' + this.activeatedRoute.snapshot.params['status'],
-      {
-        status: error.status,
-        message: error.message
-      }
-    ]);
-  }
+  // public handleError(error: any): void {
+  //   this.router.navigate(['error/' + this.activeatedRoute.snapshot.params['status'],
+  //     {
+  //       status: error.status,
+  //       message: error.message
+  //     }
+  //   ]);
+  // }
 
   public ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

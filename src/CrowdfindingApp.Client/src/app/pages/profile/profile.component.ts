@@ -36,9 +36,7 @@ export class ProfileComponent extends Base implements OnInit {
       this.userService.getUserInfo().subscribe(
         (reply: ReplyMessage<UserInfo>) => {
           this.userInfo = reply.value;
-          console.log(this.userInfo);
-        },
-        error => { this.handleError(error); }
+        }
       )
     );
   }

@@ -9,8 +9,6 @@ import { Title } from '@angular/platform-browser';
 import { GetTokenRequestMessage } from 'src/app/models/requests/user/GetTokenRequestMessage';
 import { TokenInfo } from 'src/app/models/replies/user/TokenInfo';
 import { ReplyMessage } from 'src/app/models/replies/ReplyMessage';
-import { HttpErrorResponse } from '@angular/common/http';
-import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -27,7 +25,6 @@ export class SignInComponent extends Base implements OnInit {
     public activatedRoute: ActivatedRoute,
     private authService: AuthenticationService,
     private titleService: Title,
-    public messageService: MessageService
   ) { super(router, activatedRoute); }
 
   public ngOnInit(): void {
@@ -47,10 +44,6 @@ export class SignInComponent extends Base implements OnInit {
         (response: ReplyMessage<TokenInfo>) => {
           this.authService.setToken(response.value.token);
           this.redirect('profile');
-        }
-        ,
-        (error: HttpErrorResponse) => { 
-          this.messageService.addErrorRange(error.error.errors);
         }
       )
     );

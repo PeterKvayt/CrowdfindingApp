@@ -47,8 +47,7 @@ export class ProfileInfoComponent extends Base implements OnInit {
         (response: ReplyMessage<UserInfo>) => {
           // this.nameInput.value = response.name;
           // this.emailInput.value = response.email;
-        },
-        error => { this.handleError(error); }
+        }
       )
     )
   }
