@@ -103,3 +103,31 @@ import { MessageComponent } from './components/message/message.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// extensions
+
+declare global {
+  export interface Array<T> {
+    remove: (this: Array<T>, value: T) => void;
+    removeByProp: <TArray, TValue>(this: Array<T>, propName: string, value: TValue) => void;
+  }
+}
+
+Array.prototype.remove = function<T>(this: Array<T>, value: T): void{
+  const index = this.indexOf(value);
+  if (index > -1) {
+    this.splice(index, 1);
+  }
+};
+
+Array.prototype.removeByProp = function<TArray, TValue>(this: TArray[], propName: string, value: TValue): void {
+  for (let index = 0; index < this.length; index++) {
+    if (this[index]
+        && this[index].hasOwnProperty(propName)
+        && (arguments.length > 2 && this[index][propName] === value )
+      ) {
+      this.splice(index, 1);
+    }
+  }
+};
+

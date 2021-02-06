@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/services/message.service';
+import { ErrorInfo } from 'src/app/models/common/ErrorInfo';
 
 @Component({
   selector: 'app-message',
@@ -15,8 +16,8 @@ export class MessageComponent implements OnInit {
   ngOnInit() {
   }
 
-  public removeMessage(): void {
-    this.messageService.errors.splice(0, 1);
+  public removeMessage(error: ErrorInfo): void {
+    this.messageService.errors.remove(error);
   }
 
 }

@@ -1,6 +1,6 @@
 <ng-container *ngIf='messageService.errors.length > 0'>
   <div class="message-wrapper">
-    <div class="error-message" (click)="removeMessage()" *ngFor='let error of messageService.errors'>
+    <div class="error-message" (click)="removeMessage(error)" *ngFor='let error of messageService.errors'>
       <span class="delicate-text">{{error.message}}</span> 
     </div>
   </div>
