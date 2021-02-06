@@ -34,6 +34,7 @@ import { AuthenticationService } from './services/auth.service';
 import { MessageService } from './services/message.service';
 import { LinkComponent } from './components/link/link.component';
 import { MessageComponent } from './components/message/message.component';
+import { CreateProjectRulesComponent } from './pages/create-project-rules/create-project-rules.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { MessageComponent } from './components/message/message.component';
     EmailConfirmationComponent,
     EmailConfirmedComponent,
     LinkComponent,
-    MessageComponent
+    MessageComponent,
+    CreateProjectRulesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -73,6 +75,7 @@ import { MessageComponent } from './components/message/message.component';
       { path: 'reset-password', component: ResetPasswordComponent },
       { path: 'email-confirmation', component: EmailConfirmationComponent },
       { path: 'email-confirmed', component: EmailConfirmedComponent },
+      { path: 'create-project-rules', component: CreateProjectRulesComponent },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/projects', component: ProfileProjectsComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/create-project', component: CreateProjectComponent, canActivate: [AuthenticationGuardService] },

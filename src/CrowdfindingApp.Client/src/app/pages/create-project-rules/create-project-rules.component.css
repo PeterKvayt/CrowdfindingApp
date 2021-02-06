@@ -1,0 +1,29 @@
+.create-project-rule-card-wrapper{
+  padding: 3px;
+  
+}
+.create-project-rule-card{
+  padding: 20px;
+  text-align: justify;
+  height: 100%;
+  border-radius: 4px;
+  background-color: var(--pre-light-regular);
+  color: var(--regular);
+}
+
+.rule-header{
+  display: block;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.img-wrapper{
+  width: 100%;
+}
+img{ width: 100%;}
+
+.header{
+  font-weight: 700;
+  font-size: 35px;
+  padding: 1rem;
+}
