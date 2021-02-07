@@ -7,9 +7,9 @@
       <app-link value='Войти' route='sign-in'></app-link>
     </fieldset>
 
-    <app-text-input [(item)]='emailInput'></app-text-input>
-    <app-password-input [(item)]='passwordInput'></app-password-input>
-    <app-password-input [(item)]='confirmPasswordInput'></app-password-input>
+    <app-text-input [(item)]='emailInput' (keyup.enter)='onSignUpClick()'></app-text-input>
+    <app-password-input [(item)]='passwordInput' (keyup.enter)='onSignUpClick()'></app-password-input>
+    <app-password-input [(item)]='confirmPasswordInput' (keyup.enter)='onSignUpClick()'></app-password-input>
 
     <fieldset class="text-center">
       <app-regular-btn value='Зарегистрироваться' fluid='true' ico='fas fa-check' (click)='onSignUpClick()'>
