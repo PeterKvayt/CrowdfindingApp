@@ -5,10 +5,13 @@
 
 .error-message{
   cursor: pointer;
-  background-color: var(--regular);
-  color: var(--ligth-regular);
+  background-color: var(--pre-light-regular);
+  box-shadow:0px 2px 5px 0px rgba(0,0,0,0.36);
+  -webkit-box-shadow:0px 2px 5px 0px rgba(0,0,0,0.36);
+  -moz-box-shadow:0px 2px 5px 0px rgba(0,0,0,0.36);
+  /* color: var(--ligth-regular); */
   padding: 5px;
   margin: 3px;
   border-radius: 3px;
-  border: 1px solid var(--ligth-regular);
+  /* border: 1px solid var(--ligth-regular); */
 }
