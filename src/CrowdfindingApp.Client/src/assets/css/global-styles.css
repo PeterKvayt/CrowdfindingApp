@@ -11,6 +11,8 @@ input{
   font-size: var(--regular-font-size);
 }
 
+.global-top-padding{ padding-top: var(--global-top-padding)}
+
 ::-webkit-input-placeholder{ font-weight: 100; }
 ::-moz-placeholder{ font-weight: 100; }
 :-moz-placeholder{ font-weight: 100; }

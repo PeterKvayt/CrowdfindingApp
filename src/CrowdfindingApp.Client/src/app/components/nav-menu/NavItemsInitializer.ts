@@ -20,7 +20,7 @@ export class NavItemInitializer {
   public rightNavs: NavItem[];
 
   public allProjectsNav = new NavItem('Все проекты', 'all-projects', 'fas fa-stream', true );
-  public createProjectNav = new NavItem('Создать проект', 'create-project-rules', 'fas fa-plus', true );
+  public createProjectNav = new NavItem('Правила проекта', 'create-project-rules', 'fas fa-book-open', true );
   public helpNav = new NavItem('Помощь', 'help', 'fas fa-info', true );
   public searchNav = new NavItem('Поиск', 'search', 'fas fa-search', true );
   public profileNav = new NavItem('Профиль', 'profile', 'fas fa-user-circle');
