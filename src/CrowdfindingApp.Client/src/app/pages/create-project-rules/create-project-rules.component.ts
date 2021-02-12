@@ -1,14 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { RuleCard } from './RuleCard';
+import { AuthenticationService } from 'src/app/services/auth.service';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Base } from '../Base';
 
 @Component({
   selector: 'app-create-project-rules',
   templateUrl: './create-project-rules.component.html',
   styleUrls: ['./create-project-rules.component.css']
 })
-export class CreateProjectRulesComponent implements OnInit {
+export class CreateProjectRulesComponent extends Base implements OnInit  {
 
-  constructor() { }
+  constructor(
+    private authService: AuthenticationService,
+    private titleService: Title,
+    public router: Router,
+    public activatedRoute: ActivatedRoute,
+
+  ) { super(router, activatedRoute); }
 
   public requirements: RuleCard[] = [
     new RuleCard('Качественное оформление', 'Текст описания должен быть написан грамотным языком и четко структурирован. Также обязательным является наличие качественных фотоматериалов, иллюстраций или инфографики. Желательно наличие видео-обращения.', 'assets/img/artist.png'),
@@ -31,7 +41,15 @@ export class CreateProjectRulesComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.titleService.setTitle('Правила создания проекта');
+  }
 
+  public onCreateProjectClick(): void {
+    if (this.authService.isAuthenticated()) {
+      this.redirect('create-project');
+    } else {
+      this.redirect('sign-in');
+    }
   }
 
 }

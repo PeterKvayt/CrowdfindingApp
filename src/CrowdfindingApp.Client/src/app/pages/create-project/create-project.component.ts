@@ -6,6 +6,7 @@ import { ProjectService } from 'src/app/services/project.service';
 import { TextInput } from 'src/app/components/inputs/text-input/TextInput';
 import { DecimalInput } from 'src/app/components/inputs/decimal-input/DecimalInput';
 import { Title } from '@angular/platform-browser';
+import { TabElement } from 'src/app/components/tab/Tabelement';
 
 @Component({
   selector: 'app-create-project',
@@ -24,11 +25,22 @@ export class CreateProjectComponent extends Base implements OnInit {
     private projectService: ProjectService,
     public activatedRoute: ActivatedRoute,
     private titleService: Title
-    ) {
-      super(router, activatedRoute);
-    }
+    ) { super(router, activatedRoute); }
   public ngOnInit(): void {
     this.titleService.setTitle('Создание проекта');
+  }
+
+  public generalInfoTab = new TabElement('Общая информация', false);
+  public rewardsTab = new TabElement('Вознаграждения', false);
+  public descriptionTab = new TabElement('Подробное описание', false);
+  public paymentTab = new TabElement('Платежная информация', false);
+
+  public onTabClick(tab: TabElement): void {
+    this.generalInfoTab.iaActive = false;
+    this.rewardsTab.iaActive = false;
+    this.descriptionTab.iaActive = false;
+    this.paymentTab.iaActive = false;
+    tab.iaActive = true;
   }
 
   // public onCreateClick(): void {
