@@ -11,6 +11,7 @@ export class Base implements OnDestroy {
   ) { }
 
   public subscriptions = new Subscription();
+  public showLoader = false;
 
   private removeByProp<TArray, TValue>(array: TArray[], propName: string, value: TValue): void {
     for (let index = 0; index < array.length; index++) {

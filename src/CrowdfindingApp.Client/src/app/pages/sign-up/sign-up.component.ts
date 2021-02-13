@@ -32,11 +32,13 @@ export class SignUpComponent extends Base implements OnInit {
   }
 
   public onSignUpClick(): void {
+    this.showLoader = true;
     const request = new RegisterRequestMessage(this.emailInput.value, this.passwordInput.value, this.confirmPasswordInput.value);
     this.subscriptions.add(
       this.accountService.signUp(request)
         .subscribe(
-          x => { this.redirect('sign-in'); }
+          x => { this.redirect('sign-in'); },
+         () => { this.showLoader = false; }
         )
     );
   }

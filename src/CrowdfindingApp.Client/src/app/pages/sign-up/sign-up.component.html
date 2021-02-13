@@ -1,5 +1,11 @@
+<div class="shape-up"></div>
+<div class="shape-down"></div>
+
+<div [hidden]='!showLoader' class="global-loader-box">
+  <app-preloader></app-preloader>
+</div>
+
 <div class="row">
-  <div class="shape-up"></div>
   <div class="col-lg-5 left-section">
     <span class="title">Регистрация</span>
     <fieldset class="form-group">
@@ -17,7 +23,6 @@
     </fieldset>
 
   </div>
-  <div class="shape-down"></div>
   <div class="col-lg-6 right-section">
     <div class="img-wrapper">
       <img class="background-image" src="assets/img/sign-up.png" alt="sign up image">

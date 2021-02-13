@@ -19,8 +19,6 @@ export class SignInComponent extends Base implements OnInit {
   public emailInput: TextInput = { label: 'Email', placeholder: 'test@user.com' };
   public passwordInput: PasswordInput = { label: 'Пароль', placeholder: 'test'};
 
-  public showPreloader = false;
-
   constructor(
     private accountService: UserService,
     public router: Router,
@@ -37,7 +35,7 @@ export class SignInComponent extends Base implements OnInit {
   }
 
   public onSignInClick(): void {
-    this.showPreloader = true;
+    this.showLoader = true;
     const user: GetTokenRequestMessage = {
       email: this.emailInput.value,
       password: this.passwordInput.value
@@ -48,7 +46,7 @@ export class SignInComponent extends Base implements OnInit {
           this.authService.setToken(response.value.token);
           this.redirect('profile');
         },
-        () => { this.showPreloader = false; }
+        () => { this.showLoader = false; }
       )
     );
   }
