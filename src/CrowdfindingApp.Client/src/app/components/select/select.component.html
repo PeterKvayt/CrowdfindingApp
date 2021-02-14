@@ -1,0 +1,8 @@
+<div class="form-group">
+
+  <select class="form-control" (change)='onValueSelect($event.target.value)'>
+    <option disabled selected value="0">{{defaultValue}}</option>
+    <option *ngFor='let item of collection' [value]="item.value">{{item.name}}</option>
+  </select>
+  
+</div>

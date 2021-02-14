@@ -29,4 +29,11 @@ input{
   top:50%;
   left:50%;
 }
-
+.global-img-wrapper{
+  border-radius: 4px;
+  display: block;
+  /* height: ; */
+}
+.global-img{
+  width: 100%;
+}

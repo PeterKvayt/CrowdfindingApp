@@ -1,35 +1,104 @@
 <div class="container global-top-padding">
   <div class="row">
     <div class="col-12">
-      <h2>Создание проекта</h2>
+      <h2 class="title">Создание проекта</h2>
     </div>
 
     <!--  Tab btns -->
     <div class="col-lg-3 col-md-6 col-sm-12">
-      <app-tab [value]='generalInfoTab.value' [active]='generalInfoTab.iaActive' (click)='onTabClick(generalInfoTab)'></app-tab>
+      <app-tab [value]='generalInfoTab.value' [active]='generalInfoTab.isActive' (click)='onTabClick(generalInfoTab)'>
+      </app-tab>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-12">
-      <app-tab [value]='rewardsTab.value' [(active)]='rewardsTab.iaActive' (click)='onTabClick(rewardsTab)'></app-tab>
+      <app-tab [value]='rewardsTab.value' [active]='rewardsTab.isActive' (click)='onTabClick(rewardsTab)'></app-tab>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-12">
-      <app-tab [value]='descriptionTab.value' [(active)]='descriptionTab.iaActive' (click)='onTabClick(descriptionTab)'></app-tab>
+      <app-tab [value]='descriptionTab.value' [active]='descriptionTab.isActive' (click)='onTabClick(descriptionTab)'>
+      </app-tab>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-12">
-      <app-tab [value]='paymentTab.value' [(active)]='paymentTab.iaActive' (click)='onTabClick(paymentTab)'></app-tab>
+      <app-tab [value]='paymentTab.value' [active]='paymentTab.isActive' (click)='onTabClick(paymentTab)'></app-tab>
     </div>
 
     <!-- Tabs -->
-    <div [hidden]='!generalInfoTab.iaActive'  class="col-12">
-  general info
-    </div>
-    <div [hidden]='!rewardsTab.iaActive'  class="col-12">
-  rewards
-      </div>
-      <div [hidden]='!descriptionTab.iaActive'  class="col-12">
-  descr
-        </div>
-        <div [hidden]='!paymentTab.iaActive'  class="col-12">
-  pay
+    <ng-container *ngIf='generalInfoTab.isActive'>
+      <div class="col-8">
+
+        <div class="box">
+          <span class="sub-title">Название проекта</span>
+          <app-text-input [item]='projectNameInput'></app-text-input>
+          <div class="delicate-text">Название должно быть лаконичным, уникальным и запоминающимся. Будьте уверены в том,
+            что название проекта отражает его суть.
           </div>
+        </div>
+
+        <div class="box">
+          <span class="sub-title">Краткое описание проекта</span>
+          <app-text-area [item]='projectShortDescriptionInput'></app-text-area>
+          <div class="delicate-text">
+            Опишите в одном предложении цель вашего проекта.
+          </div>
+        </div>
+
+        <div class="box">
+          <span class="sub-title">Категория проекта</span>
+          <app-select [collection]='categorySelect' defaultValue='Выберите категорию проекта'
+            (selectedValue)='onCategorySelect($event)'></app-select>
+        </div>
+
+        <div class="box">
+          <span class="sub-title">Город реализации</span>
+          <app-select [collection]='citiesList' defaultValue='Выберите город реализации'
+            (selectedValue)='onCitySelect($event)'></app-select>
+        </div>
+
+        <div class="box">
+          <span class="sub-title">Обложка проекта</span>
+          <div class="global-img-wrapper">
+            <img class="global-img" src="assets/img/artist.png" alt="project image" />
+          </div>
+          <app-regular-btn value='Загрузить изображение' ico='fas fa-download' (click)='onDownloadImgClick()'>
+          </app-regular-btn>
+        </div>
+
+        <div class="box">
+          <span class="sub-title">Видео проекта</span>
+          <app-text-input [item]='projectVideoInput'></app-text-input>
+          <div class="delicate-text">Вам необходимо предварительно загрузить свое видео на YouTube, а затем нажать на
+            кнопку поделиться и скопировать сюда ссылку.
+          </div>
+        </div>
+
+        <div class="box">
+          <span class="sub-title">Бюджет и продолжительность компании</span>
+          <app-decimal-input [item]='purposeInput'></app-decimal-input>
+          <app-decimal-input [item]='durationInput'></app-decimal-input>
+          <div class="delicate-text">Мы рекомендуем указывать минимальную сумму, необходимую для реализации проекта.
+            Платформа использует модель «все или ничего», а это значит, что для получения средств вам обязательно
+            необходимо собрать от 100% и выше.
+          </div>
+          <br>
+          <div class="delicate-text">
+            Обращаем ваше внимание на то, что платформа берет комиссию только с успешных проектов.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-4">
+          <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save' (click)='onDownloadImgClick()'>
+            </app-regular-btn>
+      </div>
+    </ng-container>
+
+    <div [hidden]='!rewardsTab.isActive' class="col-12 box">
+      rewards
+    </div>
+    <div [hidden]='!descriptionTab.isActive' class="col-12 box">
+      descr
+    </div>
+    <div [hidden]='!paymentTab.isActive' class="col-12 box">
+      pay
+    </div>
   </div>
 </div>

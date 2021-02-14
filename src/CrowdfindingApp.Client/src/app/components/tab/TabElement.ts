@@ -1,7 +1,7 @@
 export class TabElement {
   constructor(
     public value: string,
-    public iaActive: boolean,
+    public isActive: boolean,
     public ico?: string,
     public icoBefore?: boolean
   ) {

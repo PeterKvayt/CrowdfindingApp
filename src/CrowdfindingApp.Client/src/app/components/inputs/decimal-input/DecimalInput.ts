@@ -1,6 +1,6 @@
 export class DecimalInput {
 
-  public label: string;
+  public label?: string;
   public errorText?: string;
   public placeholder?: string;
   public value?: number;

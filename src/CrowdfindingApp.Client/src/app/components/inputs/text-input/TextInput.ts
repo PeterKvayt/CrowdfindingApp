@@ -1,6 +1,5 @@
 export class TextInput {
-
-  public label: string;
+  public label?: string;
   public errorText?: string;
   public placeholder?: string;
   public value?: string;

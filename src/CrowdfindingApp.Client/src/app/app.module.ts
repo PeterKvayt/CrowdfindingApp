@@ -36,6 +36,9 @@ import { LinkComponent } from './components/link/link.component';
 import { MessageComponent } from './components/message/message.component';
 import { CreateProjectRulesComponent } from './pages/create-project-rules/create-project-rules.component';
 import { TabComponent } from './components/tab/tab.component';
+import { TextAreaComponent } from './components/inputs/text-area/text-area.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { SelectComponent } from './components/select/select.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,10 @@ import { TabComponent } from './components/tab/tab.component';
     LinkComponent,
     MessageComponent,
     CreateProjectRulesComponent,
-    TabComponent
+    TabComponent,
+    TextAreaComponent,
+    DropdownComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
