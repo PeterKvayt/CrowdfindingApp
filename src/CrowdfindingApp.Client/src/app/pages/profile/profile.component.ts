@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Base } from '../Base';
 import { UserService } from 'src/app/services/user.service';
 import { Title } from '@angular/platform-browser';
-import { ReplyMessage } from 'src/app/models/replies/ReplyMessage';
+import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
 import { UserInfo } from 'src/app/models/replies/user/UserInfo';
 import { AuthenticationService } from 'src/app/services/auth.service';
 

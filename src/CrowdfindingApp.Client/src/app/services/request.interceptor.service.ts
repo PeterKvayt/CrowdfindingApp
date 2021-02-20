@@ -5,7 +5,7 @@ import { Settings } from './settings.service';
 import { MessageService } from './message.service';
 import { catchError } from 'rxjs/operators';
 import { ReplyMessageBase } from '../models/replies/ReplyMessageBase';
-import { ReplyMessage } from '../models/replies/ReplyMessage';
+import { ReplyMessage } from '../models/replies/common/ReplyMessage';
 
 @Injectable()
 export class ParamInterceptor implements HttpInterceptor {

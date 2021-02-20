@@ -8,7 +8,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { Title } from '@angular/platform-browser';
 import { GetTokenRequestMessage } from 'src/app/models/requests/user/GetTokenRequestMessage';
 import { TokenInfo } from 'src/app/models/replies/user/TokenInfo';
-import { ReplyMessage } from 'src/app/models/replies/ReplyMessage';
+import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
 
 @Component({
   selector: 'app-sign-in',
