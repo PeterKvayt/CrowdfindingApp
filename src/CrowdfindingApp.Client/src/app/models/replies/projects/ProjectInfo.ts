@@ -1,5 +1,5 @@
-import { DraftProjectInfo } from "./DraftProjectInfo";
+import { DraftProjectInfo } from './DraftProjectInfo';
 
 export class ProgectInfo extends DraftProjectInfo {
-  
+
 }
