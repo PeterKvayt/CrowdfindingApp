@@ -6,8 +6,8 @@ import { TextInput } from 'src/app/components/inputs/text-input/TextInput';
 import { PasswordInput } from 'src/app/components/inputs/password-input/PasswordInut';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { Title } from '@angular/platform-browser';
-import { GetTokenRequestMessage } from 'src/app/models/requests/user/GetTokenRequestMessage';
-import { TokenInfo } from 'src/app/models/replies/user/TokenInfo';
+import { GetTokenRequestMessage } from 'src/app/models/requests/users/GetTokenRequestMessage';
+import { TokenInfo } from 'src/app/models/replies/users/TokenInfo';
 import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
 
 @Component({

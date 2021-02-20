@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { Settings } from './settings.service';
 import { MessageService } from './message.service';
 import { catchError } from 'rxjs/operators';
-import { ReplyMessageBase } from '../models/replies/ReplyMessageBase';
+import { ReplyMessageBase } from '../models/replies/common/ReplyMessageBase';
 import { ReplyMessage } from '../models/replies/common/ReplyMessage';
 
 @Injectable()

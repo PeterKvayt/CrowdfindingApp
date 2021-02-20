@@ -4,9 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TextInput } from 'src/app/components/inputs/text-input/TextInput';
 import { UserService } from 'src/app/services/user.service';
 import { Title } from '@angular/platform-browser';
-import { UpdateUserRequestMessage } from 'src/app/models/requests/user/UpdateUserRequestMessage';
+import { UpdateUserRequestMessage } from 'src/app/models/requests/users/UpdateUserRequestMessage';
 import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
-import { UserInfo } from 'src/app/models/replies/user/UserInfo';
+import { UserInfo } from 'src/app/models/replies/users/UserInfo';
 
 @Component({
   selector: 'app-profile-info',
