@@ -22,7 +22,7 @@
 
     <!-- Tabs -->
     <ng-container *ngIf='generalInfoTab.isActive'>
-      <div class="col-8">
+      <div class="col-8 tab-inner">
 
         <div class="box">
           <span class="sub-title">Название проекта</span>
@@ -85,14 +85,98 @@
 
       </div>
 
-      <div class="col-4">
+      <div class="col-4 tab-inner">
           <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save' (click)='onDownloadImgClick()'>
             </app-regular-btn>
       </div>
     </ng-container>
 
-    <div [hidden]='!rewardsTab.isActive' class="col-12 box">
-      rewards
+  <ng-container *ngIf='rewardsTab.isActive'>
+      <div class="col-8 tab-inner">
+
+          <div class="box">
+            <span class="sub-title">Новое вознаграждение</span>
+            <app-text-input [item]='rewardNameInput'></app-text-input>
+            <app-decimal-input [item]='rewardCostInput'></app-decimal-input>
+            <app-text-area [item]='rewardDescriptionInput'></app-text-area>
+          </div>
+
+          <div class="box">
+              <span class="sub-title">Выбор изображения</span>
+              <div class="delicate-text">
+                  Загружать изображение для вознаграждения необязательно, но оно привлекает внимание, что может помочь вам собрать нужную сумму.
+              </div>
+              <div class="global-img-wrapper">
+                <img class="global-img" src="assets/img/artist.png" alt="project image" />
+              </div>
+              <app-regular-btn value='Загрузить изображение' ico='fas fa-download' (click)='onDownloadImgClick()'>
+              </app-regular-btn>
+          </div>
+          
+          <div class="box">
+              <span class="sub-title">Примерная дата доставки</span>
+              <app-month-select (selectedValue)='onMonthSelect($event)'></app-month-select>
+              <app-year-selector (selectedValue)='onYearSelect($event)' [yearsCount]='3'></app-year-selector>
+          </div>
+
+          <div class="box">
+            <span class="sub-title">География доставки</span>
+          
+            <div (click)='onDeliverySubTabClick(withoutDeliverySubTab)'>
+              <span class="delicate-text"> Доставка отсутствует</span>
+            </div>
+
+            <div (click)='onDeliverySubTabClick(someCountriesDeliverySubTab)'>
+              <span class="delicate-text"> Некоторые страны</span>
+              <ng-container *ngIf='someCountriesDeliverySubTab.isActive'>
+                <app-select [collection]='countryList' defaultValue='Выберите страну' (selectedValue)='onCountrySelect($event)'>
+                </app-select>
+                <app-decimal-input [item]='countryDeliveryCostInput'></app-decimal-input>
+                <app-regular-btn value='Добавить страну' (click)='onSomeCountryDeliveryAddClick()'></app-regular-btn>
+                <div class="selected-countries">
+                  <div class="selected-country-item" *ngFor='let country of rewardDeliveryIncludedCountries'>
+                    {{country.value}} BYN 
+                    <app-regular-btn value='Удалить' (click)='onRemoveCountryFromIncludedList(country)'></app-regular-btn>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+
+            <div (click)='onDeliverySubTabClick(wholeWorldDeliverySubTab)'>
+              <span class="delicate-text"> Весь мир</span>
+              <ng-container *ngIf='wholeWorldDeliverySubTab.isActive'>
+                <app-decimal-input [item]='rewardWholeWorldDeliveryCostInput'></app-decimal-input>
+                <app-select [collection]='countryList' defaultValue='Страны исключения' (selectedValue)='onCountrySelect($event)'>
+                </app-select>
+                <app-decimal-input [item]='countryDeliveryCostInput'></app-decimal-input>
+                <app-regular-btn value='Добавить страну исключение' (click)='onExcludedCountryDeliveryAddClick()'></app-regular-btn>
+              </ng-container>
+            </div>
+
+          </div>
+
+          <div class="box">
+              <span class="sub-title">Количество</span>
+              <div class="delicate-text">
+                Если у вознаграждения есть ограничение по количеству, то укажите его.
+              </div>
+              <app-decimal-input [item]='rewardCountRestrictionsInput'></app-decimal-input>
+             
+          </div>
+          <app-regular-btn value='Добавить вознаграждение' (click)='onRewardAddClick()'></app-regular-btn>
+
+        </div>
+  
+        <div class="col-4 tab-inner">
+            <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save' (click)='onDownloadImgClick()'>
+              </app-regular-btn>
+        </div>
+
+  </ng-container>
+
+    <div [hidden]='!rewardsTab.isActive' class="col-12">
+      
+
     </div>
     <div [hidden]='!descriptionTab.isActive' class="col-12 box">
       descr

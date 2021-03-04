@@ -38,7 +38,9 @@ import { CreateProjectRulesComponent } from './pages/create-project-rules/create
 import { TabComponent } from './components/tab/tab.component';
 import { TextAreaComponent } from './components/inputs/text-area/text-area.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
-import { SelectComponent } from './components/select/select.component';
+import { SelectComponent } from './components/selectors/select/select.component';
+import { MonthSelectComponent } from './components/selectors/month-select/month-select.component';
+import { YearSelectorComponent } from './components/selectors/year-selector/year-selector.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { SelectComponent } from './components/select/select.component';
     TabComponent,
     TextAreaComponent,
     DropdownComponent,
-    SelectComponent
+    SelectComponent,
+    MonthSelectComponent,
+    YearSelectorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
