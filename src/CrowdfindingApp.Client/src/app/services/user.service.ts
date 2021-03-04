@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { GetTokenRequestMessage } from '../models/requests/user/GetTokenRequestMessage';
-import { ResetPasswordRequestMessage } from '../models/requests/user/ResetPasswordRequestMessage';
-import { RegisterRequestMessage } from '../models/requests/user/RegisterRequestMessage';
-import { UpdateUserRequestMessage } from '../models/requests/user/UpdateUserRequestMessage';
-import { ChangePasswordRequestMessage } from '../models/requests/user/ChangePasswordRequestMessage';
+import { GetTokenRequestMessage } from '../models/requests/users/GetTokenRequestMessage';
+import { ResetPasswordRequestMessage } from '../models/requests/users/ResetPasswordRequestMessage';
+import { RegisterRequestMessage } from '../models/requests/users/RegisterRequestMessage';
+import { UpdateUserRequestMessage } from '../models/requests/users/UpdateUserRequestMessage';
+import { ChangePasswordRequestMessage } from '../models/requests/users/ChangePasswordRequestMessage';
 
 @Injectable()
 export class UserService {

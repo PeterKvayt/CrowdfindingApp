@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { PasswordInput } from 'src/app/components/inputs/password-input/PasswordInut';
 import { Title } from '@angular/platform-browser';
-import { ChangePasswordRequestMessage } from 'src/app/models/requests/user/ChangePasswordRequestMessage';
+import { ChangePasswordRequestMessage } from 'src/app/models/requests/users/ChangePasswordRequestMessage';
 
 @Component({
   selector: 'app-profile-security',

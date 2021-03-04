@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PasswordInput } from 'src/app/components/inputs/password-input/PasswordInut';
 import { UserService } from 'src/app/services/user.service';
 import { Title } from '@angular/platform-browser';
-import { ResetPasswordRequestMessage } from 'src/app/models/requests/user/ResetPasswordRequestMessage';
+import { ResetPasswordRequestMessage } from 'src/app/models/requests/users/ResetPasswordRequestMessage';
 
 @Component({
   selector: 'app-reset-password',

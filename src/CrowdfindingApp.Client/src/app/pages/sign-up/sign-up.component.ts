@@ -5,7 +5,7 @@ import { Base } from '../Base';
 import { TextInput } from 'src/app/components/inputs/text-input/TextInput';
 import { PasswordInput } from 'src/app/components/inputs/password-input/PasswordInut';
 import { Title } from '@angular/platform-browser';
-import { RegisterRequestMessage } from 'src/app/models/requests/user/RegisterRequestMessage';
+import { RegisterRequestMessage } from 'src/app/models/requests/users/RegisterRequestMessage';
 
 @Component({
   selector: 'app-sign-up',
