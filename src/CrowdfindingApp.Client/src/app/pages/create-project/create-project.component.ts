@@ -58,6 +58,10 @@ export class CreateProjectComponent extends Base implements OnInit {
     new LookupItem('Россия', '2'),
   ];
 
+public getCountryNameById(id: string): string {
+  return this.countryList.find(x => x.value === id).name;
+}
+
   public generalInfoTab = new TabElement('Общая информация', true);
   public rewardsTab = new TabElement('Вознаграждения', false);
   public descriptionTab = new TabElement('Подробное описание', false);

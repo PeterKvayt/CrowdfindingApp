@@ -87,7 +87,7 @@
 
       <div class="col-4 tab-inner">
         <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
-          (click)='onDownloadImgClick()'>
+          (click)='onSaveClick()'>
         </app-regular-btn>
       </div>
     </ng-container>
@@ -138,7 +138,7 @@
               <app-regular-btn value='Добавить страну' (click)='onSomeCountryDeliveryAddClick()'></app-regular-btn>
               <div class="selected-countries">
                 <div class="selected-country-item" *ngFor='let country of rewardDeliveryIncludedCountries'>
-                  {{country.value}} BYN
+                  {{getCountryNameById(country.key)}} {{country.value}} BYN
                   <app-regular-btn value='Удалить' (click)='onRemoveCountryFromIncludedList(country)'></app-regular-btn>
                 </div>
               </div>
@@ -174,7 +174,7 @@
 
       <div class="col-4 tab-inner">
         <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
-          (click)='onDownloadImgClick()'>
+          (click)='onSaveClick()'>
         </app-regular-btn>
       </div>
 
