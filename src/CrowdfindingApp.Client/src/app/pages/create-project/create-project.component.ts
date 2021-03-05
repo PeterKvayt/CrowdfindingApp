@@ -21,10 +21,12 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   // project fields
   public projectNameInput: TextInput = { placeholder: 'Введите название проекта' };
-  public projectShortDescriptionInput: TextArea = { placeholder: 'Кратко опишите проект (до 280 символов)' };
+  public projectShortDescriptionInput: TextArea = { placeholder: 'Кратко опишите проект (до 280 символов)', max: 280 };
+  public projectDescriptionInput: TextArea = { placeholder: 'Введите полное описание проекта ...' };
   public projectVideoInput: TextInput = { placeholder: 'Введите ссылку на видео' };
   public purposeInput: DecimalInput = { placeholder: 'Введите финансовую цель (BYN)', min: 1 };
   public durationInput: DecimalInput = { placeholder: 'Введите финансовую цель (BYN)', min: 1, max: 180 };
+  public faqList: LookupItem[] = [];
 
   // reward fields
   public rewardNameInput: TextInput = { placeholder: 'Введите название вознаграждения' };
@@ -32,10 +34,13 @@ export class CreateProjectComponent extends Base implements OnInit {
   public rewardCountRestrictionsInput: DecimalInput = { placeholder: 'Введите количество', min: 1 };
   public rewardDescriptionInput: TextArea = { placeholder: 'Введите описание вознаграждения' };
   public rewardDeliveryIncludedCountries: GenericLookupItem<string, number>[] = [];
-  public rewardDeliveryExcludedCountries: string[] = [];
+  public rewardDeliveryExcludedCountries: GenericLookupItem<string, number>[] = [];
   public rewardWholeWorldDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки по всему миру (BYN)', min: 1 };
 
+  // common inputs
   public countryDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки (BYN)', min: 1 };
+  public questionInput: TextInput = { placeholder: 'Введите вопрос' };
+  public answerInput: TextArea = { placeholder: 'Введите ответ на вопрос' };
 
   public categorySelect: LookupItem[] = 
   [
@@ -126,6 +131,8 @@ export class CreateProjectComponent extends Base implements OnInit {
   public onExcludedCountryDeliveryAddClick(): void {
     this.rewardDeliveryExcludedCountries.push(
       new GenericLookupItem<string, number>(this.selectedCountry, this.countryDeliveryCostInput.value));
+      this.countryDeliveryCostInput.value = undefined;
+
   }
 
   public onRemoveCountryFromIncludedList(country: GenericLookupItem<string, number>): void {
@@ -142,11 +149,33 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.rewardDeliveryIncludedCountries = [];
   }
 
+  public onQuewstionAddClick(): void {
+    if(!this.questionInput.value || !this.answerInput.value){
+      return;
+    }
+
+    this.faqList.push(
+      new LookupItem(this.questionInput.value, this.answerInput.value)
+      );
+      this.questionInput.value = undefined;
+      this.answerInput.value = undefined;
+  }
+
+  public onquestionRemoveClick(question: LookupItem): void {
+    this.faqList.remove(question);
+  }
+
+  public onquestionEditClick(question: LookupItem): void {
+    this.questionInput.value = question.name;
+    this.answerInput.value = question.value;
+    this.faqList.remove(question);
+  }
+
   public onDownloadImgClick(): void{
     // console.log(value);
   }
 
-  // public onCreateClick(): void {
+  public onSaveClick(): void {
   //   const project: ProjectModel = {
   //     Name: this.nameInput.value,
   //     Description: this.descriptionInput.value,
@@ -160,5 +189,5 @@ export class CreateProjectComponent extends Base implements OnInit {
   //       () => { this.redirect('profile'); }
   //     )
   //   );
-  // }
+  }
 }
