@@ -1,0 +1,15 @@
+<div class="form-group">
+
+    <label class="control-label delicate-text">{{item.label}}</label>
+  
+    <input 
+      type='date' 
+      [max]='max' 
+      [min]='min' 
+      [ngModel]='item.value' 
+      (ngModelChange)='onValueChange($event)' 
+      class="form-control" />
+  
+    <span *ngIf='!item.valid' class="text-danger">{{item.errorText}}</span>
+  
+  </div>

@@ -1,0 +1,11 @@
+<div class='collapse-wrapper'>
+
+  <app-link [value]='header' empty (click)='show = !show'></app-link>
+
+  <ng-container *ngIf='show'>
+    <div class="collapse-body delicate-text">
+      {{body}}
+    </div>
+  </ng-container>
+
+</div>

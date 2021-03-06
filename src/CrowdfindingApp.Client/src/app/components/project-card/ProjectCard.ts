@@ -7,6 +7,5 @@ constructor(
   public imgPath: string,
   public purpose: number,
   public currentResult: number,
-  public id: string){}
- 
+  public id: string) {}
 }

@@ -17,7 +17,8 @@
       </app-tab>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-12">
-      <app-tab [value]='paymentTab.value' [active]='paymentTab.isActive' (click)='onTabClick(paymentTab)'></app-tab>
+      <app-tab [value]='ownerInfoTab.value' [active]='ownerInfoTab.isActive' (click)='onTabClick(ownerInfoTab)'>
+      </app-tab>
     </div>
 
     <!-- Tabs -->
@@ -55,7 +56,7 @@
         <div class="box">
           <span class="sub-title">Обложка проекта</span>
           <div class="global-img-wrapper">
-            <img class="global-img" src="assets/img/artist.png" alt="project image" />
+            <img class="global-img" src="assets/img/stock-project.png" alt="project image" />
           </div>
           <app-regular-btn value='Загрузить изображение' ico='fas fa-download' (click)='onDownloadImgClick()'>
           </app-regular-btn>
@@ -71,8 +72,8 @@
 
         <div class="box">
           <span class="sub-title">Бюджет и продолжительность компании</span>
-          <app-decimal-input [item]='purposeInput'></app-decimal-input>
-          <app-decimal-input [item]='durationInput'></app-decimal-input>
+          <app-decimal-input [item]='projectPurposeInput'></app-decimal-input>
+          <app-decimal-input [item]='projectDurationInput'></app-decimal-input>
           <div class="delicate-text">Мы рекомендуем указывать минимальную сумму, необходимую для реализации проекта.
             Платформа использует модель «все или ничего», а это значит, что для получения средств вам обязательно
             необходимо собрать от 100% и выше.
@@ -89,6 +90,14 @@
         <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
           (click)='onSaveClick()'>
         </app-regular-btn>
+        <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
+          (click)='toModerationClick()'>
+        </app-regular-btn>
+        <app-project-card [card]='projectCard'></app-project-card>
+        <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
+        <app-collapse header='Зачем записывать видео?'
+          body='Видео-обращение значительно повысит ваши шансы на успех. Это эффективный инструмент, который позволит лично обратиться к потенциальным спонсорам, рассказать о проекте и призвать к действию.'>
+        </app-collapse>
       </div>
     </ng-container>
 
@@ -176,9 +185,20 @@
         <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
           (click)='onSaveClick()'>
         </app-regular-btn>
+        <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
+          (click)='toModerationClick()'>
+        </app-regular-btn>
+        <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
+        <app-collapse header='Что такое лоты?' 
+          body='Лоты – это продукты, которые вы предлагаете в рамках крауд-кампании. Это то, ради чего люди перечисляют деньги в ваш проект.'>
+        </app-collapse>
+        <app-collapse header='Какие лоты лучше добавлять?' 
+          body='Если вы выводите на рынок новый продукт, то в качестве лота должен выступить сам продукт и его модификации. Если вы решили издать книгу, то лотом является ваша книга. Если вы организуете концерт или другое мероприятие, то лотами могут выступить билеты на мероприятие. Подробнее с нашими рекомендациями вы можете ознакомиться здесь. '>
+        </app-collapse>
       </div>
 
     </ng-container>
+
     <ng-container *ngIf='descriptionTab.isActive'>
       <div class="col-8 tab-inner">
 
@@ -217,21 +237,68 @@
       </div>
 
       <div class="col-4 tab-inner">
-          <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
+        <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
           (click)='onSaveClick()'>
         </app-regular-btn>
+        <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
+          (click)='toModerationClick()'>
+        </app-regular-btn>
+        <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
+        <app-collapse header='Что должно быть в описании?' 
+          body='Специально для вас мы подготовили рекомендации для написания грамотного и эффективного описания.'>
+        </app-collapse>
+        <app-collapse header='Что такое «Частые вопросы»?' 
+          body='«Частые вопросы» – это блок, в котором вы можете заранее ответить на наиболее очевидные вопросы, которые могут возникнуть у потенциальных спонсоров в процессе знакомства с вашим проектом.'>
+        </app-collapse>
       </div>
     </ng-container>
 
-    <ng-container *ngIf='paymentTab.isActive'>
+    <ng-container *ngIf='ownerInfoTab.isActive'>
       <div class="col-8 tab-inner">
+
+        <div class="box">
+          <span class="sub-title">Личные данные</span>
+          <div class="delicate-text">
+            Чтобы платформа могла заключить с вами договор, необходимо заполнить паспортные данные. Информация, которую
+            вы
+            передаете в платформу, является конфиденциальной и не подлежит разглашению.
+          </div>
+          <app-text-input [item]='projectOwnerSurnameInput'></app-text-input>
+          <app-text-input [item]='projectOwnerNameInput'></app-text-input>
+          <app-text-input [item]='projectOwnerMiddleNameInput'></app-text-input>
+          <app-date-input [item]='projectOwerBirthdayInput'></app-date-input>
+          <app-text-input [item]='projectOwerPassportNumberInput'></app-text-input>
+          <span class="delicate-text">Пример: AB1234567</span>
+          <app-text-input [item]='projectOwerPrivateNumberInput'></app-text-input>
+          <span class="delicate-text">Пример: 1234567A012PB0</span>
+          <app-text-input [item]='projectOwerWhomIssuedDocInput'></app-text-input>
+          <span class="delicate-text">Пример: Советское РУВД г.Минска</span>
+          <app-date-input [item]='projectOwerWhenIssuedDocInput'></app-date-input>
+          <app-text-input [item]='projectOwerAddressInput'></app-text-input>
+          <span class="delicate-text">Пример: г.Минск, ул. Е. Полоцкой, д.3, кв. 16</span>
+          <app-text-input [item]='projectOwerPhoneNumberInput'></app-text-input>
+          <span class="delicate-text">Пример: 375291234567</span>
+        </div>
 
       </div>
 
       <div class="col-4 tab-inner">
-          <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
+        <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
           (click)='onSaveClick()'>
         </app-regular-btn>
+          <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
+            (click)='toModerationClick()'>
+          </app-regular-btn>
+        <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
+        <app-collapse header='Зачем вводить номер счета?' 
+          body='Номер счета необходим для перечисления средств в случае успеха вашей краудфандинговой кампании. '>
+        </app-collapse>
+        <app-collapse header='Зачем вводить паспортные данные?' 
+          body='Для публикации проекта и сбора средств вам необходимо заключить договоры с «PolessInvest» и ОАО «Банк». Ваши данные необходимы для формирования договоров.'>
+        </app-collapse>
+        <app-collapse header='Кому доступны мои данные?' 
+          body='Ваши данные будут использоваться исключительно для вашей идентификации и формирования договоров. Доступ третьих лиц к вашим данным исключен.'>
+        </app-collapse>
       </div>
     </ng-container>
 

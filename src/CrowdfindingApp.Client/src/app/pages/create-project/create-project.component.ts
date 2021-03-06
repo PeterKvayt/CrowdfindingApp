@@ -10,7 +10,8 @@ import { TabElement } from 'src/app/components/tab/Tabelement';
 import { TextArea } from 'src/app/components/inputs/text-area/TextArea';
 import { LookupItem } from 'src/app/models/common/LookupItem';
 import { GenericLookupItem } from 'src/app/models/common/GenericLookupItem';
-import { retry } from 'rxjs/operators';
+import { DateInput } from 'src/app/components/inputs/date-input/DateInput';
+import { ProjectCard } from 'src/app/components/project-card/ProjectCard';
 
 @Component({
   selector: 'app-create-project',
@@ -19,14 +20,31 @@ import { retry } from 'rxjs/operators';
 })
 export class CreateProjectComponent extends Base implements OnInit {
 
+  private currentDate = new Date();
+
   // project fields
+  private projectCategory: string;
   public projectNameInput: TextInput = { placeholder: 'Введите название проекта' };
   public projectShortDescriptionInput: TextArea = { placeholder: 'Кратко опишите проект (до 280 символов)', max: 280 };
   public projectDescriptionInput: TextArea = { placeholder: 'Введите полное описание проекта ...' };
   public projectVideoInput: TextInput = { placeholder: 'Введите ссылку на видео' };
-  public purposeInput: DecimalInput = { placeholder: 'Введите финансовую цель (BYN)', min: 1 };
-  public durationInput: DecimalInput = { placeholder: 'Введите финансовую цель (BYN)', min: 1, max: 180 };
+  public projectPurposeInput: DecimalInput = { placeholder: 'Введите финансовую цель (BYN)', min: 1 };
+  public projectDurationInput: DecimalInput = { placeholder: 'Введите финансовую цель (BYN)', min: 1, max: 180 };
   public faqList: LookupItem[] = [];
+  public projectOwnerSurnameInput: TextInput = { placeholder: 'Фамилия' };
+  public projectOwnerNameInput: TextInput = { placeholder: 'Имя' };
+  public projectOwnerMiddleNameInput: TextInput = { placeholder: 'Отчество' };
+  public projectOwerPassportNumberInput: TextInput = { placeholder: 'Серия и номер', label: 'Паспортные данные', min: 9, max: 9 };
+  public projectOwerPrivateNumberInput: TextInput = { placeholder: 'Личный номер', min: 14, max: 14 };
+  public projectOwerWhomIssuedDocInput: TextInput = { placeholder: 'Адрес регистрации' };
+  public projectOwerPhoneNumberInput: TextInput = { placeholder: 'Контактный номер', min: 13, max: 13 };
+  public projectOwerAddressInput: TextInput = { placeholder: 'Кем выдан' };
+  public projectOwerWhenIssuedDocInput: DateInput = { label: 'Дата выдачи документа' };
+  public projectOwerBirthdayInput: DateInput = {
+    label: 'Дата рождения',
+    max: new Date(this.currentDate.getFullYear() - 18, this.currentDate.getMonth(), this.currentDate.getDay()),
+    value: new Date(this.currentDate.getFullYear() - 18, this.currentDate.getMonth(), this.currentDate.getDay()).toISOString().substr(0, 10)
+  };
 
   // reward fields
   public rewardNameInput: TextInput = { placeholder: 'Введите название вознаграждения' };
@@ -37,51 +55,63 @@ export class CreateProjectComponent extends Base implements OnInit {
   public rewardDeliveryExcludedCountries: GenericLookupItem<string, number>[] = [];
   public rewardWholeWorldDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки по всему миру (BYN)', min: 1 };
 
-  // common inputs
+  // common
   public countryDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки (BYN)', min: 1 };
   public questionInput: TextInput = { placeholder: 'Введите вопрос' };
   public answerInput: TextArea = { placeholder: 'Введите ответ на вопрос' };
+  public categorySelect: LookupItem[] =
+    [
+      new LookupItem('Еда', '1'),
+      new LookupItem('Дизайн', '2'),
+    ];
+  public citiesList: LookupItem[] =
+    [
+      new LookupItem('Минск', '1'),
+      new LookupItem('Пинск', '2'),
+    ];
+  public countryList: LookupItem[] =
+    [
+      new LookupItem('Беларусь', '1'),
+      new LookupItem('Россия', '2'),
+    ];
 
-  public categorySelect: LookupItem[] = 
-  [
-    new LookupItem('Еда', '1'),
-    new LookupItem('Дизайн', '2'),
-  ];
-  public citiesList: LookupItem[] = 
-  [
-    new LookupItem('Минск', '1'),
-    new LookupItem('Пинск', '2'),
-  ];
-  public countryList: LookupItem[] = 
-  [
-    new LookupItem('Беларусь', '1'),
-    new LookupItem('Россия', '2'),
-  ];
+  // help props
+  private selectedCountry: string;
+  public projectCard: ProjectCard = {
+    name: this.projectNameInput.value ? this.projectNameInput.value : 'Название',
+    description: this.projectDescriptionInput.value ? this.projectDescriptionInput.value : 'Описание',
+    category: this.projectCategory ? this.categorySelect.find(x => x.value === this.projectCategory === undefined).name : 'Категория',
+    imgPath: 'assets/img/stock-project.png',
+    purpose: this.projectPurposeInput.value ? this.projectPurposeInput.value : 0,
+    currentResult: 0,
+    id: null
+  };
 
-public getCountryNameById(id: string): string {
-  return this.countryList.find(x => x.value === id).name;
-}
-
+  // tabs
   public generalInfoTab = new TabElement('Общая информация', true);
   public rewardsTab = new TabElement('Вознаграждения', false);
   public descriptionTab = new TabElement('Подробное описание', false);
-  public paymentTab = new TabElement('Платежная информация', false);
+  public ownerInfoTab = new TabElement('Платежная информация', false);
+
+  // sub tabs
+  public withoutDeliverySubTab = new TabElement('Доставка отсутствует', true);
+  public someCountriesDeliverySubTab = new TabElement('Некоторые страны', false);
+  public wholeWorldDeliverySubTab = new TabElement('Весь мир', false);
+
+  public getCountryNameById(id: string): string {
+    return this.countryList.find(x => x.value === id).name;
+  }
 
   public onTabClick(tab: TabElement): void {
     this.generalInfoTab.isActive = false;
     this.rewardsTab.isActive = false;
     this.descriptionTab.isActive = false;
-    this.paymentTab.isActive = false;
+    this.ownerInfoTab.isActive = false;
     tab.isActive = true;
   }
 
-  public withoutDeliverySubTab = new TabElement('Доставка отсутствует', true);
-  public someCountriesDeliverySubTab = new TabElement('Некоторые страны', false);
-  public wholeWorldDeliverySubTab = new TabElement('Весь мир', false);
-
   public onDeliverySubTabClick(tab: TabElement): void {
-    if(tab.isActive) { return; }
-
+    if (tab.isActive) { return; }
     this.rewardDeliveryExcludedCountries = [];
     this.rewardDeliveryIncludedCountries = [];
     this.withoutDeliverySubTab.isActive = false;
@@ -95,17 +125,15 @@ public getCountryNameById(id: string): string {
     private projectService: ProjectService,
     public activatedRoute: ActivatedRoute,
     private titleService: Title
-    ) { super(router, activatedRoute); }
+  ) { super(router, activatedRoute); }
   public ngOnInit(): void {
     this.titleService.setTitle('Создание проекта');
   }
 
-  
 
   // General Tab functional
-
   public onCategorySelect(value: string): void {
-    console.log(value);
+    this.projectCategory = value;
   }
 
   public onCitySelect(value: string): void {
@@ -120,7 +148,6 @@ public getCountryNameById(id: string): string {
     console.log(value);
   }
 
-  private selectedCountry: string;
   public onCountrySelect(value: string): void {
     this.selectedCountry = value;
   }
@@ -129,14 +156,13 @@ public getCountryNameById(id: string): string {
     if (!this.countryDeliveryCostInput.value || !this.selectedCountry) { return; }
     this.rewardDeliveryIncludedCountries.push(
       new GenericLookupItem<string, number>(this.selectedCountry, this.countryDeliveryCostInput.value));
-      this.countryDeliveryCostInput.value = undefined;
+    this.countryDeliveryCostInput.value = undefined;
   }
 
   public onExcludedCountryDeliveryAddClick(): void {
     this.rewardDeliveryExcludedCountries.push(
       new GenericLookupItem<string, number>(this.selectedCountry, this.countryDeliveryCostInput.value));
-      this.countryDeliveryCostInput.value = undefined;
-
+    this.countryDeliveryCostInput.value = undefined;
   }
 
   public onRemoveCountryFromIncludedList(country: GenericLookupItem<string, number>): void {
@@ -154,15 +180,12 @@ public getCountryNameById(id: string): string {
   }
 
   public onQuewstionAddClick(): void {
-    if(!this.questionInput.value || !this.answerInput.value){
-      return;
-    }
-
+    if (!this.questionInput.value || !this.answerInput.value) { return; }
     this.faqList.push(
       new LookupItem(this.questionInput.value, this.answerInput.value)
-      );
-      this.questionInput.value = undefined;
-      this.answerInput.value = undefined;
+    );
+    this.questionInput.value = undefined;
+    this.answerInput.value = undefined;
   }
 
   public onquestionRemoveClick(question: LookupItem): void {
@@ -175,23 +198,27 @@ public getCountryNameById(id: string): string {
     this.faqList.remove(question);
   }
 
-  public onDownloadImgClick(): void{
+  public onDownloadImgClick(): void {
     // console.log(value);
   }
 
+  public toModerationClick(): void {
+    
+  }
+
   public onSaveClick(): void {
-  //   const project: ProjectModel = {
-  //     Name: this.nameInput.value,
-  //     Description: this.descriptionInput.value,
-  //     CategoryId: '',
-  //     ImgPath: this.imageInput,
-  //     FinancialPurpose: this.purposeInput.value,
-  //     CurrentResult: 0
-  //   };
-  //   this.subscriptions.add(
-  //     this.projectService.create(project).subscribe(
-  //       () => { this.redirect('profile'); }
-  //     )
-  //   );
+    //   const project: ProjectModel = {
+    //     Name: this.nameInput.value,
+    //     Description: this.descriptionInput.value,
+    //     CategoryId: '',
+    //     ImgPath: this.imageInput,
+    //     FinancialPurpose: this.purposeInput.value,
+    //     CurrentResult: 0
+    //   };
+    //   this.subscriptions.add(
+    //     this.projectService.create(project).subscribe(
+    //       () => { this.redirect('profile'); }
+    //     )
+    //   );
   }
 }

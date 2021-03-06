@@ -41,6 +41,8 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SelectComponent } from './components/selectors/select/select.component';
 import { MonthSelectComponent } from './components/selectors/month-select/month-select.component';
 import { YearSelectorComponent } from './components/selectors/year-selector/year-selector.component';
+import { DateInputComponent } from './components/inputs/date-input/date-input.component';
+import { CollapseComponent } from './components/collapse/collapse.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import { YearSelectorComponent } from './components/selectors/year-selector/year
     DropdownComponent,
     SelectComponent,
     MonthSelectComponent,
-    YearSelectorComponent
+    YearSelectorComponent,
+    DateInputComponent,
+    CollapseComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
