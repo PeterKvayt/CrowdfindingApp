@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { LookupItem } from 'src/app/models/common/LookupItem';
+import { SelectInput } from './SelectInput';
 
 @Component({
   selector: 'app-select',
@@ -8,8 +8,7 @@ import { LookupItem } from 'src/app/models/common/LookupItem';
 })
 export class SelectComponent implements OnInit {
 
-  @Input() collection: LookupItem[];
-  @Input() defaultValue: string;
+  @Input() item: SelectInput;
   @Output() selectedValue = new EventEmitter<string>();
 
   public onValueSelect(value: string): void {

@@ -27,7 +27,7 @@
 
         <div class="box">
           <span class="sub-title">Название проекта</span>
-          <app-text-input [item]='projectNameInput'></app-text-input>
+          <app-text-input [item]='projectNameInput' (valueChange)='onProjectNameChange()'></app-text-input>
           <div class="delicate-text">Название должно быть лаконичным, уникальным и запоминающимся. Будьте уверены в том,
             что название проекта отражает его суть.
           </div>
@@ -35,7 +35,7 @@
 
         <div class="box">
           <span class="sub-title">Краткое описание проекта</span>
-          <app-text-area [item]='projectShortDescriptionInput'></app-text-area>
+          <app-text-area [item]='projectShortDescriptionInput' (valueChange)='onProjectShortDecriptionChange()'></app-text-area>
           <div class="delicate-text">
             Опишите в одном предложении цель вашего проекта.
           </div>
@@ -43,14 +43,12 @@
 
         <div class="box">
           <span class="sub-title">Категория проекта</span>
-          <app-select [collection]='categorySelect' defaultValue='Выберите категорию проекта'
-            (selectedValue)='onCategorySelect($event)'></app-select>
+          <app-select [item]='categorySelectInput' (selectedValue)='onCategorySelect($event)'></app-select>
         </div>
 
         <div class="box">
           <span class="sub-title">Город реализации</span>
-          <app-select [collection]='citiesList' defaultValue='Выберите город реализации'
-            (selectedValue)='onCitySelect($event)'></app-select>
+          <app-select [item]='citiesSelectInput' (selectedValue)='onCitySelect($event)'></app-select>
         </div>
 
         <div class="box">
@@ -98,6 +96,7 @@
         <app-collapse header='Зачем записывать видео?'
           body='Видео-обращение значительно повысит ваши шансы на успех. Это эффективный инструмент, который позволит лично обратиться к потенциальным спонсорам, рассказать о проекте и призвать к действию.'>
         </app-collapse>
+        <app-link empty value='Задать вопрос' (click)='onFeedbackShowClick()'></app-link>
       </div>
     </ng-container>
 
@@ -140,9 +139,7 @@
           <div (click)='onDeliverySubTabClick(someCountriesDeliverySubTab)'>
             <span class="delicate-text"> Некоторые страны</span>
             <ng-container *ngIf='someCountriesDeliverySubTab.isActive'>
-              <app-select [collection]='countryList' defaultValue='Выберите страну'
-                (selectedValue)='onCountrySelect($event)'>
-              </app-select>
+              <app-select [item]='countrySelectInput' (selectedValue)='onCountrySelect($event)'></app-select>
               <app-decimal-input [item]='countryDeliveryCostInput'></app-decimal-input>
               <app-regular-btn value='Добавить страну' (click)='onSomeCountryDeliveryAddClick()'></app-regular-btn>
               <div class="selected-countries">
@@ -158,9 +155,7 @@
             <span class="delicate-text"> Весь мир</span>
             <ng-container *ngIf='wholeWorldDeliverySubTab.isActive'>
               <app-decimal-input [item]='rewardWholeWorldDeliveryCostInput'></app-decimal-input>
-              <app-select [collection]='countryList' defaultValue='Страны исключения'
-                (selectedValue)='onCountrySelect($event)'>
-              </app-select>
+              <app-select [item]='countrySelectInput' (selectedValue)='onCountrySelect($event)'></app-select>
               <app-decimal-input [item]='countryDeliveryCostInput'></app-decimal-input>
               <app-regular-btn value='Добавить страну исключение' (click)='onExcludedCountryDeliveryAddClick()'>
               </app-regular-btn>
@@ -195,6 +190,7 @@
         <app-collapse header='Какие лоты лучше добавлять?' 
           body='Если вы выводите на рынок новый продукт, то в качестве лота должен выступить сам продукт и его модификации. Если вы решили издать книгу, то лотом является ваша книга. Если вы организуете концерт или другое мероприятие, то лотами могут выступить билеты на мероприятие. Подробнее с нашими рекомендациями вы можете ознакомиться здесь. '>
         </app-collapse>
+        <app-link empty value='Задать вопрос' (click)='onFeedbackShowClick()'></app-link>
       </div>
 
     </ng-container>
@@ -250,6 +246,7 @@
         <app-collapse header='Что такое «Частые вопросы»?' 
           body='«Частые вопросы» – это блок, в котором вы можете заранее ответить на наиболее очевидные вопросы, которые могут возникнуть у потенциальных спонсоров в процессе знакомства с вашим проектом.'>
         </app-collapse>
+        <app-link empty value='Задать вопрос' (click)='onFeedbackShowClick()'></app-link>
       </div>
     </ng-container>
 
@@ -299,8 +296,10 @@
         <app-collapse header='Кому доступны мои данные?' 
           body='Ваши данные будут использоваться исключительно для вашей идентификации и формирования договоров. Доступ третьих лиц к вашим данным исключен.'>
         </app-collapse>
+        <app-link empty value='Задать вопрос' (click)='onFeedbackShowClick()'></app-link>
       </div>
     </ng-container>
 
   </div>
 </div>
+<app-feedback-modal [(show)]='feedBackModalShow'></app-feedback-modal>

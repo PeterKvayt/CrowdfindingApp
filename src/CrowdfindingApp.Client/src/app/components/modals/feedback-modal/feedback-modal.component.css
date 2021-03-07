@@ -1,0 +1,43 @@
+.text-end{
+  text-align: end;
+}
+
+.close:hover{
+  cursor: pointer;
+}
+
+.feedback-modal-wrapper{
+  position: absolute;
+  display: block;
+  text-align: center;
+}
+
+.sub-title{
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.feedback-modal-background{
+  background-color: black;
+  opacity: 0.75;
+  z-index: 998;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.feed-back-body{
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 4px;
+  position: fixed;
+  width: 50%;
+  top: 0;
+  left: 25%;
+  z-index: 1000;
+  display: block;
+  margin: 3rem;
+} 

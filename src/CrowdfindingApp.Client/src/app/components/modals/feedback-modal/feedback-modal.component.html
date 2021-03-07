@@ -1,0 +1,19 @@
+
+<ng-container *ngIf='show'>
+
+  <div class="feedback-modal-wrapper">
+    <div class="feedback-modal-background" (click)='close()'></div>
+    <div class="feed-back-body">
+      <div class="text-end">
+        <span class="fas fa-times close" (click)='close()'></span>
+      </div>
+      <span class="sub-title">Обратная связь</span>
+      <app-select [item]='select' (selectedValue)='onSelectTopic($event)'></app-select>
+      <app-text-area [item]='questionInput'></app-text-area>
+      <app-text-input [item]='nameInput'></app-text-input>
+      <app-text-input [item]='emailInput'></app-text-input>
+      <app-regular-btn value='Задать вопрос' ico='fas fa-envelope' (click)='onAskClick()'></app-regular-btn>
+    </div>
+  </div>
+
+</ng-container>

@@ -12,6 +12,8 @@ import { LookupItem } from 'src/app/models/common/LookupItem';
 import { GenericLookupItem } from 'src/app/models/common/GenericLookupItem';
 import { DateInput } from 'src/app/components/inputs/date-input/DateInput';
 import { ProjectCard } from 'src/app/components/project-card/ProjectCard';
+import { SelectInput } from 'src/app/components/selectors/select/SelectInput';
+import { SelectItem } from 'src/app/components/selectors/select/SelectItem';
 
 @Component({
   selector: 'app-create-project',
@@ -59,33 +61,56 @@ export class CreateProjectComponent extends Base implements OnInit {
   public countryDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки (BYN)', min: 1 };
   public questionInput: TextInput = { placeholder: 'Введите вопрос' };
   public answerInput: TextArea = { placeholder: 'Введите ответ на вопрос' };
-  public categorySelect: LookupItem[] =
-    [
-      new LookupItem('Еда', '1'),
-      new LookupItem('Дизайн', '2'),
-    ];
-  public citiesList: LookupItem[] =
-    [
-      new LookupItem('Минск', '1'),
-      new LookupItem('Пинск', '2'),
-    ];
-  public countryList: LookupItem[] =
-    [
-      new LookupItem('Беларусь', '1'),
-      new LookupItem('Россия', '2'),
-    ];
+  public categorySelectInput: SelectInput = {
+    list: [
+      new SelectItem('1', 'Еда'),
+      new SelectItem('2', 'Дизайн'),
+    ],
+    defaultValue: 'Выберите категорию'
+  };
+  public citiesSelectInput: SelectInput = {
+    list: [
+      new SelectItem('1', 'Минск'),
+      new SelectItem('2', 'Пинск'),
+    ],
+    defaultValue: 'Выберите город'
+  };
+  public countrySelectInput: SelectInput = {
+    list: [
+      new SelectItem('1', 'Беларусь'),
+      new SelectItem('2', 'Россия')
+    ],
+    defaultValue: 'Выберите страну'
+  };
 
   // help props
   private selectedCountry: string;
+  public feedBackModalShow = false;
   public projectCard: ProjectCard = {
     name: this.projectNameInput.value ? this.projectNameInput.value : 'Название',
     description: this.projectDescriptionInput.value ? this.projectDescriptionInput.value : 'Описание',
-    category: this.projectCategory ? this.categorySelect.find(x => x.value === this.projectCategory === undefined).name : 'Категория',
+    category: this.projectCategory ? this.categorySelectInput.list.find(x => x.value === this.projectCategory === undefined).name : 'Категория',
     imgPath: 'assets/img/stock-project.png',
     purpose: this.projectPurposeInput.value ? this.projectPurposeInput.value : 0,
     currentResult: 0,
     id: null
   };
+
+  public onProjectNameChange(): void {
+    if (this.projectNameInput.value) {
+      this.projectCard.name = this.projectNameInput.value;
+    } else {
+      this.projectCard.name = 'Название';
+    }
+  }
+
+  public onProjectShortDecriptionChange(): void {
+    if (this.projectShortDescriptionInput.value) {
+      this.projectCard.description = this.projectShortDescriptionInput.value;
+    } else {
+      this.projectCard.description = 'Описание';
+    }
+  }
 
   // tabs
   public generalInfoTab = new TabElement('Общая информация', true);
@@ -99,7 +124,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   public wholeWorldDeliverySubTab = new TabElement('Весь мир', false);
 
   public getCountryNameById(id: string): string {
-    return this.countryList.find(x => x.value === id).name;
+    return this.countrySelectInput.list.find(x => x.value === id).name;
   }
 
   public onTabClick(tab: TabElement): void {
@@ -112,6 +137,7 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   public onDeliverySubTabClick(tab: TabElement): void {
     if (tab.isActive) { return; }
+    this.countrySelectInput.list.forEach(x => x.disabled = false);
     this.rewardDeliveryExcludedCountries = [];
     this.rewardDeliveryIncludedCountries = [];
     this.withoutDeliverySubTab.isActive = false;
@@ -154,6 +180,7 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   public onSomeCountryDeliveryAddClick(): void {
     if (!this.countryDeliveryCostInput.value || !this.selectedCountry) { return; }
+    this.countrySelectInput.list.find(x => x.value === this.selectedCountry).disabled = true;
     this.rewardDeliveryIncludedCountries.push(
       new GenericLookupItem<string, number>(this.selectedCountry, this.countryDeliveryCostInput.value));
     this.countryDeliveryCostInput.value = undefined;
@@ -166,6 +193,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   }
 
   public onRemoveCountryFromIncludedList(country: GenericLookupItem<string, number>): void {
+    this.countrySelectInput.list.find(x => x.value === country.key).disabled = false;
     this.rewardDeliveryIncludedCountries.remove(country);
   }
 
@@ -220,5 +248,9 @@ export class CreateProjectComponent extends Base implements OnInit {
     //       () => { this.redirect('profile'); }
     //     )
     //   );
+  }
+
+  public onFeedbackShowClick(): void {
+    this.feedBackModalShow = true;
   }
 }

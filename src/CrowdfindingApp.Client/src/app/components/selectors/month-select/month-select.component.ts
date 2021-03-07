@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { LookupItem } from 'src/app/models/common/LookupItem';
+import { SelectItem } from '../select/SelectItem';
+import { SelectInput } from '../select/SelectInput';
 
 @Component({
   selector: 'app-month-select',
@@ -8,21 +10,23 @@ import { LookupItem } from 'src/app/models/common/LookupItem';
 })
 export class MonthSelectComponent {
 
-  public monthList: LookupItem[] =
-  [
-    new LookupItem('Январь', '1'),
-    new LookupItem('Февраль', '2'),
-    new LookupItem('Март', '3'),
-    new LookupItem('Апрель', '4'),
-    new LookupItem('Май', '5'),
-    new LookupItem('Июнь', '6'),
-    new LookupItem('Июль', '7'),
-    new LookupItem('Август', '8'),
-    new LookupItem('Сентябрь', '9'),
-    new LookupItem('Октябрь', '10'),
-    new LookupItem('Ноябрь', '11'),
-    new LookupItem('Дкабрь', '12'),
-  ];
+  public select: SelectInput = {
+    list: [
+      new SelectItem('Январь', '1'),
+      new SelectItem('Февраль', '2'),
+      new SelectItem('Март', '3'),
+      new SelectItem('Апрель', '4'),
+      new SelectItem('Май', '5'),
+      new SelectItem('Июнь', '6'),
+      new SelectItem('Июль', '7'),
+      new SelectItem('Август', '8'),
+      new SelectItem('Сентябрь', '9'),
+      new SelectItem('Октябрь', '10'),
+      new SelectItem('Ноябрь', '11'),
+      new SelectItem('Дкабрь', '12'),
+    ],
+    defaultValue: 'Выберите месяц'
+  };
 
   @Output() selectedValue = new EventEmitter<string>();
 
