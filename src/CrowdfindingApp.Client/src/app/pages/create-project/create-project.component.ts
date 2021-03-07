@@ -14,6 +14,7 @@ import { DateInput } from 'src/app/components/inputs/date-input/DateInput';
 import { ProjectCard } from 'src/app/components/project-card/ProjectCard';
 import { SelectInput } from 'src/app/components/selectors/select/SelectInput';
 import { SelectItem } from 'src/app/components/selectors/select/SelectItem';
+import { RewardCard } from 'src/app/components/reward-card/RewardCard';
 
 @Component({
   selector: 'app-create-project',
@@ -42,6 +43,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   public projectOwerPhoneNumberInput: TextInput = { placeholder: 'Контактный номер', min: 13, max: 13 };
   public projectOwerAddressInput: TextInput = { placeholder: 'Кем выдан' };
   public projectOwerWhenIssuedDocInput: DateInput = { label: 'Дата выдачи документа' };
+  public projectRewardsList: RewardCard[] = [];
   public projectOwerBirthdayInput: DateInput = {
     label: 'Дата рождения',
     max: new Date(this.currentDate.getFullYear() - 18, this.currentDate.getMonth(), this.currentDate.getDay()),
@@ -85,6 +87,9 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   // help props
   private selectedCountry: string;
+  private selectedCity: string;
+  private selectedMonth: string;
+  private selectedYear: string;
   public feedBackModalShow = false;
   public projectCard: ProjectCard = {
     name: this.projectNameInput.value ? this.projectNameInput.value : 'Название',
@@ -163,15 +168,15 @@ export class CreateProjectComponent extends Base implements OnInit {
   }
 
   public onCitySelect(value: string): void {
-    console.log(value);
+    this.selectedCity = value;
   }
 
   public onMonthSelect(value: string): void {
-    console.log(value);
+    this.selectedMonth = value;
   }
 
   public onYearSelect(value: string): void {
-    console.log(value);
+    this.selectedYear = value;
   }
 
   public onCountrySelect(value: string): void {
@@ -198,6 +203,20 @@ export class CreateProjectComponent extends Base implements OnInit {
   }
 
   public onRewardAddClick(): void {
+
+    this.projectRewardsList.push(
+      new RewardCard(
+        this.rewardNameInput.value,
+        this.rewardCostInput.value,
+        this.rewardDescriptionInput.value,
+        'assets/img/stock-reward.jpg',
+        this.selectedMonth,
+        this.selectedYear,
+        'delivery type',
+        this.rewardCountRestrictionsInput.value
+      )
+    );
+
     this.rewardNameInput.value = undefined;
     this.rewardCostInput.value = undefined;
     this.rewardCountRestrictionsInput.value = undefined;

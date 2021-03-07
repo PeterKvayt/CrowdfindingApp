@@ -117,7 +117,7 @@
             собрать нужную сумму.
           </div>
           <div class="global-img-wrapper">
-            <img class="global-img" src="assets/img/artist.png" alt="project image" />
+            <img class="global-img" src="assets/img/stock-reward.jpg" alt="project image" />
           </div>
           <app-regular-btn value='Загрузить изображение' ico='fas fa-download' (click)='onDownloadImgClick()'>
           </app-regular-btn>
@@ -191,6 +191,9 @@
           body='Если вы выводите на рынок новый продукт, то в качестве лота должен выступить сам продукт и его модификации. Если вы решили издать книгу, то лотом является ваша книга. Если вы организуете концерт или другое мероприятие, то лотами могут выступить билеты на мероприятие. Подробнее с нашими рекомендациями вы можете ознакомиться здесь. '>
         </app-collapse>
         <app-link empty value='Задать вопрос' (click)='onFeedbackShowClick()'></app-link>
+        <div class="row reward-container">
+          <app-reward-card *ngFor='let reward of projectRewardsList' [item]='reward' editable='true'></app-reward-card>
+        </div>
       </div>
 
     </ng-container>

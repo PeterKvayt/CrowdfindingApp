@@ -44,6 +44,7 @@ import { YearSelectorComponent } from './components/selectors/year-selector/year
 import { DateInputComponent } from './components/inputs/date-input/date-input.component';
 import { CollapseComponent } from './components/collapse/collapse.component';
 import { FeedbackModalComponent } from './components/modals/feedback-modal/feedback-modal.component';
+import { RewardCardComponent } from './components/reward-card/reward-card.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { FeedbackModalComponent } from './components/modals/feedback-modal/feedb
     YearSelectorComponent,
     DateInputComponent,
     CollapseComponent,
-    FeedbackModalComponent
+    FeedbackModalComponent,
+    RewardCardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

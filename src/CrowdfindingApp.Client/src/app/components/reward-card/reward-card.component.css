@@ -1,0 +1,75 @@
+.reward-card-box{
+  margin-bottom: 1rem;
+  padding: 0;
+  background-color: #fff;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: 0.32s;
+}
+
+.reward-card-box:hover{
+  box-shadow: 5px 10px 15px #AFAFAF,
+              -5px 0 15px #AFAFAF;
+}
+
+.reward-card-box:hover .reward-card-description{
+  color: #000;
+}
+
+.reward-card-box:hover .rewards-count{
+  color: #000;
+}
+
+.reward-img{
+  width: 100%;
+}
+
+.reward-card-body{
+  padding: 1rem;
+}
+
+.reward-card-description{
+  text-align: justify;
+  font-size: 14px;
+  color: #AFAFAF;
+  overflow: hidden;
+  transition: 0.32s;
+  height: 109px;
+}
+
+.reward-title{
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: var(--greenPoles);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reward-price{
+  height: 100%;
+  font-weight: 600;
+  columns: var(--greenPoles);
+  font-size: 17px;
+}
+
+.rewards-count{
+  position: relative;
+  top: 10%;
+  text-align: end;
+  font-size: 14px;
+  color: #AFAFAF;
+  transition: 0.32s;
+}
+
+.card-down-status{
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  color: #AFAFAF;
+  font-size: 13px;
+}
+.card-down-status:hover{
+  text-decoration: none;
+}

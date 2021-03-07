@@ -1,0 +1,43 @@
+<div class="col-12">
+
+  <div class="reward-card-box">
+
+    <img class="reward-img" [src]='item.image' />
+    
+    <div class="reward-card-body">
+      <div class="reward-card-description">
+        <div class="reward-title">{{item.name}}</div>
+        {{item.description}}
+      </div>
+
+      <div class="reward-card-pay-info">
+
+        <div class="row">
+          <div class="col">
+            <span class="card-down-status">Примерная дата доставки</span>
+            <span class="reward-card-description">{{item.deliveryMonth}} {{item.deliveryYear}}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <span class="card-down-status">Способ получения</span>
+            <span class="reward-card-description">{{item.deliveryType}}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="reward-price">{{item.price}} BYN</div>
+          </div>
+          <div class="col">
+            <div *ngIf='item.availableCount' class="rewards-count">ОСТАЛОСЬ {{item.availableCount}}</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
