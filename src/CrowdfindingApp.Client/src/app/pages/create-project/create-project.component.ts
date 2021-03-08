@@ -15,6 +15,7 @@ import { ProjectCard } from 'src/app/components/project-card/ProjectCard';
 import { SelectInput } from 'src/app/components/selectors/select/SelectInput';
 import { SelectItem } from 'src/app/components/selectors/select/SelectItem';
 import { RewardCard } from 'src/app/components/reward-card/RewardCard';
+import { DeliveryTypes } from 'src/app/models/common/DeliveryType';
 
 @Component({
   selector: 'app-create-project',
@@ -86,6 +87,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   };
 
   // help props
+  private selectedDeliveryType = DeliveryTypes.withoutDelivery.name;
   private selectedCountry: string;
   private selectedCity: string;
   private selectedMonth: string;
@@ -124,9 +126,9 @@ export class CreateProjectComponent extends Base implements OnInit {
   public ownerInfoTab = new TabElement('Платежная информация', false);
 
   // sub tabs
-  public withoutDeliverySubTab = new TabElement('Доставка отсутствует', true);
-  public someCountriesDeliverySubTab = new TabElement('Некоторые страны', false);
-  public wholeWorldDeliverySubTab = new TabElement('Весь мир', false);
+  public withoutDeliverySubTab = new TabElement(DeliveryTypes.withoutDelivery.name, true);
+  public someCountriesDeliverySubTab = new TabElement(DeliveryTypes.someCountries.name, false);
+  public wholeWorldDeliverySubTab = new TabElement(DeliveryTypes.wholeWorld.name, false);
 
   public getCountryNameById(id: string): string {
     return this.countrySelectInput.list.find(x => x.value === id).name;
@@ -142,6 +144,7 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   public onDeliverySubTabClick(tab: TabElement): void {
     if (tab.isActive) { return; }
+    this.selectedDeliveryType = tab.value;
     this.countrySelectInput.list.forEach(x => x.disabled = false);
     this.rewardDeliveryExcludedCountries = [];
     this.rewardDeliveryIncludedCountries = [];
@@ -212,11 +215,12 @@ export class CreateProjectComponent extends Base implements OnInit {
         'assets/img/stock-reward.jpg',
         this.selectedMonth,
         this.selectedYear,
-        'delivery type',
+        this.selectedDeliveryType,
         this.rewardCountRestrictionsInput.value
       )
     );
 
+    this.selectedDeliveryType = DeliveryTypes.withoutDelivery.name;
     this.rewardNameInput.value = undefined;
     this.rewardCostInput.value = undefined;
     this.rewardCountRestrictionsInput.value = undefined;
