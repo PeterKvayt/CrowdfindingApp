@@ -100,7 +100,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     imgPath: 'assets/img/stock-project.png',
     purpose: this.projectPurposeInput.value ? this.projectPurposeInput.value : 0,
     currentResult: 0,
-    id: null
+    id: null,
   };
 
   public onProjectNameChange(): void {
@@ -116,6 +116,14 @@ export class CreateProjectComponent extends Base implements OnInit {
       this.projectCard.description = this.projectShortDescriptionInput.value;
     } else {
       this.projectCard.description = 'Описание';
+    }
+  }
+
+  public onProjectPurposeChange(): void {
+    if (this.projectPurposeInput.value) {
+      this.projectCard.purpose = this.projectPurposeInput.value;
+    } else {
+      this.projectCard.purpose = 0;
     }
   }
 
@@ -168,6 +176,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   // General Tab functional
   public onCategorySelect(value: string): void {
     this.projectCategory = value;
+    this.projectCard.category = this.categorySelectInput.list.find(x => x.value === value).name;
   }
 
   public onCitySelect(value: string): void {
@@ -206,7 +215,6 @@ export class CreateProjectComponent extends Base implements OnInit {
   }
 
   public onRewardAddClick(): void {
-
     this.projectRewardsList.push(
       new RewardCard(
         this.rewardNameInput.value,

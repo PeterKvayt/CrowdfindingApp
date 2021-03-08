@@ -70,7 +70,7 @@
 
         <div class="box">
           <span class="sub-title">Бюджет и продолжительность компании</span>
-          <app-decimal-input [item]='projectPurposeInput'></app-decimal-input>
+          <app-decimal-input [item]='projectPurposeInput' (valueChange)='onProjectPurposeChange()'></app-decimal-input>
           <app-decimal-input [item]='projectDurationInput'></app-decimal-input>
           <div class="delicate-text">Мы рекомендуем указывать минимальную сумму, необходимую для реализации проекта.
             Платформа использует модель «все или ничего», а это значит, что для получения средств вам обязательно
@@ -91,7 +91,9 @@
         <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
           (click)='toModerationClick()'>
         </app-regular-btn>
-        <app-project-card [card]='projectCard'></app-project-card>
+        <div class="row">
+          <app-project-card [card]='projectCard'></app-project-card>
+        </div>
         <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Зачем записывать видео?'
           body='Видео-обращение значительно повысит ваши шансы на успех. Это эффективный инструмент, который позволит лично обратиться к потенциальным спонсорам, рассказать о проекте и призвать к действию.'>
