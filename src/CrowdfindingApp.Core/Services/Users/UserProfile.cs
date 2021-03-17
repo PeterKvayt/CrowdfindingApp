@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using CrowdfindingApp.Common.DataTransfers.Users;
 using CrowdfindingApp.Common.Messages.Users;
+using CrowdfindingApp.Data.Common.BusinessModels;
 
 namespace CrowdfindingApp.Core.Services.Users
 {
@@ -11,11 +12,11 @@ namespace CrowdfindingApp.Core.Services.Users
     {
         public UserProfile()
         {
-            CreateMap<Data.Common.Models.User, UserInfo>()
+            CreateMap<User, UserInfo>()
                 .ForMember(dest => dest.Photo, opt => opt.MapFrom(source => source.Image))
                 .ForMember(dest => dest.Role, opt => opt.MapFrom((src, dest, destMember, ctx) => GetRoleName(src.RoleId, ctx.Items.ToDictionary(_ => _.Key, _ => _.Value.ToString()))));
 
-            CreateMap<UpdateUserRequestMessage, Data.Common.Models.User>();
+            CreateMap<UpdateUserRequestMessage, User>();
 
         }
 

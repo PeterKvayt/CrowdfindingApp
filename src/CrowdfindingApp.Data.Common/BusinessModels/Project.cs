@@ -1,6 +1,7 @@
 ﻿using System;
+using CrowdfindingApp.Data.Common.Models;
 
-namespace CrowdfindingApp.Data.Common.Models
+namespace CrowdfindingApp.Data.Common.BusinessModels
 {
     public sealed class Project : BaseModel
     {

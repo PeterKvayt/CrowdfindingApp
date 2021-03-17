@@ -11,6 +11,7 @@ using CrowdfindingApp.Common.Maintainers.TokenManager;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Users;
 using CrowdfindingApp.Core.Services.Users.Helpers;
+using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
@@ -70,7 +71,7 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
         protected override async Task<ReplyMessageBase> ExecuteAsync(RegisterRequestMessage request)
         {
             var (passwordHash, salt) = _hasher.GetHashWithSalt(request.Password);
-            var user = new Data.Common.Models.User()
+            var user = new User()
             {
                 Id = new Guid(),
                 Email = request.Email.ToUpperInvariant(),

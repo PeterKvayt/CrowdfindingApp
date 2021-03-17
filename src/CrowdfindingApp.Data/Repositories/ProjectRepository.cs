@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Extensions;
+using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Extensions;
 using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.Interfaces;
@@ -74,6 +75,16 @@ namespace CrowdfindingApp.Data.Repositories
         {
             Storage.Projects.Update(project);
             await Storage.SaveChangesAsync();
+        }
+
+        public Task<List<Country>> GetCountriesAsync()
+        {
+            return Storage.Countries.ToListAsync();
+        }
+
+        public Task<List<City>> GetCitiesAsync()
+        {
+            return Storage.Cities.ToListAsync();
         }
     }
 }

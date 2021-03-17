@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,8 @@ namespace CrowdfindingApp.Data.Common.Interfaces
         DbSet<UserSocialNetwork> UserSocialNetworks { get; set; }
         DbSet<UserWebSite> UserWebSites { get; set; }
         DbSet<Role> Roles { get; set; }
+        DbSet<City> Cities { get; set; }
+        DbSet<Country> Countries { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

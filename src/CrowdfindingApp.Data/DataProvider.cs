@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Interfaces;
 using CrowdfindingApp.Data.Common.Models;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,8 @@ namespace CrowdfindingApp.Data
         public DbSet<UserSocialNetwork> UserSocialNetworks { get; set; }
         public DbSet<UserWebSite> UserWebSites { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

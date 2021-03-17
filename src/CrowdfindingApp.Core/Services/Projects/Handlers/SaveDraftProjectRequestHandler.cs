@@ -6,6 +6,7 @@ using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Projects;
+using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 using CrowdfindingApp.Data.Common.Models;
 

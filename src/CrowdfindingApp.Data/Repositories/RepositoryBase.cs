@@ -1,8 +1,8 @@
 ﻿
 using System;
 using System.Linq;
+using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Interfaces;
-using CrowdfindingApp.Data.Common.Models;
 
 namespace CrowdfindingApp.Data.Repositories
 {
@@ -60,6 +60,14 @@ namespace CrowdfindingApp.Data.Repositories
             else if(typeof(TModel) == typeof(UserWebSite))
             {
                 return (IQueryable<TModel>)Storage.UserWebSites;
+            }
+            else if(typeof(TModel) == typeof(Country))
+            {
+                return (IQueryable<TModel>)Storage.Countries;
+            }
+            else if(typeof(TModel) == typeof(City))
+            {
+                return (IQueryable<TModel>)Storage.Cities;
             }
             else 
             {

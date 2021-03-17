@@ -1,5 +1,7 @@
 ﻿
-namespace CrowdfindingApp.Data.Common.Models
+using CrowdfindingApp.Data.Common.Models;
+
+namespace CrowdfindingApp.Data.Common.BusinessModels
 {
     public sealed class OrderAddress : BaseModel
     {

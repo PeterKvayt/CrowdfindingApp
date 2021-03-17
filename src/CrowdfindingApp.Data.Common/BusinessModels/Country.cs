@@ -1,9 +1,8 @@
-﻿
-using CrowdfindingApp.Data.Common.Models;
+﻿using CrowdfindingApp.Data.Common.Models;
 
 namespace CrowdfindingApp.Data.Common.BusinessModels
 {
-    public sealed class Category : BaseModel
+    public class Country : BaseModel
     {
         public string Name { get; set; }
     }
