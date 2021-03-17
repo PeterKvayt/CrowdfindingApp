@@ -10,7 +10,7 @@ namespace CrowdfindingApp.Core.Services.Users
         {
             RegisterHandlers(builder);
 
-            builder.RegisterType<UserProfile>().As<Profile>().SingleInstance();
+            builder.RegisterType<UserProfile>().As<Profile>();
             // Repository registration in startup extensions.
 
 
@@ -20,18 +20,18 @@ namespace CrowdfindingApp.Core.Services.Users
             //        ("CrowdfindingApp.Core.Services.User.Resources.ActionMessages", typeof(UserModule).Assembly)
             //    })
             //    .AsImplementedInterfaces()
-            //    .SingleInstance();
+            //    ;
         }
 
         private void RegisterHandlers(ContainerBuilder builder)
         {
-            builder.RegisterType<RegisterRequestHandler>().AsSelf().SingleInstance();
-            builder.RegisterType<GetTokenRequestHandler>().AsSelf().SingleInstance();
-            builder.RegisterType<ForgotPasswordRequestHandler>().AsSelf().SingleInstance();
-            builder.RegisterType<ResetPasswordRequestHandler>().AsSelf().SingleInstance();
-            builder.RegisterType<GetUserInfoRequestHandler>().AsSelf().SingleInstance();
-            builder.RegisterType<UpdateUserRequestHandler>().AsSelf().SingleInstance();
-            builder.RegisterType<ChangePasswordRequestHandler>().AsSelf().SingleInstance();
+            builder.RegisterType<RegisterRequestHandler>().AsSelf();
+            builder.RegisterType<GetTokenRequestHandler>().AsSelf();
+            builder.RegisterType<ForgotPasswordRequestHandler>().AsSelf();
+            builder.RegisterType<ResetPasswordRequestHandler>().AsSelf();
+            builder.RegisterType<GetUserInfoRequestHandler>().AsSelf();
+            builder.RegisterType<UpdateUserRequestHandler>().AsSelf();
+            builder.RegisterType<ChangePasswordRequestHandler>().AsSelf();
         }
     }
 }

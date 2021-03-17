@@ -11,11 +11,11 @@ namespace CrowdfindingApp.Common
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<Hasher>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<EmailSender>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<CryptoProvider>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<TokenManager>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<SmtpClient>().AsSelf().SingleInstance();
+            builder.RegisterType<Hasher>().AsImplementedInterfaces();
+            builder.RegisterType<EmailSender>().AsImplementedInterfaces();
+            builder.RegisterType<CryptoProvider>().AsImplementedInterfaces();
+            builder.RegisterType<TokenManager>().AsImplementedInterfaces();
+            builder.RegisterType<SmtpClient>().AsSelf();
 
             //builder.RegisterInstance(new List<(string, Assembly)>()
             //    {

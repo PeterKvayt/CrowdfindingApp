@@ -45,9 +45,9 @@ namespace CrowdfindingApp.Api
 
         public static ContainerBuilder RegisterRepositories(this ContainerBuilder builder)
         {
-            builder.RegisterType<RoleRepository>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<UserRepository>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ProjectRepository>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<RoleRepository>().AsImplementedInterfaces();
+            builder.RegisterType<UserRepository>().AsImplementedInterfaces();
+            builder.RegisterType<ProjectRepository>().AsImplementedInterfaces();
 
             return builder;
         }
@@ -73,7 +73,7 @@ namespace CrowdfindingApp.Api
                 ("CrowdfindingApp.Common.Resources.CommonErrorMessages", typeof(CommonModule).Assembly),
             };
 
-            builder.Register(ctx => new ResourceProvider(providers)).AsImplementedInterfaces().SingleInstance();
+            builder.Register(ctx => new ResourceProvider(providers)).AsImplementedInterfaces();
             return builder;
         }
 
@@ -92,7 +92,7 @@ namespace CrowdfindingApp.Api
                 }
             }));
 
-            builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().SingleInstance();
+            builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>();
 
             return builder;
         }

@@ -77,14 +77,14 @@ namespace CrowdfindingApp.Data.Repositories
             await Storage.SaveChangesAsync();
         }
 
-        public Task<List<Country>> GetCountriesAsync()
+        public async Task<List<Country>> GetCountriesAsync()
         {
-            return Storage.Countries.ToListAsync();
+            return await Storage.Countries.ToListAsync();
         }
 
-        public Task<List<City>> GetCitiesAsync()
+        public async Task<List<City>> GetCitiesAsync()
         {
-            return Storage.Cities.ToListAsync();
+            return await Storage.Cities.ToListAsync();
         }
     }
 }

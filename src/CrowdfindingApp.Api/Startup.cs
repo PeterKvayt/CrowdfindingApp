@@ -24,7 +24,7 @@ namespace CrowdfindingApp.Api
             Environment = env;
 
             Config = builder.Build();
-        }
+        }   
 
         public IConfigurationRoot Config { get; private set; }
 
@@ -35,7 +35,7 @@ namespace CrowdfindingApp.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<IDataProvider, DataProvider>(options => 
-                options.UseSqlServer(Config.GetConnectionString(Configuration.Connection)));
+                options.UseSqlServer(Config.GetConnectionString(Configuration.Connection)), ServiceLifetime.Scoped);
 
             services.AddAuthentication(Environment)
                     .ConfigureSwagger()
