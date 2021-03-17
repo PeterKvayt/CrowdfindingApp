@@ -225,7 +225,7 @@
           <span class="sub-title">Частые вопросы</span>
           <app-text-input [item]='questionInput'></app-text-input>
           <app-text-area [item]='answerInput'></app-text-area>
-          <app-regular-btn value='Добавить вопрос' (click)='onQuewstionAddClick()'></app-regular-btn>
+          <app-regular-btn value='Добавить вопрос' (click)='onQuestionAddClick()'></app-regular-btn>
           <div *ngFor='let question of faqList'>
             <span class="delicate-text">{{question.name}}</span>
             <br>

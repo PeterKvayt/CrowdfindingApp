@@ -16,6 +16,7 @@ import { SelectInput } from 'src/app/components/selectors/select/SelectInput';
 import { SelectItem } from 'src/app/components/selectors/select/SelectItem';
 import { RewardCard } from 'src/app/components/reward-card/RewardCard';
 import { DeliveryTypes } from 'src/app/models/common/DeliveryType';
+import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
 
 @Component({
   selector: 'app-create-project',
@@ -72,22 +73,16 @@ export class CreateProjectComponent extends Base implements OnInit {
     defaultValue: 'Выберите категорию'
   };
   public citiesSelectInput: SelectInput = {
-    list: [
-      new SelectItem('1', 'Минск'),
-      new SelectItem('2', 'Пинск'),
-    ],
+    list: [],
     defaultValue: 'Выберите город'
   };
   public countrySelectInput: SelectInput = {
-    list: [
-      new SelectItem('1', 'Беларусь'),
-      new SelectItem('2', 'Россия')
-    ],
+    list: [],
     defaultValue: 'Выберите страну'
   };
 
   // help props
-  private selectedDeliveryType = DeliveryTypes.withoutDelivery.name;
+  private selectedDeliveryType = DeliveryTypes.withoutDelivery.value;
   private selectedCountry: string;
   private selectedCity: string;
   private selectedMonth: string;
@@ -134,9 +129,9 @@ export class CreateProjectComponent extends Base implements OnInit {
   public ownerInfoTab = new TabElement('Платежная информация', false);
 
   // sub tabs
-  public withoutDeliverySubTab = new TabElement(DeliveryTypes.withoutDelivery.name, true);
-  public someCountriesDeliverySubTab = new TabElement(DeliveryTypes.someCountries.name, false);
-  public wholeWorldDeliverySubTab = new TabElement(DeliveryTypes.wholeWorld.name, false);
+  public withoutDeliverySubTab = new TabElement(DeliveryTypes.withoutDelivery.value, true);
+  public someCountriesDeliverySubTab = new TabElement(DeliveryTypes.someCountries.value, false);
+  public wholeWorldDeliverySubTab = new TabElement(DeliveryTypes.wholeWorld.value, false);
 
   public getCountryNameById(id: string): string {
     return this.countrySelectInput.list.find(x => x.value === id).name;
@@ -170,8 +165,33 @@ export class CreateProjectComponent extends Base implements OnInit {
   ) { super(router, activatedRoute); }
   public ngOnInit(): void {
     this.titleService.setTitle('Создание проекта');
+    this.setCountries();
+    this.setCities();
   }
 
+  private setCountries(): void {
+    this.subscriptions.add(
+          this.projectService.getCountries().subscribe(
+            (reply: ReplyMessage<LookupItem[]>) => {
+              reply.value.forEach(country => {
+                this.countrySelectInput.list.push(new SelectItem(country.key, country.value));
+              });
+            }
+          )
+        );
+  }
+
+  private setCities(): void {
+    this.subscriptions.add(
+          this.projectService.getCities().subscribe(
+            (reply: ReplyMessage<LookupItem[]>) => {
+              reply.value.forEach(city => {
+                this.citiesSelectInput.list.push(new SelectItem(city.key, city.value));
+              });
+            }
+          )
+        );
+  }
 
   // General Tab functional
   public onCategorySelect(value: string): void {
@@ -228,7 +248,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       )
     );
 
-    this.selectedDeliveryType = DeliveryTypes.withoutDelivery.name;
+    this.selectedDeliveryType = DeliveryTypes.withoutDelivery.value;
     this.rewardNameInput.value = undefined;
     this.rewardCostInput.value = undefined;
     this.rewardCountRestrictionsInput.value = undefined;
@@ -238,7 +258,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.rewardDeliveryIncludedCountries = [];
   }
 
-  public onQuewstionAddClick(): void {
+  public onQuestionAddClick(): void {
     if (!this.questionInput.value || !this.answerInput.value) { return; }
     this.faqList.push(
       new LookupItem(this.questionInput.value, this.answerInput.value)
@@ -252,8 +272,8 @@ export class CreateProjectComponent extends Base implements OnInit {
   }
 
   public onquestionEditClick(question: LookupItem): void {
-    this.questionInput.value = question.name;
-    this.answerInput.value = question.value;
+    this.questionInput.value = question.value;
+    this.answerInput.value = question.key;
     this.faqList.remove(question);
   }
 
@@ -280,6 +300,10 @@ export class CreateProjectComponent extends Base implements OnInit {
     //     )
     //   );
   }
+
+private getProject(): void {
+
+}
 
   public onFeedbackShowClick(): void {
     this.feedBackModalShow = true;

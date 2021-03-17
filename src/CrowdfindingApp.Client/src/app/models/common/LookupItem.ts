@@ -1,7 +1,7 @@
 export class LookupItem {
 
   constructor(
-    public name: string,
+    public key: string,
     public value: string
   ) {
     

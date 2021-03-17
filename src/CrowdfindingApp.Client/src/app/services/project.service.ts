@@ -9,6 +9,14 @@ export class ProjectService {
     private http: HttpService
   ) { }
 
+  public getCities() {
+    return this.http.get('projects/cities');
+  }
+
+  public getCountries() {
+    return this.http.get('projects/countries');
+  }
+
   // public create(model: ProjectModel) {
   //   return this.http.post<ProjectModel>('projects', model);
   // }

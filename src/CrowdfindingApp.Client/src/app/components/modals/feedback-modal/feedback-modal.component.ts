@@ -2,7 +2,6 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { TextArea } from '../../inputs/text-area/TextArea';
 import { TextInput } from '../../inputs/text-input/TextInput';
 import { AuthenticationService } from 'src/app/services/auth.service';
-import { LookupItem } from 'src/app/models/common/LookupItem';
 import { SelectInput } from '../../selectors/select/SelectInput';
 import { SelectItem } from '../../selectors/select/SelectItem';
 

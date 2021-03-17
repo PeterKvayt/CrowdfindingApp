@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { LookupItem } from 'src/app/models/common/LookupItem';
 import { SelectItem } from '../select/SelectItem';
 import { SelectInput } from '../select/SelectInput';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { LookupItem } from 'src/app/models/common/LookupItem';
 import { SelectInput } from '../select/SelectInput';
+import { SelectItem } from '../select/SelectItem';
 
 @Component({
   selector: 'app-year-selector',
@@ -23,7 +23,7 @@ export class YearSelectorComponent implements OnInit {
     const currentYear = (new Date()).getFullYear();
     for (let index = 0; index < this.yearsCount; index++) {
       const item = currentYear + index;
-      this.select.list.push(new LookupItem(item.toString(), item.toString()));
+      this.select.list.push(new SelectItem(item.toString(), item.toString()));
     }
   }
 
