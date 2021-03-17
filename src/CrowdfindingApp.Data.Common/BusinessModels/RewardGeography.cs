@@ -6,7 +6,7 @@ namespace CrowdfindingApp.Data.Common.BusinessModels
     public sealed class RewardGeography : BaseModel
     {
         public Guid RewardId { get; set; }
-        public string Name { get; set; }
+        public Guid CountryId { get; set; }
         public decimal Price { get; set; }
     }
 }

@@ -10,22 +10,22 @@ using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
-    public class GetCountriesRequestHandler : NullOperationContextRequestHandler<CountriesSearchRequestMessage, ReplyMessage<List<KeyValue<string, string>>>>
+    public class GetCategoriesRequestHandler : NullOperationContextRequestHandler<CategoriesSearchRequestMessage, ReplyMessage<List<KeyValue<string, string>>>>
     {
         private readonly IProjectRepository _repository;
 
-        public GetCountriesRequestHandler(IProjectRepository repository)
+        public GetCategoriesRequestHandler(IProjectRepository repository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        protected override async Task<ReplyMessage<List<KeyValue<string, string>>>> ExecuteAsync(CountriesSearchRequestMessage request)
+        protected override async Task<ReplyMessage<List<KeyValue<string, string>>>> ExecuteAsync(CategoriesSearchRequestMessage request)
         {
-            var countries = await _repository.GetCountriesAsync();
+            var categories = await _repository.GetCategoriesAsync();
 
             return new ReplyMessage<List<KeyValue<string, string>>>
             {
-                Value = countries.Where(x => x.Id != Common.Immutable.Data.WholeWorldDelivery).Select(x => new KeyValue<string, string>(x.Id.ToString(), x.Name)).ToList()
+                Value = categories.Select(x => new KeyValue<string, string>(x.Id.ToString(), x.Name)).ToList()
             };
         }
     }

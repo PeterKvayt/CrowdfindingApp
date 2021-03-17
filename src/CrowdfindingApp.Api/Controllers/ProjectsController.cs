@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Localization;
+using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Projects;
 using CrowdfindingApp.Core.Services.Projects.Handlers;
 using Microsoft.AspNetCore.Authorization;
@@ -17,22 +18,25 @@ namespace CrowdfindingApp.Api.Controllers
         private readonly ProjectSearchRequestHandler _projectSearchRequestHandler;
         private readonly GetCountriesRequestHandler _getCountriesRequestHandler;
         private readonly GetCitiesRequestHandler _getCitiesRequestHandler;
+        private GetCategoriesRequestHandler _getCategoriesRequestHandler;
 
         public ProjectsController(IResourceProvider resourceProvider,
             SaveDraftProjectRequestHandler saveDraftProjectRequestHandler,
             GetCountriesRequestHandler getCountriesRequestHandler,
             GetCitiesRequestHandler getCitiesRequestHandler,
+            GetCategoriesRequestHandler getCategoriesRequestHandler,
             ProjectSearchRequestHandler projectSearchRequestHandler) : base(resourceProvider)
         {
             _saveDraftProjectRequestHandler = saveDraftProjectRequestHandler ?? throw new ArgumentNullException(nameof(saveDraftProjectRequestHandler));
             _projectSearchRequestHandler = projectSearchRequestHandler ?? throw new ArgumentNullException(nameof(projectSearchRequestHandler));
             _getCountriesRequestHandler = getCountriesRequestHandler ?? throw new ArgumentNullException(nameof(getCountriesRequestHandler));
             _getCitiesRequestHandler = getCitiesRequestHandler ?? throw new ArgumentNullException(nameof(getCitiesRequestHandler));
+            _getCategoriesRequestHandler = getCategoriesRequestHandler ?? throw new ArgumentNullException(nameof(getCategoriesRequestHandler));
         }
 
         [HttpPost(Endpoints.Project.SaveDraft)]
         [Authorize]
-        public async Task<IActionResult> GetTokenAsync(SaveDraftProjectRequestMessage request)
+        public async Task<IActionResult> Save(SaveDraftProjectRequestMessage request)
         {
             var reply = await _saveDraftProjectRequestHandler.HandleAsync(request, User);
             return Respond(reply);
@@ -59,6 +63,14 @@ namespace CrowdfindingApp.Api.Controllers
         public async Task<IActionResult> Cities()
         {
             var reply = await _getCitiesRequestHandler.HandleAsync(new CitiesSearchRequestMessage(), User);
+            return Respond(reply);
+        }
+
+        [HttpGet(Endpoints.Project.Categories)]
+        [Authorize]
+        public async Task<IActionResult> Categories()
+        {
+            var reply = await _getCategoriesRequestHandler.HandleAsync(new CategoriesSearchRequestMessage(), User);
             return Respond(reply);
         }
     }

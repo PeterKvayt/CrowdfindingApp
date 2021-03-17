@@ -86,5 +86,10 @@ namespace CrowdfindingApp.Data.Repositories
         {
             return await Storage.Cities.ToListAsync();
         }
+
+        public async Task<List<Category>> GetCategoriesAsync()
+        {
+            return await Storage.Categories.ToListAsync();
+        }
     }
 }

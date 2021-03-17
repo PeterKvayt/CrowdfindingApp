@@ -21,6 +21,7 @@ namespace CrowdfindingApp.Common.Immutable
             public const string Search = "search";
             public const string Countries = "countries";
             public const string Cities = "cities";
+            public const string Categories = nameof(Categories);
 
         }
     }

@@ -15,5 +15,6 @@ namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
         Task UpdateDraftProject(Project project);
         Task<List<Country>> GetCountriesAsync();
         Task<List<City>> GetCitiesAsync();
+        Task<List<Category>> GetCategoriesAsync();
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using CrowdfindingApp.Common.DataTransfers.Questions;
+using CrowdfindingApp.Common.DataTransfers.Rewards;
 
 namespace CrowdfindingApp.Common.DataTransfers.Project
 {
@@ -24,5 +27,7 @@ namespace CrowdfindingApp.Common.DataTransfers.Project
         public DateTime? WhenGivenDocument { get; set; }
         public string AuthorAddress { get; set; }
         public string AuthorPhone { get; set; }
+        public List<RewardInfo> Rewards { get; set; }
+        public List<QuestionInfo> Questions { get; set; }
     }
 }
