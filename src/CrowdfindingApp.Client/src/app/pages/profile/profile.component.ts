@@ -6,6 +6,7 @@ import { Title } from '@angular/platform-browser';
 import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
 import { UserInfo } from 'src/app/models/replies/users/UserInfo';
 import { AuthenticationService } from 'src/app/services/auth.service';
+import { TabElement } from 'src/app/components/tab/Tabelement';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,11 @@ import { AuthenticationService } from 'src/app/services/auth.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent extends Base implements OnInit {
+  
+  public myProjectsTab = new TabElement('Мои проекты', true);
+  public supportedTab = new TabElement('Поддрежал', false);
+  public draftsTab = new TabElement('Черновики', false);
+  
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
@@ -44,5 +50,13 @@ export class ProfileComponent extends Base implements OnInit {
   public onSignOutClick(): void {
     this.authService.signOut();
     this.redirect('sign-in');
+  }
+
+  public onTabClick(tab: TabElement): void {
+    if (tab.isActive) { return; }
+    this.myProjectsTab.isActive = false;
+    this.supportedTab.isActive = false;
+    this.draftsTab.isActive = false;
+    tab.isActive = true;
   }
 }

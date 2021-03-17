@@ -143,9 +143,9 @@
             <ng-container *ngIf='someCountriesDeliverySubTab.isActive'>
               <app-select [item]='countrySelectInput' (selectedValue)='onCountrySelect($event)'></app-select>
               <app-decimal-input [item]='countryDeliveryCostInput'></app-decimal-input>
-              <app-regular-btn value='Добавить страну' (click)='onSomeCountryDeliveryAddClick()'></app-regular-btn>
+              <app-regular-btn value='Добавить страну' (click)='onDeliveryAddClick()'></app-regular-btn>
               <div class="selected-countries">
-                <div class="selected-country-item" *ngFor='let country of rewardDeliveryIncludedCountries'>
+                <div class="selected-country-item" *ngFor='let country of rewardDeliveryCountries'>
                   {{getCountryNameById(country.key)}} {{country.value}} BYN
                   <app-regular-btn value='Удалить' (click)='onRemoveCountryFromIncludedList(country)'></app-regular-btn>
                 </div>
@@ -159,8 +159,14 @@
               <app-decimal-input [item]='rewardWholeWorldDeliveryCostInput'></app-decimal-input>
               <app-select [item]='countrySelectInput' (selectedValue)='onCountrySelect($event)'></app-select>
               <app-decimal-input [item]='countryDeliveryCostInput'></app-decimal-input>
-              <app-regular-btn value='Добавить страну исключение' (click)='onExcludedCountryDeliveryAddClick()'>
+              <app-regular-btn value='Добавить страну исключение' (click)='onDeliveryAddClick()'>
               </app-regular-btn>
+              <div class="selected-countries">
+                  <div class="selected-country-item" *ngFor='let country of rewardDeliveryCountries'>
+                    {{getCountryNameById(country.key)}} {{country.value}} BYN
+                    <app-regular-btn value='Удалить' (click)='onRemoveCountryFromIncludedList(country)'></app-regular-btn>
+                  </div>
+                </div>
             </ng-container>
           </div>
 
@@ -194,7 +200,7 @@
         </app-collapse>
         <app-link empty value='Задать вопрос' (click)='onFeedbackShowClick()'></app-link>
         <div class="row reward-container">
-          <app-reward-card *ngFor='let reward of projectRewardsList' [item]='reward' editable='true'></app-reward-card>
+          <app-reward-card *ngFor='let reward of rewardCardList' [item]='reward' editable='true'></app-reward-card>
         </div>
       </div>
 
@@ -227,9 +233,9 @@
           <app-text-area [item]='answerInput'></app-text-area>
           <app-regular-btn value='Добавить вопрос' (click)='onQuestionAddClick()'></app-regular-btn>
           <div *ngFor='let question of faqList'>
-            <span class="delicate-text">{{question.name}}</span>
+            <span class="delicate-text">{{question.question}}</span>
             <br>
-            <span>{{question.value}}</span>
+            <span>{{question.answer}}</span>
             <app-regular-btn value='Удалить' (click)='onquestionRemoveClick(question)'></app-regular-btn>
             <app-regular-btn value='Изменить' (click)='onquestionEditClick(question)'></app-regular-btn>
           </div>

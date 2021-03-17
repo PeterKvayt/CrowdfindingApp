@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
+import { SaveDraftProjectRequestMessage } from '../models/requests/projects/SaveDraftProjectRequestMessage';
 
 
 @Injectable()
@@ -9,24 +10,30 @@ export class ProjectService {
     private http: HttpService
   ) { }
 
+  private controller = 'projects/';
+
   public getCities() {
-    return this.http.get('projects/cities');
+    return this.http.get(this.controller + 'cities');
   }
 
   public getCountries() {
-    return this.http.get('projects/countries');
+    return this.http.get(this.controller + 'countries');
   }
 
-  // public create(model: ProjectModel) {
-  //   return this.http.post<ProjectModel>('projects', model);
-  // }
+  public getCategories() {
+    return this.http.get(this.controller + 'categories');
+  }
+
+  public save(model: SaveDraftProjectRequestMessage) {
+    return this.http.post<SaveDraftProjectRequestMessage>(this.controller + 'save-draft', model);
+  }
 
   public getProjects() {
     return this.http.get('projects');
   }
 
   public getUserProjects() {
-    return this.http.get('projects/user-projects');
+    return this.http.get(this.controller + 'user-projects');
   }
 
   // public update(model: ProjectModel) {

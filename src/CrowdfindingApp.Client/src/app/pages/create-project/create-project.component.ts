@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Base } from '../Base';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { ProjectModel } from 'src/app/models/ProjectModel';
 import { ProjectService } from 'src/app/services/project.service';
 import { TextInput } from 'src/app/components/inputs/text-input/TextInput';
 import { DecimalInput } from 'src/app/components/inputs/decimal-input/DecimalInput';
@@ -15,8 +14,14 @@ import { ProjectCard } from 'src/app/components/project-card/ProjectCard';
 import { SelectInput } from 'src/app/components/selectors/select/SelectInput';
 import { SelectItem } from 'src/app/components/selectors/select/SelectItem';
 import { RewardCard } from 'src/app/components/reward-card/RewardCard';
-import { DeliveryTypes } from 'src/app/models/common/DeliveryType';
+import { DeliveryTypes } from 'src/app/models/immutable/DeliveryType';
 import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
+import { DraftProjectInfo } from 'src/app/models/replies/projects/DraftProjectInfo';
+import { RewardInfo } from 'src/app/models/replies/rewards/RewardInfo';
+import { SaveDraftProjectRequestMessage } from 'src/app/models/requests/projects/SaveDraftProjectRequestMessage';
+import { QuestionInfo } from 'src/app/models/replies/projects/QuestionInfo';
+import { DeliveryTypeEnum } from 'src/app/models/enums/DeliveryTypeEnum';
+import { Data } from 'src/app/models/immutable/Data';
 
 @Component({
   selector: 'app-create-project',
@@ -34,8 +39,8 @@ export class CreateProjectComponent extends Base implements OnInit {
   public projectDescriptionInput: TextArea = { placeholder: 'Введите полное описание проекта ...' };
   public projectVideoInput: TextInput = { placeholder: 'Введите ссылку на видео' };
   public projectPurposeInput: DecimalInput = { placeholder: 'Введите финансовую цель (BYN)', min: 1 };
-  public projectDurationInput: DecimalInput = { placeholder: 'Введите финансовую цель (BYN)', min: 1, max: 180 };
-  public faqList: LookupItem[] = [];
+  public projectDurationInput: DecimalInput = { placeholder: 'Введите продолжительность проекта в днях', min: 1, max: 180 };
+  public faqList: QuestionInfo[] = [];
   public projectOwnerSurnameInput: TextInput = { placeholder: 'Фамилия' };
   public projectOwnerNameInput: TextInput = { placeholder: 'Имя' };
   public projectOwnerMiddleNameInput: TextInput = { placeholder: 'Отчество' };
@@ -45,7 +50,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   public projectOwerPhoneNumberInput: TextInput = { placeholder: 'Контактный номер', min: 13, max: 13 };
   public projectOwerAddressInput: TextInput = { placeholder: 'Кем выдан' };
   public projectOwerWhenIssuedDocInput: DateInput = { label: 'Дата выдачи документа' };
-  public projectRewardsList: RewardCard[] = [];
+  public projectRewardsList: RewardInfo[] = [];
   public projectOwerBirthdayInput: DateInput = {
     label: 'Дата рождения',
     max: new Date(this.currentDate.getFullYear() - 18, this.currentDate.getMonth(), this.currentDate.getDay()),
@@ -57,8 +62,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   public rewardCostInput: DecimalInput = { placeholder: 'Введите стоимость (BYN)', min: 1 };
   public rewardCountRestrictionsInput: DecimalInput = { placeholder: 'Введите количество', min: 1 };
   public rewardDescriptionInput: TextArea = { placeholder: 'Введите описание вознаграждения' };
-  public rewardDeliveryIncludedCountries: GenericLookupItem<string, number>[] = [];
-  public rewardDeliveryExcludedCountries: GenericLookupItem<string, number>[] = [];
+  public rewardDeliveryCountries: GenericLookupItem<string, number>[] = [];
   public rewardWholeWorldDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки по всему миру (BYN)', min: 1 };
 
   // common
@@ -66,10 +70,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   public questionInput: TextInput = { placeholder: 'Введите вопрос' };
   public answerInput: TextArea = { placeholder: 'Введите ответ на вопрос' };
   public categorySelectInput: SelectInput = {
-    list: [
-      new SelectItem('1', 'Еда'),
-      new SelectItem('2', 'Дизайн'),
-    ],
+    list: [],
     defaultValue: 'Выберите категорию'
   };
   public citiesSelectInput: SelectInput = {
@@ -80,6 +81,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     list: [],
     defaultValue: 'Выберите страну'
   };
+  public rewardCardList: RewardCard[] = [];
 
   // help props
   private selectedDeliveryType = DeliveryTypes.withoutDelivery.value;
@@ -129,9 +131,9 @@ export class CreateProjectComponent extends Base implements OnInit {
   public ownerInfoTab = new TabElement('Платежная информация', false);
 
   // sub tabs
-  public withoutDeliverySubTab = new TabElement(DeliveryTypes.withoutDelivery.value, true);
-  public someCountriesDeliverySubTab = new TabElement(DeliveryTypes.someCountries.value, false);
-  public wholeWorldDeliverySubTab = new TabElement(DeliveryTypes.wholeWorld.value, false);
+  public withoutDeliverySubTab = new TabElement('Доставка отсутствует', true);
+  public someCountriesDeliverySubTab = new TabElement('Некоторые страны'  , false);
+  public wholeWorldDeliverySubTab = new TabElement('Весь мир', false);
 
   public getCountryNameById(id: string): string {
     return this.countrySelectInput.list.find(x => x.value === id).name;
@@ -149,8 +151,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     if (tab.isActive) { return; }
     this.selectedDeliveryType = tab.value;
     this.countrySelectInput.list.forEach(x => x.disabled = false);
-    this.rewardDeliveryExcludedCountries = [];
-    this.rewardDeliveryIncludedCountries = [];
+    this.rewardDeliveryCountries = [];
     this.withoutDeliverySubTab.isActive = false;
     this.someCountriesDeliverySubTab.isActive = false;
     this.wholeWorldDeliverySubTab.isActive = false;
@@ -167,6 +168,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.titleService.setTitle('Создание проекта');
     this.setCountries();
     this.setCities();
+    this.setCategories();
   }
 
   private setCountries(): void {
@@ -187,6 +189,18 @@ export class CreateProjectComponent extends Base implements OnInit {
             (reply: ReplyMessage<LookupItem[]>) => {
               reply.value.forEach(city => {
                 this.citiesSelectInput.list.push(new SelectItem(city.key, city.value));
+              });
+            }
+          )
+        );
+  }
+
+  private setCategories(): void {
+    this.subscriptions.add(
+          this.projectService.getCategories().subscribe(
+            (reply: ReplyMessage<LookupItem[]>) => {
+              reply.value.forEach(category => {
+                this.categorySelectInput.list.push(new SelectItem(category.key, category.value));
               });
             }
           )
@@ -215,27 +229,27 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.selectedCountry = value;
   }
 
-  public onSomeCountryDeliveryAddClick(): void {
+  public onDeliveryAddClick(): void {
     if (!this.countryDeliveryCostInput.value || !this.selectedCountry) { return; }
     this.countrySelectInput.list.find(x => x.value === this.selectedCountry).disabled = true;
-    this.rewardDeliveryIncludedCountries.push(
+    this.rewardDeliveryCountries.push(
       new GenericLookupItem<string, number>(this.selectedCountry, this.countryDeliveryCostInput.value));
     this.countryDeliveryCostInput.value = undefined;
-  }
-
-  public onExcludedCountryDeliveryAddClick(): void {
-    this.rewardDeliveryExcludedCountries.push(
-      new GenericLookupItem<string, number>(this.selectedCountry, this.countryDeliveryCostInput.value));
-    this.countryDeliveryCostInput.value = undefined;
+    const nextCountry = this.countrySelectInput.list.filter(x => x.disabled === false)[0];
+    if (nextCountry && this.selectedCountry !== nextCountry.value) {
+      this.selectedCountry = nextCountry.value;
+    } else {
+      this.selectedCountry = undefined;
+    }
   }
 
   public onRemoveCountryFromIncludedList(country: GenericLookupItem<string, number>): void {
     this.countrySelectInput.list.find(x => x.value === country.key).disabled = false;
-    this.rewardDeliveryIncludedCountries.remove(country);
+    this.rewardDeliveryCountries.remove(country);
   }
 
   public onRewardAddClick(): void {
-    this.projectRewardsList.push(
+    this.rewardCardList.push(
       new RewardCard(
         this.rewardNameInput.value,
         this.rewardCostInput.value,
@@ -248,32 +262,58 @@ export class CreateProjectComponent extends Base implements OnInit {
       )
     );
 
-    this.selectedDeliveryType = DeliveryTypes.withoutDelivery.value;
+    let deliveryType = DeliveryTypeEnum.WithoutDelivery;
+    if (this.wholeWorldDeliverySubTab.isActive) {
+      deliveryType = DeliveryTypeEnum.WholeWorld;
+    } else if (this.someCountriesDeliverySubTab.isActive) {
+      deliveryType = DeliveryTypeEnum.SomeCountries;
+    }
+
+    if (deliveryType === DeliveryTypeEnum.WholeWorld) {
+      this.rewardDeliveryCountries.push(new GenericLookupItem(Data.wholeWorldDeliveryId , this.rewardWholeWorldDeliveryCostInput.value));
+    }
+
+    const rewardInfo: RewardInfo = {
+      id: null,
+      projectId: null,
+      title: this.rewardNameInput.value,
+      price: this.rewardCostInput.value,
+      description: this.rewardDescriptionInput.value,
+      deliveryDate: new Date(<number><any>this.selectedYear, <number><any>this.selectedMonth),
+      isLimited: this.rewardCountRestrictionsInput.value ? true : false,
+      limit: this.rewardCountRestrictionsInput.value,
+      image: null,
+      deliveryType: deliveryType,
+      deliveryCountries:  this.rewardDeliveryCountries
+    };
+    this.projectRewardsList.push(rewardInfo);
+
+    this.selectedDeliveryType = DeliveryTypeEnum.WithoutDelivery.toString();
     this.rewardNameInput.value = undefined;
     this.rewardCostInput.value = undefined;
     this.rewardCountRestrictionsInput.value = undefined;
     this.rewardDescriptionInput.value = undefined;
     this.rewardWholeWorldDeliveryCostInput.value = undefined;
-    this.rewardDeliveryExcludedCountries = [];
-    this.rewardDeliveryIncludedCountries = [];
+    this.rewardDeliveryCountries = [];
+    this.countrySelectInput.list.forEach(country => country.disabled = false);
   }
 
   public onQuestionAddClick(): void {
     if (!this.questionInput.value || !this.answerInput.value) { return; }
     this.faqList.push(
-      new LookupItem(this.questionInput.value, this.answerInput.value)
+      new QuestionInfo(this.questionInput.value, this.answerInput.value)
     );
     this.questionInput.value = undefined;
     this.answerInput.value = undefined;
   }
 
-  public onquestionRemoveClick(question: LookupItem): void {
+  public onquestionRemoveClick(question: QuestionInfo): void {
     this.faqList.remove(question);
   }
 
-  public onquestionEditClick(question: LookupItem): void {
-    this.questionInput.value = question.value;
-    this.answerInput.value = question.key;
+  public onquestionEditClick(question: QuestionInfo): void {
+    this.questionInput.value = question.question;
+    this.answerInput.value = question.answer;
     this.faqList.remove(question);
   }
 
@@ -286,24 +326,42 @@ export class CreateProjectComponent extends Base implements OnInit {
   }
 
   public onSaveClick(): void {
-    //   const project: ProjectModel = {
-    //     Name: this.nameInput.value,
-    //     Description: this.descriptionInput.value,
-    //     CategoryId: '',
-    //     ImgPath: this.imageInput,
-    //     FinancialPurpose: this.purposeInput.value,
-    //     CurrentResult: 0
-    //   };
-    //   this.subscriptions.add(
-    //     this.projectService.create(project).subscribe(
-    //       () => { this.redirect('profile'); }
-    //     )
-    //   );
+      const model = this.getSaveRequestModel();
+      console.log(model);
+      this.subscriptions.add(
+        this.projectService.save(model).subscribe(
+          () => { this.redirect('profile'); }
+        )
+      );
   }
 
-private getProject(): void {
-
-}
+  private getSaveRequestModel(): SaveDraftProjectRequestMessage {
+    const draft: DraftProjectInfo = {
+      id: null,
+      categoryId: this.projectCategory,
+      title: this.projectNameInput.value,
+      shortDescription: this.projectShortDescriptionInput.value,
+      fullDescription: this.projectDescriptionInput.value,
+      location: this.selectedCity,
+      videoUrl: this.projectVideoInput.value,
+      image: null,
+      startDateTime: null,
+      duration: this.projectDurationInput.value,
+      budget: this.projectPurposeInput.value,
+      authorSurname: this.projectOwnerSurnameInput.value,
+      authorName: this.projectOwnerNameInput.value,
+      authorDateOfBirth: this.projectOwerBirthdayInput.value,
+      authorMiddleName: this.projectOwnerMiddleNameInput.value,
+      authorPersonalNumber: this.projectOwerPrivateNumberInput.value,
+      whomGivenDocument: this.projectOwerWhomIssuedDocInput.value,
+      whenGivenDocument: new Date(this.projectOwerWhenIssuedDocInput.value),
+      authorAddress: this.projectOwerAddressInput.value,
+      authorPhone: this.projectOwerPhoneNumberInput.value,
+      rewards: this.projectRewardsList,
+      questions: this.faqList
+    };
+    return new SaveDraftProjectRequestMessage(draft);
+  }
 
   public onFeedbackShowClick(): void {
     this.feedBackModalShow = true;

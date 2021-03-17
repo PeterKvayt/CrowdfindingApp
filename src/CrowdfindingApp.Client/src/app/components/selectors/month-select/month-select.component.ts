@@ -11,18 +11,18 @@ export class MonthSelectComponent {
 
   public select: SelectInput = {
     list: [
-      new SelectItem('Январь', '1'),
-      new SelectItem('Февраль', '2'),
-      new SelectItem('Март', '3'),
-      new SelectItem('Апрель', '4'),
-      new SelectItem('Май', '5'),
-      new SelectItem('Июнь', '6'),
-      new SelectItem('Июль', '7'),
-      new SelectItem('Август', '8'),
-      new SelectItem('Сентябрь', '9'),
-      new SelectItem('Октябрь', '10'),
-      new SelectItem('Ноябрь', '11'),
-      new SelectItem('Дкабрь', '12'),
+      new SelectItem('1', 'Январь'),
+      new SelectItem('2', 'Февраль'),
+      new SelectItem('3', 'Март'),
+      new SelectItem('4', 'Апрель'),
+      new SelectItem('5', 'Май'),
+      new SelectItem('6', 'Июнь'),
+      new SelectItem('7', 'Июль'),
+      new SelectItem('8', 'Август'),
+      new SelectItem('9', 'Сентябрь'),
+      new SelectItem('10', 'Октябрь'),
+      new SelectItem('11', 'Ноябрь'),
+      new SelectItem('12', 'Декабрь'),
     ],
     defaultValue: 'Выберите месяц'
   };

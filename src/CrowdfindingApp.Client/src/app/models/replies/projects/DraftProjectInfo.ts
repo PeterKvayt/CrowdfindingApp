@@ -1,3 +1,6 @@
+import { RewardInfo } from '../rewards/RewardInfo';
+import { QuestionInfo } from './QuestionInfo';
+
 export class DraftProjectInfo {
   public id: string;
   public categoryId: string;
@@ -19,4 +22,6 @@ export class DraftProjectInfo {
   public whenGivenDocument: Date;
   public authorAddress: string;
   public authorPhone: string;
+  public rewards: RewardInfo[];
+  public questions: QuestionInfo[];
 }

@@ -1,15 +1,18 @@
 <div class="form-group">
 
-  <select class="form-control" (change)='onValueSelect($event.target.value)'>
-    <option disabled selected value="0">{{item.defaultValue}}</option>
-    <ng-container *ngFor='let selectItem of item.list'>
-      <option *ngIf='selectItem.disabled' disabled [value]="selectItem.value">
-        {{selectItem.name}}
-      </option>
-      <option *ngIf='!selectItem.disabled' [value]="selectItem.value">
-        {{selectItem.name}}
-      </option>
-    </ng-container>
-  </select>
+  <form id=''>
+    <select class="form-control" (change)='onValueSelect($event.target.value)'>
+      <option disabled selected value="0">{{item.defaultValue}}</option>
+      <ng-container *ngFor='let selectItem of item.list'>
+        <option *ngIf='selectItem.disabled' disabled [value]="selectItem.value">
+          {{selectItem.name}}
+        </option>
+        <option *ngIf='!selectItem.disabled' [value]="selectItem.value">
+          {{selectItem.name}}
+        </option>
+      </ng-container>
+    </select>
+    <button hidden type='reset' from='some-form'></button>
+  </form>
 
 </div>
