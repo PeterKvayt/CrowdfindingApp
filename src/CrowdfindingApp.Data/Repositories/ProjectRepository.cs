@@ -15,6 +15,8 @@ namespace CrowdfindingApp.Data.Repositories
 {
     public class ProjectRepository : RepositoryBase<Project>, IProjectRepository
     {
+        protected override DbSet<Project> Repository => Storage.Projects;
+
         public ProjectRepository(IDataProvider storage) : base(storage)
         {
 
@@ -55,26 +57,6 @@ namespace CrowdfindingApp.Data.Repositories
         public async Task<List<Project>> GetProjects(ProjectFilter filter, Paging paging)
         {
             return await GetQuery(filter).ToPagedListAsync(paging);
-        }
-
-        public async Task<Project> GetById(Guid id)
-        {
-            return await Storage.Projects.FirstOrDefaultAsync(_ => _.Id == id);
-        }
-
-        public async Task<Guid> InsertDraftProject(Project project)
-        {
-            project.Id = new Guid();
-            await Storage.Projects.AddAsync(project);
-            await Storage.SaveChangesAsync();
-
-            return project.Id;
-        }
-
-        public async Task UpdateDraftProject(Project project)
-        {
-            Storage.Projects.Update(project);
-            await Storage.SaveChangesAsync();
         }
 
         public async Task<List<Country>> GetCountriesAsync()

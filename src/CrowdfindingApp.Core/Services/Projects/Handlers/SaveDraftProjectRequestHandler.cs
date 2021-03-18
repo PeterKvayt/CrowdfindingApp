@@ -8,7 +8,6 @@ using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Projects;
 using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
-using CrowdfindingApp.Data.Common.Models;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
@@ -62,11 +61,11 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
             if(isExistedDraft)
             {
-                await _repository.UpdateDraftProject(model);
+                await _repository.Update(model);
             }
             else
             {
-                await _repository.InsertDraftProject(model);
+                await _repository.Add(model);
             }
 
             return new ReplyMessageBase();

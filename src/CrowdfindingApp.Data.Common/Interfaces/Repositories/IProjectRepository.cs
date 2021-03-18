@@ -7,12 +7,9 @@ using CrowdfindingApp.Data.Common.Models;
 
 namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
 {
-    public interface IProjectRepository
+    public interface IProjectRepository : IRepository<Project>
     {
         Task<List<Project>> GetProjects(ProjectFilter filter, Paging paging);
-        Task<Project> GetById(Guid id);
-        Task<Guid> InsertDraftProject(Project project);
-        Task UpdateDraftProject(Project project);
         Task<List<Country>> GetCountriesAsync();
         Task<List<City>> GetCitiesAsync();
         Task<List<Category>> GetCategoriesAsync();

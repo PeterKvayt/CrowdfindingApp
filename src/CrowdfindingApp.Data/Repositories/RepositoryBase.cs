@@ -1,13 +1,18 @@
 ﻿
 using System;
 using System.Linq;
-using CrowdfindingApp.Data.Common.BusinessModels;
+using System.Threading.Tasks;
 using CrowdfindingApp.Data.Common.Interfaces;
+using CrowdfindingApp.Data.Common.Interfaces.Repositories;
+using CrowdfindingApp.Data.Common.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrowdfindingApp.Data.Repositories
 {
-    public abstract class RepositoryBase<TModel> where TModel : new()
+    public abstract class RepositoryBase<TModel> : IRepository<TModel> where TModel : BaseModel
     {
+        protected abstract DbSet<TModel> Repository { get; }
+
         protected IDataProvider Storage { get; }
 
         public RepositoryBase(IDataProvider storage)
@@ -15,64 +20,28 @@ namespace CrowdfindingApp.Data.Repositories
             Storage = storage ?? throw new ArgumentException(nameof(storage));
         }
 
+        public virtual async Task<Guid> Add(TModel model)
+        {
+            model.Id = new Guid();
+            await Repository.AddAsync(model);
+            await Storage.SaveChangesAsync();
+            return model.Id;
+        }
+
+        public virtual async Task Update(TModel model)
+        {
+            Repository.Update(model);
+            await Storage.SaveChangesAsync();
+        }
+
+        public virtual async Task<TModel> GetById(Guid id)
+        {
+            return await Repository.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         protected IQueryable<TModel> GetQuery()
         {
-            if(typeof(TModel) == typeof(Category))
-            {
-                return (IQueryable<TModel>)Storage.Categories;
-            }
-            else if(typeof(TModel) == typeof(OrderAddress))
-            {
-                return (IQueryable<TModel>)Storage.OrderAddresses;
-            }
-            else if(typeof(TModel) == typeof(Order))
-            {
-                return (IQueryable<TModel>)Storage.Orders;
-            }
-            else if(typeof(TModel) == typeof(Project))
-            {
-                return (IQueryable<TModel>)Storage.Projects;
-            }
-            else if(typeof(TModel) == typeof(Question))
-            {
-                return (IQueryable<TModel>)Storage.Questions;
-            }
-            else if(typeof(TModel) == typeof(RewardGeography))
-            {
-                return (IQueryable<TModel>)Storage.RewardGeographies;
-            }
-            else if(typeof(TModel) == typeof(Reward))
-            {
-                return (IQueryable<TModel>)Storage.Rewards;
-            }
-            else if(typeof(TModel) == typeof(Role))
-            {
-                return (IQueryable<TModel>)Storage.Roles;
-            }
-            else if(typeof(TModel) == typeof(User))
-            {
-                return (IQueryable<TModel>)Storage.Users;
-            }
-            else if(typeof(TModel) == typeof(UserSocialNetwork))
-            {
-                return (IQueryable<TModel>)Storage.UserSocialNetworks;
-            }
-            else if(typeof(TModel) == typeof(UserWebSite))
-            {
-                return (IQueryable<TModel>)Storage.UserWebSites;
-            }
-            else if(typeof(TModel) == typeof(Country))
-            {
-                return (IQueryable<TModel>)Storage.Countries;
-            }
-            else if(typeof(TModel) == typeof(City))
-            {
-                return (IQueryable<TModel>)Storage.Cities;
-            }
-            else 
-            {
-                throw new TypeAccessException($"There is no registered type for {nameof(TModel)}");
-            }
+            return Repository;
         }
     }
 }

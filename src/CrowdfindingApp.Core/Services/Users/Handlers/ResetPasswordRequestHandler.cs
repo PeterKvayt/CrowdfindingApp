@@ -38,7 +38,7 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
                 return (reply, operationСontext);
             }
 
-            operationСontext = await _userRepository.GetUserByIdAsync(userId);
+            operationСontext = await _userRepository.GetById(userId);
             if(operationСontext == null)
             {
                 reply.AddObjectNotFoundError();

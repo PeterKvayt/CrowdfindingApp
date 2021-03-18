@@ -7,13 +7,14 @@ using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.Interfaces;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
-using CrowdfindingApp.Data.Common.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrowdfindingApp.Data.Repositories
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
+        protected override DbSet<User> Repository => Storage.Users;
+
         public UserRepository(IDataProvider storage) : base(storage)
         {
             
@@ -24,14 +25,9 @@ namespace CrowdfindingApp.Data.Repositories
             return await Storage.Users.FirstOrDefaultAsync(_ => _.Email == email);
         }
 
-        public async Task<User> GetUserByIdAsync(Guid id)
-        {
-            return await Storage.Users.FirstOrDefaultAsync(_ => _.Id == id);
-        }
-
         public async Task UpdatePasswordAsync(Guid id, string passwordHash, string salt)
         {
-            var user = await GetUserByIdAsync(id);
+            var user = await GetById(id);
             if(user == null)
             {
                 throw new ArgumentException($"User with id: {id} not exists.");
@@ -47,12 +43,6 @@ namespace CrowdfindingApp.Data.Repositories
         public Task<List<User>> GetUsersAsync(UserFilter filter)
         {
             return GetQuery(filter).ToListAsync();
-        }
-
-        public async Task InsertUserAsync(User user)
-        {
-            await Storage.Users.AddAsync(user);
-            await Storage.SaveChangesAsync();
         }
 
         private IQueryable<User> GetQuery(UserFilter filter)
@@ -96,12 +86,6 @@ namespace CrowdfindingApp.Data.Repositories
             }
 
             return query;
-        }
-
-        public async Task UpdateUserAsync(User user)
-        {
-            Storage.Users.Update(user);
-            await Storage.SaveChangesAsync();
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using CrowdfindingApp.Data.Common.BusinessModels;
 
 namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
 {
-    public interface IRewardRepository : IRepository<Reward>
+    public interface IRewardGeographyRepository : IRepository<RewardGeography>
     {
-        Task<List<Reward>> GetRewardsByProjectId(Guid guid);
+        Task AddRange(List<RewardGeography> geographies);
     }
 }
