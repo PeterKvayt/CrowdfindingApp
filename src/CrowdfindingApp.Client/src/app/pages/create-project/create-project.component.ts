@@ -22,6 +22,7 @@ import { SaveDraftProjectRequestMessage } from 'src/app/models/requests/projects
 import { QuestionInfo } from 'src/app/models/replies/projects/QuestionInfo';
 import { DeliveryTypeEnum } from 'src/app/models/enums/DeliveryTypeEnum';
 import { Data } from 'src/app/models/immutable/Data';
+import { ProjectModerationRequestMessage } from 'src/app/models/requests/projects/ProjectModerationRequestMessage';
 
 @Component({
   selector: 'app-create-project',
@@ -46,9 +47,9 @@ export class CreateProjectComponent extends Base implements OnInit {
   public projectOwnerMiddleNameInput: TextInput = { placeholder: 'Отчество' };
   public projectOwerPassportNumberInput: TextInput = { placeholder: 'Серия и номер', label: 'Паспортные данные', min: 9, max: 9 };
   public projectOwerPrivateNumberInput: TextInput = { placeholder: 'Личный номер', min: 14, max: 14 };
-  public projectOwerWhomIssuedDocInput: TextInput = { placeholder: 'Адрес регистрации' };
+  public projectOwerWhomIssuedDocInput: TextInput = { placeholder: 'Кем  выдан документ' };
   public projectOwerPhoneNumberInput: TextInput = { placeholder: 'Контактный номер', min: 13, max: 13 };
-  public projectOwerAddressInput: TextInput = { placeholder: 'Кем выдан' };
+  public projectOwerAddressInput: TextInput = { placeholder: 'Адрес регистрации' };
   public projectOwerWhenIssuedDocInput: DateInput = { label: 'Дата выдачи документа' };
   public projectRewardsList: RewardInfo[] = [];
   public projectOwerBirthdayInput: DateInput = {
@@ -345,12 +346,16 @@ export class CreateProjectComponent extends Base implements OnInit {
   }
 
   public toModerationClick(): void {
-    
+    const model = new ProjectModerationRequestMessage(this.getProjectModel());
+      this.subscriptions.add(
+        this.projectService.moderate(model).subscribe(
+          () => {}
+        )
+      );
   }
 
   public onSaveClick(): void {
-      const model = this.getSaveRequestModel();
-      console.log(model);
+      const model = new SaveDraftProjectRequestMessage(this.getProjectModel());
       this.subscriptions.add(
         this.projectService.save(model).subscribe(
           () => { this.redirect('profile'); }
@@ -358,7 +363,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       );
   }
 
-  private getSaveRequestModel(): SaveDraftProjectRequestMessage {
+  private getProjectModel(): DraftProjectInfo {
     const draft: DraftProjectInfo = {
       id: null,
       categoryId: this.projectCategory,
@@ -375,7 +380,8 @@ export class CreateProjectComponent extends Base implements OnInit {
       authorName: this.projectOwnerNameInput.value,
       authorDateOfBirth: this.projectOwerBirthdayInput.value,
       authorMiddleName: this.projectOwnerMiddleNameInput.value,
-      authorPersonalNumber: this.projectOwerPrivateNumberInput.value,
+      authorPersonalNo: this.projectOwerPassportNumberInput.value,
+      authorIdentificationNo: this.projectOwerPrivateNumberInput.value,
       whomGivenDocument: this.projectOwerWhomIssuedDocInput.value,
       whenGivenDocument: new Date(this.projectOwerWhenIssuedDocInput.value),
       authorAddress: this.projectOwerAddressInput.value,
@@ -383,7 +389,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       rewards: this.projectRewardsList,
       questions: this.faqList
     };
-    return new SaveDraftProjectRequestMessage(draft);
+    return draft;
   }
 
   public onFeedbackShowClick(): void {

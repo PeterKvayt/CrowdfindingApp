@@ -77,5 +77,14 @@ namespace CrowdfindingApp.Common.Resources {
                 return ResourceManager.GetString("InvalidIdFormat", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Невалидный формат Id.
+        /// </summary>
+        internal static string WrongIdFormat {
+            get {
+                return ResourceManager.GetString("WrongIdFormat", resourceCulture);
+            }
+        }
     }
 }

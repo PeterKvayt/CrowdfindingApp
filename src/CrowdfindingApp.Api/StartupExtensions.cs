@@ -68,7 +68,7 @@ namespace CrowdfindingApp.Api
             var providers = new List<(string, Assembly)>
             {
                 ("CrowdfindingApp.Core.Services.Users.Resources.ActionMessages", typeof(UserModule).Assembly),
-                ("CrowdfindingApp.Core.Services.Projects.Resources.ErrorMessages", typeof(ProjectModule).Assembly),
+                ("CrowdfindingApp.Core.Services.Projects.Resources.ValidationErrorMessages", typeof(ProjectModule).Assembly),
                 ("CrowdfindingApp.Common.Resources.EmailResources", typeof(CommonModule).Assembly),
                 ("CrowdfindingApp.Common.Resources.CommonErrorMessages", typeof(CommonModule).Assembly),
             };

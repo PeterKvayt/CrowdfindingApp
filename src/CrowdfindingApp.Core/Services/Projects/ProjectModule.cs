@@ -21,6 +21,7 @@ namespace CrowdfindingApp.Core.Services.Projects
             builder.RegisterType<GetCitiesRequestHandler>().AsSelf();
             builder.RegisterType<GetCountriesRequestHandler>().AsSelf();
             builder.RegisterType<GetCategoriesRequestHandler>().AsSelf();
+            builder.RegisterType<ProjectModerationRequestHandler>().AsSelf();
         }
     }
 }

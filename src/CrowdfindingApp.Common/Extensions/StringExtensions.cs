@@ -18,6 +18,9 @@ namespace CrowdfindingApp.Common.Extensions
             return string.IsNullOrWhiteSpace(str);
         }
 
-
+        public static bool NonNullOrWhiteSpace(this string str)
+        {
+            return !string.IsNullOrWhiteSpace(str);
+        }
     }
 }

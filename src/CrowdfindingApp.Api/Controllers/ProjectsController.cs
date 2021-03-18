@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Localization;
-using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Projects;
 using CrowdfindingApp.Core.Services.Projects.Handlers;
 using Microsoft.AspNetCore.Authorization;
@@ -15,6 +14,7 @@ namespace CrowdfindingApp.Api.Controllers
     public class ProjectsController : BaseController
     {
         private readonly SaveDraftProjectRequestHandler _saveDraftProjectRequestHandler;
+        private readonly ProjectModerationRequestHandler _projectModerationRequestHandler;
         private readonly ProjectSearchRequestHandler _projectSearchRequestHandler;
         private readonly GetCountriesRequestHandler _getCountriesRequestHandler;
         private readonly GetCitiesRequestHandler _getCitiesRequestHandler;
@@ -22,12 +22,14 @@ namespace CrowdfindingApp.Api.Controllers
 
         public ProjectsController(IResourceProvider resourceProvider,
             SaveDraftProjectRequestHandler saveDraftProjectRequestHandler,
+            ProjectModerationRequestHandler projectModerationRequestHandler,
             GetCountriesRequestHandler getCountriesRequestHandler,
             GetCitiesRequestHandler getCitiesRequestHandler,
             GetCategoriesRequestHandler getCategoriesRequestHandler,
             ProjectSearchRequestHandler projectSearchRequestHandler) : base(resourceProvider)
         {
             _saveDraftProjectRequestHandler = saveDraftProjectRequestHandler ?? throw new ArgumentNullException(nameof(saveDraftProjectRequestHandler));
+            _projectModerationRequestHandler = projectModerationRequestHandler ?? throw new ArgumentNullException(nameof(projectModerationRequestHandler));
             _projectSearchRequestHandler = projectSearchRequestHandler ?? throw new ArgumentNullException(nameof(projectSearchRequestHandler));
             _getCountriesRequestHandler = getCountriesRequestHandler ?? throw new ArgumentNullException(nameof(getCountriesRequestHandler));
             _getCitiesRequestHandler = getCitiesRequestHandler ?? throw new ArgumentNullException(nameof(getCitiesRequestHandler));
@@ -39,6 +41,14 @@ namespace CrowdfindingApp.Api.Controllers
         public async Task<IActionResult> Save(SaveDraftProjectRequestMessage request)
         {
             var reply = await _saveDraftProjectRequestHandler.HandleAsync(request, User);
+            return Respond(reply);
+        }
+
+        [HttpPost(Endpoints.Project.Moderate)]
+        [Authorize]
+        public async Task<IActionResult> Moderate(ProjectModerationRequestMessage request)
+        {
+            var reply = await _projectModerationRequestHandler.HandleAsync(request, User);
             return Respond(reply);
         }
 
@@ -73,5 +83,6 @@ namespace CrowdfindingApp.Api.Controllers
             var reply = await _getCategoriesRequestHandler.HandleAsync(new CategoriesSearchRequestMessage(), User);
             return Respond(reply);
         }
+
     }
 }

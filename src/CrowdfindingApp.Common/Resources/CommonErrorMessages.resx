@@ -123,4 +123,7 @@
   <data name="InvalidIdFormat" xml:space="preserve">
     <value>Невалидный формат Id: "{0}".</value>
   </data>
+  <data name="WrongIdFormat" xml:space="preserve">
+    <value>Невалидный формат Id</value>
+  </data>
 </root>

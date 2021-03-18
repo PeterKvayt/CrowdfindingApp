@@ -22,7 +22,8 @@ namespace CrowdfindingApp.Common.DataTransfers.Project
         public string AuthorName { get; set; }
         public DateTime? AuthorDateOfBirth { get; set; }
         public string AuthorMiddleName { get; set; }
-        public string AuthorPersonalNumber { get; set; }
+        public string AuthorPersonalNo { get; set; }
+        public string AuthorIdentificationNo { get; set; }
         public string WhomGivenDocument { get; set; }
         public DateTime? WhenGivenDocument { get; set; }
         public string AuthorAddress { get; set; }

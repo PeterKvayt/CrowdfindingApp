@@ -17,7 +17,8 @@ export class DraftProjectInfo {
   public authorName: string;
   public authorDateOfBirth: string;
   public authorMiddleName: string;
-  public authorPersonalNumber: string;
+  public authorPersonalNo: string;
+  public authorIdentificationNo: string;
   public whomGivenDocument: string;
   public whenGivenDocument: Date;
   public authorAddress: string;

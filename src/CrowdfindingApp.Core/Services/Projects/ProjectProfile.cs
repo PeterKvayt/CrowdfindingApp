@@ -16,6 +16,8 @@ namespace CrowdfindingApp.Core.Services.Projects
 
             CreateMap<DraftProjectInfo, Project>();
 
+            CreateMap<DraftProjectInfo, ProjectInfo>();
+
             CreateMap<Project, ProjectInfo>().ReverseMap();               
         }
     }
