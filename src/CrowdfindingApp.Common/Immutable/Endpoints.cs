@@ -1,4 +1,6 @@
 ﻿
+using CrowdfindingApp.Data.Common.BusinessModels;
+
 namespace CrowdfindingApp.Common.Immutable
 {
     public static class Endpoints
@@ -24,6 +26,12 @@ namespace CrowdfindingApp.Common.Immutable
             public const string Cities = "cities";
             public const string Categories = nameof(Categories);
             public const string Moderate = nameof(Moderate);
+
+        }
+
+        public static class Order
+        {
+            public const string Search = nameof(Search);
 
         }
     }
