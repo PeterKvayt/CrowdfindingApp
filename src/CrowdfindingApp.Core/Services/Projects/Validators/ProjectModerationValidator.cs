@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using CrowdfindingApp.Common.DataTransfers.Project;
+using CrowdfindingApp.Common.DataTransfers.Projects;
 using Keys = CrowdfindingApp.Core.Services.Projects.ValidationErrorKeys.ProjectValidationErrorKeys;
 using FluentValidation;
 using System;
@@ -10,10 +10,15 @@ using System.Threading.Tasks;
 
 namespace CrowdfindingApp.Core.Services.Projects.Validators
 {
-    public class ProjectModerationValidator : AbstractValidator<DraftProjectInfo>
+    public class ProjectModerationValidator : AbstractValidator<ProjectInfo>
     {
         public ProjectModerationValidator()
         {
+            RuleFor(x => x.Id).Must(x => Guid.TryParse(x, out var _))
+                .When(x => x.Id.NonNullOrWhiteSpace())
+                .WithErrorCode(CommonErrorMessageKeys.InvalidIdFormat)
+                .WithCustomMessageParameters(x => Task.FromResult(x.Id));
+
             RuleFor(x => x.CategoryId).NotEmpty().WithErrorCode(Keys.MissingCategory);
             RuleFor(x => x.CategoryId).Must(x => Guid.TryParse(x, out var _))
                 .When(x => x.CategoryId.NonNullOrWhiteSpace())
@@ -57,13 +62,13 @@ namespace CrowdfindingApp.Core.Services.Projects.Validators
             RuleFor(x => x.AuthorPersonalNo).Matches(RegexPatterns.PassportNo)
                 .When(x => x.AuthorPersonalNo.NonNullOrWhiteSpace())
                 .WithErrorCode(Keys.InvalidPassportNo)
-                .WithCustomMessageParameters(x => Task.FromResult(new string[] { x.AuthorPersonalNo }));
+                .WithCustomMessageParameters(x => Task.FromResult(x.AuthorPersonalNo));
 
             RuleFor(x => x.AuthorIdentificationNo).NotEmpty().WithErrorCode(Keys.MissingAuthorPersonalNumber);
-            RuleFor(x => x.AuthorIdentificationNo).Matches(RegexPatterns.PassportNo)
+            RuleFor(x => x.AuthorIdentificationNo).Matches(RegexPatterns.IdentificationPassportNo)
                 .When(x => x.AuthorIdentificationNo.NonNullOrWhiteSpace())
                 .WithErrorCode(Keys.InvalidIdentificationPassportNo)
-                .WithCustomMessageParameters(x => Task.FromResult(new string[] { x.AuthorIdentificationNo }));
+                .WithCustomMessageParameters(x => Task.FromResult(x.AuthorIdentificationNo));
 
             RuleFor(x => x.WhomGivenDocument).NotEmpty().WithErrorCode(Keys.MissingWhomGivenDocument);
 
@@ -72,6 +77,10 @@ namespace CrowdfindingApp.Core.Services.Projects.Validators
             RuleFor(x => x.AuthorAddress).NotEmpty().WithErrorCode(Keys.MissingAuthorAddress);
 
             RuleFor(x => x.AuthorPhone).NotEmpty().WithErrorCode(Keys.MissingAuthorPhone);
+            RuleFor(x => x.AuthorPhone).Matches(RegexPatterns.PhoneNumber)
+                .When(x => x.AuthorPhone.NonNullOrWhiteSpace())
+                .WithErrorCode(Keys.InvalidPhoneNumber)
+                .WithCustomMessageParameters(x => Task.FromResult(x.AuthorPhone));
 
             RuleFor(x => x.Rewards).NotNull().Must(x => x.Any())
                 .WithErrorCode(Keys.MissingRewards);

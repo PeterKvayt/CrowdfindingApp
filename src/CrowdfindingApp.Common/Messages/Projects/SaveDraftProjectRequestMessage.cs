@@ -1,9 +1,9 @@
-﻿using CrowdfindingApp.Common.DataTransfers.Project;
+﻿using CrowdfindingApp.Common.DataTransfers.Projects;
 
 namespace CrowdfindingApp.Common.Messages.Projects
 {
     public class SaveDraftProjectRequestMessage : MessageBase
     {
-        public DraftProjectInfo Data { get; set; }
+        public ProjectInfo Data { get; set; }
     }
 }

@@ -43,7 +43,7 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
                 return (reply, user);
             }
 
-            user = await _userRepository.GetById(User.GetUserId());
+            user = await _userRepository.GetByIdAsync(User.GetUserId());
             if(user == null)
             {
                 reply.AddObjectNotFoundError();
@@ -71,7 +71,7 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
 
             PrepareUser(userSnapshot, userForUpdate);
 
-            await _userRepository.Update(userForUpdate);
+            await _userRepository.UpdateAsync(userForUpdate);
 
             return new ReplyMessageBase();
         }

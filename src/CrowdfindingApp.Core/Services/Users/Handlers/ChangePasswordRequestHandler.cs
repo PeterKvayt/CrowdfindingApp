@@ -27,7 +27,7 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
         {
             var reply = await base.ValidateRequestMessageAsync(requestMessage);
 
-            var user = await _userRepository.GetById(User.GetUserId());
+            var user = await _userRepository.GetByIdAsync(User.GetUserId());
             if(user == null)
             {
                 return reply.AddObjectNotFoundError();

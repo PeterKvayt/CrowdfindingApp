@@ -73,5 +73,11 @@ namespace CrowdfindingApp.Data.Repositories
         {
             return await Storage.Categories.ToListAsync();
         }
+
+        public override Task UpdateAsync(Project model)
+        {
+            model.LastModifiedDateTime = DateTime.UtcNow;
+            return base.UpdateAsync(model);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using AutoMapper;
 using CrowdfindingApp.Core.Services.Projects.Handlers;
+using CrowdfindingApp.Core.Services.Projects.Mappings;
 
 namespace CrowdfindingApp.Core.Services.Projects
 {
@@ -8,10 +9,12 @@ namespace CrowdfindingApp.Core.Services.Projects
     {
         protected override void Load(ContainerBuilder builder)
         {
+            // Repository registration in startup extensions.
             RegisterHandlers(builder);
 
             builder.RegisterType<ProjectProfile>().As<Profile>();
-            // Repository registration in startup extensions.
+            builder.RegisterType<RewardProfile>().As<Profile>();
+            builder.RegisterType<QuestionProfile>().As<Profile>();
         }
 
         private void RegisterHandlers(ContainerBuilder builder)

@@ -58,7 +58,7 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
                 return (reply, ctx);
             }
 
-            var role = await _roleRepository.GetById(user.RoleId);
+            var role = await _roleRepository.GetByIdAsync(user.RoleId);
             if(role == null)
             {
                 reply.AddObjectNotFoundError();

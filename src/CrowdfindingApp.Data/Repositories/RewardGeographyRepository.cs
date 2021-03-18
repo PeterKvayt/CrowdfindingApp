@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Interfaces;
@@ -17,14 +18,20 @@ namespace CrowdfindingApp.Data.Repositories
 
         }
 
-        public async Task AddRange(List<RewardGeography> geographies)
+        public async Task SubstituteRangeAsync(List<RewardGeography> geographies, Guid rewardId)
         {
-            foreach(var geo in geographies)
+            if(geographies.Any())
             {
-                geo.Id = new Guid();
+                var legacyCollection = await GetQuery().Where(x => x.RewardId == rewardId).ToListAsync();
+                Repository.RemoveRange(legacyCollection);
+
+                foreach(var geo in geographies)
+                {
+                    geo.Id = new Guid();
+                }
+                await Repository.AddRangeAsync(geographies);
+                await Storage.SaveChangesAsync();
             }
-            await Repository.AddRangeAsync(geographies);
-            await Storage.SaveChangesAsync();
         }
     }
 }

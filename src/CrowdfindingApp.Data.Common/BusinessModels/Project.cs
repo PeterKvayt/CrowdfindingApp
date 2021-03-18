@@ -7,9 +7,7 @@ namespace CrowdfindingApp.Data.Common.BusinessModels
     {
         public Guid OwnerId { get; set; }
         public Guid CategoryId { get; set; }
-        public bool IsSketch { get; set; }
-        public bool OnModeration { get; set; }
-        public bool IsStopped { get; set; }
+        public int Status { get; set; }
         public DateTime? LastModifiedDateTime { get; set; }
         public string Title { get; set; }
         public string ShortDescription { get; set; }

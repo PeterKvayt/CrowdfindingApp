@@ -20,7 +20,7 @@ namespace CrowdfindingApp.Data.Repositories
             Storage = storage ?? throw new ArgumentException(nameof(storage));
         }
 
-        public virtual async Task<Guid> Add(TModel model)
+        public virtual async Task<Guid> AddAsync(TModel model)
         {
             model.Id = new Guid();
             await Repository.AddAsync(model);
@@ -28,13 +28,13 @@ namespace CrowdfindingApp.Data.Repositories
             return model.Id;
         }
 
-        public virtual async Task Update(TModel model)
+        public virtual async Task UpdateAsync(TModel model)
         {
             Repository.Update(model);
             await Storage.SaveChangesAsync();
         }
 
-        public virtual async Task<TModel> GetById(Guid id)
+        public virtual async Task<TModel> GetByIdAsync(Guid id)
         {
             return await Repository.FirstOrDefaultAsync(x => x.Id == id);
         }

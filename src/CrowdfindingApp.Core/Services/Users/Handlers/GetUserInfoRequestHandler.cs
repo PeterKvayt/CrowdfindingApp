@@ -28,7 +28,7 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
         protected override async Task<ReplyMessage<UserInfo>> ExecuteAsync(GetUserInfoRequestMessage request)
         {
             var reply = new ReplyMessage<UserInfo>();
-            var user = await _userRepository.GetById(User.GetUserId());
+            var user = await _userRepository.GetByIdAsync(User.GetUserId());
             var roles = await _roleRepository.GetNamesAsync();
             var roleNames = roles.ToDictionary(x => x.Key.ToString(), x => x.Value);
 

@@ -27,7 +27,7 @@ namespace CrowdfindingApp.Data.Repositories
 
         public async Task UpdatePasswordAsync(Guid id, string passwordHash, string salt)
         {
-            var user = await GetById(id);
+            var user = await GetByIdAsync(id);
             if(user == null)
             {
                 throw new ArgumentException($"User with id: {id} not exists.");

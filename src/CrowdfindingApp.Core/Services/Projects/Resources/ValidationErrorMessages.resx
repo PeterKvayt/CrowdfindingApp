@@ -126,6 +126,9 @@
   <data name="ProjectValidationErrorKeys_InvalidPassportNo" xml:space="preserve">
     <value>Значение {0} не является личным номером паспорта</value>
   </data>
+  <data name="ProjectValidationErrorKeys_InvalidPhoneNumber" xml:space="preserve">
+    <value>Введенный контактный номер "{0}" неправильного формата</value>
+  </data>
   <data name="ProjectValidationErrorKeys_MissingAuthorAddress" xml:space="preserve">
     <value>Поле "Адрес регистрации" должно быть заполнено</value>
   </data>

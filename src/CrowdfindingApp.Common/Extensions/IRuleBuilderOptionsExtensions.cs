@@ -16,5 +16,16 @@ namespace CrowdfindingApp.Common.Extensions
                 }
             });
         }
+
+        public static IRuleBuilderOptions<T, TProperty> WithCustomMessageParameters<T, TProperty>(this IRuleBuilderOptions<T, TProperty> options, Func<T, Task<string>> customParameter)
+        {
+            return options.OnAnyFailure((entity, failures) =>
+            {
+                foreach(var failure in failures)
+                {
+                    failure.CustomState = customParameter.Invoke(entity);
+                }
+            });
+        }
     }
 }

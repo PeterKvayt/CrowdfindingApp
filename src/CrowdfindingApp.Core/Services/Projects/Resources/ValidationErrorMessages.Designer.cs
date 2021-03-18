@@ -88,6 +88,15 @@ namespace CrowdfindingApp.Core.Services.Projects.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введенный контактный номер &quot;{0}&quot; неправильного формата.
+        /// </summary>
+        internal static string ProjectValidationErrorKeys_InvalidPhoneNumber {
+            get {
+                return ResourceManager.GetString("ProjectValidationErrorKeys_InvalidPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Поле &quot;Адрес регистрации&quot; должно быть заполнено.
         /// </summary>
         internal static string ProjectValidationErrorKeys_MissingAuthorAddress {

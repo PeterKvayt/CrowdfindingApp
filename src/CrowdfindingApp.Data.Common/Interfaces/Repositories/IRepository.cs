@@ -6,10 +6,10 @@ namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
 {
     public interface IRepository<TModel> where TModel : BaseModel
     {
-        Task<Guid> Add(TModel model);
+        Task<Guid> AddAsync(TModel model);
 
-        Task Update(TModel model);
+        Task UpdateAsync(TModel model);
 
-        Task<TModel> GetById(Guid id);
+        Task<TModel> GetByIdAsync(Guid id);
     }
 }
