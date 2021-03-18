@@ -200,7 +200,8 @@
         </app-collapse>
         <app-link empty value='Задать вопрос' (click)='onFeedbackShowClick()'></app-link>
         <div class="row reward-container">
-          <app-reward-card *ngFor='let reward of rewardCardList' [item]='reward' editable='true'></app-reward-card>
+          <app-reward-card *ngFor='let reward of projectRewardsList' [item]='getRewardCardFromInfo(reward)' editable='true' 
+          (changeClick)='onRewardChangeClick(reward)' (deleteClick)='onRewardDeleteClick(reward)'></app-reward-card>
         </div>
       </div>
 

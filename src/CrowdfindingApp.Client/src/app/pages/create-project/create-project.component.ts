@@ -81,10 +81,8 @@ export class CreateProjectComponent extends Base implements OnInit {
     list: [],
     defaultValue: 'Выберите страну'
   };
-  public rewardCardList: RewardCard[] = [];
 
   // help props
-  private selectedDeliveryType = DeliveryTypes.withoutDelivery.value;
   private selectedCountry: string;
   private selectedCity: string;
   private selectedMonth: string;
@@ -149,7 +147,6 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   public onDeliverySubTabClick(tab: TabElement): void {
     if (tab.isActive) { return; }
-    this.selectedDeliveryType = tab.value;
     this.countrySelectInput.list.forEach(x => x.disabled = false);
     this.rewardDeliveryCountries = [];
     this.withoutDeliverySubTab.isActive = false;
@@ -249,19 +246,6 @@ export class CreateProjectComponent extends Base implements OnInit {
   }
 
   public onRewardAddClick(): void {
-    this.rewardCardList.push(
-      new RewardCard(
-        this.rewardNameInput.value,
-        this.rewardCostInput.value,
-        this.rewardDescriptionInput.value,
-        'assets/img/stock-reward.jpg',
-        this.selectedMonth,
-        this.selectedYear,
-        this.selectedDeliveryType,
-        this.rewardCountRestrictionsInput.value
-      )
-    );
-
     let deliveryType = DeliveryTypeEnum.WithoutDelivery;
     if (this.wholeWorldDeliverySubTab.isActive) {
       deliveryType = DeliveryTypeEnum.WholeWorld;
@@ -288,14 +272,53 @@ export class CreateProjectComponent extends Base implements OnInit {
     };
     this.projectRewardsList.push(rewardInfo);
 
-    this.selectedDeliveryType = DeliveryTypeEnum.WithoutDelivery.toString();
     this.rewardNameInput.value = undefined;
     this.rewardCostInput.value = undefined;
-    this.rewardCountRestrictionsInput.value = undefined;
     this.rewardDescriptionInput.value = undefined;
+    this.rewardCountRestrictionsInput.value = undefined;
     this.rewardWholeWorldDeliveryCostInput.value = undefined;
     this.rewardDeliveryCountries = [];
     this.countrySelectInput.list.forEach(country => country.disabled = false);
+  }
+
+  onRewardChangeClick(reward: RewardInfo) {
+    let wholeWorldDeliveryPrice;
+    if (reward.deliveryType === DeliveryTypeEnum.WholeWorld) {
+      this.onDeliverySubTabClick(this.wholeWorldDeliverySubTab);
+      wholeWorldDeliveryPrice = reward.deliveryCountries.find(x => x.key === Data.wholeWorldDeliveryId).value;
+    } else if (reward.deliveryType === DeliveryTypeEnum.SomeCountries){
+      this.onDeliverySubTabClick(this.someCountriesDeliverySubTab);
+    } else if (reward.deliveryType === DeliveryTypeEnum.WithoutDelivery){
+      this.onDeliverySubTabClick(this.withoutDeliverySubTab);
+    }
+    this.rewardNameInput.value = reward.title;
+    this.rewardCostInput.value = reward.price;
+    this.rewardDescriptionInput.value = reward.description;
+    this.rewardCountRestrictionsInput.value = reward.limit;
+    this.rewardWholeWorldDeliveryCostInput.value = wholeWorldDeliveryPrice;
+    this.rewardDeliveryCountries = reward.deliveryCountries;
+    this.countrySelectInput.list.forEach(country => {
+      if (reward.deliveryCountries.find(x => x.key === country.value)) {
+        country.disabled = true;
+      }
+    });
+    this.projectRewardsList.remove(reward);
+  }
+
+  onRewardDeleteClick(reward: RewardInfo) {
+    this.projectRewardsList.remove(reward);
+  }
+
+  getRewardCardFromInfo(reward: RewardInfo): RewardCard {
+    return new RewardCard(
+      reward.title,
+      reward.price,
+      reward.description,
+      'assets/img/stock-reward.jpg',
+      reward.deliveryType,
+      reward.deliveryDate,
+      reward.limit
+    );
   }
 
   public onQuestionAddClick(): void {
