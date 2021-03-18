@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { SaveDraftProjectRequestMessage } from '../models/requests/projects/SaveDraftProjectRequestMessage';
 import { ProjectModerationRequestMessage } from '../models/requests/projects/ProjectModerationRequestMessage';
+import { ProjectSearchRequestMessage } from '../models/requests/projects/ProjectSearchRequestMessage';
 
 
 @Injectable()
@@ -31,6 +32,10 @@ export class ProjectService {
 
   public moderate(model: ProjectModerationRequestMessage) {
     return this.http.post<ProjectModerationRequestMessage>(this.controller + 'moderate', model);
+  }
+
+  public cards(model: ProjectSearchRequestMessage) {
+    return this.http.post<ProjectSearchRequestMessage>(this.controller + 'cards', model);
   }
 
   public getProjects() {

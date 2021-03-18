@@ -26,7 +26,7 @@ export class ProjectCardComponent implements OnInit {
     const lg = this.colLg ? this.colLg : 12;
     const md = this.colMd ? this.colMd : 12;
     const sm = this.colSm ? this.colSm : 12;
-    this.columnClass = 'col-lg-' + lg + 'col-md-' + md + 'col-sm-' + sm;
+    this.columnClass = 'col-lg-' + lg + ' col-md-' + md + ' col-sm-' + sm;
   }
 
   public getWidth(): string {

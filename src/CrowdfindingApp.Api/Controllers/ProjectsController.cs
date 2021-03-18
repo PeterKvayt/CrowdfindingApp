@@ -18,7 +18,8 @@ namespace CrowdfindingApp.Api.Controllers
         private readonly ProjectSearchRequestHandler _projectSearchRequestHandler;
         private readonly GetCountriesRequestHandler _getCountriesRequestHandler;
         private readonly GetCitiesRequestHandler _getCitiesRequestHandler;
-        private GetCategoriesRequestHandler _getCategoriesRequestHandler;
+        private readonly GetCategoriesRequestHandler _getCategoriesRequestHandler;
+        private readonly ProjectCardSearchRequestHandler _projectCardSearchRequestHandler;
 
         public ProjectsController(IResourceProvider resourceProvider,
             SaveDraftProjectRequestHandler saveDraftProjectRequestHandler,
@@ -26,6 +27,7 @@ namespace CrowdfindingApp.Api.Controllers
             GetCountriesRequestHandler getCountriesRequestHandler,
             GetCitiesRequestHandler getCitiesRequestHandler,
             GetCategoriesRequestHandler getCategoriesRequestHandler,
+            ProjectCardSearchRequestHandler projectCardSearchRequestHandler,
             ProjectSearchRequestHandler projectSearchRequestHandler) : base(resourceProvider)
         {
             _saveDraftProjectRequestHandler = saveDraftProjectRequestHandler ?? throw new ArgumentNullException(nameof(saveDraftProjectRequestHandler));
@@ -34,6 +36,7 @@ namespace CrowdfindingApp.Api.Controllers
             _getCountriesRequestHandler = getCountriesRequestHandler ?? throw new ArgumentNullException(nameof(getCountriesRequestHandler));
             _getCitiesRequestHandler = getCitiesRequestHandler ?? throw new ArgumentNullException(nameof(getCitiesRequestHandler));
             _getCategoriesRequestHandler = getCategoriesRequestHandler ?? throw new ArgumentNullException(nameof(getCategoriesRequestHandler));
+            _projectCardSearchRequestHandler = projectCardSearchRequestHandler ?? throw new ArgumentNullException(nameof(projectCardSearchRequestHandler));
         }
 
         [HttpPost(Endpoints.Project.SaveDraft)]
@@ -57,6 +60,14 @@ namespace CrowdfindingApp.Api.Controllers
         public async Task<IActionResult> Search(ProjectSearchRequestMessage request)
         {
             var reply = await _projectSearchRequestHandler.HandleAsync(request, User);
+            return Respond(reply);
+        }
+
+        [HttpPost(Endpoints.Project.Cards)]
+        [Authorize]
+        public async Task<IActionResult> Cards(ProjectCardSearchRequestMessage request)
+        {
+            var reply = await _projectCardSearchRequestHandler.HandleAsync(request, User);
             return Respond(reply);
         }
 

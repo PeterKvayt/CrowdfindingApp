@@ -9,5 +9,6 @@ namespace CrowdfindingApp.Data.Common.Filters
         public List<Guid> OwnerId { get; set; }
         public List<string> Title { get; set; }
         public List<Guid> CategoryId { get; set; }
+        public List<int> Status { get; set; }
     }
 }

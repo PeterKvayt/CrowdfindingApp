@@ -92,7 +92,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   public projectCard: ProjectCard = {
     name: this.projectNameInput.value ? this.projectNameInput.value : 'Название',
     description: this.projectDescriptionInput.value ? this.projectDescriptionInput.value : 'Описание',
-    category: this.projectCategory ? this.categorySelectInput.list.find(x => x.value === this.projectCategory === undefined).name : 'Категория',
+    categoryName: this.projectCategory ? this.categorySelectInput.list.find(x => x.value === this.projectCategory === undefined).name : 'Категория',
     imgPath: 'assets/img/stock-project.png',
     purpose: this.projectPurposeInput.value ? this.projectPurposeInput.value : 0,
     currentResult: 0,
@@ -208,7 +208,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   // General Tab functional
   public onCategorySelect(value: string): void {
     this.projectCategory = value;
-    this.projectCard.category = this.categorySelectInput.list.find(x => x.value === value).name;
+    this.projectCard.categoryName = this.categorySelectInput.list.find(x => x.value === value).name;
   }
 
   public onCitySelect(value: string): void {

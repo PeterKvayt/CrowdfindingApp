@@ -19,6 +19,7 @@ namespace CrowdfindingApp.Common.Immutable
         {
             public const string SaveDraft = "save-draft";
             public const string Search = "search";
+            public const string Cards = nameof(Cards);
             public const string Countries = "countries";
             public const string Cities = "cities";
             public const string Categories = nameof(Categories);

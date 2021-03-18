@@ -7,6 +7,12 @@ import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
 import { UserInfo } from 'src/app/models/replies/users/UserInfo';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { TabElement } from 'src/app/components/tab/Tabelement';
+import { ProjectCard } from 'src/app/components/project-card/ProjectCard';
+import { ProjectService } from 'src/app/services/project.service';
+import { ProjectSearchRequestMessage } from 'src/app/models/requests/projects/ProjectSearchRequestMessage';
+import { ProjectFilterInfo } from 'src/app/models/replies/projects/ProjectFilterInfo';
+import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
+import { RewardCard } from 'src/app/components/reward-card/RewardCard';
 
 @Component({
   selector: 'app-profile',
@@ -15,17 +21,19 @@ import { TabElement } from 'src/app/components/tab/Tabelement';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent extends Base implements OnInit {
-  
   public myProjectsTab = new TabElement('Мои проекты', true);
   public supportedTab = new TabElement('Поддрежал', false);
   public draftsTab = new TabElement('Черновики', false);
-  
+  public myProjects: ProjectCard[] = [];
+  public supported: ProjectCard[] = [];
+  public drafts: ProjectCard[] = [];
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
     public userService: UserService,
     private titleService: Title,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private projectService: ProjectService
   ) {
     super(router, activatedRoute);
   }
@@ -35,6 +43,7 @@ export class ProfileComponent extends Base implements OnInit {
   public ngOnInit(): void {
     this.titleService.setTitle('Профиль');
     this.setUserInfo();
+    this.fetchDraftProjects();
   }
 
   private setUserInfo(): void {
@@ -58,5 +67,25 @@ export class ProfileComponent extends Base implements OnInit {
     this.supportedTab.isActive = false;
     this.draftsTab.isActive = false;
     tab.isActive = true;
+  }
+
+  fetchDraftProjects() {
+    const filter: ProjectFilterInfo = { status: [ ProjectStatusEnum.Draft, ProjectStatusEnum.Moderation]};
+    const request: ProjectSearchRequestMessage = { filter: filter };
+    this.subscriptions.add(
+      this.projectService.cards(request).subscribe(
+        (reply: ReplyMessage<ProjectCard[]>) => {
+          this.drafts = reply.value;
+        }
+      )
+    );
+  }
+
+  onCardChangeClick(card: ProjectCard) {
+    console.log(card);
+  }
+
+  onCardDeleteClick(card: ProjectCard, collection: ProjectCard[]) {
+    collection.remove(card);
   }
 }

@@ -35,18 +35,18 @@
     <div class="card-picture-wrapper">
       <div class="card-picture-box">
         <span class="card-picture-link">ПОДДЕРЖАТЬ ПРОЕКТ</span>
-        <img class="card-picture-hover" src="assets/img/exampleProjectPictHover.png"/> 
+        <img class="card-picture-hover" src="assets/img/exampleProjectPictHover.png" />
         <img class="card-picture" alt="Project picture" src="assets/img/stock-project.png">
       </div>
     </div>
     <div class="card-body">
-    <!-- <span class="fa fa-check fa-fw project-card-status-pict-check"></span> -->
-    <!-- <span class="fa fa-certificate fa-2x project-card-status-pict"></span> -->
-    <!-- <span class="link filter"> {{card.category}} </span> -->
-    <app-link empty [value]='card.category'></app-link>
+      <!-- <span class="fa fa-check fa-fw project-card-status-pict-check"></span> -->
+      <!-- <span class="fa fa-certificate fa-2x project-card-status-pict"></span> -->
+      <!-- <span class="link filter"> {{card.category}} </span> -->
+      <app-link empty [value]='card.categoryName'></app-link>
       <span class="card-description">
         <span class="projectName"> {{card.name}} </span>
-        {{card.description}} 
+        {{card.description}}
       </span>
       <div class="card-progress-box">
         <span class="progress-bar" [style.width]='getWidth()'></span>
@@ -55,7 +55,7 @@
         <div class="col">
           <div class="row">
             <div class="col">
-              <span class="card-up-status"> {{getProgress()}}  %</span>
+              <span class="card-up-status"> {{getProgress()}} %</span>
             </div>
           </div>
           <div class="row">
@@ -67,17 +67,17 @@
         <div class="col">
           <div class="row">
             <div class="col card-right-status">
-              <span class="card-up-status"> {{card.currentResult}}  BYN</span>
+              <span class="card-up-status"> {{card.currentResult}} BYN</span>
             </div>
           </div>
-        <div class="row">
-          <div class="col card-right-status">
-            <span class="card-down-status"><span class="fas fa-clock-o fa-fw"></span> time </span>
+          <div class="row">
+            <div class="col card-right-status">
+              <span class="card-down-status"><span class="fas fa-clock-o fa-fw"></span> time </span>
+            </div>
           </div>
         </div>
+
       </div>
-      
     </div>
   </div>
-</div>
 </div>

@@ -55,6 +55,12 @@
   </ng-container>
   <ng-container *ngIf='draftsTab.isActive'>
     <div class="col">
-      drafts
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of drafts'>
+          <app-project-card  [card]='card' 
+            (changeClick)='onCardChangeClick(card)' (deleteClick)='onCardDeleteClick(card, drafts)'>
+          </app-project-card>
+        </div>
+      </div>
     </div>
   </ng-container>

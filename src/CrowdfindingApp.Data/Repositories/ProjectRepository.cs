@@ -51,6 +51,11 @@ namespace CrowdfindingApp.Data.Repositories
                 query = query.Where(_ => filter.CategoryId.Contains(_.CategoryId));
             }
 
+            if(filter.Status?.Any() ?? false)
+            {
+                query = query.Where(_ => filter.Status.Contains(_.Status));
+            }
+
             return query;
         }
 
@@ -72,6 +77,12 @@ namespace CrowdfindingApp.Data.Repositories
         public async Task<List<Category>> GetCategoriesAsync()
         {
             return await Storage.Categories.ToListAsync();
+        }
+
+        public async Task<List<Category>> GetCategoriesByIdsAsync(List<Guid> ids)
+        {
+            return await Storage.Categories.Where(x => ids.Contains(x.Id))
+                .ToListAsync();
         }
 
         public override Task UpdateAsync(Project model)

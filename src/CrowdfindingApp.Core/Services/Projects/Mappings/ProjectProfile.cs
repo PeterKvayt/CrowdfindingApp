@@ -12,7 +12,13 @@ namespace CrowdfindingApp.Core.Services.Projects.Mappings
         {
             CreateMap<ProjectFilterInfo, ProjectFilter>();
 
-            CreateMap<Project, ProjectInfo>().ReverseMap();               
+            CreateMap<Project, ProjectInfo>().ReverseMap(); 
+            
+            CreateMap<Project, ProjectCard>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Title))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.ShortDescription))
+                .ForMember(dest => dest.ImgPath, opt => opt.MapFrom(src => src.Image))
+                .ForMember(dest => dest.Purpose, opt => opt.MapFrom(src => src.Budget));
         }
     }
 }
