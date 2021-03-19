@@ -6,6 +6,7 @@ import { TextInput } from 'src/app/components/inputs/text-input/TextInput';
 import { PasswordInput } from 'src/app/components/inputs/password-input/PasswordInut';
 import { Title } from '@angular/platform-browser';
 import { RegisterRequestMessage } from 'src/app/models/requests/users/RegisterRequestMessage';
+import { Routes } from 'src/app/models/immutable/Routes';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,7 +14,7 @@ import { RegisterRequestMessage } from 'src/app/models/requests/users/RegisterRe
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent extends Base implements OnInit {
-
+  public signInRoute = Routes.signIn;
   public emailInput: TextInput = { label: 'Email', placeholder: 'test@user.com' };
   public passwordInput: PasswordInput = { label: 'Пароль', placeholder: 'test' };
   public confirmPasswordInput: PasswordInput = { label: 'Подтвердите пароль', placeholder: 'test' };
@@ -37,7 +38,7 @@ export class SignUpComponent extends Base implements OnInit {
     this.subscriptions.add(
       this.accountService.signUp(request)
         .subscribe(
-          x => { this.redirect('sign-in'); },
+          x => { this.redirect(Routes.signIn); },
          () => { this.showLoader = false; }
         )
     );

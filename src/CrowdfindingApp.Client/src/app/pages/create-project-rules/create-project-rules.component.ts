@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Base } from '../Base';
+import { Routes } from 'src/app/models/immutable/Routes';
 
 @Component({
   selector: 'app-create-project-rules',
@@ -46,9 +47,9 @@ export class CreateProjectRulesComponent extends Base implements OnInit  {
 
   public onCreateProjectClick(): void {
     if (this.authService.isAuthenticated()) {
-      this.redirect('create-project');
+      this.redirect(Routes.projectCreate);
     } else {
-      this.redirect('sign-in');
+      this.redirect(Routes.signIn);
     }
   }
 

@@ -13,6 +13,7 @@ import { ProjectSearchRequestMessage } from 'src/app/models/requests/projects/Pr
 import { ProjectFilterInfo } from 'src/app/models/replies/projects/ProjectFilterInfo';
 import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
 import { RewardCard } from 'src/app/components/reward-card/RewardCard';
+import { Routes } from 'src/app/models/immutable/Routes';
 
 @Component({
   selector: 'app-profile',
@@ -61,7 +62,7 @@ export class ProfileComponent extends Base implements OnInit {
 
   public onSignOutClick(): void {
     this.authService.signOut();
-    this.redirect('sign-in');
+    this.redirect(Routes.signIn);
   }
 
   public onTabClick(tab: TabElement): void {
@@ -85,7 +86,7 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   onCardEditClick(card: ProjectCard) {
-    console.log(card);
+    this.redirect('create-project/')
   }
 
   onCardDeleteClick(card: ProjectCard, collection: ProjectCard[]) {

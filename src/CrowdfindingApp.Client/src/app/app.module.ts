@@ -45,6 +45,7 @@ import { DateInputComponent } from './components/inputs/date-input/date-input.co
 import { CollapseComponent } from './components/collapse/collapse.component';
 import { FeedbackModalComponent } from './components/modals/feedback-modal/feedback-modal.component';
 import { RewardCardComponent } from './components/reward-card/reward-card.component';
+import { Routes } from './models/immutable/Routes';
 
 @NgModule({
   declarations: [
@@ -89,17 +90,17 @@ import { RewardCardComponent } from './components/reward-card/reward-card.compon
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'sign-in', component: SignInComponent },
-      { path: 'sign-up', component: SignUpComponent },
-      { path: 'forgot-password', component: ForgotPasswordComponent },
-      { path: 'reset-password', component: ResetPasswordComponent },
-      { path: 'email-confirmation', component: EmailConfirmationComponent },
-      { path: 'email-confirmed', component: EmailConfirmedComponent },
-      { path: 'create-project-rules', component: CreateProjectRulesComponent },
-      { path: 'create-project', component: CreateProjectComponent, canActivate: [AuthenticationGuardService] },
-      { path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuardService] },
+      { path: Routes.signIn, component: SignInComponent },
+      { path: Routes.signUp, component: SignUpComponent },
+      { path: Routes.forgotPassword, component: ForgotPasswordComponent },
+      { path: Routes.resetPassword, component: ResetPasswordComponent },
+      { path: Routes.emailConfirmation, component: EmailConfirmationComponent },
+      { path: Routes.emailConfirmed, component: EmailConfirmedComponent },
+      { path: Routes.projectRules, component: CreateProjectRulesComponent },
+      { path: Routes.projectCreate, component: CreateProjectComponent, canActivate: [AuthenticationGuardService] },
+      { path: Routes.projectEdit + '/:projectId', component: CreateProjectComponent, canActivate: [AuthenticationGuardService] },
+      { path: Routes.profile, component: ProfileComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/projects', component: ProfileProjectsComponent, canActivate: [AuthenticationGuardService] },
-      { path: 'profile/create-project', component: CreateProjectComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/info', component: ProfileInfoComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/security', component: ProfileSecurityComponent, canActivate: [AuthenticationGuardService] },
       { path: 'error/:status', component: ErrorComponent },

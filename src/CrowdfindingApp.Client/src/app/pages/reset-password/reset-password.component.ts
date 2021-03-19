@@ -5,6 +5,7 @@ import { PasswordInput } from 'src/app/components/inputs/password-input/Password
 import { UserService } from 'src/app/services/user.service';
 import { Title } from '@angular/platform-browser';
 import { ResetPasswordRequestMessage } from 'src/app/models/requests/users/ResetPasswordRequestMessage';
+import { Routes } from 'src/app/models/immutable/Routes';
 
 @Component({
   selector: 'app-reset-password',
@@ -38,7 +39,7 @@ export class ResetPasswordComponent extends Base implements OnInit  {
     };
     this.subscriptions.add(
       this.accountService.resetPassword(model).subscribe(
-        () => { this.redirect('sign-in'); }
+        () => { this.redirect(Routes.signIn); }
       )
     )
   }

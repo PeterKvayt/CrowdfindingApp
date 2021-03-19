@@ -9,6 +9,7 @@ import { Title } from '@angular/platform-browser';
 import { GetTokenRequestMessage } from 'src/app/models/requests/users/GetTokenRequestMessage';
 import { TokenInfo } from 'src/app/models/replies/users/TokenInfo';
 import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
+import { Routes } from 'src/app/models/immutable/Routes';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,6 +17,7 @@ import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent extends Base implements OnInit {
+  public forgotPasswordRoute = Routes.forgotPassword;
   public emailInput: TextInput = { label: 'Email', placeholder: 'test@user.com' };
   public passwordInput: PasswordInput = { label: 'Пароль', placeholder: 'test'};
 

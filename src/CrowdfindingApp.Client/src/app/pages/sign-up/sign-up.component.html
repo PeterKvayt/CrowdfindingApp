@@ -10,7 +10,7 @@
     <span class="title">Регистрация</span>
     <fieldset class="form-group">
       <span class="delicate-text">У вас есть аккаунт? </span>
-      <app-link value='Войти' route='sign-in'></app-link>
+      <app-link value='Войти' [route]='signInRoute'></app-link>
     </fieldset>
 
     <app-text-input [(item)]='emailInput' (keyup.enter)='onSignUpClick()'></app-text-input>

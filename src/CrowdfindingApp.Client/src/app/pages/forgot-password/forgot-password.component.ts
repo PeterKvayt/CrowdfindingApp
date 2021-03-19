@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TextInput } from 'src/app/components/inputs/text-input/TextInput';
 import { UserService } from 'src/app/services/user.service';
 import { Title } from '@angular/platform-browser';
+import { Routes } from 'src/app/models/immutable/Routes';
 
 @Component({
   selector: 'app-forgot-password',
@@ -30,7 +31,7 @@ export class ForgotPasswordComponent extends Base implements OnInit {
   public onPasswordRecoveryClick(): void {
     this.subscriptions.add(
       this.accountService.forgotPassword(this.emailInput.value).subscribe(
-        () => { this.redirect('sign-in'); }
+        () => { this.redirect(Routes.signIn); }
       )
     )
   }
