@@ -20,6 +20,7 @@ namespace CrowdfindingApp.Api.Controllers
         private readonly GetCitiesRequestHandler _getCitiesRequestHandler;
         private readonly GetCategoriesRequestHandler _getCategoriesRequestHandler;
         private readonly ProjectCardSearchRequestHandler _projectCardSearchRequestHandler;
+        private readonly RemoveProjectRequestHandler _removeProjectRequestHandler;
 
         public ProjectsController(IResourceProvider resourceProvider,
             SaveDraftProjectRequestHandler saveDraftProjectRequestHandler,
@@ -27,6 +28,7 @@ namespace CrowdfindingApp.Api.Controllers
             GetCountriesRequestHandler getCountriesRequestHandler,
             GetCitiesRequestHandler getCitiesRequestHandler,
             GetCategoriesRequestHandler getCategoriesRequestHandler,
+            RemoveProjectRequestHandler removeProjectRequestHandler,
             ProjectCardSearchRequestHandler projectCardSearchRequestHandler,
             ProjectSearchRequestHandler projectSearchRequestHandler) : base(resourceProvider)
         {
@@ -37,6 +39,15 @@ namespace CrowdfindingApp.Api.Controllers
             _getCitiesRequestHandler = getCitiesRequestHandler ?? throw new ArgumentNullException(nameof(getCitiesRequestHandler));
             _getCategoriesRequestHandler = getCategoriesRequestHandler ?? throw new ArgumentNullException(nameof(getCategoriesRequestHandler));
             _projectCardSearchRequestHandler = projectCardSearchRequestHandler ?? throw new ArgumentNullException(nameof(projectCardSearchRequestHandler));
+            _removeProjectRequestHandler = removeProjectRequestHandler ?? throw new ArgumentNullException(nameof(removeProjectRequestHandler));
+        }
+
+        [HttpDelete("{projectId}")]
+        [Authorize]
+        public async Task<IActionResult> Remove([FromRoute]string projectId)
+        {
+            var reply = await _removeProjectRequestHandler.HandleAsync(new RemoveProjectRequestMessage(projectId), User);
+            return Respond(reply);
         }
 
         [HttpPost(Endpoints.Project.SaveDraft)]

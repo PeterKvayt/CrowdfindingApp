@@ -1,6 +1,4 @@
 ﻿
-using CrowdfindingApp.Data.Common.BusinessModels;
-
 namespace CrowdfindingApp.Common.Immutable
 {
     public static class Endpoints

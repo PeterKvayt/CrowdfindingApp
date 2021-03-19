@@ -7,6 +7,7 @@ namespace CrowdfindingApp.Common.Enums
         Moderation = 2,
         Active = 3,
         Stopped = 4,
-        Complited = 5
+        Complited = 5,
+        Deleted = 6
     }
 }

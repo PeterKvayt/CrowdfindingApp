@@ -39,7 +39,7 @@ export class ProjectService {
   }
 
   public getProjects() {
-    return this.http.get('projects');
+    return this.http.get(this.controller);
   }
 
   public getUserProjects() {

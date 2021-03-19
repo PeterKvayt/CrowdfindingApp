@@ -89,7 +89,11 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   onCardDeleteClick(card: ProjectCard, collection: ProjectCard[]) {
-    collection.remove(card);
+    this.subscriptions.add(
+      this.projectService.delete(card.id).subscribe(
+        () => { collection.remove(card); }
+      )
+    );
   }
 
   isEditable(card: ProjectCard): boolean {
