@@ -49,4 +49,8 @@ export class ProjectService {
   public delete(id: string) {
     return this.http.delete('projects', id);
   }
+
+  public getProjectById(id: string) {
+    return this.http.get(this.controller + id);
+  }
 }

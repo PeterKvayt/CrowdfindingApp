@@ -55,7 +55,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         {
             var isNew = projectInfo.Id.IsNullOrWhiteSpace();
             var project = Mapper.Map<Project>(projectInfo);
-            SetDefaultValues(project, isNew);
+            PrefillValues(project, isNew);
 
             var projectId = project.Id;
             if(isNew)
@@ -69,24 +69,23 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             return projectId;
         }
 
-        protected virtual void SetDefaultValues(Project project, bool isNew)
+        protected virtual void PrefillValues(Project project, bool isNew)
         {
             project.OwnerId = User.GetUserId();
        }
 
         private async Task SaveQuestionsAsync(ProjectInfo projectInfo, Guid projectId)
         {
-            var questions = projectInfo.Questions.Select(x => MapToQuestion(x, projectId));
-            foreach(var question in questions)
+            if(projectInfo.Questions is null || !projectInfo.Questions.Any())
             {
-                if(question.Id == Guid.Empty)
-                {
-                    await QuestionRepository.AddAsync(question);
-                }
-                else
-                {
-                    await QuestionRepository.UpdateAsync(question);
-                }
+                return;
+            }
+
+            var questions = projectInfo.Questions.Select(x => MapToQuestion(x, projectId));
+            await QuestionRepository.SubstituteRangeAsync(questions.Where(x => x.Id != Guid.Empty).ToList(), projectId);
+            foreach(var question in questions.Where(x => x.Id == Guid.Empty))
+            {
+                await QuestionRepository.AddAsync(question);
             }
         }
 
@@ -99,20 +98,18 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         private async Task SaveRewardsAsync(ProjectInfo projectInfo, Guid projectId)
         {
-            foreach(var rewardinfo in projectInfo.Rewards)
+            await RewardRepository.RemoveByProjectAsync(projectId);
+            if(projectInfo.Rewards is null || !projectInfo.Rewards.Any())
             {
-                var reward = MapToReward(rewardinfo, projectId);
-                var rewardId = reward.Id;
-                if(reward.Id == Guid.Empty)
-                {
-                    rewardId = await RewardRepository.AddAsync(reward);
-                }
-                else
-                {
-                    await RewardRepository.UpdateAsync(reward);
-                }
+                return;
+            }
 
-                var deliveryCountries = rewardinfo.DeliveryCountries.Select(x => new RewardGeography(rewardId, new Guid(x.Key), x.Value.Value)).ToList();
+            foreach(var rewardInfo in projectInfo.Rewards)
+            {
+                var reward = MapToReward(rewardInfo, projectId);
+                var rewardId = await RewardRepository.AddAsync(reward);
+
+                var deliveryCountries = rewardInfo.DeliveryCountries.Select(x => new RewardGeography(rewardId, new Guid(x.Key), x.Value.Value)).ToList();
                 await RewardGeographyRepository.SubstituteRangeAsync(deliveryCountries, rewardId);
             }
         }
@@ -121,6 +118,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         {
             var reward = Mapper.Map<Reward>(info);
             reward.ProjectId = projectId;
+            reward.IsLimited = reward.Limit.HasValue;
             return reward;
         }
     }

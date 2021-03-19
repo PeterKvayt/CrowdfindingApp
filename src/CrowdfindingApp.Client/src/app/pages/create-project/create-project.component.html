@@ -1,3 +1,7 @@
+<div [hidden]='!showLoader' class="global-loader-box">
+    <app-preloader></app-preloader>
+  </div>
+
 <div class="container global-top-padding">
   <div class="row">
     <div class="col-12">
@@ -237,8 +241,8 @@
             <span class="delicate-text">{{question.question}}</span>
             <br>
             <span>{{question.answer}}</span>
-            <app-regular-btn value='Удалить' (click)='onquestionRemoveClick(question)'></app-regular-btn>
-            <app-regular-btn value='Изменить' (click)='onquestionEditClick(question)'></app-regular-btn>
+            <app-regular-btn value='Удалить' (click)='onQuestionRemoveClick(question)'></app-regular-btn>
+            <app-regular-btn value='Изменить' (click)='onQuestionEditClick(question)'></app-regular-btn>
           </div>
         </div>
 
@@ -275,17 +279,17 @@
           <app-text-input [item]='projectOwnerSurnameInput'></app-text-input>
           <app-text-input [item]='projectOwnerNameInput'></app-text-input>
           <app-text-input [item]='projectOwnerMiddleNameInput'></app-text-input>
-          <app-date-input [item]='projectOwerBirthdayInput'></app-date-input>
-          <app-text-input [item]='projectOwerPassportNumberInput'></app-text-input>
+          <app-date-input [item]='projectOwnerBirthdayInput'></app-date-input>
+          <app-text-input [item]='projectOwnerPassportNumberInput'></app-text-input>
           <span class="delicate-text">Пример: AB1234567</span>
-          <app-text-input [item]='projectOwerPrivateNumberInput'></app-text-input>
+          <app-text-input [item]='projectOwnerPrivateNumberInput'></app-text-input>
           <span class="delicate-text">Пример: 1234567A012PB0</span>
-          <app-text-input [item]='projectOwerWhomIssuedDocInput'></app-text-input>
+          <app-text-input [item]='projectOwnerWhomIssuedDocInput'></app-text-input>
           <span class="delicate-text">Пример: Советское РУВД г.Минска</span>
-          <app-date-input [item]='projectOwerWhenIssuedDocInput'></app-date-input>
-          <app-text-input [item]='projectOwerAddressInput'></app-text-input>
+          <app-date-input [item]='projectOwnerWhenIssuedDocInput'></app-date-input>
+          <app-text-input [item]='projectOwnerAddressInput'></app-text-input>
           <span class="delicate-text">Пример: г.Минск, ул. Е. Полоцкой, д.3, кв. 16</span>
-          <app-text-input [item]='projectOwerPhoneNumberInput'></app-text-input>
+          <app-text-input [item]='projectOwnerPhoneNumberInput'></app-text-input>
           <span class="delicate-text">Пример: 375291234567</span>
         </div>
 

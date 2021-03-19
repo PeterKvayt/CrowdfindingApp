@@ -14,7 +14,6 @@ import { ProjectCard } from 'src/app/components/project-card/ProjectCard';
 import { SelectInput } from 'src/app/components/selectors/select/SelectInput';
 import { SelectItem } from 'src/app/components/selectors/select/SelectItem';
 import { RewardCard } from 'src/app/components/reward-card/RewardCard';
-import { DeliveryTypes } from 'src/app/models/immutable/DeliveryType';
 import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
 import { DraftProjectInfo } from 'src/app/models/replies/projects/DraftProjectInfo';
 import { RewardInfo } from 'src/app/models/replies/rewards/RewardInfo';
@@ -23,6 +22,8 @@ import { QuestionInfo } from 'src/app/models/replies/projects/QuestionInfo';
 import { DeliveryTypeEnum } from 'src/app/models/enums/DeliveryTypeEnum';
 import { Data } from 'src/app/models/immutable/Data';
 import { ProjectModerationRequestMessage } from 'src/app/models/requests/projects/ProjectModerationRequestMessage';
+import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
+import { ProjectInfo } from 'src/app/models/replies/projects/ProjectInfo';
 
 @Component({
   selector: 'app-create-project',
@@ -34,6 +35,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   private currentDate = new Date();
 
   // project fields
+  private projectId = null;
   private projectCategory: string;
   public projectNameInput: TextInput = { placeholder: 'Введите название проекта' };
   public projectShortDescriptionInput: TextArea = { placeholder: 'Кратко опишите проект (до 280 символов)', max: 280 };
@@ -45,20 +47,21 @@ export class CreateProjectComponent extends Base implements OnInit {
   public projectOwnerSurnameInput: TextInput = { placeholder: 'Фамилия' };
   public projectOwnerNameInput: TextInput = { placeholder: 'Имя' };
   public projectOwnerMiddleNameInput: TextInput = { placeholder: 'Отчество' };
-  public projectOwerPassportNumberInput: TextInput = { placeholder: 'Серия и номер', label: 'Паспортные данные', min: 9, max: 9 };
-  public projectOwerPrivateNumberInput: TextInput = { placeholder: 'Личный номер', min: 14, max: 14 };
-  public projectOwerWhomIssuedDocInput: TextInput = { placeholder: 'Кем  выдан документ' };
-  public projectOwerPhoneNumberInput: TextInput = { placeholder: 'Контактный номер', min: 13, max: 13 };
-  public projectOwerAddressInput: TextInput = { placeholder: 'Адрес регистрации' };
-  public projectOwerWhenIssuedDocInput: DateInput = { label: 'Дата выдачи документа' };
+  public projectOwnerPassportNumberInput: TextInput = { placeholder: 'Серия и номер', label: 'Паспортные данные', min: 9, max: 9 };
+  public projectOwnerPrivateNumberInput: TextInput = { placeholder: 'Личный номер', min: 14, max: 14 };
+  public projectOwnerWhomIssuedDocInput: TextInput = { placeholder: 'Кем  выдан документ' };
+  public projectOwnerPhoneNumberInput: TextInput = { placeholder: 'Контактный номер', min: 13, max: 13 };
+  public projectOwnerAddressInput: TextInput = { placeholder: 'Адрес регистрации' };
+  public projectOwnerWhenIssuedDocInput: DateInput = { label: 'Дата выдачи документа' };
   public projectRewardsList: RewardInfo[] = [];
-  public projectOwerBirthdayInput: DateInput = {
+  public projectOwnerBirthdayInput: DateInput = {
     label: 'Дата рождения',
     max: new Date(this.currentDate.getFullYear() - 18, this.currentDate.getMonth(), this.currentDate.getDay()),
-    value: new Date(this.currentDate.getFullYear() - 18, this.currentDate.getMonth(), this.currentDate.getDay()).toISOString().substr(0, 10)
+    value: new Date(this.currentDate.getFullYear() - 18, this.currentDate.getMonth(), this.currentDate.getDay())
   };
 
   // reward fields
+  private rewardId: string = null;
   public rewardNameInput: TextInput = { placeholder: 'Введите название вознаграждения' };
   public rewardCostInput: DecimalInput = { placeholder: 'Введите стоимость (BYN)', min: 1 };
   public rewardCountRestrictionsInput: DecimalInput = { placeholder: 'Введите количество', min: 1 };
@@ -97,6 +100,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     imgPath: 'assets/img/stock-project.png',
     purpose: this.projectPurposeInput.value ? this.projectPurposeInput.value : 0,
     currentResult: 0,
+    status: ProjectStatusEnum.Draft,
     id: null,
   };
 
@@ -132,7 +136,7 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   // sub tabs
   public withoutDeliverySubTab = new TabElement('Доставка отсутствует', true);
-  public someCountriesDeliverySubTab = new TabElement('Некоторые страны'  , false);
+  public someCountriesDeliverySubTab = new TabElement('Некоторые страны', false);
   public wholeWorldDeliverySubTab = new TabElement('Весь мир', false);
 
   public getCountryNameById(id: string): string {
@@ -164,46 +168,121 @@ export class CreateProjectComponent extends Base implements OnInit {
     private titleService: Title
   ) { super(router, activatedRoute); }
   public ngOnInit(): void {
-    this.titleService.setTitle('Создание проекта');
-    this.setCountries();
     this.setCities();
     this.setCategories();
+    this.projectId = this.activatedRoute.snapshot.paramMap.get('projectId');
+    if (this.projectId) {
+      this.titleService.setTitle('Редактирование проекта');
+      this.setProjectInfo(this.projectId);
+      this.setCountries(this.projectRewardsList[0] ? this.projectRewardsList[0].deliveryCountries : null);
+    } else {
+      this.titleService.setTitle('Создание проекта');
+      this.setCountries(null);
+    }
   }
 
-  private setCountries(): void {
+  setProjectInfo(projectId: string): void {
+    this.showLoader = true;
     this.subscriptions.add(
-          this.projectService.getCountries().subscribe(
-            (reply: ReplyMessage<LookupItem[]>) => {
-              reply.value.forEach(country => {
+      this.projectService.getProjectById(projectId).subscribe(
+        (reply: ReplyMessage<ProjectInfo>) => {
+          this.projectCategory = reply.value.categoryId;
+          if (reply.value.categoryId) {
+            this.categorySelectInput.list.find(x => x.value === reply.value.categoryId).selected = true;
+          }
+
+          this.projectNameInput.value = reply.value.title;
+          this.projectShortDescriptionInput.value = reply.value.shortDescription;
+          this.projectDescriptionInput.value = reply.value.fullDescription;
+
+          this.selectedCity = reply.value.location;
+          if (reply.value.location) {
+            this.citiesSelectInput.list.find(x => x.value === reply.value.location).selected = true;
+          }
+
+          this.projectVideoInput.value = reply.value.videoUrl;
+          //image: null,
+          //startDateTime: null,
+          this.projectDurationInput.value = reply.value.duration;
+          this.projectPurposeInput.value = reply.value.budget;
+          this.projectOwnerSurnameInput.value = reply.value.authorSurname;
+          this.projectOwnerNameInput.value = reply.value.authorName;
+          this.projectOwnerBirthdayInput.value = reply.value.authorDateOfBirth
+            ? reply.value.authorDateOfBirth
+            : new Date(this.currentDate.getFullYear() - 18, this.currentDate.getMonth(), this.currentDate.getDay());
+          this.projectOwnerMiddleNameInput.value = reply.value.authorMiddleName;
+          this.projectOwnerPassportNumberInput.value = reply.value.authorPersonalNo;
+          this.projectOwnerPrivateNumberInput.value = reply.value.authorIdentificationNo;
+          this.projectOwnerWhomIssuedDocInput.value = reply.value.whomGivenDocument;
+          this.projectOwnerWhenIssuedDocInput.value = reply.value.whenGivenDocument;
+          this.projectOwnerAddressInput.value = reply.value.authorAddress;
+          this.projectOwnerPhoneNumberInput.value = reply.value.authorPhone;
+          this.projectRewardsList = reply.value.rewards ? reply.value.rewards : [];
+          this.faqList = reply.value.questions ? reply.value.questions : [];
+          
+          const categoryName = this.categorySelectInput.list.find(x => x.value === reply.value.categoryId).name;
+          this.projectCard.id = reply.value.id;
+          this.projectCard.categoryName = categoryName ? categoryName : 'Категория';
+          this.projectCard.categoryId = reply.value.categoryId;
+          this.projectCard.purpose = reply.value.budget;
+          this.projectCard.currentResult = 0;
+          this.projectCard.description = reply.value.shortDescription ? reply.value.shortDescription : 'Описание';
+          this.projectCard.name = reply.value.title ? reply.value.title : 'Название';
+          this.projectCard.currentResult = ProjectStatusEnum.Draft;
+          this.projectCard.imgPath = reply.value.image ? reply.value.image : 'assets/img/stock-project.png';
+
+          this.showLoader = false;
+          
+        },
+        () => { this.showLoader = false; }
+      )
+    );
+  }
+
+  private setCountries(countries: GenericLookupItem<string, number>[]): void {
+    this.subscriptions.add(
+      this.projectService.getCountries().subscribe(
+        (reply: ReplyMessage<LookupItem[]>) => {
+          if (countries) {
+            reply.value.forEach(country => {
+              if (countries.find(x => x.key === country.key)) {
+                this.countrySelectInput.list.push(new SelectItem(country.key, country.value, true));
+              } else {
                 this.countrySelectInput.list.push(new SelectItem(country.key, country.value));
-              });
-            }
-          )
-        );
+              }
+            });
+          } else {
+            reply.value.forEach(country => {
+              this.countrySelectInput.list.push(new SelectItem(country.key, country.value));
+            });
+          }
+        }
+      )
+    );
   }
 
   private setCities(): void {
     this.subscriptions.add(
-          this.projectService.getCities().subscribe(
-            (reply: ReplyMessage<LookupItem[]>) => {
-              reply.value.forEach(city => {
-                this.citiesSelectInput.list.push(new SelectItem(city.key, city.value));
-              });
-            }
-          )
-        );
+      this.projectService.getCities().subscribe(
+        (reply: ReplyMessage<LookupItem[]>) => {
+          reply.value.forEach(city => {
+            this.citiesSelectInput.list.push(new SelectItem(city.key, city.value));
+          });
+        }
+      )
+    );
   }
 
   private setCategories(): void {
     this.subscriptions.add(
-          this.projectService.getCategories().subscribe(
-            (reply: ReplyMessage<LookupItem[]>) => {
-              reply.value.forEach(category => {
-                this.categorySelectInput.list.push(new SelectItem(category.key, category.value));
-              });
-            }
-          )
-        );
+      this.projectService.getCategories().subscribe(
+        (reply: ReplyMessage<LookupItem[]>) => {
+          reply.value.forEach(category => {
+            this.categorySelectInput.list.push(new SelectItem(category.key, category.value));
+          });
+        }
+      )
+    );
   }
 
   // General Tab functional
@@ -256,12 +335,12 @@ export class CreateProjectComponent extends Base implements OnInit {
     }
 
     if (deliveryType === DeliveryTypeEnum.WholeWorld) {
-      this.rewardDeliveryCountries.push(new GenericLookupItem(Data.wholeWorldDeliveryId , this.rewardWholeWorldDeliveryCostInput.value));
+      this.rewardDeliveryCountries.push(new GenericLookupItem(Data.wholeWorldDeliveryId, this.rewardWholeWorldDeliveryCostInput.value));
     }
 
     const rewardInfo: RewardInfo = {
-      id: null,
-      projectId: null,
+      id: this.rewardId,
+      projectId: this.projectId,
       title: this.rewardNameInput.value,
       price: this.rewardCostInput.value,
       description: this.rewardDescriptionInput.value,
@@ -270,9 +349,13 @@ export class CreateProjectComponent extends Base implements OnInit {
       limit: this.rewardCountRestrictionsInput.value,
       image: null,
       deliveryType: deliveryType,
-      deliveryCountries:  this.rewardDeliveryCountries
+      deliveryCountries: this.rewardDeliveryCountries
     };
+    if (this.rewardId) {
+      this.projectRewardsList.remove(this.projectRewardsList.find(x => x.id === this.rewardId));
+    }
     this.projectRewardsList.push(rewardInfo);
+
 
     this.rewardNameInput.value = undefined;
     this.rewardCostInput.value = undefined;
@@ -284,13 +367,14 @@ export class CreateProjectComponent extends Base implements OnInit {
   }
 
   onRewardChangeClick(reward: RewardInfo) {
+    this.rewardId = reward.id;
     let wholeWorldDeliveryPrice;
     if (reward.deliveryType === DeliveryTypeEnum.WholeWorld) {
       this.onDeliverySubTabClick(this.wholeWorldDeliverySubTab);
       wholeWorldDeliveryPrice = reward.deliveryCountries.find(x => x.key === Data.wholeWorldDeliveryId).value;
-    } else if (reward.deliveryType === DeliveryTypeEnum.SomeCountries){
+    } else if (reward.deliveryType === DeliveryTypeEnum.SomeCountries) {
       this.onDeliverySubTabClick(this.someCountriesDeliverySubTab);
-    } else if (reward.deliveryType === DeliveryTypeEnum.WithoutDelivery){
+    } else if (reward.deliveryType === DeliveryTypeEnum.WithoutDelivery) {
       this.onDeliverySubTabClick(this.withoutDeliverySubTab);
     }
     this.rewardNameInput.value = reward.title;
@@ -332,11 +416,11 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.answerInput.value = undefined;
   }
 
-  public onquestionRemoveClick(question: QuestionInfo): void {
+  public onQuestionRemoveClick(question: QuestionInfo): void {
     this.faqList.remove(question);
   }
 
-  public onquestionEditClick(question: QuestionInfo): void {
+  public onQuestionEditClick(question: QuestionInfo): void {
     this.questionInput.value = question.question;
     this.answerInput.value = question.answer;
     this.faqList.remove(question);
@@ -347,26 +431,33 @@ export class CreateProjectComponent extends Base implements OnInit {
   }
 
   public toModerationClick(): void {
+    this.showLoader = true;
     const model = new ProjectModerationRequestMessage(this.getProjectModel());
-      this.subscriptions.add(
-        this.projectService.moderate(model).subscribe(
-          () => {}
-        )
-      );
+    this.subscriptions.add(
+      this.projectService.moderate(model).subscribe(
+        () => { this.showLoader = false; },
+        () => { this.showLoader = false; }
+      )
+    );
   }
 
   public onSaveClick(): void {
-      const model = new SaveDraftProjectRequestMessage(this.getProjectModel());
-      this.subscriptions.add(
-        this.projectService.save(model).subscribe(
-          () => { this.redirect('profile'); }
-        )
-      );
+    this.showLoader = true;
+    const model = new SaveDraftProjectRequestMessage(this.getProjectModel());
+    this.subscriptions.add(
+      this.projectService.save(model).subscribe(
+        () => {
+          this.redirect('profile');
+          this.showLoader = false;
+        },
+        () => { this.showLoader = false; }
+      )
+    );
   }
 
   private getProjectModel(): DraftProjectInfo {
     const draft: DraftProjectInfo = {
-      id: null,
+      id: this.projectId,
       categoryId: this.projectCategory,
       title: this.projectNameInput.value,
       shortDescription: this.projectShortDescriptionInput.value,
@@ -375,18 +466,18 @@ export class CreateProjectComponent extends Base implements OnInit {
       videoUrl: this.projectVideoInput.value,
       image: null,
       startDateTime: null,
-      duration: this.projectDurationInput.value,
-      budget: this.projectPurposeInput.value,
+      duration: this.projectDurationInput.value ? this.projectDurationInput.value : null,
+      budget: this.projectPurposeInput.value ? this.projectPurposeInput.value : null,
       authorSurname: this.projectOwnerSurnameInput.value,
       authorName: this.projectOwnerNameInput.value,
-      authorDateOfBirth: this.projectOwerBirthdayInput.value,
+      authorDateOfBirth: this.projectOwnerBirthdayInput.value,
       authorMiddleName: this.projectOwnerMiddleNameInput.value,
-      authorPersonalNo: this.projectOwerPassportNumberInput.value,
-      authorIdentificationNo: this.projectOwerPrivateNumberInput.value,
-      whomGivenDocument: this.projectOwerWhomIssuedDocInput.value,
-      whenGivenDocument: new Date(this.projectOwerWhenIssuedDocInput.value),
-      authorAddress: this.projectOwerAddressInput.value,
-      authorPhone: this.projectOwerPhoneNumberInput.value,
+      authorPersonalNo: this.projectOwnerPassportNumberInput.value,
+      authorIdentificationNo: this.projectOwnerPrivateNumberInput.value,
+      whomGivenDocument: this.projectOwnerWhomIssuedDocInput.value,
+      whenGivenDocument: new Date(this.projectOwnerWhenIssuedDocInput.value),
+      authorAddress: this.projectOwnerAddressInput.value,
+      authorPhone: this.projectOwnerPhoneNumberInput.value,
       rewards: this.projectRewardsList,
       questions: this.faqList
     };

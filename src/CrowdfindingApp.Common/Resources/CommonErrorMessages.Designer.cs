@@ -61,7 +61,16 @@ namespace CrowdfindingApp.Common.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Категории с Id: &quot;{0}&quot; не найдено..
+        ///   Ищет локализованную строку, похожую на Идентификатор не должен быть пустым.
+        /// </summary>
+        internal static string EmptyId {
+            get {
+                return ResourceManager.GetString("EmptyId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Категории с Id: &quot;{0}&quot; не найдено.
         /// </summary>
         internal static string InvalidCategoryId {
             get {
@@ -70,7 +79,7 @@ namespace CrowdfindingApp.Common.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Невалидный формат Id: &quot;{0}&quot;..
+        ///   Ищет локализованную строку, похожую на Невалидный формат Id: &quot;{0}&quot;.
         /// </summary>
         internal static string InvalidIdFormat {
             get {

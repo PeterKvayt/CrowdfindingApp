@@ -21,6 +21,7 @@ namespace CrowdfindingApp.Api.Controllers
         private readonly GetCategoriesRequestHandler _getCategoriesRequestHandler;
         private readonly ProjectCardSearchRequestHandler _projectCardSearchRequestHandler;
         private readonly RemoveProjectRequestHandler _removeProjectRequestHandler;
+        private readonly GetByIdRequestHandler _getByIdRequestHandler;
 
         public ProjectsController(IResourceProvider resourceProvider,
             SaveDraftProjectRequestHandler saveDraftProjectRequestHandler,
@@ -30,6 +31,7 @@ namespace CrowdfindingApp.Api.Controllers
             GetCategoriesRequestHandler getCategoriesRequestHandler,
             RemoveProjectRequestHandler removeProjectRequestHandler,
             ProjectCardSearchRequestHandler projectCardSearchRequestHandler,
+            GetByIdRequestHandler getByIdRequestHandler,
             ProjectSearchRequestHandler projectSearchRequestHandler) : base(resourceProvider)
         {
             _saveDraftProjectRequestHandler = saveDraftProjectRequestHandler ?? throw new ArgumentNullException(nameof(saveDraftProjectRequestHandler));
@@ -40,6 +42,7 @@ namespace CrowdfindingApp.Api.Controllers
             _getCategoriesRequestHandler = getCategoriesRequestHandler ?? throw new ArgumentNullException(nameof(getCategoriesRequestHandler));
             _projectCardSearchRequestHandler = projectCardSearchRequestHandler ?? throw new ArgumentNullException(nameof(projectCardSearchRequestHandler));
             _removeProjectRequestHandler = removeProjectRequestHandler ?? throw new ArgumentNullException(nameof(removeProjectRequestHandler));
+            _getByIdRequestHandler = getByIdRequestHandler ?? throw new ArgumentNullException(nameof(getByIdRequestHandler));
         }
 
         [HttpDelete("{projectId}")]
@@ -106,5 +109,12 @@ namespace CrowdfindingApp.Api.Controllers
             return Respond(reply);
         }
 
+        [HttpGet("{projectId}")]
+        [Authorize]
+        public async Task<IActionResult> GetById([FromRoute] string projectId)
+        {
+            var reply = await _getByIdRequestHandler.HandleAsync(new GetProjectByIdRequestMessage(projectId), User);
+            return Respond(reply);
+        }
     }
 }

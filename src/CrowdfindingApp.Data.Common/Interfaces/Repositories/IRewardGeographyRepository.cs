@@ -9,5 +9,6 @@ namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
     public interface IRewardGeographyRepository : IRepository<RewardGeography>
     {
         Task SubstituteRangeAsync(List<RewardGeography> geographies, Guid rewardId);
+        Task<List<RewardGeography>> GetByRewardIdAsync(Guid id);
     }
 }

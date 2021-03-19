@@ -14,6 +14,9 @@ namespace CrowdfindingApp.Core.Services.Projects.Validators
     {
         public ProjectModerationValidator()
         {
+            // ToDo: add error
+            RuleFor(x => x).NotNull();
+
             RuleFor(x => x.Id).Must(x => Guid.TryParse(x, out var _))
                 .When(x => x.Id.NonNullOrWhiteSpace())
                 .WithErrorCode(CommonErrorMessageKeys.InvalidIdFormat)

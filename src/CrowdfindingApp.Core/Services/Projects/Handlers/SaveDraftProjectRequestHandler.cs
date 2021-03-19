@@ -44,9 +44,9 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             return await ProcessAsync(request);
         }
 
-        protected override void SetDefaultValues(Project project, bool isNew)
+        protected override void PrefillValues(Project project, bool isNew)
         {
-            base.SetDefaultValues(project, isNew);
+            base.PrefillValues(project, isNew);
             project.Status = (int)ProjectStatus.Draft;
         }
     }

@@ -6,8 +6,8 @@
       type='date' 
       [max]='max' 
       [min]='min' 
-      [ngModel]='item.value' 
-      (ngModelChange)='onValueChange($event)' 
+      [value]='currentValue' 
+      (change)='onValueChange($event)' 
       class="form-control" />
   
     <span *ngIf='!item.valid' class="text-danger">{{item.errorText}}</span>

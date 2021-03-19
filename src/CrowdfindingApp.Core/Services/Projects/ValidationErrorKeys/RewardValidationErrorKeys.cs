@@ -15,5 +15,6 @@ namespace CrowdfindingApp.Core.Services.Projects.ValidationErrorKeys
         public static string MissingDeliveryCountries => $"{nameof(RewardValidationErrorKeys)}_{nameof(MissingDeliveryCountries)}";
         public static string EmptyDeliveryCountries => $"{nameof(RewardValidationErrorKeys)}_{nameof(EmptyDeliveryCountries)}";
         public static string WrongDeliveryCountriesIds => $"{nameof(RewardValidationErrorKeys)}_{nameof(WrongDeliveryCountriesIds)}";
+        public static string WrongLimitValue => $"{nameof(RewardValidationErrorKeys)}_{nameof(WrongLimitValue)}";
     }
 }

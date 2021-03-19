@@ -356,5 +356,14 @@ namespace CrowdfindingApp.Core.Services.Projects.Resources {
                 return ResourceManager.GetString("RewardValidationErrorKeys_WrongDeliveryCountriesIds", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ограничение вознаграждения по количеству должно быть больше 0.
+        /// </summary>
+        internal static string RewardValidationErrorKeys_WrongLimitValue {
+            get {
+                return ResourceManager.GetString("RewardValidationErrorKeys_WrongLimitValue", resourceCulture);
+            }
+        }
     }
 }

@@ -90,5 +90,10 @@ namespace CrowdfindingApp.Data.Repositories
             model.LastModifiedDateTime = DateTime.UtcNow;
             return base.UpdateAsync(model);
         }
+
+        public async Task<Project> GetByIdAsync(Guid projectId, Guid ownerId)
+        {
+            return await GetQuery().FirstOrDefaultAsync(x => x.Id == projectId && x.OwnerId == ownerId);
+        }
     }
 }

@@ -33,5 +33,10 @@ namespace CrowdfindingApp.Data.Repositories
                 await Storage.SaveChangesAsync();
             }
         }
+
+        public async Task<List<RewardGeography>> GetByRewardIdAsync(Guid id)
+        {
+            return await GetQuery().Where(x => x.RewardId == id).ToListAsync();
+        }
     }
 }

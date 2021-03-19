@@ -14,5 +14,6 @@ namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
         Task<List<City>> GetCitiesAsync();
         Task<List<Category>> GetCategoriesAsync();
         Task<List<Category>> GetCategoriesByIdsAsync(List<Guid> ids);
+        Task<Project> GetByIdAsync(Guid projectId, Guid ownerId);
     }
 }

@@ -63,7 +63,7 @@
       <div class="col">
         <div class="row">
           <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of drafts'>
-            <app-project-card [editable]='isEditable(card)' [card]='card' (changeClick)='onCardEditClick(card)'
+            <app-project-card [editable]='isEditable(card)' [card]='card' (editClick)='onCardEditClick(card)'
               (deleteClick)='onCardDeleteClick(card, drafts)'>
             </app-project-card>
           </div>

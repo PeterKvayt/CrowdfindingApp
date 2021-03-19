@@ -13,7 +13,7 @@ namespace CrowdfindingApp.Common
             CreateMap<string, Guid>()
                 .ConstructUsing(x => x.IsNullOrEmpty() ? Guid.Empty : new Guid(x))
                 .ReverseMap()
-                .ConstructUsing(x => x.ToString());
+                .ConstructUsing(x => x == Guid.Empty ? null : x.ToString());
 
             CreateMap<PagingInfo, Paging>().ReverseMap();
         }

@@ -216,4 +216,7 @@
   <data name="RewardValidationErrorKeys_WrongDeliveryCountriesIds" xml:space="preserve">
     <value>Страны доставки содержат невалидные идентификаторы</value>
   </data>
+  <data name="RewardValidationErrorKeys_WrongLimitValue" xml:space="preserve">
+    <value>Ограничение вознаграждения по количеству должно быть больше 0</value>
+  </data>
 </root>
