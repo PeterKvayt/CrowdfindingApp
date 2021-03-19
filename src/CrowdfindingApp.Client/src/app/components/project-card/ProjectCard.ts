@@ -1,6 +1,9 @@
+import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
+
 export class ProjectCard {
 
 constructor(
+  public status: ProjectStatusEnum,
   public name: string,
   public description: string,
   public categoryName: string,

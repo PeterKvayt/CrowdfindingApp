@@ -1,66 +1,73 @@
-<div class="row">
+<div [hidden]='!showLoader' class="global-loader-box">
+  <app-preloader></app-preloader>
+</div>
+<div class="container global-top-padding">
 
-  <div class="col-12 profile-section">
-    <div class="row">
-      <div class="col-lg-3 col-mg-6 col-sm-12">
-        <img class="profile-photo" *ngIf='!userInfo.photo' src="assets/img/default-avatar.png" alt="avatar2">
-        <img class="profile-photo" *ngIf='userInfo.photo' [src]='userInfo.photo' alt="avatar">
-      </div>
-      <div class="col-lg-8">
-        <span class="profile-name">{{userInfo.name}} {{userInfo.surname}}</span>
+  <div class="row ">
 
-        <div class="profile-full-info">
-          <i class="fas fa-info fa-fw"></i>
-          <app-link empty value='Подробная информация'></app-link>
-        </div>
-
-        <div class="payment-history">
-          <i class="fas fa-history fa-fw"></i>
-          <app-link empty value='История платежей'></app-link>
-        </div>
-
-        <div>
-          <app-regular-btn value='Редактировать данные' ico='fas fa-cog'></app-regular-btn>
-        </div>
-        <div>
-          <app-regular-btn value='Выйти из учетной записи' ico='fas fa-sign-out-alt' (click)='onSignOutClick()'>
-          </app-regular-btn>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-4 col-md-4 col-sm-12">
-    <app-tab [value]='myProjectsTab.value' [active]='myProjectsTab.isActive' (click)='onTabClick(myProjectsTab)'>
-    </app-tab>
-  </div>
-  <div class="col-lg-4 col-md-4 col-sm-12">
-    <app-tab [value]='supportedTab.value' [active]='supportedTab.isActive' (click)='onTabClick(supportedTab)'></app-tab>
-  </div>
-  <div class="col-lg-4 col-md-4 col-sm-12">
-    <app-tab [value]='draftsTab.value' [active]='draftsTab.isActive' (click)='onTabClick(draftsTab)'>
-    </app-tab>
-  </div>
-
-  <ng-container *ngIf='myProjectsTab.isActive'>
-    <div class="col">
-      my projects
-    </div>
-  </ng-container>
-  <ng-container *ngIf='supportedTab.isActive'>
-    <div class="col">
-      supported
-    </div>
-  </ng-container>
-  <ng-container *ngIf='draftsTab.isActive'>
-    <div class="col">
+    <div class="col-12 profile-section">
       <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of drafts'>
-          <app-project-card  [card]='card' 
-            (changeClick)='onCardChangeClick(card)' (deleteClick)='onCardDeleteClick(card, drafts)'>
-          </app-project-card>
+        <div class="col-lg-3 col-mg-6 col-sm-12">
+          <img class="profile-photo" *ngIf='!userInfo.photo' src="assets/img/default-avatar.png" alt="avatar2">
+          <img class="profile-photo" *ngIf='userInfo.photo' [src]='userInfo.photo' alt="avatar">
+        </div>
+        <div class="col-lg-8">
+          <span class="profile-name">{{userInfo.name}} {{userInfo.surname}}</span>
+
+          <div class="profile-full-info">
+            <i class="fas fa-info fa-fw"></i>
+            <app-link empty value='Подробная информация'></app-link>
+          </div>
+
+          <div class="payment-history">
+            <i class="fas fa-history fa-fw"></i>
+            <app-link empty value='История платежей'></app-link>
+          </div>
+
+          <div>
+            <app-regular-btn value='Редактировать данные' ico='fas fa-cog'></app-regular-btn>
+          </div>
+          <div>
+            <app-regular-btn value='Выйти из учетной записи' ico='fas fa-sign-out-alt' (click)='onSignOutClick()'>
+            </app-regular-btn>
+          </div>
+
         </div>
       </div>
     </div>
-  </ng-container>
+
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <app-tab [value]='myProjectsTab.value' [active]='myProjectsTab.isActive' (click)='onTabClick(myProjectsTab)'>
+      </app-tab>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <app-tab [value]='supportedTab.value' [active]='supportedTab.isActive' (click)='onTabClick(supportedTab)'>
+      </app-tab>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <app-tab [value]='draftsTab.value' [active]='draftsTab.isActive' (click)='onTabClick(draftsTab)'>
+      </app-tab>
+    </div>
+
+    <ng-container *ngIf='myProjectsTab.isActive'>
+      <div class="col">
+        my projects
+      </div>
+    </ng-container>
+    <ng-container *ngIf='supportedTab.isActive'>
+      <div class="col">
+        supported
+      </div>
+    </ng-container>
+    <ng-container *ngIf='draftsTab.isActive'>
+      <div class="col">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of drafts'>
+            <app-project-card [editable]='isEditable(card)' [card]='card' (changeClick)='onCardEditClick(card)'
+              (deleteClick)='onCardDeleteClick(card, drafts)'>
+            </app-project-card>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+</div>

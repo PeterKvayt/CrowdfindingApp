@@ -7,6 +7,6 @@ namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
 {
     public interface IRewardRepository : IRepository<Reward>
     {
-        Task<List<Reward>> GetRewardsByProjectId(Guid guid);
+        Task<List<Reward>> GetRewardsByProjectIdAsync(Guid guid);
     }
 }

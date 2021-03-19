@@ -19,11 +19,15 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IMapper _mapper;
+        private readonly IRewardRepository _rewardRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public ProjectCardSearchRequestHandler(IProjectRepository projectRepository, IMapper mapper)
+        public ProjectCardSearchRequestHandler(IProjectRepository projectRepository, IMapper mapper, IRewardRepository rewardRepository, IOrderRepository orderRepository)
         {
             _projectRepository = projectRepository ?? throw new NullReferenceException(nameof(projectRepository));
             _mapper = mapper ?? throw new NullReferenceException(nameof(mapper));
+            _rewardRepository = rewardRepository ?? throw new NullReferenceException(nameof(rewardRepository));
+            _orderRepository = orderRepository ?? throw new NullReferenceException(nameof(orderRepository));
         }
 
         protected override async Task<ReplyMessage<List<ProjectCard>>> ExecuteAsync(ProjectCardSearchRequestMessage request)
@@ -33,9 +37,15 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             var paging = _mapper.Map<Paging>(request.Paging);
 
             var projects = await _projectRepository.GetProjects(filter, paging);
-            var categories = await _projectRepository.GetCategoriesByIdsAsync(projects.Select(x => x.CategoryId).Distinct().ToList());
+            var categories = await _projectRepository.GetCategoriesByIdsAsync(projects.Select(x => x.CategoryId)
+                .Distinct()
+                .ToList());
 
-            var cards = projects.Select(x => MapToCard(x, categories)).ToList();
+            var cards = new List<ProjectCard>();
+            foreach(var project in projects)
+            {
+                cards.Add(await MapToCardAsync(project, categories));
+            }
 
             return new ReplyMessage<List<ProjectCard>>
             {
@@ -43,14 +53,32 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             };
         }
 
-        private ProjectCard MapToCard(Project project, List<Category> categories)
+        private async Task<ProjectCard> MapToCardAsync(Project project, List<Category> categories)
         {
             var card = _mapper.Map<ProjectCard>(project);
+            card.CurrentResult = await GetProjectProgressAsync(project.Id);
             if(card.CategoryId.NonNullOrWhiteSpace())
             {
                 card.CategoryName = categories.FirstOrDefault(_ => _.Id.ToString() == card.CategoryId)?.Name;
             }
             return card;
+        }
+
+        private async Task<decimal> GetProjectProgressAsync(Guid projectId)
+        {
+            var rewards = await _rewardRepository.GetRewardsByProjectIdAsync(projectId);
+            var orders = await _orderRepository.GetOrdersAsync(new OrderFilter
+            {
+                RewardId = rewards.Select(x => x.Id).ToList()
+            });
+            var groupedOrders = orders.GroupBy(x => x.RewardId);
+            decimal progress = 0;
+            foreach(var group in groupedOrders)
+            {
+                progress += group.Count() * rewards.First(x => x.Id == group.Key).Price.Value;
+            }
+
+            return progress;
         }
     }
 }

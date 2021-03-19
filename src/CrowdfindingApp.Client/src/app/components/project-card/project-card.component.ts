@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProjectCard } from './ProjectCard';
+import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
 
 
 @Component({
@@ -17,8 +18,8 @@ export class ProjectCardComponent implements OnInit {
   @Input() colMd: number;
   @Input() colSm: number;
 
-  @Output() deleteEvent = new EventEmitter<string>();
-  @Output() editEvent = new EventEmitter<string>();
+  @Output() deleteClick = new EventEmitter();
+  @Output() editClick = new EventEmitter();
 
   public columnClass: string;
 
@@ -45,19 +46,23 @@ export class ProjectCardComponent implements OnInit {
     }
   }
 
-  public getProgressStatus(){
-    if (this.getProgress() < this.card.purpose || this.card.purpose === 0) {
-      return 'ИДЕТ СБОР';
-    } else {
-      return 'УСПЕХ';
+  public getStatus(): string {
+    switch (this.card.status) {
+      case ProjectStatusEnum.Active: return 'ИДЕТ СБОР';
+      case ProjectStatusEnum.Complited: return 'УСПЕХ';
+      case ProjectStatusEnum.Draft: return 'ЧЕРНОВИК';
+      case ProjectStatusEnum.Moderation: return 'МОДЕРАЦИЯ';
+      case ProjectStatusEnum.Stopped: return 'ПРИОСТАНОВЛЕН';
+      default:
+        break;
     }
   }
 
   public onDeleteClick() {
-    this.deleteEvent.emit(this.card.id);
+    this.deleteClick.emit();
   }
 
   public onEditClick() {
-    this.editEvent.emit(this.card.id);
+    this.editClick.emit();
   }
 }

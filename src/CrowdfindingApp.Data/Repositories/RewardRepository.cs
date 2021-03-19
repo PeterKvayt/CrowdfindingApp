@@ -17,9 +17,9 @@ namespace CrowdfindingApp.Data.Repositories
 
         }
 
-        public Task<List<Reward>> GetRewardsByProjectId(Guid guid)
+        public async Task<List<Reward>> GetRewardsByProjectIdAsync(Guid guid)
         {
-            return GetQuery().Where(x => x.ProjectId == guid).ToListAsync();
+            return await GetQuery().Where(x => x.ProjectId == guid).ToListAsync();
         }
     }
 }

@@ -47,11 +47,14 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   private setUserInfo(): void {
+    this.showLoader = true;
     this.subscriptions.add(
       this.userService.getUserInfo().subscribe(
         (reply: ReplyMessage<UserInfo>) => {
           this.userInfo = reply.value;
-        }
+          this.showLoader = false;
+        },
+        () => { this.showLoader = false; }
       )
     );
   }
@@ -81,11 +84,15 @@ export class ProfileComponent extends Base implements OnInit {
     );
   }
 
-  onCardChangeClick(card: ProjectCard) {
+  onCardEditClick(card: ProjectCard) {
     console.log(card);
   }
 
   onCardDeleteClick(card: ProjectCard, collection: ProjectCard[]) {
     collection.remove(card);
+  }
+
+  isEditable(card: ProjectCard): boolean {
+    return card.status === ProjectStatusEnum.Draft;
   }
 }

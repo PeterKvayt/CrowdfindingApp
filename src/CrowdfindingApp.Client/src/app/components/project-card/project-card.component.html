@@ -43,7 +43,8 @@
       <!-- <span class="fa fa-check fa-fw project-card-status-pict-check"></span> -->
       <!-- <span class="fa fa-certificate fa-2x project-card-status-pict"></span> -->
       <!-- <span class="link filter"> {{card.category}} </span> -->
-      <app-link empty [value]='card.categoryName'></app-link>
+      <!-- <app-link empty [value]='card.categoryName'></app-link> -->
+      <span class="delicate-text">{{card.categoryName}}</span>
       <span class="card-description">
         <span class="projectName"> {{card.name}} </span>
         {{card.description}}
@@ -60,7 +61,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <span class="card-down-status"> {{getProgressStatus()}} </span>
+              <span class="card-down-status"> {{getStatus()}} </span>
             </div>
           </div>
         </div>
@@ -76,7 +77,18 @@
             </div>
           </div>
         </div>
-
+        <ng-container *ngIf='editable !== null && editable !== undefined && editable !== false'>
+          <div class="col-12">
+            <div class="row">
+              <div class="col">
+                <app-link empty value='Редактировать' (click)='onEditClick()'></app-link>
+              </div>
+              <div class="col text-right">
+                <app-link empty value='Удалить' (click)='onDeleteClick()'></app-link>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

@@ -93,6 +93,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     name: this.projectNameInput.value ? this.projectNameInput.value : 'Название',
     description: this.projectDescriptionInput.value ? this.projectDescriptionInput.value : 'Описание',
     categoryName: this.projectCategory ? this.categorySelectInput.list.find(x => x.value === this.projectCategory === undefined).name : 'Категория',
+    categoryId: this.projectCategory,
     imgPath: 'assets/img/stock-project.png',
     purpose: this.projectPurposeInput.value ? this.projectPurposeInput.value : 0,
     currentResult: 0,

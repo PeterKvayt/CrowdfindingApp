@@ -1,4 +1,6 @@
 ﻿
+using CrowdfindingApp.Common.Enums;
+
 namespace CrowdfindingApp.Common.DataTransfers.Projects
 {
     public class ProjectCard
@@ -11,5 +13,6 @@ namespace CrowdfindingApp.Common.DataTransfers.Projects
         public string ImgPath { get; set; }
         public decimal? Purpose { get; set; }
         public decimal? CurrentResult { get; set; }
+        public ProjectStatus Status { get; set; }
     }
 }
