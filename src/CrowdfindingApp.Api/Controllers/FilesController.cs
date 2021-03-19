@@ -5,6 +5,7 @@ using CrowdfindingApp.Common.Localization;
 using CrowdfindingApp.Common.Messages.Files;
 using CrowdfindingApp.Core.Services.FileService.Handlers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrowdfindingApp.Api.Controllers
@@ -23,10 +24,10 @@ namespace CrowdfindingApp.Api.Controllers
             _saveImageRequestHandler = saveImageRequestHandler ?? throw new NullReferenceException(nameof(saveImageRequestHandler));
         }
 
-        [HttpPost(Endpoints.Files.SaveImage)]
-        public async Task<IActionResult> Search(SaveImageRequestMessage request)
+        [HttpPut(Endpoints.Files.SaveImage)]
+        public async Task<IActionResult> Search([FromForm(Name = "file")] IFormFile file)
         {
-            var reply = await _saveImageRequestHandler.HandleAsync(request, User);
+            var reply = await _saveImageRequestHandler.HandleAsync(new SaveImageRequestMessage(file), User);
             return Respond(reply);
         }
     }

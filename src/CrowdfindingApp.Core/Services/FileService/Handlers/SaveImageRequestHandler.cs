@@ -12,9 +12,15 @@ namespace CrowdfindingApp.Core.Services.FileService.Handlers
 
         }
 
-        protected override Task<ReplyMessageBase> ValidateRequestMessageAsync(SaveImageRequestMessage requestMessage)
+        protected override async Task<ReplyMessageBase> ValidateRequestMessageAsync(SaveImageRequestMessage requestMessage)
         {
-            return base.ValidateRequestMessageAsync(requestMessage);
+            var reply = await base.ValidateRequestMessageAsync(requestMessage);
+            if(requestMessage.File == null)
+            {
+                reply.AddObjectNotFoundError();
+            }
+
+            return reply;
         }
 
         protected override async Task<ReplyMessage<string>> ExecuteAsync(SaveImageRequestMessage request)

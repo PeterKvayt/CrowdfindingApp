@@ -46,6 +46,8 @@ import { CollapseComponent } from './components/collapse/collapse.component';
 import { FeedbackModalComponent } from './components/modals/feedback-modal/feedback-modal.component';
 import { RewardCardComponent } from './components/reward-card/reward-card.component';
 import { Routes } from './models/immutable/Routes';
+import { FileInputComponent } from './components/inputs/file-input/file-input.component';
+import { FileService } from './services/file.service';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,8 @@ import { Routes } from './models/immutable/Routes';
     DateInputComponent,
     CollapseComponent,
     FeedbackModalComponent,
-    RewardCardComponent
+    RewardCardComponent,
+    FileInputComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -117,6 +120,7 @@ import { Routes } from './models/immutable/Routes';
     HttpService,
     UserService,
     ProjectService,
+    FileService,
     AuthenticationGuardService,
     {
       provide: HTTP_INTERCEPTORS,

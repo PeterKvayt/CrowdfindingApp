@@ -24,6 +24,9 @@ import { Data } from 'src/app/models/immutable/Data';
 import { ProjectModerationRequestMessage } from 'src/app/models/requests/projects/ProjectModerationRequestMessage';
 import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
 import { ProjectInfo } from 'src/app/models/replies/projects/ProjectInfo';
+import { FileInput } from 'src/app/components/inputs/file-input/FileInput';
+import { FileService } from 'src/app/services/file.service';
+import { SaveImageRequestMessage } from 'src/app/models/requests/files/SaveImageRequestMessage';
 
 @Component({
   selector: 'app-create-project',
@@ -35,8 +38,9 @@ export class CreateProjectComponent extends Base implements OnInit {
   private currentDate = new Date();
 
   // project fields
-  private projectId = null;
+  private projectId: string = null;
   private projectCategory: string;
+  public projectImageInput = new FileInput();
   public projectNameInput: TextInput = { placeholder: 'Введите название проекта' };
   public projectShortDescriptionInput: TextArea = { placeholder: 'Кратко опишите проект (до 280 символов)', max: 280 };
   public projectDescriptionInput: TextArea = { placeholder: 'Введите полное описание проекта ...' };
@@ -62,6 +66,7 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   // reward fields
   private rewardId: string = null;
+  private rewardImageInput = new FileInput();
   public rewardNameInput: TextInput = { placeholder: 'Введите название вознаграждения' };
   public rewardCostInput: DecimalInput = { placeholder: 'Введите стоимость (BYN)', min: 1 };
   public rewardCountRestrictionsInput: DecimalInput = { placeholder: 'Введите количество', min: 1 };
@@ -165,6 +170,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     public router: Router,
     private projectService: ProjectService,
     public activatedRoute: ActivatedRoute,
+    public fileService: FileService,
     private titleService: Title
   ) { super(router, activatedRoute); }
   public ngOnInit(): void {
@@ -201,7 +207,7 @@ export class CreateProjectComponent extends Base implements OnInit {
           }
 
           this.projectVideoInput.value = reply.value.videoUrl;
-          //image: null,
+          this.projectImageInput.fileName = reply.value.image ? reply.value.image : 'assets/img/stock-project.png',
           //startDateTime: null,
           this.projectDurationInput.value = reply.value.duration;
           this.projectPurposeInput.value = reply.value.budget;
@@ -232,7 +238,6 @@ export class CreateProjectComponent extends Base implements OnInit {
           this.projectCard.imgPath = reply.value.image ? reply.value.image : 'assets/img/stock-project.png';
 
           this.showLoader = false;
-          
         },
         () => { this.showLoader = false; }
       )
@@ -347,7 +352,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       deliveryDate: new Date(<number><any>this.selectedYear, <number><any>this.selectedMonth),
       isLimited: this.rewardCountRestrictionsInput.value ? true : false,
       limit: this.rewardCountRestrictionsInput.value,
-      image: null,
+      image: this.rewardImageInput.fileName,
       deliveryType: deliveryType,
       deliveryCountries: this.rewardDeliveryCountries
     };
@@ -355,7 +360,6 @@ export class CreateProjectComponent extends Base implements OnInit {
       this.projectRewardsList.remove(this.projectRewardsList.find(x => x.id === this.rewardId));
     }
     this.projectRewardsList.push(rewardInfo);
-
 
     this.rewardNameInput.value = undefined;
     this.rewardCostInput.value = undefined;
@@ -400,7 +404,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       reward.title,
       reward.price,
       reward.description,
-      'assets/img/stock-reward.jpg',
+      reward.image,
       reward.deliveryType,
       reward.deliveryDate,
       reward.limit
@@ -464,8 +468,8 @@ export class CreateProjectComponent extends Base implements OnInit {
       fullDescription: this.projectDescriptionInput.value,
       location: this.selectedCity,
       videoUrl: this.projectVideoInput.value,
-      image: null,
-      startDateTime: null,
+      image: this.projectImageInput.fileName,
+      //startDateTime: null,
       duration: this.projectDurationInput.value ? this.projectDurationInput.value : null,
       budget: this.projectPurposeInput.value ? this.projectPurposeInput.value : null,
       authorSurname: this.projectOwnerSurnameInput.value,
@@ -484,7 +488,21 @@ export class CreateProjectComponent extends Base implements OnInit {
     return draft;
   }
 
-  public onFeedbackShowClick(): void {
-    this.feedBackModalShow = true;
+  onRewardImageUpload() {
+    this.showLoader = true;
+    const saveRequest: SaveImageRequestMessage = {file: this.rewardImageInput.file };
+    console.log(this.rewardImageInput.file);
+    const data = new FormData();
+    data.append('file', this.rewardImageInput.file);
+    console.log(data);
+    this.subscriptions.add(
+    this.fileService.save(data).subscribe(
+        (reply: ReplyMessage<string>) => {
+          this.showLoader = false;
+          console.log(reply.value);
+        },
+        () => {this.showLoader = false; }
+      )
+    );
   }
 }

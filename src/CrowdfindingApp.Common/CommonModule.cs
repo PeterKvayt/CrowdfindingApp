@@ -17,6 +17,7 @@ namespace CrowdfindingApp.Common
             builder.RegisterType<TokenManager>().AsImplementedInterfaces();
             builder.RegisterType<SmtpClient>().AsSelf();
 
+
             //builder.RegisterInstance(new List<(string, Assembly)>()
             //    {
             //        ("CrowdfindingApp.Common.Resources.EmailResources", typeof(CommonModule).Assembly)

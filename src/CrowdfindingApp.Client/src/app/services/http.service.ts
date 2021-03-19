@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Settings } from './settings.service';
 
 @Injectable()
@@ -10,9 +10,10 @@ export class HttpService {
     return this.httpClient.get(Settings.apiRoute + controller);
   }
 
-  public post<ModelType>(controller: string, model: ModelType) {
-     const headers = { 'content-type': 'application/json'};
-     return this.httpClient.post(Settings.apiRoute + controller, model, {headers});
+  public post<ModelType>(controller: string, model: ModelType, contentType: string = 'application/json') {
+     const postOptions = { headers: new HttpHeaders() };
+     postOptions.headers.append('content-type', contentType);
+     return this.httpClient.post(Settings.apiRoute + controller, model, postOptions);
   }
 
   public delete(controller: string, id: number | string) {
@@ -20,8 +21,9 @@ export class HttpService {
     return this.httpClient.delete(action);
   }
 
-  public put<ModelType>(controller: string, model: ModelType) {
-    const headers = { 'content-type': 'application/json'};
-    return this.httpClient.put(Settings.apiRoute + controller, model, {headers});
+  public put<ModelType>(controller: string, model: ModelType, contentType: string = 'application/json') {
+    const postOptions = { headers: new HttpHeaders() };
+     postOptions.headers.append('content-type', contentType);
+    return this.httpClient.put(Settings.apiRoute + controller, model, postOptions);
   }
 }

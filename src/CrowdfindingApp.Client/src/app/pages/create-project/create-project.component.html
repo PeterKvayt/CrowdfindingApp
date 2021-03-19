@@ -102,7 +102,7 @@
         <app-collapse header='Зачем записывать видео?'
           body='Видео-обращение значительно повысит ваши шансы на успех. Это эффективный инструмент, который позволит лично обратиться к потенциальным спонсорам, рассказать о проекте и призвать к действию.'>
         </app-collapse>
-        <app-link empty value='Задать вопрос' (click)='onFeedbackShowClick()'></app-link>
+        <app-link empty value='Задать вопрос' (click)='feedBackModalShow = true'></app-link>
       </div>
     </ng-container>
 
@@ -122,6 +122,7 @@
             Загружать изображение для вознаграждения необязательно, но оно привлекает внимание, что может помочь вам
             собрать нужную сумму.
           </div>
+          <app-file-input [item]='rewardImageInput' (change)='onRewardImageUpload()'></app-file-input>
           <div class="global-img-wrapper">
             <img class="global-img" src="assets/img/stock-reward.jpg" alt="project image" />
           </div>
@@ -202,7 +203,7 @@
         <app-collapse header='Какие лоты лучше добавлять?' 
           body='Если вы выводите на рынок новый продукт, то в качестве лота должен выступить сам продукт и его модификации. Если вы решили издать книгу, то лотом является ваша книга. Если вы организуете концерт или другое мероприятие, то лотами могут выступить билеты на мероприятие. Подробнее с нашими рекомендациями вы можете ознакомиться здесь. '>
         </app-collapse>
-        <app-link empty value='Задать вопрос' (click)='onFeedbackShowClick()'></app-link>
+        <app-link empty value='Задать вопрос' (click)='feedBackModalShow = true'></app-link>
         <div class="row reward-container">
           <app-reward-card *ngFor='let reward of projectRewardsList' [item]='getRewardCardFromInfo(reward)' editable='true' 
           (changeClick)='onRewardChangeClick(reward)' (deleteClick)='onRewardDeleteClick(reward)'></app-reward-card>
@@ -262,7 +263,7 @@
         <app-collapse header='Что такое «Частые вопросы»?' 
           body='«Частые вопросы» – это блок, в котором вы можете заранее ответить на наиболее очевидные вопросы, которые могут возникнуть у потенциальных спонсоров в процессе знакомства с вашим проектом.'>
         </app-collapse>
-        <app-link empty value='Задать вопрос' (click)='onFeedbackShowClick()'></app-link>
+        <app-link empty value='Задать вопрос' (click)='feedBackModalShow = true'></app-link>
       </div>
     </ng-container>
 
@@ -312,7 +313,7 @@
         <app-collapse header='Кому доступны мои данные?' 
           body='Ваши данные будут использоваться исключительно для вашей идентификации и формирования договоров. Доступ третьих лиц к вашим данным исключен.'>
         </app-collapse>
-        <app-link empty value='Задать вопрос' (click)='onFeedbackShowClick()'></app-link>
+        <app-link empty value='Задать вопрос' (click)='feedBackModalShow = true'></app-link>
       </div>
     </ng-container>
 
