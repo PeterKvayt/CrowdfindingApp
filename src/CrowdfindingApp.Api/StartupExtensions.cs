@@ -7,12 +7,14 @@ using AutoMapper;
 using CrowdfindingApp.Common;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Localization;
+using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
 using CrowdfindingApp.Core.Services.Projects;
 using CrowdfindingApp.Core.Services.Roles;
 using CrowdfindingApp.Core.Services.Users;
 using CrowdfindingApp.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
@@ -62,6 +64,16 @@ namespace CrowdfindingApp.Api
             builder.RegisterModule<UserModule>();
             builder.RegisterModule<ProjectModule>();
             builder.RegisterModule<CommonModule>();
+
+            return builder;
+        }
+
+        public static ContainerBuilder FileStorage(this ContainerBuilder builder, string rootFolderPath, IConfiguration configuration)
+        {
+            builder.Register<IFileStorage>(opt =>
+            {
+                return new LocalSystemFilestorage(rootFolderPath, configuration);
+            });
 
             return builder;
         }

@@ -32,5 +32,11 @@ namespace CrowdfindingApp.Common.Immutable
             public const string Search = nameof(Search);
 
         }
+
+        public static class Files
+        {
+            public const string SaveImage = "save-image";
+
+        }
     }
 }

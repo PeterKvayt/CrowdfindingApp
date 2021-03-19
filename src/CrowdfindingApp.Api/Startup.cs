@@ -45,13 +45,14 @@ namespace CrowdfindingApp.Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            builder.FileStorage(Environment.ContentRootPath, Config);
             builder.RegisterRepositories();
             builder.RegisterModules();
             builder.RegisterResourceProviders();
             builder.RegisterAutoMapper();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
         {
             app.UseMiddleware<ExceptionInterceptor>();
 
