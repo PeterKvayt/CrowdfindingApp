@@ -11,9 +11,8 @@ export class HttpService {
   }
 
   public post<ModelType>(controller: string, model: ModelType, contentType: string = 'application/json') {
-     const postOptions = { headers: new HttpHeaders() };
-     postOptions.headers.append('content-type', contentType);
-     return this.httpClient.post(Settings.apiRoute + controller, model, postOptions);
+     const headerOptions = new HttpHeaders().set('Content-Type', contentType);
+     return this.httpClient.post(Settings.apiRoute + controller, model, {headers: headerOptions});
   }
 
   public delete(controller: string, id: number | string) {
@@ -22,8 +21,7 @@ export class HttpService {
   }
 
   public put<ModelType>(controller: string, model: ModelType, contentType: string = 'application/json') {
-    const postOptions = { headers: new HttpHeaders() };
-     postOptions.headers.append('content-type', contentType);
-    return this.httpClient.put(Settings.apiRoute + controller, model, postOptions);
+    //  const headerOptions = new HttpHeaders().set('Content-Type', contentType);
+    return this.httpClient.put(Settings.apiRoute + controller, model);
   }
 }

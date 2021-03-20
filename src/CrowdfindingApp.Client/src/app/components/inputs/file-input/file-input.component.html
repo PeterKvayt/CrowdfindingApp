@@ -1,1 +1,10 @@
-<input type="file" enctype='multipart/form-data' #file (change)="onChange(file.files)"/>
+
+<app-regular-btn 
+  [value]='item.title' [ico]='item.ico' (click)='onUploadClick(fileInput)'>
+</app-regular-btn>
+
+<input type="file" #fileInput
+  hidden
+  enctype='multipart/form-data'  
+  (change)='onChange(fileInput.files)' 
+  accept='image/*,image/jpeg'/>

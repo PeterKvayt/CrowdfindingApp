@@ -25,6 +25,7 @@ namespace CrowdfindingApp.Api
                 .ConfigureWebHostDefaults(webHostBuilder =>
             {
                 webHostBuilder.UseContentRoot(Directory.GetCurrentDirectory())
+                    //.UseWebRoot()
                     .UseIISIntegration()
                     .UseStartup<Startup>();
             });

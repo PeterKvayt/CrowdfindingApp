@@ -24,6 +24,8 @@ namespace CrowdfindingApp.Api.Controllers
             _saveImageRequestHandler = saveImageRequestHandler ?? throw new NullReferenceException(nameof(saveImageRequestHandler));
         }
 
+        [DisableRequestSizeLimit]
+        [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
         [HttpPut(Endpoints.Files.SaveImage)]
         public async Task<IActionResult> Search([FromForm(Name = "file")] IFormFile file)
         {

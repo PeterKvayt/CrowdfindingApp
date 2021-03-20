@@ -14,9 +14,12 @@ using CrowdfindingApp.Core.Services.Roles;
 using CrowdfindingApp.Core.Services.Users;
 using CrowdfindingApp.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -147,6 +150,23 @@ namespace CrowdfindingApp.Api
                 var commonDocs = Path.Combine(AppContext.BaseDirectory, $"{typeof(CommonModule).Assembly.GetName().Name}.xml");
                 config.IncludeXmlComments(commonDocs);
             });
+        }
+
+        public static IApplicationBuilder ConfigureStaticFiles(this IApplicationBuilder app, IConfiguration config)
+        {
+            var rootFolder = Path.Combine(Directory.GetCurrentDirectory(), config["FileStorageConfiguration:Root"]);
+            if(!Directory.Exists(rootFolder))
+            {
+                Directory.CreateDirectory(rootFolder);
+            }
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(rootFolder),
+                RequestPath = new PathString($"/{config["FileStorageConfiguration:Root"]}")
+            });
+
+            return app;
         }
     }
 }

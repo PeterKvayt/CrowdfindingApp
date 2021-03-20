@@ -2,7 +2,7 @@
 
   <div class="reward-card-box">
 
-    <img class="reward-img" [src]='item.image' />
+    <img class="reward-img" [src]='imageUrl' />
     
     <div class="reward-card-body">
       <div class="reward-card-description">
@@ -15,8 +15,7 @@
         <div class="row">
           <div class="col">
             <span class="card-down-status">Примерная дата доставки</span>
-            <!-- <span class="reward-card-description">{{item.deliveryMonth}} {{item.deliveryYear}}</span> -->
-          <span class="reward-card-description">{{item.deliveryDate | date: 'MMMM yyyy'}}</span>
+            <span *ngIf='item.deliveryDate !== "Invalid Date"' class="reward-card-description">{{item.deliveryDate | date: 'MMMM yyyy'}}</span>
           </div>
         </div>
 

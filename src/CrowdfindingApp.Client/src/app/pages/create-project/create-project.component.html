@@ -58,10 +58,13 @@
         <div class="box">
           <span class="sub-title">Обложка проекта</span>
           <div class="global-img-wrapper">
-            <img class="global-img" src="assets/img/stock-project.png" alt="project image" />
+            <img class="global-img" 
+              [src]='projectImageInput.fileName 
+                ? fileService.absoluteFileStoragePath + projectImageInput.fileName 
+                : "assets/img/stock-project.png"' alt="project image" 
+              />
           </div>
-          <app-regular-btn value='Загрузить изображение' ico='fas fa-download' (click)='onDownloadImgClick()'>
-          </app-regular-btn>
+          <app-file-input [item]='projectImageInput' (change)='onImageUpload(projectImageInput)'></app-file-input>
         </div>
 
         <div class="box">
@@ -122,12 +125,13 @@
             Загружать изображение для вознаграждения необязательно, но оно привлекает внимание, что может помочь вам
             собрать нужную сумму.
           </div>
-          <app-file-input [item]='rewardImageInput' (change)='onRewardImageUpload()'></app-file-input>
           <div class="global-img-wrapper">
-            <img class="global-img" src="assets/img/stock-reward.jpg" alt="project image" />
+            <img class="global-img" [src]='rewardImageInput.fileName && rewardImageInput.fileName !== "assets/img/stock-reward.jpg"
+              ? fileService.absoluteFileStoragePath + rewardImageInput.fileName
+              : "assets/img/stock-reward.jpg"' 
+              alt="project image" />
           </div>
-          <app-regular-btn value='Загрузить изображение' ico='fas fa-download' (click)='onDownloadImgClick()'>
-          </app-regular-btn>
+          <app-file-input [item]='rewardImageInput' (change)='onImageUpload(rewardImageInput)'></app-file-input>
         </div>
 
         <div class="box">

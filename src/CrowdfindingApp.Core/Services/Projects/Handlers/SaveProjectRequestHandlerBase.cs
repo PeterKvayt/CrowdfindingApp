@@ -11,6 +11,7 @@ using CrowdfindingApp.Data.Common.BusinessModels;
 using System.Linq;
 using CrowdfindingApp.Common.DataTransfers.Rewards;
 using CrowdfindingApp.Common.DataTransfers.Questions;
+using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
@@ -18,16 +19,18 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         where TRequest : MessageBase, new()
         where TReply : ReplyMessageBase, new()
     {
-        protected IMapper Mapper;
-        protected IProjectRepository ProjectRepository;
-        protected IRewardRepository RewardRepository;
-        protected IRewardGeographyRepository RewardGeographyRepository;
-        protected IQuestionRepository QuestionRepository;
+        protected readonly IMapper Mapper;
+        protected readonly IProjectRepository ProjectRepository;
+        protected readonly IRewardRepository RewardRepository;
+        protected readonly IRewardGeographyRepository RewardGeographyRepository;
+        protected readonly IQuestionRepository QuestionRepository;
+        protected readonly IFileStorage FileProvider;
 
         public SaveProjectRequestHandlerBase(IMapper mapper,
             IProjectRepository projectRepository,
             IRewardRepository rewardRepository,
             IRewardGeographyRepository rewardGeographyRepository,
+            IFileStorage fileProvider,
             IQuestionRepository questionRepository)
         {
             Mapper = mapper ?? throw new NullReferenceException(nameof(mapper));
@@ -35,6 +38,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             RewardRepository = rewardRepository ?? throw new NullReferenceException(nameof(rewardRepository));
             RewardGeographyRepository = rewardGeographyRepository ?? throw new NullReferenceException(nameof(rewardGeographyRepository));
             QuestionRepository = questionRepository ?? throw new NullReferenceException(nameof(questionRepository));
+            FileProvider = fileProvider ?? throw new NullReferenceException(nameof(fileProvider));
         }
 
         protected async Task<ReplyMessageBase> ProcessAsync(SaveDraftProjectRequestMessage request)
@@ -55,8 +59,8 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         {
             var isNew = projectInfo.Id.IsNullOrWhiteSpace();
             var project = Mapper.Map<Project>(projectInfo);
-            PrefillValues(project, isNew);
-
+            PrepareValues(project, isNew);
+            project.Image = await SaveImageAsync(project.Id, project.Image);
             var projectId = project.Id;
             if(isNew)
             {
@@ -69,10 +73,21 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             return projectId;
         }
 
-        protected virtual void PrefillValues(Project project, bool isNew)
+        private async Task<string> SaveImageAsync(Guid projectId, string image)
+        {
+            if(image.IsNullOrWhiteSpace())
+            {
+                return null;
+            }
+            image = image.Split('/').Last();
+            await FileProvider.SaveProjectImageAsync(image, projectId);
+            return image;
+        }
+
+        protected virtual void PrepareValues(Project project, bool isNew)
         {
             project.OwnerId = User.GetUserId();
-       }
+        }
 
         private async Task SaveQuestionsAsync(ProjectInfo projectInfo, Guid projectId)
         {
@@ -107,6 +122,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             foreach(var rewardInfo in projectInfo.Rewards)
             {
                 var reward = MapToReward(rewardInfo, projectId);
+                reward.Image = await SaveImageAsync(projectId, reward.Image);
                 var rewardId = await RewardRepository.AddAsync(reward);
 
                 var deliveryCountries = rewardInfo.DeliveryCountries.Select(x => new RewardGeography(rewardId, new Guid(x.Key), x.Value.Value)).ToList();

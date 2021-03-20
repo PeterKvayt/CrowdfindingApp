@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
@@ -56,11 +57,12 @@ namespace CrowdfindingApp.Common.Maintainers.FileStorageProvider
             Directory.CreateDirectory(path);
         }
 
-        public async Task<string> SaveToTempAsync(Stream stream)
+        public async Task<string> SaveToTempAsync(Stream stream, string extension)
         {
-            var fileName = new Guid().ToString();
+            var uniqueFileName = Guid.NewGuid();
+            var fileName = $"{uniqueFileName}.{extension}";
             await SaveToFileSystemAsync(GetFullTempPath(fileName), stream);
-            return fileName;
+            return $"{_fileConfig.TempFolderName}/{fileName}";
         }
 
         private string GetFullTempPath(string fileName)
@@ -109,13 +111,16 @@ namespace CrowdfindingApp.Common.Maintainers.FileStorageProvider
             }
         }
 
-        private string GetFullPermanentPath(string fileName)
+        private string GetFullPermanentPath(string fileName, params string[] subFolders)
         {
-            CreateDirectoryIfNotExists(Path.Combine(_root, _fileConfig.PermanentFolderName));
-            return Path.Combine(_root, _fileConfig.PermanentFolderName, fileName);
+            var subDrectories = subFolders.Prepend( _fileConfig.PermanentFolderName);
+            subDrectories = subDrectories.Prepend(_root);
+            CreateDirectoryIfNotExists(Path.Combine(subDrectories.ToArray()));
+            subDrectories = subDrectories.Append(fileName);
+            return Path.Combine(subDrectories.ToArray());
         }
 
-        public Task MoveTempToPermanentStorageAsync(string tempFileName, string fileName)
+        public Task SaveProjectImageAsync(string tempFileName, Guid projectId)
         {
             var tempFile = GetFullTempPath(tempFileName);
             if(!File.Exists(tempFile))
@@ -123,7 +128,7 @@ namespace CrowdfindingApp.Common.Maintainers.FileStorageProvider
                 return Task.CompletedTask;
             }
 
-            var file = GetFullPermanentPath(fileName);
+            var file = GetFullPermanentPath(tempFileName, "Projects", projectId.ToString());
 
             File.Move(tempFile, file);
 

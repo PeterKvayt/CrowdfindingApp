@@ -10,6 +10,7 @@ using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Data.Common.Filters;
 using System.Collections.Generic;
+using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
@@ -19,7 +20,8 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             IProjectRepository projectRepository, 
             IRewardRepository rewardRepository, 
             IRewardGeographyRepository rewardGeographyRepository,
-            IQuestionRepository questionRepository) : base(mapper, projectRepository, rewardRepository, rewardGeographyRepository, questionRepository)
+            IFileStorage fileStorage,
+            IQuestionRepository questionRepository) : base(mapper, projectRepository, rewardRepository, rewardGeographyRepository, fileStorage, questionRepository)
         {
 
         }
@@ -53,9 +55,9 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             return await ProcessAsync(request);
         }
 
-        protected override void PrefillValues(Project project, bool isNew)
+        protected override void PrepareValues(Project project, bool isNew)
         {
-            base.PrefillValues(project, isNew);
+            base.PrepareValues(project, isNew);
             project.Status = (int)ProjectStatus.Moderation;
         }
      

@@ -18,7 +18,7 @@ export class ParamInterceptor implements HttpInterceptor {
       if (token) {
         const authRequest = request.clone(
           {
-            headers: request.headers.set('Authorization', token).set('Content-Type', 'application/json')
+            headers: request.headers.set('Authorization', token)
           }
         );
         return next.handle(authRequest)

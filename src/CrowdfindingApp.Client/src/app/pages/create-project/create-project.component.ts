@@ -40,7 +40,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   // project fields
   private projectId: string = null;
   private projectCategory: string;
-  public projectImageInput = new FileInput();
+  public projectImageInput = new FileInput('Загрузить изображение', 'fas fa-upload');
   public projectNameInput: TextInput = { placeholder: 'Введите название проекта' };
   public projectShortDescriptionInput: TextArea = { placeholder: 'Кратко опишите проект (до 280 символов)', max: 280 };
   public projectDescriptionInput: TextArea = { placeholder: 'Введите полное описание проекта ...' };
@@ -66,7 +66,7 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   // reward fields
   private rewardId: string = null;
-  private rewardImageInput = new FileInput();
+  public rewardImageInput = new FileInput('Загрузить изображение', 'fas fa-download');
   public rewardNameInput: TextInput = { placeholder: 'Введите название вознаграждения' };
   public rewardCostInput: DecimalInput = { placeholder: 'Введите стоимость (BYN)', min: 1 };
   public rewardCountRestrictionsInput: DecimalInput = { placeholder: 'Введите количество', min: 1 };
@@ -102,7 +102,9 @@ export class CreateProjectComponent extends Base implements OnInit {
     description: this.projectDescriptionInput.value ? this.projectDescriptionInput.value : 'Описание',
     categoryName: this.projectCategory ? this.categorySelectInput.list.find(x => x.value === this.projectCategory === undefined).name : 'Категория',
     categoryId: this.projectCategory,
-    imgPath: 'assets/img/stock-project.png',
+    imgPath: this.projectImageInput.fileName
+      ? this.fileService.absoluteFileStoragePath + this.projectImageInput.fileName
+      : 'assets/img/stock-project.png',
     purpose: this.projectPurposeInput.value ? this.projectPurposeInput.value : 0,
     currentResult: 0,
     status: ProjectStatusEnum.Draft,
@@ -194,7 +196,10 @@ export class CreateProjectComponent extends Base implements OnInit {
         (reply: ReplyMessage<ProjectInfo>) => {
           this.projectCategory = reply.value.categoryId;
           if (reply.value.categoryId) {
-            this.categorySelectInput.list.find(x => x.value === reply.value.categoryId).selected = true;
+            const category = this.categorySelectInput.list.find(x => x.value === reply.value.categoryId);
+            if (category) {
+              category.selected = true;
+            }
           }
 
           this.projectNameInput.value = reply.value.title;
@@ -226,9 +231,9 @@ export class CreateProjectComponent extends Base implements OnInit {
           this.projectRewardsList = reply.value.rewards ? reply.value.rewards : [];
           this.faqList = reply.value.questions ? reply.value.questions : [];
           
-          const categoryName = this.categorySelectInput.list.find(x => x.value === reply.value.categoryId).name;
           this.projectCard.id = reply.value.id;
-          this.projectCard.categoryName = categoryName ? categoryName : 'Категория';
+          const category = this.categorySelectInput.list.find(x => x.value === reply.value.categoryId);
+          this.projectCard.categoryName = category ? category.name : 'Категория';
           this.projectCard.categoryId = reply.value.categoryId;
           this.projectCard.purpose = reply.value.budget;
           this.projectCard.currentResult = 0;
@@ -343,13 +348,17 @@ export class CreateProjectComponent extends Base implements OnInit {
       this.rewardDeliveryCountries.push(new GenericLookupItem(Data.wholeWorldDeliveryId, this.rewardWholeWorldDeliveryCostInput.value));
     }
 
+    let deliveryDate = new Date();
+    if (this.selectedYear && this.selectedMonth) {
+      deliveryDate = new Date(<number><any>this.selectedYear, <number><any>this.selectedMonth);
+    }
     const rewardInfo: RewardInfo = {
       id: this.rewardId,
       projectId: this.projectId,
       title: this.rewardNameInput.value,
       price: this.rewardCostInput.value,
       description: this.rewardDescriptionInput.value,
-      deliveryDate: new Date(<number><any>this.selectedYear, <number><any>this.selectedMonth),
+      deliveryDate: deliveryDate,
       isLimited: this.rewardCountRestrictionsInput.value ? true : false,
       limit: this.rewardCountRestrictionsInput.value,
       image: this.rewardImageInput.fileName,
@@ -366,6 +375,8 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.rewardDescriptionInput.value = undefined;
     this.rewardCountRestrictionsInput.value = undefined;
     this.rewardWholeWorldDeliveryCostInput.value = undefined;
+    this.rewardImageInput.fileName = 'assets/img/stock-reward.jpg';
+    console.log(this.rewardImageInput.fileName);
     this.rewardDeliveryCountries = [];
     this.countrySelectInput.list.forEach(country => country.disabled = false);
   }
@@ -387,6 +398,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.rewardCountRestrictionsInput.value = reward.limit;
     this.rewardWholeWorldDeliveryCostInput.value = wholeWorldDeliveryPrice;
     this.rewardDeliveryCountries = reward.deliveryCountries;
+    this.rewardImageInput.fileName = reward.image;
     this.countrySelectInput.list.forEach(country => {
       if (reward.deliveryCountries.find(x => x.key === country.value)) {
         country.disabled = true;
@@ -430,8 +442,8 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.faqList.remove(question);
   }
 
-  public onDownloadImgClick(): void {
-    // console.log(value);
+  public onProjectImageUpload(): void {
+    
   }
 
   public toModerationClick(): void {
@@ -488,16 +500,14 @@ export class CreateProjectComponent extends Base implements OnInit {
     return draft;
   }
 
-  onRewardImageUpload() {
+  onImageUpload(input: FileInput) {
     this.showLoader = true;
-    const saveRequest: SaveImageRequestMessage = {file: this.rewardImageInput.file };
-    console.log(this.rewardImageInput.file);
     const data = new FormData();
-    data.append('file', this.rewardImageInput.file);
-    console.log(data);
+    data.append('file', input.file);
     this.subscriptions.add(
     this.fileService.save(data).subscribe(
         (reply: ReplyMessage<string>) => {
+          input.fileName = reply.value;
           this.showLoader = false;
           console.log(reply.value);
         },

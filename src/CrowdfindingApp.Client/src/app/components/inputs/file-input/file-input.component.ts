@@ -14,7 +14,7 @@ export class FileInputComponent implements OnInit, OnDestroy {
   public subscriptions = new Subscription();
   @Input() item: FileInput;
 
-  @Output() valueChange = new EventEmitter<FileInput>();
+  @Output() valueChange = new EventEmitter();
 
   constructor(
   ) { }
@@ -28,6 +28,10 @@ export class FileInputComponent implements OnInit, OnDestroy {
 
   public onChange(files): void {
     this.item.file = files[0] as File;
-    this.valueChange.emit(this.item);
+    this.valueChange.emit('');
+  }
+
+  onUploadClick(fileInput) {
+    fileInput.click();
   }
 }

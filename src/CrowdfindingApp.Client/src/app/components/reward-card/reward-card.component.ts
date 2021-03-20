@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RewardCard } from './RewardCard';
 import { DeliveryTypeEnum } from 'src/app/models/enums/DeliveryTypeEnum';
+import { FileService } from 'src/app/services/file.service';
 
 @Component({
   selector: 'app-reward-card',
@@ -16,9 +17,25 @@ export class RewardCardComponent implements OnInit {
   @Output() deleteClick = new EventEmitter();
 
   public deliveryTypeName: string;
-  constructor() { }
+  public imageUrl: string = 'assets/img/stock-reward.jpg';
+
+  constructor(
+    private fileService: FileService
+  ) { }
   ngOnInit() {
+    this.setImageUrl();;
     this.deliveryTypeName = this.getTypeName();
+  }
+
+  setImageUrl(): void {
+    if (this.item.image) {
+      console.log(this.item.image !== this.imageUrl)
+      console.log(this.item.image)
+      console.log(this.imageUrl)
+      if (this.item.image !== this.imageUrl) {
+        this.imageUrl = this.fileService.absoluteFileStoragePath + this.item.image;
+      }
+    }
   }
 
   onChangeClick() {

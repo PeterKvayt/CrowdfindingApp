@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
@@ -20,7 +21,7 @@ namespace CrowdfindingApp.Core.Services.FileService.Handlers
 
         protected virtual async Task<string> SaveFileAsync(TRequest request)
         {
-            return await FileStorage.SaveToTempAsync(request.File.OpenReadStream());
+            return await FileStorage.SaveToTempAsync(request.File.OpenReadStream(), request.File.FileName.Split('.').Last());
         }
     }
 }

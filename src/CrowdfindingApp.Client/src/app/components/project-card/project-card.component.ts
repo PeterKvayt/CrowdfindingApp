@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProjectCard } from './ProjectCard';
 import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
+import { FileService } from 'src/app/services/file.service';
 
 
 @Component({
@@ -10,7 +11,9 @@ import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
 })
 export class ProjectCardComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private fileService: FileService
+  ) { }
   
   @Input() editable: boolean;
   @Input() card: ProjectCard;
@@ -22,12 +25,23 @@ export class ProjectCardComponent implements OnInit {
   @Output() editClick = new EventEmitter();
 
   public columnClass: string;
+  public imageUrl = 'assets/img/stock-project.png';
 
   public ngOnInit(): void {
+    this.setImagePath();
     const lg = this.colLg ? this.colLg : 12;
     const md = this.colMd ? this.colMd : 12;
     const sm = this.colSm ? this.colSm : 12;
     this.columnClass = 'col-lg-' + lg + ' col-md-' + md + ' col-sm-' + sm;
+  }
+
+  public setImagePath() {
+    if (this.card.imgPath) {
+      if (this.card.imgPath === this.imageUrl) {
+        return;
+      }
+      this.imageUrl = this.fileService.absoluteFileStoragePath + this.card.imgPath;
+    }
   }
 
   public getWidth(): string {

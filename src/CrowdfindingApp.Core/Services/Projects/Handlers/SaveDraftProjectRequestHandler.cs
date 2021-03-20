@@ -4,6 +4,7 @@ using AutoMapper;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Immutable;
+using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Projects;
 using CrowdfindingApp.Data.Common.BusinessModels;
@@ -17,7 +18,8 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             IProjectRepository projectRepository,
             IRewardRepository rewardRepository,
             IRewardGeographyRepository rewardGeographyRepository,
-            IQuestionRepository questionRepository) : base(mapper, projectRepository, rewardRepository, rewardGeographyRepository, questionRepository)
+            IFileStorage fileStorage,
+            IQuestionRepository questionRepository) : base(mapper, projectRepository, rewardRepository, rewardGeographyRepository, fileStorage, questionRepository)
         {
 
         }
@@ -44,9 +46,9 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             return await ProcessAsync(request);
         }
 
-        protected override void PrefillValues(Project project, bool isNew)
+        protected override void PrepareValues(Project project, bool isNew)
         {
-            base.PrefillValues(project, isNew);
+            base.PrepareValues(project, isNew);
             project.Status = (int)ProjectStatus.Draft;
         }
     }

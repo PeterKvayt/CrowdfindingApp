@@ -1,3 +1,4 @@
+using System.IO;
 using Autofac;
 using CrowdfindingApp.Api.Middlewares;
 using CrowdfindingApp.Common.Immutable;
@@ -5,9 +6,12 @@ using CrowdfindingApp.Data;
 using CrowdfindingApp.Data.Common.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 
 namespace CrowdfindingApp.Api
 {
@@ -56,6 +60,7 @@ namespace CrowdfindingApp.Api
         {
             app.UseMiddleware<ExceptionInterceptor>();
 
+            app.ConfigureStaticFiles(Config);
             //app.UseDeveloperExceptionPage();
 
             app.UseCors(config => 

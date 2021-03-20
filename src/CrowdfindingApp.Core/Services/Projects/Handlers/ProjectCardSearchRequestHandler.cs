@@ -12,6 +12,7 @@ using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 using CrowdfindingApp.Data.Common.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
@@ -21,13 +22,16 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         private readonly IMapper _mapper;
         private readonly IRewardRepository _rewardRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IConfiguration _configuration;
 
-        public ProjectCardSearchRequestHandler(IProjectRepository projectRepository, IMapper mapper, IRewardRepository rewardRepository, IOrderRepository orderRepository)
+        public ProjectCardSearchRequestHandler(IProjectRepository projectRepository, IMapper mapper, IRewardRepository rewardRepository, IOrderRepository orderRepository,
+            IConfiguration configuration)
         {
             _projectRepository = projectRepository ?? throw new NullReferenceException(nameof(projectRepository));
             _mapper = mapper ?? throw new NullReferenceException(nameof(mapper));
             _rewardRepository = rewardRepository ?? throw new NullReferenceException(nameof(rewardRepository));
             _orderRepository = orderRepository ?? throw new NullReferenceException(nameof(orderRepository));
+            _configuration = configuration ?? throw new NullReferenceException(nameof(configuration));
         }
 
         protected override async Task<ReplyMessage<List<ProjectCard>>> ExecuteAsync(ProjectCardSearchRequestMessage request)
@@ -55,6 +59,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         private async Task<ProjectCard> MapToCardAsync(Project project, List<Category> categories)
         {
+            PrepareProjectImage(project);
             var card = _mapper.Map<ProjectCard>(project);
             card.CurrentResult = await GetProjectProgressAsync(project.Id);
             if(card.CategoryId.NonNullOrWhiteSpace())
@@ -79,6 +84,11 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             }
 
             return progress;
+        }
+
+        private void PrepareProjectImage(Project project)
+        {
+            project.Image = $"{_configuration["FileStorageConfiguration:PermanentFolderName"]}/Projects/{project.Id}/{project.Image}";
         }
     }
 }
