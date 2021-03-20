@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CrowdfindingApp.Common.DataTransfers;
 using CrowdfindingApp.Common.DataTransfers.Projects;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
@@ -16,7 +17,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
-    public class ProjectCardSearchRequestHandler : NullOperationContextRequestHandler<ProjectCardSearchRequestMessage, ReplyMessage<List<ProjectCard>>>
+    public class ProjectCardSearchRequestHandler : NullOperationContextRequestHandler<ProjectCardSearchRequestMessage, PagedReplyMessage<List<ProjectCard>>>
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IMapper _mapper;
@@ -34,7 +35,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             _configuration = configuration ?? throw new NullReferenceException(nameof(configuration));
         }
 
-        protected override async Task<ReplyMessage<List<ProjectCard>>> ExecuteAsync(ProjectCardSearchRequestMessage request)
+        protected override async Task<PagedReplyMessage<List<ProjectCard>>> ExecuteAsync(ProjectCardSearchRequestMessage request)
         {
             var filter = _mapper.Map<ProjectFilter>(request.Filter);
             filter.OwnerId = new List<Guid> { User.GetUserId() };
@@ -51,9 +52,10 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
                 cards.Add(await MapToCardAsync(project, categories));
             }
 
-            return new ReplyMessage<List<ProjectCard>>
+            return new PagedReplyMessage<List<ProjectCard>>
             {
-                Value = cards
+                Value = cards,
+                Paging = _mapper.Map<PagingInfo>(paging)
             };
         }
 
@@ -88,6 +90,10 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         private void PrepareProjectImage(Project project)
         {
+            if(project.Image.IsNullOrWhiteSpace())
+            {
+                return;
+            }
             project.Image = $"{_configuration["FileStorageConfiguration:PermanentFolderName"]}/Projects/{project.Id}/{project.Image}";
         }
     }

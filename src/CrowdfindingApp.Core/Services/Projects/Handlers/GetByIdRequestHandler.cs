@@ -85,6 +85,10 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         private string GetImageUrl(Guid projectId, string image)
         {
+            if(image.IsNullOrWhiteSpace())
+            {
+                return null;
+            }
             return $"{_configuration["FileStorageConfiguration:PermanentFolderName"]}/Projects/{projectId}/{image}";
         }
     }

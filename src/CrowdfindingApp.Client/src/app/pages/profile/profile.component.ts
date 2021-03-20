@@ -12,8 +12,10 @@ import { ProjectService } from 'src/app/services/project.service';
 import { ProjectSearchRequestMessage } from 'src/app/models/requests/projects/ProjectSearchRequestMessage';
 import { ProjectFilterInfo } from 'src/app/models/replies/projects/ProjectFilterInfo';
 import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
-import { RewardCard } from 'src/app/components/reward-card/RewardCard';
 import { Routes } from 'src/app/models/immutable/Routes';
+import { PagingInfo } from 'src/app/models/common/PagingInfo';
+import { PagedReplyMessage } from 'src/app/models/replies/common/PagedReplyMessage';
+import { PagingControl } from 'src/app/components/paging/PagingControl';
 
 @Component({
   selector: 'app-profile',
@@ -25,9 +27,9 @@ export class ProfileComponent extends Base implements OnInit {
   public myProjectsTab = new TabElement('Мои проекты', true);
   public supportedTab = new TabElement('Поддрежал', false);
   public draftsTab = new TabElement('Черновики', false);
-  public myProjects: ProjectCard[] = [];
-  public supported: ProjectCard[] = [];
-  public drafts: ProjectCard[] = [];
+  public myProjectsPaging: PagingControl<ProjectCard>;
+  public supportedPaging: PagingControl<ProjectCard>;
+  public draftsPaging: PagingControl<ProjectCard>;
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
@@ -44,6 +46,8 @@ export class ProfileComponent extends Base implements OnInit {
   public ngOnInit(): void {
     this.titleService.setTitle('Профиль');
     this.setUserInfo();
+    this.fetchMyProjects();
+    this.fetchSupportedProjects();
     this.fetchDraftProjects();
   }
 
@@ -75,14 +79,59 @@ export class ProfileComponent extends Base implements OnInit {
 
   fetchDraftProjects() {
     const filter: ProjectFilterInfo = { status: [ ProjectStatusEnum.Draft, ProjectStatusEnum.Moderation]};
-    const request: ProjectSearchRequestMessage = { filter: filter };
+    const request: ProjectSearchRequestMessage = {
+      filter: filter,
+      paging: new PagingInfo(1, 6)
+     };
     this.subscriptions.add(
       this.projectService.cards(request).subscribe(
-        (reply: ReplyMessage<ProjectCard[]>) => {
-          this.drafts = reply.value;
+        (reply: PagedReplyMessage<ProjectCard[]>) => {
+          this.draftsPaging = {
+            paging: reply.paging,
+            collection: reply.value,
+            filter: filter
+          };
         }
       )
     );
+  }
+
+  fetchSupportedProjects() {
+    const filter: ProjectFilterInfo = { status: [ ProjectStatusEnum.Draft, ProjectStatusEnum.Moderation]};
+    // const request: ProjectSearchRequestMessage = {
+    //   filter: filter,
+    //   paging: new PagingInfo(1, 6)
+    //  };
+    // this.subscriptions.add(
+    //   this.projectService.cards(request).subscribe(
+    //     (reply: PagedReplyMessage<ProjectCard[]>) => {
+    //       this.supportedPaging = {
+    //         paging: reply.paging,
+    //         collection: reply.value,
+    //         filter: filter
+    //       };
+    //     }
+    //   )
+    // );
+  }
+
+  fetchMyProjects() {
+    const filter: ProjectFilterInfo = { status: [ ProjectStatusEnum.Draft, ProjectStatusEnum.Moderation]};
+    // const request: ProjectSearchRequestMessage = {
+    //   filter: filter,
+    //   paging: new PagingInfo(1, 6)
+    //  };
+    // this.subscriptions.add(
+    //   this.projectService.cards(request).subscribe(
+    //     (reply: PagedReplyMessage<ProjectCard[]>) => {
+    //       this.myProjectsPaging = {
+    //         paging: reply.paging,
+    //         collection: reply.value,
+    //         filter: filter
+    //       };
+    //     }
+    //   )
+    // );
   }
 
   onCardEditClick(card: ProjectCard) {

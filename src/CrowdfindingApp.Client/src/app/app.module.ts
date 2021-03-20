@@ -48,6 +48,7 @@ import { RewardCardComponent } from './components/reward-card/reward-card.compon
 import { Routes } from './models/immutable/Routes';
 import { FileInputComponent } from './components/inputs/file-input/file-input.component';
 import { FileService } from './services/file.service';
+import { PagingComponent } from './components/paging/paging.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { FileService } from './services/file.service';
     CollapseComponent,
     FeedbackModalComponent,
     RewardCardComponent,
-    FileInputComponent
+    FileInputComponent,
+    PagingComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

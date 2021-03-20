@@ -1,0 +1,37 @@
+
+.active-page-item{
+  background-color: goldenrod;
+}
+
+.page-button-item, .page-button-item-first, .page-button-item-last {
+  display: inline;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  padding: 10px 15px;
+  margin: 2px 0;
+  cursor: pointer;
+}
+
+.page-button-item-first {
+  border-left: 1px solid grey;
+  border-radius: 4px 0 0 4px ; 
+}
+
+.page-button-item-last {
+  border-right: 1px solid grey;
+  border-radius: 0 4px 4px 0; 
+} 
+
+.page-button-item:hover{
+  background-color: aquamarine;
+}
+
+.pagination{
+  margin: 30px;
+  display: block;
+  text-align: center;
+}
+
+.page-item{
+  display: inline!important;
+}

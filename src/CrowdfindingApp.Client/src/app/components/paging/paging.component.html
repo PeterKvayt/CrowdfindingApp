@@ -1,0 +1,5 @@
+  <div class="pagination">
+    <span [class]='pageCollection[0].value + " page-button-item-first"' (click)='onPageClick(pageCollection[0])'>В начало</span>
+    <span *ngFor='let pageItem of pageCollection' [class]='pageItem.value' (click)='onPageClick(pageItem)'>{{pageItem.key + 1}}</span>
+    <span [class]='pageCollection[pageCollection.length - 1].value + " page-button-item-last"' (click)='onPageClick(pageCollection[pageCollection.length - 1])'>В конец</span>
+  </div>

@@ -1,7 +1,7 @@
 ﻿
 namespace CrowdfindingApp.Common.Messages
 {
-    public sealed class ReplyMessage<T> : ReplyMessageBase
+    public class ReplyMessage<T> : ReplyMessageBase
     {
         public T Value { get; set; }
 
