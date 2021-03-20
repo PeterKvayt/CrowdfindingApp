@@ -135,7 +135,6 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   onCardEditClick(card: ProjectCard) {
-    console.log(card);
     this.redirect(Routes.projectEdit + '/' + card.id);
   }
 

@@ -212,7 +212,7 @@ export class CreateProjectComponent extends Base implements OnInit {
           }
 
           this.projectVideoInput.value = reply.value.videoUrl;
-          this.projectImageInput.fileName = reply.value.image ? reply.value.image : 'assets/img/stock-project.png',
+          this.projectImageInput.fileName = reply.value.image,
           //startDateTime: null,
           this.projectDurationInput.value = reply.value.duration;
           this.projectPurposeInput.value = reply.value.budget;
@@ -480,7 +480,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       fullDescription: this.projectDescriptionInput.value,
       location: this.selectedCity,
       videoUrl: this.projectVideoInput.value,
-      image: this.projectImageInput.fileName,
+      image: this.projectImageInput.fileName ? null : this.projectImageInput.fileName,
       //startDateTime: null,
       duration: this.projectDurationInput.value ? this.projectDurationInput.value : null,
       budget: this.projectPurposeInput.value ? this.projectPurposeInput.value : null,

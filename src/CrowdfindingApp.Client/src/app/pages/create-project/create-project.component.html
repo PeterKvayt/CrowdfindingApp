@@ -59,7 +59,7 @@
           <span class="sub-title">Обложка проекта</span>
           <div class="global-img-wrapper">
             <img class="global-img" 
-              [src]='projectImageInput.fileName 
+              [src]='projectImageInput.fileName && projectImageInput.fileName !== "assets/img/stock-project.jpg" 
                 ? fileService.absoluteFileStoragePath + projectImageInput.fileName 
                 : "assets/img/stock-project.png"' alt="project image" 
               />
@@ -126,7 +126,7 @@
             собрать нужную сумму.
           </div>
           <div class="global-img-wrapper">
-            <img class="global-img" [src]='rewardImageInput.fileName && rewardImageInput.fileName !== "assets/img/stock-reward.jpg"
+            <img class="global-img" [src]='rewardImageInput.fileName && rewardImageInput.fileName !== "assets/img/stock-reward.jpg" 
               ? fileService.absoluteFileStoragePath + rewardImageInput.fileName
               : "assets/img/stock-reward.jpg"' 
               alt="project image" />
