@@ -1,15 +1,17 @@
 
 .active-page-item{
-  background-color: goldenrod;
+  background-color: var(--regular);
+  color: #fff;
 }
 
 .page-button-item, .page-button-item-first, .page-button-item-last {
   display: inline;
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
+  border-top: 1px solid var(--pre-light-regular);
+  border-bottom: 1px solid var(--pre-light-regular);
   padding: 10px 15px;
   margin: 2px 0;
   cursor: pointer;
+  font-weight: 100;
 }
 
 .page-button-item-first {
@@ -23,7 +25,8 @@
 } 
 
 .page-button-item:hover{
-  background-color: aquamarine;
+  background-color: var(--regular);
+  color:  #fff;
 }
 
 .pagination{
