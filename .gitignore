@@ -1,3 +1,6 @@
+## Custom ignore folders
+/src/CrowdfindingApp.Api/root/
+
 ## Ignore Angular files
 
 # compiled output
