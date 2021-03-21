@@ -42,13 +42,13 @@ namespace CrowdfindingApp.Data
             new Role
             {
                 Id = new Guid(CrowdfindingApp.Common.Immutable.Roles.DefaultUser),
-                Name = "DefaultUser",
+                Name = nameof(CrowdfindingApp.Common.Immutable.Roles.DefaultUser),
                 Permissions = string.Empty
             },
             new Role
             {
                 Id = new Guid(CrowdfindingApp.Common.Immutable.Roles.Admin),
-                Name = "Admin",
+                Name = nameof(CrowdfindingApp.Common.Immutable.Roles.Admin),
                 Permissions = string.Empty
             },
         };

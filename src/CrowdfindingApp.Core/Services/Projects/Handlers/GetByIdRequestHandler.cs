@@ -53,7 +53,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             {
                 reply.AddObjectNotFoundError();
             }
-            if(project.OwnerId != User.GetUserId())
+            if(project.OwnerId != User.GetUserId() && !User.HasRole(nameof(Common.Immutable.Roles.Admin)))
             {
                 reply.AddSecurityError();
             }

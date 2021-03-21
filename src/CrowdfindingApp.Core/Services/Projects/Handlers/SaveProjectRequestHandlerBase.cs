@@ -12,6 +12,9 @@ using System.Linq;
 using CrowdfindingApp.Common.DataTransfers.Rewards;
 using CrowdfindingApp.Common.DataTransfers.Questions;
 using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
+using System.Collections.Generic;
+using CrowdfindingApp.Data.Common.Filters;
+using CrowdfindingApp.Common.Immutable;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
@@ -43,16 +46,34 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         protected async Task<ReplyMessageBase> ProcessAsync(SaveDraftProjectRequestMessage request)
         {
+            var reply = new ReplyMessageBase();
+            
             if(request.Data == null)
             {
-                return new ReplyMessageBase();
+                return reply;
+            }
+
+            if(request.Data.Id.NonNullOrWhiteSpace())
+            {
+                var projectFromDb = await ProjectRepository.GetByIdAsync(new Guid(request.Data.Id));
+                if(projectFromDb == null)
+                {
+                    reply.AddObjectNotFoundError();
+                    return reply;
+                }
+
+                if(projectFromDb.OwnerId != User.GetUserId() && !User.HasRole(Common.Immutable.Roles.Admin))
+                {
+                    reply.AddSecurityError();
+                    return reply;
+                }
             }
 
             var projectId = await SaveProjectAsync(request.Data);
             await SaveQuestionsAsync(request.Data, projectId);
             await SaveRewardsAsync(request.Data, projectId);
 
-            return new ReplyMessageBase();
+            return reply;
         }
 
         private async Task<Guid> SaveProjectAsync(ProjectInfo projectInfo)

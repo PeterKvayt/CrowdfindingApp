@@ -99,7 +99,8 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
             var claims = new List<Claim>
             {
                 new Claim(ClaimsKeys.UserId, user.Id.ToString()),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, role.Name)
+                //new Claim(ClaimsIdentity.DefaultRoleClaimType)
+                new Claim(ClaimsKeys.Roles, role.Name)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

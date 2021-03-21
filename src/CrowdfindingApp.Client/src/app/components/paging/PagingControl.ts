@@ -4,5 +4,5 @@ import { ProjectFilterInfo } from 'src/app/models/replies/projects/ProjectFilter
 export class PagingControl<TCollection> {
   public paging: PagingInfo;
   public filter: ProjectFilterInfo;
-  public collection: TCollection[];
+  public collection?: TCollection[];
 }

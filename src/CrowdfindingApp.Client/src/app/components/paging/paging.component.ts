@@ -97,7 +97,7 @@ export class PagingComponent implements OnInit, OnDestroy {
       paging: new PagingInfo(this.control.paging.pageNumber, this.control.paging.pageSize)
      };
     this.subscriptions.add(
-      this.projectService.cards(request).subscribe(
+      this.projectService.ownerProjects(request).subscribe(
         (reply: PagedReplyMessage<ProjectCard[]>) => {
           this.control.collection = reply.value;
           this.control.paging = reply.paging;

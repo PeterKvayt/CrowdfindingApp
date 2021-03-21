@@ -3,6 +3,8 @@ import { HttpService } from './http.service';
 import { SaveDraftProjectRequestMessage } from '../models/requests/projects/SaveDraftProjectRequestMessage';
 import { ProjectModerationRequestMessage } from '../models/requests/projects/ProjectModerationRequestMessage';
 import { ProjectSearchRequestMessage } from '../models/requests/projects/ProjectSearchRequestMessage';
+import { ProjectStatusEnum } from '../models/enums/ProjectStatus';
+import { SetProjectStatusRequestMessage } from '../models/requests/projects/SetProjectStatusRequestMessage';
 
 
 @Injectable()
@@ -34,8 +36,16 @@ export class ProjectService {
     return this.http.post<ProjectModerationRequestMessage>(this.controller + 'moderate', model);
   }
 
-  public cards(model: ProjectSearchRequestMessage) {
-    return this.http.post<ProjectSearchRequestMessage>(this.controller + 'cards', model);
+  public ownerProjects(model: ProjectSearchRequestMessage) {
+    return this.http.post<ProjectSearchRequestMessage>(this.controller + 'ownerProjects', model);
+  }
+
+  public search(model: ProjectSearchRequestMessage) {
+    return this.http.post<ProjectSearchRequestMessage>(this.controller + 'search', model);
+  }
+
+  public openedProjects(model: ProjectSearchRequestMessage) {
+    return this.http.post<ProjectSearchRequestMessage>(this.controller + 'openedProjects', model);
   }
 
   public getProjects() {
@@ -52,5 +62,10 @@ export class ProjectService {
 
   public getProjectById(id: string) {
     return this.http.get(this.controller + id);
+  }
+
+  public setStatus(status: ProjectStatusEnum, projectId: string) {
+    return this.http.post<SetProjectStatusRequestMessage>(this.controller + 'set-status',
+      new SetProjectStatusRequestMessage(status, projectId));
   }
 }

@@ -27,6 +27,8 @@ import { ProjectInfo } from 'src/app/models/replies/projects/ProjectInfo';
 import { FileInput } from 'src/app/components/inputs/file-input/FileInput';
 import { FileService } from 'src/app/services/file.service';
 import { SaveImageRequestMessage } from 'src/app/models/requests/files/SaveImageRequestMessage';
+import { AuthenticationService } from 'src/app/services/auth.service';
+import { Routes } from 'src/app/models/immutable/Routes';
 
 @Component({
   selector: 'app-create-project',
@@ -38,7 +40,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   private currentDate = new Date();
 
   // project fields
-  private projectId: string = null;
+  public projectId: string = null;
   private projectCategory: string;
   public projectImageInput = new FileInput('Загрузить изображение', 'fas fa-upload');
   public projectNameInput: TextInput = { placeholder: 'Введите название проекта' };
@@ -173,6 +175,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     private projectService: ProjectService,
     public activatedRoute: ActivatedRoute,
     public fileService: FileService,
+    public authService: AuthenticationService,
     private titleService: Title
   ) { super(router, activatedRoute); }
   public ngOnInit(): void {
@@ -444,6 +447,15 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   public onProjectImageUpload(): void {
     
+  }
+
+  public toStartClick() {
+    this.subscriptions.add(
+      this.projectService.setStatus(ProjectStatusEnum.Active, this.projectId).subscribe(
+        () => { this.redirect(Routes.profile); },
+        () => { console.log('ewed')}
+      )
+    );
   }
 
   public toModerationClick(): void {

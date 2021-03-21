@@ -8,6 +8,7 @@ export class Routes {
   public static projectRules = 'project/rules';
   public static projectCreate = 'project/create';
   public static projectEdit = 'project/edit';
+  public static moderationList = 'project/moderations';
   public static profile = 'profile';
   public static profileProjects = 'profile/projects';
   // public static signIn = 'profile/create-project';

@@ -13,96 +13,117 @@
             alt="avatar">
         </div>
         <div class="col-lg-8">
-          <span class="profile-name">{{userInfo ? userInfo.name : ''}} {{userInfo ? userInfo.surname : ''}}</span>
+          <div class="row">
 
-          <div class="profile-full-info">
-            <i class="fas fa-info fa-fw"></i>
-            <app-link empty value='Подробная информация'></app-link>
-          </div>
+            <div class="col-12">
+              <span class="profile-name">{{userInfo ? userInfo.name : ''}} {{userInfo ? userInfo.surname : ''}}</span>
+            </div>
 
-          <div class="payment-history">
-            <i class="fas fa-history fa-fw"></i>
-            <app-link empty value='История платежей'></app-link>
-          </div>
+            <div class="col-12">
+              <div class="profile-full-info">
+                <i class="fas fa-info fa-fw"></i>
+                <app-link empty value='Подробная информация'></app-link>
+              </div>
+              <div class="payment-history">
+                <i class="fas fa-history fa-fw"></i>
+                <app-link empty value='История платежей'></app-link>
+              </div>
+            </div>
 
-          <div>
-            <app-regular-btn value='Редактировать данные' ico='fas fa-cog'></app-regular-btn>
-          </div>
-          <div>
-            <app-regular-btn value='Выйти из учетной записи' ico='fas fa-sign-out-alt' (click)='onSignOutClick()'>
-            </app-regular-btn>
-          </div>
+            <div class="col-12">
+              <div class="row">
 
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <app-regular-btn value='Редактировать данные' ico='fas fa-cog' fluid='true'></app-regular-btn>
+                </div>
+                <div *ngIf='!authService.isAdmin()' class="col-lg-6 col-md-5"></div>
+                <div *ngIf='authService.isAdmin()' class="col-lg-6 col-md-6 col-sm-12">
+                    <app-regular-btn value='Ожидающие модерации' ico='fas fa-sign-out-alt' (click)='onToModerationClick()'
+                      fluid='true'></app-regular-btn>
+                  </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <app-regular-btn value='Выйти из учетной записи' ico='fas fa-sign-out-alt' (click)='onSignOutClick()'
+                    fluid='true'></app-regular-btn>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <app-tab [value]='myProjectsTab.value' [active]='myProjectsTab.isActive' (click)='onTabClick(myProjectsTab)'>
+          </app-tab>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <app-tab [value]='supportedTab.value' [active]='supportedTab.isActive' (click)='onTabClick(supportedTab)'>
+          </app-tab>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <app-tab [value]='draftsTab.value' [active]='draftsTab.isActive' (click)='onTabClick(draftsTab)'>
+          </app-tab>
+        </div>
 
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <app-tab [value]='myProjectsTab.value' [active]='myProjectsTab.isActive' (click)='onTabClick(myProjectsTab)'>
-      </app-tab>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <app-tab [value]='supportedTab.value' [active]='supportedTab.isActive' (click)='onTabClick(supportedTab)'>
-      </app-tab>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <app-tab [value]='draftsTab.value' [active]='draftsTab.isActive' (click)='onTabClick(draftsTab)'>
-      </app-tab>
-    </div>
+      </div>
+      <div class="row">
 
-    <ng-container *ngIf='myProjectsTab.isActive'>
-      <div class="col">
-        <ng-container *ngIf='myProjectsPaging && myProjectsPaging.collection'>
-          <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of myProjectsPaging.collection'>
-              <app-project-card [card]='card'>
-              </app-project-card>
+        <ng-container *ngIf='myProjectsTab.isActive'>
+          <div class="col">
+            <ng-container *ngIf='myProjectsPaging && myProjectsPaging.collection'>
+              <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of myProjectsPaging.collection'>
+                  <app-project-card [card]='card'>
+                  </app-project-card>
+                </div>
+              </div>
+            </ng-container>
+            <div class="row">
+              <div class="col">
+                <app-paging [control]='myProjectsPaging' [loadingOn]='showLoader'></app-paging>
+              </div>
             </div>
           </div>
         </ng-container>
-        <div class="row">
-          <div class="col">
-            <app-paging [control]='myProjectsPaging' [loadingOn]='showLoader'></app-paging>
-          </div>
-        </div>
-      </div>
-    </ng-container>
 
-    <ng-container *ngIf='supportedTab.isActive'>
-      <div class="col">
-        <ng-container *ngIf='supportedPaging && supportedPaging.collection'>
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of supportedPaging.collection'>
-            <app-project-card [card]='card'>
-            </app-project-card>
-          </div>
-        </div>
-      </ng-container>
-        <div class="row">
+        <ng-container *ngIf='supportedTab.isActive'>
           <div class="col">
-            <app-paging [control]='supportedPaging' [loadingOn]='showLoader'></app-paging>
+            <ng-container *ngIf='supportedPaging && supportedPaging.collection'>
+              <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of supportedPaging.collection'>
+                  <app-project-card [card]='card'>
+                  </app-project-card>
+                </div>
+              </div>
+            </ng-container>
+            <div class="row">
+              <div class="col">
+                <app-paging [control]='supportedPaging' [loadingOn]='showLoader'></app-paging>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </ng-container>
+        </ng-container>
 
-    <ng-container *ngIf='draftsTab.isActive'>
-      <div class="col">
-        <ng-container *ngIf='draftsPaging && draftsPaging.collection'>
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of draftsPaging.collection'>
-            <app-project-card [editable]='isEditable(card)' [card]='card' (editClick)='onCardEditClick(card)'
-              (deleteClick)='onCardDeleteClick(card, draftsPaging.collection)'>
-            </app-project-card>
-          </div>
-        </div>
-      </ng-container>
-        <div class="row">
+        <ng-container *ngIf='draftsTab.isActive'>
           <div class="col">
-            <app-paging [control]='draftsPaging' [loadingOn]='showLoader'></app-paging>
+            <ng-container *ngIf='draftsPaging && draftsPaging.collection'>
+              <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of draftsPaging.collection'>
+                  <app-project-card [editable]='isEditable(card)' [card]='card' (editClick)='onCardEditClick(card)'
+                    (deleteClick)='onCardDeleteClick(card, draftsPaging.collection)'>
+                  </app-project-card>
+                </div>
+              </div>
+            </ng-container>
+            <div class="row">
+              <div class="col">
+                <app-paging [control]='draftsPaging' [loadingOn]='showLoader'></app-paging>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </ng-container>
+        </ng-container>
 
+      </div>
+    </div>
   </div>

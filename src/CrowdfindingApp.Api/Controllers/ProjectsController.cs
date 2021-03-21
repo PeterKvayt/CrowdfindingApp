@@ -19,9 +19,12 @@ namespace CrowdfindingApp.Api.Controllers
         private readonly GetCountriesRequestHandler _getCountriesRequestHandler;
         private readonly GetCitiesRequestHandler _getCitiesRequestHandler;
         private readonly GetCategoriesRequestHandler _getCategoriesRequestHandler;
-        private readonly ProjectCardSearchRequestHandler _projectCardSearchRequestHandler;
+        private readonly OwnerProjectCardSearchRequestHandler _ownerProjectCardSearchRequestHandler;
         private readonly RemoveProjectRequestHandler _removeProjectRequestHandler;
         private readonly GetByIdRequestHandler _getByIdRequestHandler;
+        private readonly SetProjectStatusRequestHandler _setProjectStatusRequestHandler;
+        private readonly UnsafeProjectCardSearchRequestHandler _usnafeProjectCardsearchRequestHandler;
+        private readonly OpenedProjectCardSearchRequestHandler _openedProjectCardSearchRequestHandler;
 
         public ProjectsController(IResourceProvider resourceProvider,
             SaveDraftProjectRequestHandler saveDraftProjectRequestHandler,
@@ -30,8 +33,11 @@ namespace CrowdfindingApp.Api.Controllers
             GetCitiesRequestHandler getCitiesRequestHandler,
             GetCategoriesRequestHandler getCategoriesRequestHandler,
             RemoveProjectRequestHandler removeProjectRequestHandler,
-            ProjectCardSearchRequestHandler projectCardSearchRequestHandler,
+            OwnerProjectCardSearchRequestHandler ownerProjectCardSearchRequestHandler,
             GetByIdRequestHandler getByIdRequestHandler,
+            SetProjectStatusRequestHandler setProjectStatusRequestHandler,
+            UnsafeProjectCardSearchRequestHandler usnafeProjectCardsearchRequestHandler,
+            OpenedProjectCardSearchRequestHandler openedProjectCardSearchRequestHandler,
             ProjectSearchRequestHandler projectSearchRequestHandler) : base(resourceProvider)
         {
             _saveDraftProjectRequestHandler = saveDraftProjectRequestHandler ?? throw new ArgumentNullException(nameof(saveDraftProjectRequestHandler));
@@ -40,9 +46,28 @@ namespace CrowdfindingApp.Api.Controllers
             _getCountriesRequestHandler = getCountriesRequestHandler ?? throw new ArgumentNullException(nameof(getCountriesRequestHandler));
             _getCitiesRequestHandler = getCitiesRequestHandler ?? throw new ArgumentNullException(nameof(getCitiesRequestHandler));
             _getCategoriesRequestHandler = getCategoriesRequestHandler ?? throw new ArgumentNullException(nameof(getCategoriesRequestHandler));
-            _projectCardSearchRequestHandler = projectCardSearchRequestHandler ?? throw new ArgumentNullException(nameof(projectCardSearchRequestHandler));
+            _ownerProjectCardSearchRequestHandler = ownerProjectCardSearchRequestHandler ?? throw new ArgumentNullException(nameof(ownerProjectCardSearchRequestHandler));
             _removeProjectRequestHandler = removeProjectRequestHandler ?? throw new ArgumentNullException(nameof(removeProjectRequestHandler));
             _getByIdRequestHandler = getByIdRequestHandler ?? throw new ArgumentNullException(nameof(getByIdRequestHandler));
+            _setProjectStatusRequestHandler = setProjectStatusRequestHandler ?? throw new ArgumentNullException(nameof(setProjectStatusRequestHandler));
+            _usnafeProjectCardsearchRequestHandler = usnafeProjectCardsearchRequestHandler ?? throw new ArgumentNullException(nameof(usnafeProjectCardsearchRequestHandler));
+            _openedProjectCardSearchRequestHandler = openedProjectCardSearchRequestHandler ?? throw new ArgumentNullException(nameof(openedProjectCardSearchRequestHandler));
+        }
+
+        [HttpPost(Endpoints.Project.SetStatus)]
+        [Authorize(Roles = nameof(Roles.Admin))]
+        public async Task<IActionResult> SetStatus(SetProjectStatusRequestMessage request)
+        {
+            var reply = await _setProjectStatusRequestHandler.HandleAsync(request, User);
+            return Respond(reply);
+        }
+
+        [HttpPost(Endpoints.Project.Search)]
+        [Authorize(Roles = nameof(Roles.Admin))]
+        public async Task<IActionResult> Search(ProjectSearchRequestMessage request)
+        {
+            var reply = await _usnafeProjectCardsearchRequestHandler.HandleAsync(request, User);
+            return Respond(reply);
         }
 
         [HttpDelete("{projectId}")]
@@ -69,19 +94,19 @@ namespace CrowdfindingApp.Api.Controllers
             return Respond(reply);
         }
 
-        [HttpPost(Endpoints.Project.Search)]
+        [HttpPost(Endpoints.Project.OwnerProjects)]
         [Authorize]
-        public async Task<IActionResult> Search(ProjectSearchRequestMessage request)
+        public async Task<IActionResult> OwnerProjectSearch(ProjectSearchRequestMessage request)
         {
-            var reply = await _projectSearchRequestHandler.HandleAsync(request, User);
+            var reply = await _ownerProjectCardSearchRequestHandler.HandleAsync(request, User);
             return Respond(reply);
         }
 
-        [HttpPost(Endpoints.Project.Cards)]
+        [HttpPost(Endpoints.Project.OpenedProjects)]
         [Authorize]
-        public async Task<IActionResult> Cards(ProjectCardSearchRequestMessage request)
+        public async Task<IActionResult> OpenedProjectSearch(ProjectSearchRequestMessage request)
         {
-            var reply = await _projectCardSearchRequestHandler.HandleAsync(request, User);
+            var reply = await _openedProjectCardSearchRequestHandler.HandleAsync(request, User);
             return Respond(reply);
         }
 

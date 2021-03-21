@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProjectCard } from './ProjectCard';
 import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
 import { FileService } from 'src/app/services/file.service';
+import { AuthenticationService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -12,14 +13,12 @@ import { FileService } from 'src/app/services/file.service';
 export class ProjectCardComponent implements OnInit {
 
   constructor(
-    private fileService: FileService
+    private fileService: FileService,
+    private authService: AuthenticationService
   ) { }
   
   @Input() editable: boolean;
   @Input() card: ProjectCard;
-  @Input() colLg: number;
-  @Input() colMd: number;
-  @Input() colSm: number;
 
   @Output() deleteClick = new EventEmitter();
   @Output() editClick = new EventEmitter();
@@ -29,10 +28,6 @@ export class ProjectCardComponent implements OnInit {
 
   public ngOnInit(): void {
     this.setImagePath();
-    const lg = this.colLg ? this.colLg : 12;
-    const md = this.colMd ? this.colMd : 12;
-    const sm = this.colSm ? this.colSm : 12;
-    this.columnClass = 'col-lg-' + lg + ' col-md-' + md + ' col-sm-' + sm;
   }
 
   public setImagePath() {

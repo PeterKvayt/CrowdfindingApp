@@ -33,20 +33,6 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             var validationResult = await validator.ValidateAsync(requestMessage.Data);
             await reply.MergeAsync(validationResult);
 
-            if(validationResult.IsValid && requestMessage.Data.Id.NonNullOrWhiteSpace())
-            {
-                var projectFromDb = ProjectRepository.GetProjects(new ProjectFilter
-                {
-                    Id = new List<Guid> { new Guid(requestMessage.Data.Id) },
-                    OwnerId = new List<Guid> { User.GetUserId() }
-                }, null);
-                
-                if(projectFromDb == null)
-                {
-                    reply.AddObjectNotFoundError();
-                }
-            }
-
             return reply;
         }
 

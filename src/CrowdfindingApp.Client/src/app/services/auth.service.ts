@@ -3,11 +3,12 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Settings } from './settings.service';
+import { Roles } from '../models/immutable/Roles';
 @Injectable()
 export class AuthenticationService {
   constructor(public jwtHelper: JwtHelperService) { }
   public isAuthenticated(): boolean {
-    const token = sessionStorage.getItem(Settings.accessToken);
+    const token = this.getToken();
     if (token) {
       return !this.jwtHelper.isTokenExpired(token);
     }
@@ -23,5 +24,18 @@ export class AuthenticationService {
   }
   public setToken(token: string): void {
     sessionStorage.setItem(Settings.accessToken, token);
+  }
+  public isInRole(role: string): boolean {
+    const token = this.getToken();
+    if (!this.isAuthenticated()) { return false; }
+    const decodedToken = this.jwtHelper.decodeToken(token);
+    if (decodedToken.roles) {
+      return decodedToken.roles === role;
+    } else {
+      return false;
+    }
+  }
+  public isAdmin(): boolean {
+    return this.isInRole(Roles.admin);
   }
 }

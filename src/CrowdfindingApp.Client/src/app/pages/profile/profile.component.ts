@@ -16,6 +16,7 @@ import { Routes } from 'src/app/models/immutable/Routes';
 import { PagingInfo } from 'src/app/models/common/PagingInfo';
 import { PagedReplyMessage } from 'src/app/models/replies/common/PagedReplyMessage';
 import { PagingControl } from 'src/app/components/paging/PagingControl';
+import { Roles } from 'src/app/models/immutable/Roles';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,7 @@ import { PagingControl } from 'src/app/components/paging/PagingControl';
 })
 export class ProfileComponent extends Base implements OnInit {
   public myProjectsTab = new TabElement('Мои проекты', true);
-  public supportedTab = new TabElement('Поддрежал', false);
+  public supportedTab = new TabElement('Поддержал', false);
   public draftsTab = new TabElement('Черновики', false);
   public myProjectsPaging: PagingControl<ProjectCard>;
   public supportedPaging: PagingControl<ProjectCard>;
@@ -35,7 +36,7 @@ export class ProfileComponent extends Base implements OnInit {
     public activatedRoute: ActivatedRoute,
     public userService: UserService,
     private titleService: Title,
-    private authService: AuthenticationService,
+    public authService: AuthenticationService,
     private projectService: ProjectService
   ) {
     super(router, activatedRoute);
@@ -84,7 +85,7 @@ export class ProfileComponent extends Base implements OnInit {
       paging: new PagingInfo(1, 6)
      };
     this.subscriptions.add(
-      this.projectService.cards(request).subscribe(
+      this.projectService.ownerProjects(request).subscribe(
         (reply: PagedReplyMessage<ProjectCard[]>) => {
           this.draftsPaging = {
             paging: reply.paging,
@@ -116,22 +117,22 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   fetchMyProjects() {
-    const filter: ProjectFilterInfo = { status: [ ProjectStatusEnum.Draft, ProjectStatusEnum.Moderation]};
-    // const request: ProjectSearchRequestMessage = {
-    //   filter: filter,
-    //   paging: new PagingInfo(1, 6)
-    //  };
-    // this.subscriptions.add(
-    //   this.projectService.cards(request).subscribe(
-    //     (reply: PagedReplyMessage<ProjectCard[]>) => {
-    //       this.myProjectsPaging = {
-    //         paging: reply.paging,
-    //         collection: reply.value,
-    //         filter: filter
-    //       };
-    //     }
-    //   )
-    // );
+    const filter: ProjectFilterInfo = { status: [ ProjectStatusEnum.Active]};
+    const request: ProjectSearchRequestMessage = {
+      filter: filter,
+      paging: new PagingInfo(1, 6)
+     };
+    this.subscriptions.add(
+      this.projectService.ownerProjects(request).subscribe(
+        (reply: PagedReplyMessage<ProjectCard[]>) => {
+          this.myProjectsPaging = {
+            paging: reply.paging,
+            collection: reply.value,
+            filter: filter
+          };
+        }
+      )
+    );
   }
 
   onCardEditClick(card: ProjectCard) {
@@ -148,5 +149,9 @@ export class ProfileComponent extends Base implements OnInit {
 
   isEditable(card: ProjectCard): boolean {
     return card.status === ProjectStatusEnum.Draft;
+  }
+
+  onToModerationClick() {
+    this.redirect(Routes.moderationList);
   }
 }

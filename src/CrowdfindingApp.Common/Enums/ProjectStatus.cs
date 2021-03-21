@@ -8,6 +8,7 @@ namespace CrowdfindingApp.Common.Enums
         Active = 3,
         Stopped = 4,
         Complited = 5,
-        Deleted = 6
+        Deleted = 6,
+        Blocked = 7
     }
 }

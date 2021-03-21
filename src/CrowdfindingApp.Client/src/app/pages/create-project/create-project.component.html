@@ -1,6 +1,6 @@
 <div [hidden]='!showLoader' class="global-loader-box">
-    <app-preloader></app-preloader>
-  </div>
+  <app-preloader></app-preloader>
+</div>
 
 <div class="container global-top-padding">
   <div class="row">
@@ -39,7 +39,8 @@
 
         <div class="box">
           <span class="sub-title">Краткое описание проекта</span>
-          <app-text-area [item]='projectShortDescriptionInput' (valueChange)='onProjectShortDecriptionChange()'></app-text-area>
+          <app-text-area [item]='projectShortDescriptionInput' (valueChange)='onProjectShortDecriptionChange()'>
+          </app-text-area>
           <div class="delicate-text">
             Опишите в одном предложении цель вашего проекта.
           </div>
@@ -58,11 +59,9 @@
         <div class="box">
           <span class="sub-title">Обложка проекта</span>
           <div class="global-img-wrapper">
-            <img class="global-img" 
-              [src]='projectImageInput.fileName && projectImageInput.fileName !== "assets/img/stock-project.jpg" 
+            <img class="global-img" [src]='projectImageInput.fileName && projectImageInput.fileName !== "assets/img/stock-project.jpg" 
                 ? fileService.absoluteFileStoragePath + projectImageInput.fileName 
-                : "assets/img/stock-project.png"' alt="project image" 
-              />
+                : "assets/img/stock-project.png"' alt="project image" />
           </div>
           <app-file-input [item]='projectImageInput' (change)='onImageUpload(projectImageInput)'></app-file-input>
         </div>
@@ -98,8 +97,15 @@
         <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
           (click)='toModerationClick()'>
         </app-regular-btn>
+        <ng-container *ngIf='authService.isAdmin() && projectId'>
+          <app-regular-btn value='Запустить проект' fluid='true' icoBefore='true' ico='fas fa-rocket'
+            (click)='toStartClick()'>
+          </app-regular-btn>
+        </ng-container>
         <div class="row">
-          <app-project-card [card]='projectCard'></app-project-card>
+          <div class="col">
+            <app-project-card [card]='projectCard'></app-project-card>
+          </div>
         </div>
         <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Зачем записывать видео?'
@@ -128,8 +134,7 @@
           <div class="global-img-wrapper">
             <img class="global-img" [src]='rewardImageInput.fileName && rewardImageInput.fileName !== "assets/img/stock-reward.jpg" 
               ? fileService.absoluteFileStoragePath + rewardImageInput.fileName
-              : "assets/img/stock-reward.jpg"' 
-              alt="project image" />
+              : "assets/img/stock-reward.jpg"' alt="project image" />
           </div>
           <app-file-input [item]='rewardImageInput' (change)='onImageUpload(rewardImageInput)'></app-file-input>
         </div>
@@ -171,11 +176,11 @@
               <app-regular-btn value='Добавить страну исключение' (click)='onDeliveryAddClick()'>
               </app-regular-btn>
               <div class="selected-countries">
-                  <div class="selected-country-item" *ngFor='let country of rewardDeliveryCountries'>
-                    {{getCountryNameById(country.key)}} {{country.value}} BYN
-                    <app-regular-btn value='Удалить' (click)='onRemoveCountryFromIncludedList(country)'></app-regular-btn>
-                  </div>
+                <div class="selected-country-item" *ngFor='let country of rewardDeliveryCountries'>
+                  {{getCountryNameById(country.key)}} {{country.value}} BYN
+                  <app-regular-btn value='Удалить' (click)='onRemoveCountryFromIncludedList(country)'></app-regular-btn>
                 </div>
+              </div>
             </ng-container>
           </div>
 
@@ -200,17 +205,23 @@
         <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
           (click)='toModerationClick()'>
         </app-regular-btn>
+        <ng-container *ngIf='authService.isAdmin() && projectId'>
+          <app-regular-btn value='Запустить проект' fluid='true' icoBefore='true' ico='fas fa-rocket'
+            (click)='toStartClick()'>
+          </app-regular-btn>
+        </ng-container>
         <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
-        <app-collapse header='Что такое лоты?' 
+        <app-collapse header='Что такое лоты?'
           body='Лоты – это продукты, которые вы предлагаете в рамках крауд-кампании. Это то, ради чего люди перечисляют деньги в ваш проект.'>
         </app-collapse>
-        <app-collapse header='Какие лоты лучше добавлять?' 
+        <app-collapse header='Какие лоты лучше добавлять?'
           body='Если вы выводите на рынок новый продукт, то в качестве лота должен выступить сам продукт и его модификации. Если вы решили издать книгу, то лотом является ваша книга. Если вы организуете концерт или другое мероприятие, то лотами могут выступить билеты на мероприятие. Подробнее с нашими рекомендациями вы можете ознакомиться здесь. '>
         </app-collapse>
         <app-link empty value='Задать вопрос' (click)='feedBackModalShow = true'></app-link>
         <div class="row reward-container">
-          <app-reward-card *ngFor='let reward of projectRewardsList' [item]='getRewardCardFromInfo(reward)' editable='true' 
-          (changeClick)='onRewardChangeClick(reward)' (deleteClick)='onRewardDeleteClick(reward)'></app-reward-card>
+          <app-reward-card *ngFor='let reward of projectRewardsList' [item]='getRewardCardFromInfo(reward)'
+            editable='true' (changeClick)='onRewardChangeClick(reward)' (deleteClick)='onRewardDeleteClick(reward)'>
+          </app-reward-card>
         </div>
       </div>
 
@@ -260,11 +271,16 @@
         <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
           (click)='toModerationClick()'>
         </app-regular-btn>
+        <ng-container *ngIf='authService.isAdmin() && projectId'>
+          <app-regular-btn value='Запустить проект' fluid='true' icoBefore='true' ico='fas fa-rocket'
+            (click)='toStartClick()'>
+          </app-regular-btn>
+        </ng-container>
         <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
-        <app-collapse header='Что должно быть в описании?' 
+        <app-collapse header='Что должно быть в описании?'
           body='Специально для вас мы подготовили рекомендации для написания грамотного и эффективного описания.'>
         </app-collapse>
-        <app-collapse header='Что такое «Частые вопросы»?' 
+        <app-collapse header='Что такое «Частые вопросы»?'
           body='«Частые вопросы» – это блок, в котором вы можете заранее ответить на наиболее очевидные вопросы, которые могут возникнуть у потенциальных спонсоров в процессе знакомства с вашим проектом.'>
         </app-collapse>
         <app-link empty value='Задать вопрос' (click)='feedBackModalShow = true'></app-link>
@@ -304,17 +320,22 @@
         <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
           (click)='onSaveClick()'>
         </app-regular-btn>
-          <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
-            (click)='toModerationClick()'>
+        <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
+          (click)='toModerationClick()'>
+        </app-regular-btn>
+        <ng-container *ngIf='authService.isAdmin() && projectId'>
+          <app-regular-btn value='Запустить проект' fluid='true' icoBefore='true' ico='fas fa-rocket'
+            (click)='toStartClick()'>
           </app-regular-btn>
+        </ng-container>
         <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
-        <app-collapse header='Зачем вводить номер счета?' 
+        <app-collapse header='Зачем вводить номер счета?'
           body='Номер счета необходим для перечисления средств в случае успеха вашей краудфандинговой кампании. '>
         </app-collapse>
-        <app-collapse header='Зачем вводить паспортные данные?' 
+        <app-collapse header='Зачем вводить паспортные данные?'
           body='Для публикации проекта и сбора средств вам необходимо заключить договоры с «PolessInvest» и ОАО «Банк». Ваши данные необходимы для формирования договоров.'>
         </app-collapse>
-        <app-collapse header='Кому доступны мои данные?' 
+        <app-collapse header='Кому доступны мои данные?'
           body='Ваши данные будут использоваться исключительно для вашей идентификации и формирования договоров. Доступ третьих лиц к вашим данным исключен.'>
         </app-collapse>
         <app-link empty value='Задать вопрос' (click)='feedBackModalShow = true'></app-link>

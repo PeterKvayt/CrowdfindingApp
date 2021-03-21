@@ -1,0 +1,21 @@
+<div [hidden]='!showLoader' class="global-loader-box">
+  <app-preloader></app-preloader>
+</div>
+
+<div class="container global-top-padding">
+  <div class="row">
+    <ng-container *ngIf='pagingControl && pagingControl.collection'>
+      <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of pagingControl.collection'>
+        <app-project-card editable='true' [card]='card' (editClick)='onCardEditClick(card)'
+          (deleteClick)='onCardDeleteClick(card)'>
+        </app-project-card>
+      </div>
+
+    </ng-container>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-paging [control]='pagingControl' [loadingOn]='showLoader'></app-paging>
+    </div>
+  </div>
+</div>

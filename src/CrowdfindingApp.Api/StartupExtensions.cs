@@ -104,7 +104,7 @@ namespace CrowdfindingApp.Api
         /// <param name="builder">Container builder.</param>
         public static ContainerBuilder RegisterAutoMapper(this ContainerBuilder builder)
         {
-            builder.RegisterType<CommonProfile>().As<Profile>().SingleInstance();
+            builder.RegisterType<CommonProfile>().As<Profile>();
             builder.Register(ctx => new MapperConfiguration(cfg =>
             {
                 foreach(var profile in ctx.Resolve<IList<Profile>>())
