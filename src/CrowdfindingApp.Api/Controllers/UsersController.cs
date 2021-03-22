@@ -13,13 +13,14 @@ namespace CrowdfindingApp.Api.Controllers
     [Route("[controller]")]
     public class UsersController : BaseController
     {
-        private GetTokenRequestHandler _getTokenHandler;
-        private RegisterRequestHandler _registerHandler;
-        private ForgotPasswordRequestHandler _forgotPasswordRequestHandler;
-        private ResetPasswordRequestHandler _resetPasswordRequestHandler;
-        private GetUserInfoRequestHandler _getUserInfoRequestHandler;
-        private UpdateUserRequestHandler _updateUserRequestHandler;
-        private ChangePasswordRequestHandler _changePasswordRequestHandler;
+        private readonly GetTokenRequestHandler _getTokenHandler;
+        private readonly RegisterRequestHandler _registerHandler;
+        private readonly ForgotPasswordRequestHandler _forgotPasswordRequestHandler;
+        private readonly ResetPasswordRequestHandler _resetPasswordRequestHandler;
+        private readonly GetUserInfoRequestHandler _getUserInfoRequestHandler;
+        private readonly UpdateUserRequestHandler _updateUserRequestHandler;
+        private readonly ChangePasswordRequestHandler _changePasswordRequestHandler;
+        private readonly GetUserInfoByIdRequestHandler _getUserInfoByIdRequestHandler;
 
         public UsersController(GetTokenRequestHandler tokenHandler,
             RegisterRequestHandler registerHandler,
@@ -28,6 +29,7 @@ namespace CrowdfindingApp.Api.Controllers
             ResetPasswordRequestHandler resetPasswordRequestHandler,
             GetUserInfoRequestHandler getUserInfoRequestHandler,
             UpdateUserRequestHandler updateUserRequestHandler,
+            GetUserInfoByIdRequestHandler getUserInfoByIdRequestHandler,
             ChangePasswordRequestHandler changePasswordRequestHandler) : base(resourceProvider)
         {
             _getTokenHandler = tokenHandler ?? throw new ArgumentNullException(nameof(tokenHandler));
@@ -37,6 +39,7 @@ namespace CrowdfindingApp.Api.Controllers
             _getUserInfoRequestHandler = getUserInfoRequestHandler ?? throw new ArgumentNullException(nameof(getUserInfoRequestHandler));
             _updateUserRequestHandler = updateUserRequestHandler ?? throw new ArgumentNullException(nameof(updateUserRequestHandler));
             _changePasswordRequestHandler = changePasswordRequestHandler ?? throw new ArgumentNullException(nameof(changePasswordRequestHandler));
+            _getUserInfoByIdRequestHandler = getUserInfoByIdRequestHandler ?? throw new ArgumentNullException(nameof(getUserInfoByIdRequestHandler));
         }
 
         /// <summary>
@@ -88,6 +91,17 @@ namespace CrowdfindingApp.Api.Controllers
         public async Task<IActionResult> UserInfoAsync()
         {
             var reply = await _getUserInfoRequestHandler.HandleAsync(new GetUserInfoRequestMessage(), User);
+            return Respond(reply);
+        }
+
+        /// <summary>
+        /// Return uset info by id.
+        /// </summary>
+        [HttpGet("{userId}")]
+        [Authorize]
+        public async Task<IActionResult> GetById([FromRoute] string userId)
+        {
+            var reply = await _getUserInfoByIdRequestHandler.HandleAsync(new GetUserInfoByIdRequestMessage(userId), User);
             return Respond(reply);
         }
 

@@ -113,6 +113,7 @@ import { ProjectPageComponent } from './pages/project-page/project-page.componen
         data: { role: Roles.admin } },
       { path: Routes.project + '/:projectId', component: ProjectPageComponent, canActivate: [AuthenticationGuardService] },
       { path: Routes.profile, component: ProfileComponent, canActivate: [AuthenticationGuardService] },
+      { path: Routes.profile + '/:userId', component: ProfileComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/projects', component: ProfileProjectsComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/info', component: ProfileInfoComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/security', component: ProfileSecurityComponent, canActivate: [AuthenticationGuardService] },

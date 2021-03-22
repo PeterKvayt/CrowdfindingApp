@@ -4,7 +4,7 @@ using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Immutable;
 using FluentValidation;
 
-namespace CrowdfindingApp.Core.Services.Projects.Validators
+namespace CrowdfindingApp.Common.Validators
 {
     public class IdValidator : AbstractValidator<string>
     {

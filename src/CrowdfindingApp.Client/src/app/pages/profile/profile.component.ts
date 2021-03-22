@@ -25,6 +25,8 @@ import { Roles } from 'src/app/models/immutable/Roles';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent extends Base implements OnInit {
+  public isMyProfile = false;
+  public currentUserId: string;
   public myProjectsTab = new TabElement('Мои проекты', true);
   public supportedTab = new TabElement('Поддержал', false);
   public draftsTab = new TabElement('Черновики', false);
@@ -46,16 +48,31 @@ export class ProfileComponent extends Base implements OnInit {
 
   public ngOnInit(): void {
     this.titleService.setTitle('Профиль');
+    this.currentUserId = this.activatedRoute.snapshot.paramMap.get('userId');
+    this.setIsMyProfile();
     this.setUserInfo();
-    this.fetchMyProjects();
-    this.fetchSupportedProjects();
-    this.fetchDraftProjects();
+    if (this.isMyProfile) {
+      this.fetchMyProjects();
+      this.fetchSupportedProjects();
+      this.fetchDraftProjects();
+    } else {
+      this.fetchPublicProjects();
+    }
+  }
+
+  setIsMyProfile() {
+    if (this.currentUserId) {
+      this.isMyProfile = this.currentUserId === this.authService.getMyId();
+    } else {
+      this.isMyProfile = true;
+    }
   }
 
   private setUserInfo(): void {
     this.showLoader = true;
+    const userId = this.isMyProfile ? this.authService.getMyId() : this.currentUserId;
     this.subscriptions.add(
-      this.userService.getUserInfo().subscribe(
+      this.userService.getById(userId).subscribe(
         (reply: ReplyMessage<UserInfo>) => {
           this.userInfo = reply.value;
           this.showLoader = false;
@@ -124,6 +141,25 @@ export class ProfileComponent extends Base implements OnInit {
      };
     this.subscriptions.add(
       this.projectService.ownerProjects(request).subscribe(
+        (reply: PagedReplyMessage<ProjectCard[]>) => {
+          this.myProjectsPaging = {
+            paging: reply.paging,
+            collection: reply.value,
+            filter: filter
+          };
+        }
+      )
+    );
+  }
+
+  fetchPublicProjects() {
+    const filter: ProjectFilterInfo = { ownerId: [ this.currentUserId ]};
+    const request: ProjectSearchRequestMessage = {
+      filter: filter,
+      paging: new PagingInfo(1, 6)
+     };
+    this.subscriptions.add(
+      this.projectService.openedProjects(request).subscribe(
         (reply: PagedReplyMessage<ProjectCard[]>) => {
           this.myProjectsPaging = {
             paging: reply.paging,

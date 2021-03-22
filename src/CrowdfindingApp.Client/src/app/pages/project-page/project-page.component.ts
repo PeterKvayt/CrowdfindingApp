@@ -28,22 +28,22 @@ export class ProjectPageComponent extends Base implements OnInit {
     super(router, activatedRoute);
   }
 
-  public profileRoute = Routes.profile;
+  public ownerProfileRoute: string;
   public view: ProjectInfoView;
   public user: UserInfo;
 
   ngOnInit () {
     const projectId = this.activatedRoute.snapshot.paramMap.get('projectId');
     if (projectId) { this.setProjectInfo(projectId); }
-    this.setUserInfo();
   }
 
-  setUserInfo(): void {
+  setUserInfo(userId: string): void {
     this.showLoader = true;
     this.subscriptions.add(
-      this.userService.getUserInfo().subscribe(
+      this.userService.getById(userId).subscribe(
         (reply: ReplyMessage<UserInfo>) => {
           this.user = reply.value;
+          this.ownerProfileRoute = Routes.profile + '/' + this.user.id;
         }
       )
     );
@@ -56,6 +56,7 @@ export class ProjectPageComponent extends Base implements OnInit {
       this.projectService.getViewById(projectId).subscribe(
         (reply: ReplyMessage<ProjectInfoView>) => {
           this.view = reply.value;
+          if (this.view.ownerId) { this.setUserInfo(this.view.ownerId); }
         }
       )
     );

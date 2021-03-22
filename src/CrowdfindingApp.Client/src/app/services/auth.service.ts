@@ -38,4 +38,8 @@ export class AuthenticationService {
   public isAdmin(): boolean {
     return this.isInRole(Roles.admin);
   }
+  public getMyId(): string {
+    const token = this.getToken();
+    return this.jwtHelper.decodeToken(token).user_id;
+  }
 }

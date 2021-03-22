@@ -28,6 +28,7 @@ namespace CrowdfindingApp.Common.DataTransfers.Projects
         public DateTime? WhenGivenDocument { get; set; }
         public string AuthorAddress { get; set; }
         public string AuthorPhone { get; set; }
+        public string OwnerId { get; set; }
         public List<RewardInfo> Rewards { get; set; }
         public List<QuestionInfo> Questions { get; set; }
     }

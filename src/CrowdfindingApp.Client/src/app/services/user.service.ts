@@ -35,6 +35,10 @@ export class UserService {
     return this.http.get(this.controller + 'user-info');
   }
 
+  public getById(id: string) {
+    return this.http.get(this.controller + id);
+  }
+
   public updateUserInfo(model: UpdateUserRequestMessage) {
     return this.http.put<UpdateUserRequestMessage>(this.controller + 'user-info', model);
   }

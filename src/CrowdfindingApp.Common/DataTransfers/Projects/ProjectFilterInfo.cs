@@ -9,6 +9,7 @@ namespace CrowdfindingApp.Common.DataTransfers.Project
         public List<string> Id { get; set; }
         public List<string> Title { get; set; }
         public List<string> CategoryId { get; set; }
+        public List<string> OwnerId { get; set; }
         public List<ProjectStatus> Status { get; set; }
     }
 }

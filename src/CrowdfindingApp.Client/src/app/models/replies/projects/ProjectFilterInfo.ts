@@ -5,4 +5,5 @@ export class ProjectFilterInfo {
   public title?: string[];
   public categoryId?: string[];
   public status?: ProjectStatusEnum[];
+  public ownerId?: string[];
 }

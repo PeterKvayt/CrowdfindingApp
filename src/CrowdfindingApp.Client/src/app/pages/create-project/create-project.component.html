@@ -214,6 +214,10 @@
             (click)='toStartClick()'>
           </app-regular-btn>
         </ng-container>
+        <ng-container *ngIf='projectId'>
+            <app-regular-btn [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр' fluid='true' icoBefore='true' ico='fas fa-rocket'>
+            </app-regular-btn>
+          </ng-container>
         <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Что такое лоты?'
           body='Лоты – это продукты, которые вы предлагаете в рамках крауд-кампании. Это то, ради чего люди перечисляют деньги в ваш проект.'>
@@ -280,6 +284,10 @@
             (click)='toStartClick()'>
           </app-regular-btn>
         </ng-container>
+        <ng-container *ngIf='projectId'>
+            <app-regular-btn [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр' fluid='true' icoBefore='true' ico='fas fa-rocket'>
+            </app-regular-btn>
+          </ng-container>
         <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Что должно быть в описании?'
           body='Специально для вас мы подготовили рекомендации для написания грамотного и эффективного описания.'>
@@ -332,6 +340,10 @@
             (click)='toStartClick()'>
           </app-regular-btn>
         </ng-container>
+        <ng-container *ngIf='projectId'>
+            <app-regular-btn [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр' fluid='true' icoBefore='true' ico='fas fa-rocket'>
+            </app-regular-btn>
+          </ng-container>
         <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Зачем вводить номер счета?'
           body='Номер счета необходим для перечисления средств в случае успеха вашей краудфандинговой кампании. '>
