@@ -18,6 +18,7 @@ namespace CrowdfindingApp.Common.Immutable
         public static class Project
         {
             public const string SetStatus = "set-status";
+            public const string ProjectView = nameof(ProjectView);
             public const string OwnerProjects = nameof(OwnerProjects);
             public const string OpenedProjects = nameof(OpenedProjects);
             public const string Search = nameof(Search);

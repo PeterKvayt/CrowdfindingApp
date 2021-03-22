@@ -6,6 +6,7 @@ export class UserInfo {
     public surname: string,
     public middleName: string,
     public email: string,
+    public id: string,
     public photo: string
   ) { }
 }

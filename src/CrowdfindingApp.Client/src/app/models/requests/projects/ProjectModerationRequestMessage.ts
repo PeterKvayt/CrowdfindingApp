@@ -1,8 +1,8 @@
 import { SaveDraftProjectRequestMessage } from './SaveDraftProjectRequestMessage';
-import { DraftProjectInfo } from '../../replies/projects/DraftProjectInfo';
+import { ProjectInfo } from '../../replies/projects/ProjectInfo';
 
 export class ProjectModerationRequestMessage extends SaveDraftProjectRequestMessage {
-  constructor(data: DraftProjectInfo
+  constructor(data: ProjectInfo
   ) {
     super(data);
   }

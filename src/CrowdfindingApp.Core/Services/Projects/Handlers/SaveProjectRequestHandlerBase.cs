@@ -89,7 +89,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             }
             else
             {
-                await ProjectRepository.UpdateAsync(project);
+                await ProjectRepository.UpdateAsync(project, Mapper);
             }
             return projectId;
         }

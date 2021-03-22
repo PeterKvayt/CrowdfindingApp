@@ -59,29 +59,12 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         {
             PrepareProjectImage(project);
             var card = Mapper.Map<ProjectCard>(project);
-            card.CurrentResult = await GetProjectProgressAsync(project.Id);
+            card.CurrentResult = await ProjectRepository.GetProgressAsync(project.Id);
             if(card.CategoryId.NonNullOrWhiteSpace())
             {
                 card.CategoryName = categories.FirstOrDefault(_ => _.Id.ToString() == card.CategoryId)?.Name;
             }
             return card;
-        }
-
-        private async Task<decimal> GetProjectProgressAsync(Guid projectId)
-        {
-            var rewards = await RewardRepository.GetRewardsByProjectIdAsync(projectId);
-            var orders = await OrderRepository.GetOrdersAsync(new OrderFilter
-            {
-                RewardId = rewards.Select(x => x.Id).ToList()
-            });
-            var groupedOrders = orders.GroupBy(x => x.RewardId);
-            decimal progress = 0;
-            foreach(var group in groupedOrders)
-            {
-                progress += group.Count() * rewards.First(x => x.Id == group.Key).Price.Value;
-            }
-
-            return progress;
         }
 
         private void PrepareProjectImage(Project project)

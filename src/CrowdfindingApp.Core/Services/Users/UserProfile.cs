@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using CrowdfindingApp.Common.DataTransfers.Users;
+using CrowdfindingApp.Common.Mappings;
 using CrowdfindingApp.Common.Messages.Users;
 using CrowdfindingApp.Data.Common.BusinessModels;
 
 namespace CrowdfindingApp.Core.Services.Users
 {
-    public class UserProfile : Profile
+    public class UserProfile : ProfileBase<User>
     {
         public UserProfile()
         {

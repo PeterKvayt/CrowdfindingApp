@@ -31,6 +31,7 @@ namespace CrowdfindingApp.Core.Services.Projects
             builder.RegisterType<SetProjectStatusRequestHandler>().AsSelf();
             builder.RegisterType<UnsafeProjectCardSearchRequestHandler>().AsSelf();
             builder.RegisterType<OpenedProjectCardSearchRequestHandler>().AsSelf();
+            builder.RegisterType<GetProjectInfoViewByIdRequestHandler>().AsSelf();
         }
     }
 }

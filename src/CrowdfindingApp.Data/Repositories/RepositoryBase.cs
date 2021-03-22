@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CrowdfindingApp.Data.Common.Interfaces;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 using CrowdfindingApp.Data.Common.Models;
@@ -28,12 +29,6 @@ namespace CrowdfindingApp.Data.Repositories
             return model.Id;
         }
 
-        public virtual async Task UpdateAsync(TModel model)
-        {
-            Repository.Update(model);
-            await Storage.SaveChangesAsync();
-        }
-
         public virtual async Task<TModel> GetByIdAsync(Guid id)
         {
             return await Repository.FirstOrDefaultAsync(x => x.Id == id);
@@ -43,5 +38,14 @@ namespace CrowdfindingApp.Data.Repositories
         {
             return Repository;
         }
+
+        public virtual async Task UpdateAsync(TModel changes, IMapper mapper)
+        {
+            var modelFromDb = await GetByIdAsync(changes.Id);
+            mapper.Map(changes, modelFromDb);
+            Repository.Update(modelFromDb);
+            await Storage.SaveChangesAsync();
+        }
+
     }
 }

@@ -4,7 +4,7 @@ using CrowdfindingApp.Common.DataTransfers;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Data.Common.Models;
 
-namespace CrowdfindingApp.Common
+namespace CrowdfindingApp.Common.Mappings
 {
     public class CommonProfile : Profile
     {

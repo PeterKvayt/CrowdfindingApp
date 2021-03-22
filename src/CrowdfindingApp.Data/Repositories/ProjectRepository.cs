@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Extensions;
@@ -85,10 +86,10 @@ namespace CrowdfindingApp.Data.Repositories
                 .ToListAsync();
         }
 
-        public override Task UpdateAsync(Project model)
+        public override Task UpdateAsync(Project model, IMapper mapper)
         {
             model.LastModifiedDateTime = DateTime.UtcNow;
-            return base.UpdateAsync(model);
+            return base.UpdateAsync(model, mapper);
         }
 
         public async Task<Project> GetByIdAsync(Guid projectId, Guid ownerId)
@@ -102,6 +103,30 @@ namespace CrowdfindingApp.Data.Repositories
             project.Status = status;
             Repository.Update(project);
             await Storage.SaveChangesAsync();
+        }
+
+        public async Task<decimal> GetProgressAsync(Guid projectId)
+        {
+            var rewards = await Storage.Rewards.Where(x => x.ProjectId == projectId).ToListAsync();
+            if(rewards?.Any() ?? true)
+            {
+                return 0;
+            }
+
+            var orders = await Storage.Orders.Where(x => rewards.Select(x => x.Id).Contains(x.RewardId)).ToListAsync();
+            if(orders?.Any() ?? true)
+            {
+                return 0;
+            }
+
+            var groupedOrders = orders.GroupBy(x => x.RewardId);
+            decimal progress = 0;
+            foreach(var group in groupedOrders)
+            {
+                progress += group.Count() * rewards.First(x => x.Id == group.Key).Price.Value;
+            }
+
+            return progress;
         }
     }
 }

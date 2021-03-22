@@ -1,0 +1,24 @@
+.little-text{
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+.progress-info-title{
+  position: relative;
+  top: -10px;
+}
+
+.rewards-title{
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.question-wrapper{
+  margin-top: 5px;
+}
+
+.question-header{
+  font-size: 20px;
+  font-weight: 700;
+}

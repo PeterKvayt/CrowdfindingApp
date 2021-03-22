@@ -32,8 +32,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
                 return new ReplyMessageBase();
             }
 
-            project.Status = (int)ProjectStatus.Deleted;
-            await _projectRepository.UpdateAsync(project);
+            await _projectRepository.SetStatus((int)ProjectStatus.Deleted, projectId);
 
             return new ReplyMessageBase();
         }

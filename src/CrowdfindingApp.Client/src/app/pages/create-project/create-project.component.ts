@@ -15,7 +15,7 @@ import { SelectInput } from 'src/app/components/selectors/select/SelectInput';
 import { SelectItem } from 'src/app/components/selectors/select/SelectItem';
 import { RewardCard } from 'src/app/components/reward-card/RewardCard';
 import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
-import { DraftProjectInfo } from 'src/app/models/replies/projects/DraftProjectInfo';
+import { ProjectInfo } from 'src/app/models/replies/projects/ProjectInfo';
 import { RewardInfo } from 'src/app/models/replies/rewards/RewardInfo';
 import { SaveDraftProjectRequestMessage } from 'src/app/models/requests/projects/SaveDraftProjectRequestMessage';
 import { QuestionInfo } from 'src/app/models/replies/projects/QuestionInfo';
@@ -23,7 +23,6 @@ import { DeliveryTypeEnum } from 'src/app/models/enums/DeliveryTypeEnum';
 import { Data } from 'src/app/models/immutable/Data';
 import { ProjectModerationRequestMessage } from 'src/app/models/requests/projects/ProjectModerationRequestMessage';
 import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
-import { ProjectInfo } from 'src/app/models/replies/projects/ProjectInfo';
 import { FileInput } from 'src/app/components/inputs/file-input/FileInput';
 import { FileService } from 'src/app/services/file.service';
 import { SaveImageRequestMessage } from 'src/app/models/requests/files/SaveImageRequestMessage';
@@ -94,6 +93,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   };
 
   // help props
+  public projectPageRoute = Routes.project;
   private selectedCountry: string;
   private selectedCity: string;
   private selectedMonth: string;
@@ -199,7 +199,7 @@ export class CreateProjectComponent extends Base implements OnInit {
         (reply: ReplyMessage<ProjectInfo>) => {
           this.projectCategory = reply.value.categoryId;
           if (reply.value.categoryId) {
-            const category = this.categorySelectInput.list.find(x => x.value === reply.value.categoryId);
+            let category = this.categorySelectInput.list.find(x => x.value === reply.value.categoryId);
             if (category) {
               category.selected = true;
             }
@@ -483,8 +483,8 @@ export class CreateProjectComponent extends Base implements OnInit {
     );
   }
 
-  private getProjectModel(): DraftProjectInfo {
-    const draft: DraftProjectInfo = {
+  private getProjectModel(): ProjectInfo {
+    const draft: ProjectInfo = {
       id: this.projectId,
       categoryId: this.projectCategory,
       title: this.projectNameInput.value,
@@ -492,7 +492,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       fullDescription: this.projectDescriptionInput.value,
       location: this.selectedCity,
       videoUrl: this.projectVideoInput.value,
-      image: this.projectImageInput.fileName ? null : this.projectImageInput.fileName,
+      image: this.projectImageInput.fileName ? this.projectImageInput.fileName : null,
       //startDateTime: null,
       duration: this.projectDurationInput.value ? this.projectDurationInput.value : null,
       budget: this.projectPurposeInput.value ? this.projectPurposeInput.value : null,
@@ -521,7 +521,6 @@ export class CreateProjectComponent extends Base implements OnInit {
         (reply: ReplyMessage<string>) => {
           input.fileName = reply.value;
           this.showLoader = false;
-          console.log(reply.value);
         },
         () => {this.showLoader = false; }
       )

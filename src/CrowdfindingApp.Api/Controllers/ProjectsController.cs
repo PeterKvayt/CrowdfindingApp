@@ -25,6 +25,7 @@ namespace CrowdfindingApp.Api.Controllers
         private readonly SetProjectStatusRequestHandler _setProjectStatusRequestHandler;
         private readonly UnsafeProjectCardSearchRequestHandler _usnafeProjectCardsearchRequestHandler;
         private readonly OpenedProjectCardSearchRequestHandler _openedProjectCardSearchRequestHandler;
+        private readonly GetProjectInfoViewByIdRequestHandler _getProjectInfoViewByIdRequestHandler;
 
         public ProjectsController(IResourceProvider resourceProvider,
             SaveDraftProjectRequestHandler saveDraftProjectRequestHandler,
@@ -38,6 +39,7 @@ namespace CrowdfindingApp.Api.Controllers
             SetProjectStatusRequestHandler setProjectStatusRequestHandler,
             UnsafeProjectCardSearchRequestHandler usnafeProjectCardsearchRequestHandler,
             OpenedProjectCardSearchRequestHandler openedProjectCardSearchRequestHandler,
+            GetProjectInfoViewByIdRequestHandler getProjectInfoViewByIdRequestHandler,
             ProjectSearchRequestHandler projectSearchRequestHandler) : base(resourceProvider)
         {
             _saveDraftProjectRequestHandler = saveDraftProjectRequestHandler ?? throw new ArgumentNullException(nameof(saveDraftProjectRequestHandler));
@@ -52,6 +54,7 @@ namespace CrowdfindingApp.Api.Controllers
             _setProjectStatusRequestHandler = setProjectStatusRequestHandler ?? throw new ArgumentNullException(nameof(setProjectStatusRequestHandler));
             _usnafeProjectCardsearchRequestHandler = usnafeProjectCardsearchRequestHandler ?? throw new ArgumentNullException(nameof(usnafeProjectCardsearchRequestHandler));
             _openedProjectCardSearchRequestHandler = openedProjectCardSearchRequestHandler ?? throw new ArgumentNullException(nameof(openedProjectCardSearchRequestHandler));
+            _getProjectInfoViewByIdRequestHandler = getProjectInfoViewByIdRequestHandler ?? throw new ArgumentNullException(nameof(getProjectInfoViewByIdRequestHandler));
         }
 
         [HttpPost(Endpoints.Project.SetStatus)]
@@ -139,6 +142,14 @@ namespace CrowdfindingApp.Api.Controllers
         public async Task<IActionResult> GetById([FromRoute] string projectId)
         {
             var reply = await _getByIdRequestHandler.HandleAsync(new GetProjectByIdRequestMessage(projectId), User);
+            return Respond(reply);
+        }
+
+        [HttpGet(Endpoints.Project.ProjectView +"/{projectId}")]
+        [Authorize]
+        public async Task<IActionResult> GetViewById([FromRoute] string projectId)
+        {
+            var reply = await _getProjectInfoViewByIdRequestHandler.HandleAsync(new GetProjectByIdRequestMessage(projectId), User);
             return Respond(reply);
         }
     }

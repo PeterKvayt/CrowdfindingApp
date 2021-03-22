@@ -1,8 +1,8 @@
-import { DraftProjectInfo } from '../../replies/projects/DraftProjectInfo';
+import { ProjectInfo } from '../../replies/projects/ProjectInfo';
 
 export class SaveDraftProjectRequestMessage {
   constructor(
-    public data: DraftProjectInfo
+    public data: ProjectInfo
   ) {
 
   }

@@ -8,6 +8,7 @@ using CrowdfindingApp.Common;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Localization;
 using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
+using CrowdfindingApp.Common.Mappings;
 using CrowdfindingApp.Core.Services.FileService;
 using CrowdfindingApp.Core.Services.Projects;
 using CrowdfindingApp.Core.Services.Roles;

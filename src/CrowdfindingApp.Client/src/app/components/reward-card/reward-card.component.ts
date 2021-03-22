@@ -54,4 +54,8 @@ export class RewardCardComponent implements OnInit {
       default: return '';
     }
   }
+
+  // showDeliveryDate(): boolean {
+  //   return this.item.deliveryDate != "Invalid Date"
+  // }
 }

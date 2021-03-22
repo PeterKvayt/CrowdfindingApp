@@ -64,6 +64,10 @@ export class ProjectService {
     return this.http.get(this.controller + id);
   }
 
+  public getViewById(id: string) {
+    return this.http.get(this.controller + 'projectView/' + id);
+  }
+
   public setStatus(status: ProjectStatusEnum, projectId: string) {
     return this.http.post<SetProjectStatusRequestMessage>(this.controller + 'set-status',
       new SetProjectStatusRequestMessage(status, projectId));

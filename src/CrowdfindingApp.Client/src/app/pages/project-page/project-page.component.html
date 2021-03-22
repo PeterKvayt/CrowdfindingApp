@@ -1,0 +1,98 @@
+<div [hidden]='!showLoader' class="global-loader-box">
+  <app-preloader></app-preloader>
+</div>
+
+<ng-container *ngIf='view'>
+
+  <div class="container global-top-padding">
+
+    <div class="row">
+      <div class="col-12">
+        <span class="global-title">{{view.title}}</span>
+      </div>
+      <div class="col-lg-9">
+        <div class="global-img-wrapper">
+          <img class="global-img" [src]='view.image 
+              ? fileService.absoluteFileStoragePath + view.image 
+              : "assets/img/stock-project.png"' alt="project image" />
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="col-12">
+            <span class="global-title ">{{view.progress}} </span>
+            <span class="little-text">BYN</span>
+            <div class="little-text progress-info-title">СОБРАНО</div>
+          </div>
+          <div class="col-12">
+            <span class="global-title ">{{view.budget}} </span>
+            <span class="little-text">BYN</span>
+            <div class="little-text progress-info-title">ЦЕЛЬ ПРОЕКТА</div>
+          </div>
+          <div class="col-12">
+            <span class="global-title ">{{view.restProjectDays}} </span>
+            <span class="little-text">ДНЕЙ</span>
+            <div class="little-text progress-info-title">ДО ОКОНЧАНИЯ СБОРА</div>
+          </div>
+          <div class="col-12">
+            <app-regular-btn value='Поддержать проект'></app-regular-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="global-box">
+          <div class="row">
+            <div class="col-12">
+              <span class="delicate-text">{{view.shortDescription}}</span>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <img class="global-img" [src]='user && user.photo 
+              ? fileService.absoluteFileStoragePath + user.photo
+              : "assets/img/default-avatar.png"' alt="user image" />
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <app-link [value]='getNickName()' [route]='profileRoute + "/" + user.id'></app-link>
+              <div class="little-text">АВТОР ПРОЕКТА</div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <span class="delicate-text">{{view.categoryName ? view.categoryName : 'Категория'}}</span>
+              <div class="little-text">КАТЕГОРИЯ</div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <span class="delicate-text">{{view.locationName ? view.locationName : 'Город'}}</span>
+              <div class="little-text">МЕСТОПОЛОЖЕНИЕ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="global-box">
+          <div class="global-sub-title">Описание</div>
+          <div class="delicate-text">{{view.fullDescription}}</div>
+        </div>
+        <div class="global-box">
+          <div class="global-sub-title">FAQ</div>
+          <div class="question-wrapper" *ngFor='let question of view.questions'>
+            <div class="question-header">{{question.question}}</div>
+            <div class="delicate-text">{{question.answer}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="rewards-title">
+          <span>ВОЗНАГРАЖДЕНИЯ</span>
+        </div>
+        <div class="row">
+          <app-reward-card *ngFor='let reward of view.rewards' [item]='getRewardCardFromInfo(reward)'></app-reward-card>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ng-container>

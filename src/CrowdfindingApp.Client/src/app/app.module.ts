@@ -51,6 +51,7 @@ import { FileService } from './services/file.service';
 import { PagingComponent } from './components/paging/paging.component';
 import { ModerationListComponent } from './pages/moderation-list/moderation-list.component';
 import { Roles } from './models/immutable/Roles';
+import { ProjectPageComponent } from './pages/project-page/project-page.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { Roles } from './models/immutable/Roles';
     RewardCardComponent,
     FileInputComponent,
     PagingComponent,
-    ModerationListComponent
+    ModerationListComponent,
+    ProjectPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -107,11 +109,9 @@ import { Roles } from './models/immutable/Roles';
       { path: Routes.projectRules, component: CreateProjectRulesComponent },
       { path: Routes.projectCreate, component: CreateProjectComponent, canActivate: [AuthenticationGuardService] },
       { path: Routes.projectEdit + '/:projectId', component: CreateProjectComponent, canActivate: [AuthenticationGuardService] },
-      { path: Routes.moderationList,
-        component: ModerationListComponent,
-        canActivate: [AuthenticationGuardService],
-        data: { role: Roles.admin }
-      },
+      { path: Routes.moderationList,  component: ModerationListComponent,  canActivate: [AuthenticationGuardService],
+        data: { role: Roles.admin } },
+      { path: Routes.project + '/:projectId', component: ProjectPageComponent, canActivate: [AuthenticationGuardService] },
       { path: Routes.profile, component: ProfileComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/projects', component: ProfileProjectsComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/info', component: ProfileInfoComponent, canActivate: [AuthenticationGuardService] },

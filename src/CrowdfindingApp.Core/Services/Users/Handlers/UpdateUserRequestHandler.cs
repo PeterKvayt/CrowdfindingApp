@@ -69,21 +69,9 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
         {
             var userSnapshot = _mapper.Map<User>(request);
 
-            PrepareUser(userSnapshot, userForUpdate);
-
-            await _userRepository.UpdateAsync(userForUpdate);
+            await _userRepository.UpdateAsync(userSnapshot, _mapper);
 
             return new ReplyMessageBase();
-        }
-
-        private void PrepareUser(User snapshot, User user)
-        {
-            user.UserName = snapshot.UserName;
-            user.Email = snapshot.Email;
-            user.Name = snapshot.Name;
-            user.Surname = snapshot.Surname;
-            user.MiddleName = snapshot.MiddleName;
-            user.Image = snapshot.Image;
         }
     }
 }

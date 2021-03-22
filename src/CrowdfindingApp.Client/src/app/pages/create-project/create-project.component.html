@@ -1,11 +1,11 @@
-<div [hidden]='!showLoader' class="global-loader-box">
+<div [hidden]='!showLoader' class="global-loader-global-box">
   <app-preloader></app-preloader>
 </div>
 
 <div class="container global-top-padding">
   <div class="row">
     <div class="col-12">
-      <h2 class="title">Создание проекта</h2>
+      <h2 class="global-title">Создание проекта</h2>
     </div>
 
     <!--  Tab btns -->
@@ -29,16 +29,16 @@
     <ng-container *ngIf='generalInfoTab.isActive'>
       <div class="col-8 tab-inner">
 
-        <div class="box">
-          <span class="sub-title">Название проекта</span>
+        <div class="global-box">
+          <span class="global-sub-title">Название проекта</span>
           <app-text-input [item]='projectNameInput' (valueChange)='onProjectNameChange()'></app-text-input>
           <div class="delicate-text">Название должно быть лаконичным, уникальным и запоминающимся. Будьте уверены в том,
             что название проекта отражает его суть.
           </div>
         </div>
 
-        <div class="box">
-          <span class="sub-title">Краткое описание проекта</span>
+        <div class="global-box">
+          <span class="global-sub-title">Краткое описание проекта</span>
           <app-text-area [item]='projectShortDescriptionInput' (valueChange)='onProjectShortDecriptionChange()'>
           </app-text-area>
           <div class="delicate-text">
@@ -46,18 +46,18 @@
           </div>
         </div>
 
-        <div class="box">
-          <span class="sub-title">Категория проекта</span>
+        <div class="global-box">
+          <span class="global-sub-title">Категория проекта</span>
           <app-select [item]='categorySelectInput' (selectedValue)='onCategorySelect($event)'></app-select>
         </div>
 
-        <div class="box">
-          <span class="sub-title">Город реализации</span>
+        <div class="global-box">
+          <span class="global-sub-title">Город реализации</span>
           <app-select [item]='citiesSelectInput' (selectedValue)='onCitySelect($event)'></app-select>
         </div>
 
-        <div class="box">
-          <span class="sub-title">Обложка проекта</span>
+        <div class="global-box">
+          <span class="global-sub-title">Обложка проекта</span>
           <div class="global-img-wrapper">
             <img class="global-img" [src]='projectImageInput.fileName && projectImageInput.fileName !== "assets/img/stock-project.jpg" 
                 ? fileService.absoluteFileStoragePath + projectImageInput.fileName 
@@ -66,16 +66,16 @@
           <app-file-input [item]='projectImageInput' (change)='onImageUpload(projectImageInput)'></app-file-input>
         </div>
 
-        <div class="box">
-          <span class="sub-title">Видео проекта</span>
+        <div class="global-box">
+          <span class="global-sub-title">Видео проекта</span>
           <app-text-input [item]='projectVideoInput'></app-text-input>
           <div class="delicate-text">Вам необходимо предварительно загрузить свое видео на YouTube, а затем нажать на
             кнопку поделиться и скопировать сюда ссылку.
           </div>
         </div>
 
-        <div class="box">
-          <span class="sub-title">Бюджет и продолжительность компании</span>
+        <div class="global-box">
+          <span class="global-sub-title">Бюджет и продолжительность компании</span>
           <app-decimal-input [item]='projectPurposeInput' (valueChange)='onProjectPurposeChange()'></app-decimal-input>
           <app-decimal-input [item]='projectDurationInput'></app-decimal-input>
           <div class="delicate-text">Мы рекомендуем указывать минимальную сумму, необходимую для реализации проекта.
@@ -102,12 +102,16 @@
             (click)='toStartClick()'>
           </app-regular-btn>
         </ng-container>
+        <ng-container *ngIf='projectId'>
+          <app-regular-btn [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр' fluid='true' icoBefore='true' ico='fas fa-rocket'>
+          </app-regular-btn>
+        </ng-container>
         <div class="row">
           <div class="col">
             <app-project-card [card]='projectCard'></app-project-card>
           </div>
         </div>
-        <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
+        <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Зачем записывать видео?'
           body='Видео-обращение значительно повысит ваши шансы на успех. Это эффективный инструмент, который позволит лично обратиться к потенциальным спонсорам, рассказать о проекте и призвать к действию.'>
         </app-collapse>
@@ -118,15 +122,15 @@
     <ng-container *ngIf='rewardsTab.isActive'>
       <div class="col-8 tab-inner">
 
-        <div class="box">
-          <span class="sub-title">Новое вознаграждение</span>
+        <div class="global-box">
+          <span class="global-sub-title">Новое вознаграждение</span>
           <app-text-input [item]='rewardNameInput'></app-text-input>
           <app-decimal-input [item]='rewardCostInput'></app-decimal-input>
           <app-text-area [item]='rewardDescriptionInput'></app-text-area>
         </div>
 
-        <div class="box">
-          <span class="sub-title">Выбор изображения</span>
+        <div class="global-box">
+          <span class="global-sub-title">Выбор изображения</span>
           <div class="delicate-text">
             Загружать изображение для вознаграждения необязательно, но оно привлекает внимание, что может помочь вам
             собрать нужную сумму.
@@ -139,14 +143,14 @@
           <app-file-input [item]='rewardImageInput' (change)='onImageUpload(rewardImageInput)'></app-file-input>
         </div>
 
-        <div class="box">
-          <span class="sub-title">Примерная дата доставки</span>
+        <div class="global-box">
+          <span class="global-sub-title">Примерная дата доставки</span>
           <app-month-select (selectedValue)='onMonthSelect($event)'></app-month-select>
           <app-year-selector (selectedValue)='onYearSelect($event)' [yearsCount]='3'></app-year-selector>
         </div>
 
-        <div class="box">
-          <span class="sub-title">География доставки</span>
+        <div class="global-box">
+          <span class="global-sub-title">География доставки</span>
 
           <div (click)='onDeliverySubTabClick(withoutDeliverySubTab)'>
             <span class="delicate-text"> Доставка отсутствует</span>
@@ -186,8 +190,8 @@
 
         </div>
 
-        <div class="box">
-          <span class="sub-title">Количество</span>
+        <div class="global-box">
+          <span class="global-sub-title">Количество</span>
           <div class="delicate-text">
             Если у вознаграждения есть ограничение по количеству, то укажите его.
           </div>
@@ -210,7 +214,7 @@
             (click)='toStartClick()'>
           </app-regular-btn>
         </ng-container>
-        <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
+        <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Что такое лоты?'
           body='Лоты – это продукты, которые вы предлагаете в рамках крауд-кампании. Это то, ради чего люди перечисляют деньги в ваш проект.'>
         </app-collapse>
@@ -230,8 +234,8 @@
     <ng-container *ngIf='descriptionTab.isActive'>
       <div class="col-8 tab-inner">
 
-        <div class="box">
-          <span class="sub-title">Описание проекта</span>
+        <div class="global-box">
+          <span class="global-sub-title">Описание проекта</span>
           <div class="delicate-text">
             Начните с представления себя, своей команды, а также с предыстории проекта. Далее опишите суть и цель
             проекта,
@@ -248,8 +252,8 @@
           <app-text-area [item]='projectDescriptionInput'></app-text-area>
         </div>
 
-        <div class="box">
-          <span class="sub-title">Частые вопросы</span>
+        <div class="global-box">
+          <span class="global-sub-title">Частые вопросы</span>
           <app-text-input [item]='questionInput'></app-text-input>
           <app-text-area [item]='answerInput'></app-text-area>
           <app-regular-btn value='Добавить вопрос' (click)='onQuestionAddClick()'></app-regular-btn>
@@ -276,7 +280,7 @@
             (click)='toStartClick()'>
           </app-regular-btn>
         </ng-container>
-        <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
+        <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Что должно быть в описании?'
           body='Специально для вас мы подготовили рекомендации для написания грамотного и эффективного описания.'>
         </app-collapse>
@@ -290,8 +294,8 @@
     <ng-container *ngIf='ownerInfoTab.isActive'>
       <div class="col-8 tab-inner">
 
-        <div class="box">
-          <span class="sub-title">Личные данные</span>
+        <div class="global-box">
+          <span class="global-sub-title">Личные данные</span>
           <div class="delicate-text">
             Чтобы платформа могла заключить с вами договор, необходимо заполнить паспортные данные. Информация, которую
             вы
@@ -328,7 +332,7 @@
             (click)='toStartClick()'>
           </app-regular-btn>
         </ng-container>
-        <span class="sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
+        <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Зачем вводить номер счета?'
           body='Номер счета необходим для перечисления средств в случае успеха вашей краудфандинговой кампании. '>
         </app-collapse>
