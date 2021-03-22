@@ -17,6 +17,8 @@ import { PagingInfo } from 'src/app/models/common/PagingInfo';
 import { PagedReplyMessage } from 'src/app/models/replies/common/PagedReplyMessage';
 import { PagingControl } from 'src/app/components/paging/PagingControl';
 import { Roles } from 'src/app/models/immutable/Roles';
+import { GenericLookupItem } from 'src/app/models/common/GenericLookupItem';
+import { LookupItem } from 'src/app/models/common/LookupItem';
 
 @Component({
   selector: 'app-profile',
@@ -45,6 +47,9 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   public userInfo: UserInfo;
+  private toAdmin = 'Сделать администратором';
+  private toDefaultUser = 'Сделать пользователем';
+  public roleEditTitle = new GenericLookupItem<string, string>();
 
   public ngOnInit(): void {
     this.titleService.setTitle('Профиль');
@@ -75,7 +80,8 @@ export class ProfileComponent extends Base implements OnInit {
       this.userService.getById(userId).subscribe(
         (reply: ReplyMessage<UserInfo>) => {
           this.userInfo = reply.value;
-          this.showLoader = false;
+          this.editRoleTitle(this.userInfo.role);
+           this.showLoader = false;
         },
         () => { this.showLoader = false; }
       )
@@ -189,5 +195,26 @@ export class ProfileComponent extends Base implements OnInit {
 
   onToModerationClick() {
     this.redirect(Routes.moderationList);
+  }
+
+  editRoleTitle(roleName: string) {
+    console.log(roleName);
+    if (roleName === Roles.defaultUser) {
+      this.roleEditTitle.key = Roles.admin;
+      this.roleEditTitle.value = this.toAdmin;
+    } else {
+      this.roleEditTitle.key = Roles.defaultUser;
+      this.roleEditTitle.value = this.toDefaultUser;
+    }
+  }
+
+  onRoleEditClick() {
+    this.subscriptions.add(
+      this.userService.editRole(this.currentUserId, this.roleEditTitle.key).subscribe(
+        () => {
+          this.editRoleTitle(this.roleEditTitle.key);
+        }
+      )
+    );
   }
 }

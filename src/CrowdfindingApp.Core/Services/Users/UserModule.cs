@@ -33,6 +33,7 @@ namespace CrowdfindingApp.Core.Services.Users
             builder.RegisterType<UpdateUserRequestHandler>().AsSelf();
             builder.RegisterType<ChangePasswordRequestHandler>().AsSelf();
             builder.RegisterType<GetUserInfoByIdRequestHandler>().AsSelf();
+            builder.RegisterType<EditUserRoleRequestHandler>().AsSelf();
         }
     }
 }

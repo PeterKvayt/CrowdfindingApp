@@ -21,6 +21,7 @@ namespace CrowdfindingApp.Api.Controllers
         private readonly UpdateUserRequestHandler _updateUserRequestHandler;
         private readonly ChangePasswordRequestHandler _changePasswordRequestHandler;
         private readonly GetUserInfoByIdRequestHandler _getUserInfoByIdRequestHandler;
+        private readonly EditUserRoleRequestHandler _editUserRoleRequestHandler;
 
         public UsersController(GetTokenRequestHandler tokenHandler,
             RegisterRequestHandler registerHandler,
@@ -29,6 +30,7 @@ namespace CrowdfindingApp.Api.Controllers
             ResetPasswordRequestHandler resetPasswordRequestHandler,
             GetUserInfoRequestHandler getUserInfoRequestHandler,
             UpdateUserRequestHandler updateUserRequestHandler,
+            EditUserRoleRequestHandler editUserRoleRequestHandler,
             GetUserInfoByIdRequestHandler getUserInfoByIdRequestHandler,
             ChangePasswordRequestHandler changePasswordRequestHandler) : base(resourceProvider)
         {
@@ -40,6 +42,7 @@ namespace CrowdfindingApp.Api.Controllers
             _updateUserRequestHandler = updateUserRequestHandler ?? throw new ArgumentNullException(nameof(updateUserRequestHandler));
             _changePasswordRequestHandler = changePasswordRequestHandler ?? throw new ArgumentNullException(nameof(changePasswordRequestHandler));
             _getUserInfoByIdRequestHandler = getUserInfoByIdRequestHandler ?? throw new ArgumentNullException(nameof(getUserInfoByIdRequestHandler));
+            _editUserRoleRequestHandler = editUserRoleRequestHandler ?? throw new ArgumentNullException(nameof(editUserRoleRequestHandler));
         }
 
         /// <summary>
@@ -124,6 +127,17 @@ namespace CrowdfindingApp.Api.Controllers
         public async Task<IActionResult> ChangePasswordAsync(ChangePasswordRequestMessage request)
         {
             var reply = await _changePasswordRequestHandler.HandleAsync(request, User);
+            return Respond(reply);
+        }
+
+        /// <summary>
+        /// Edit role.
+        /// </summary>
+        [HttpPut(Endpoints.User.EditRole)]
+        [Authorize(Roles = nameof(Roles.Admin))]
+        public async Task<IActionResult> EditRoleAsync(EditUserRoleRequestMessage request)
+        {
+            var reply = await _editUserRoleRequestHandler.HandleAsync(request, User);
             return Respond(reply);
         }
     }

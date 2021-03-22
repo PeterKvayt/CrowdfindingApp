@@ -13,6 +13,7 @@ namespace CrowdfindingApp.Common.Immutable
             public const string UpdateUser = "user-info";
             public const string ChangePassword = "change-password";
             public const string EmailConfirmation = "confirm-email";
+            public const string EditRole = nameof(EditRole);
         }
 
         public static class Project

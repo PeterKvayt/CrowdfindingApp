@@ -29,19 +29,23 @@
               </div>
             </div>
 
-            <ng-container *ngIf='isMyProfile'>
+            <ng-container *ngIf='isMyProfile || authService.isAdmin()'>
               <div class="col-12">
                 <div class="row">
   
                   <div class="col-lg-6 col-md-6 col-sm-12">
                     <app-regular-btn value='Редактировать данные' ico='fas fa-cog' fluid='true'></app-regular-btn>
                   </div>
-                  <div *ngIf='!authService.isAdmin()' class="col-lg-6 col-md-5"></div>
-                  <div *ngIf='authService.isAdmin()' class="col-lg-6 col-md-6 col-sm-12">
+                  <div *ngIf='!authService.isAdmin() && isMyProfile' class="col-lg-6 col-md-5"></div>
+                  <div *ngIf='authService.isAdmin() && isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
                       <app-regular-btn value='Ожидающие модерации' ico='fas fa-sign-out-alt' (click)='onToModerationClick()'
                         fluid='true'></app-regular-btn>
                     </div>
-                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div *ngIf='authService.isAdmin() && !isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
+                        <app-regular-btn [value]='roleEditTitle.value' ico='fas fa-sign-out-alt' (click)='onRoleEditClick()'
+                          fluid='true'></app-regular-btn>
+                      </div>
+                  <div *ngIf='isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
                     <app-regular-btn value='Выйти из учетной записи' ico='fas fa-sign-out-alt' (click)='onSignOutClick()'
                       fluid='true'></app-regular-btn>
                   </div>

@@ -5,6 +5,7 @@ import { ResetPasswordRequestMessage } from '../models/requests/users/ResetPassw
 import { RegisterRequestMessage } from '../models/requests/users/RegisterRequestMessage';
 import { UpdateUserRequestMessage } from '../models/requests/users/UpdateUserRequestMessage';
 import { ChangePasswordRequestMessage } from '../models/requests/users/ChangePasswordRequestMessage';
+import { EditRoleRequestMessage } from '../models/requests/users/EditRoleRequestMessage';
 
 @Injectable()
 export class UserService {
@@ -45,5 +46,9 @@ export class UserService {
 
   public changePassword(model: ChangePasswordRequestMessage) {
     return this.http.put<ChangePasswordRequestMessage>(this.controller + 'change-password', model);
+  }
+
+  public editRole(userId: string, roleName: string) {
+    return this.http.put<EditRoleRequestMessage>(this.controller + 'editRole', new EditRoleRequestMessage(userId, roleName));
   }
 }
