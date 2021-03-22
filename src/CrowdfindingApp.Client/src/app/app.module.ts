@@ -52,6 +52,8 @@ import { PagingComponent } from './components/paging/paging.component';
 import { ModerationListComponent } from './pages/moderation-list/moderation-list.component';
 import { Roles } from './models/immutable/Roles';
 import { ProjectPageComponent } from './pages/project-page/project-page.component';
+import { AllProjectsComponent } from './pages/all-projects/all-projects.component';
+import { CategoryItemComponent } from './components/category-item/category-item.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +94,9 @@ import { ProjectPageComponent } from './pages/project-page/project-page.componen
     FileInputComponent,
     PagingComponent,
     ModerationListComponent,
-    ProjectPageComponent
+    ProjectPageComponent,
+    AllProjectsComponent,
+    CategoryItemComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -102,6 +106,7 @@ import { ProjectPageComponent } from './pages/project-page/project-page.componen
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: Routes.signIn, component: SignInComponent },
       { path: Routes.signUp, component: SignUpComponent },
+      { path: Routes.allProjects, component: AllProjectsComponent },
       { path: Routes.forgotPassword, component: ForgotPasswordComponent },
       { path: Routes.resetPassword, component: ResetPasswordComponent },
       { path: Routes.emailConfirmation, component: EmailConfirmationComponent },

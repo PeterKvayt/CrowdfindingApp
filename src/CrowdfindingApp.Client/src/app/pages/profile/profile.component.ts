@@ -198,8 +198,7 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   editRoleTitle(roleName: string) {
-    console.log(roleName);
-    if (roleName === Roles.defaultUser) {
+     if (roleName === Roles.defaultUser) {
       this.roleEditTitle.key = Roles.admin;
       this.roleEditTitle.value = this.toAdmin;
     } else {
