@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ProjectCard } from './ProjectCard';
 import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
 import { FileService } from 'src/app/services/file.service';
 import { AuthenticationService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
+import { Routes } from 'src/app/models/immutable/Routes';
 
 
 @Component({
@@ -14,9 +16,9 @@ export class ProjectCardComponent implements OnInit {
 
   constructor(
     private fileService: FileService,
+    public router: Router,
     private authService: AuthenticationService
   ) { }
-  
   @Input() editable: boolean;
   @Input() card: ProjectCard;
 
@@ -25,6 +27,7 @@ export class ProjectCardComponent implements OnInit {
 
   public columnClass: string;
   public imageUrl = 'assets/img/stock-project.png';
+  private emitterTriggered = false;
 
   public ngOnInit(): void {
     this.setImagePath();
@@ -67,11 +70,31 @@ export class ProjectCardComponent implements OnInit {
     }
   }
 
+  getHoverTitle() {
+    switch (this.card.status) {
+      case ProjectStatusEnum.Active: return 'ПОДДЕРЖАТЬ';
+      case ProjectStatusEnum.Complited: return 'ПРОСМОТРЕТЬ';
+      case ProjectStatusEnum.Draft: return 'ПРОСМОТРЕТЬ';
+      case ProjectStatusEnum.Moderation: return 'ПРОСМОТРЕТЬ';
+      case ProjectStatusEnum.Stopped: return 'ПРОСМОТРЕТЬ';
+      default:
+        break;
+    }
+  }
+
   public onDeleteClick() {
+    this.emitterTriggered = true;
     this.deleteClick.emit();
   }
 
   public onEditClick() {
+    this.emitterTriggered = true;
     this.editClick.emit();
+  }
+
+  onCardClick() {
+    if (this.card.id && !this.emitterTriggered) {
+      this.router.navigate([Routes.project + '/' + this.card.id]);
+    }
   }
 }
