@@ -55,6 +55,7 @@ import { ProjectPageComponent } from './pages/project-page/project-page.componen
 import { AllProjectsComponent } from './pages/all-projects/all-projects.component';
 import { CategoryItemComponent } from './components/category-item/category-item.component';
 import { RewardsPageComponent } from './pages/rewards-page/rewards-page.component';
+import { RewardService } from './services/reward.service';
 
 @NgModule({
   declarations: [
@@ -138,6 +139,7 @@ import { RewardsPageComponent } from './pages/rewards-page/rewards-page.componen
     MessageService,
     HttpService,
     UserService,
+    RewardService,
     ProjectService,
     FileService,
     AuthenticationGuardService,

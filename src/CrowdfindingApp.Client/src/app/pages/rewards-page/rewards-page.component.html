@@ -1,1 +1,12 @@
-<p>rewards-page works!</p>
+<div [hidden]='!showLoader' class="global-loader-box">
+  <app-preloader></app-preloader>
+</div>
+
+<div class="container global-top-padding">
+  <div class="row">
+    <div class="col-12 global-title">Вознаграждения</div>
+    <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let reward of rewards'>
+      <app-reward-card [item]='getCard(reward)' (buyClick)='onBuyClick(reward)' [showBuyOption]='true'></app-reward-card>
+    </div>
+  </div>
+</div>

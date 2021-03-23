@@ -12,9 +12,11 @@ export class RewardCardComponent implements OnInit {
 
   @Input() item: RewardCard;
   @Input() editable: boolean;
+  @Input() showBuyOption: boolean;
 
   @Output() changeClick = new EventEmitter();
   @Output() deleteClick = new EventEmitter();
+  @Output() buyClick = new EventEmitter();
 
   public deliveryTypeName: string;
   public imageUrl: string = 'assets/img/stock-reward.jpg';
@@ -55,7 +57,7 @@ export class RewardCardComponent implements OnInit {
     }
   }
 
-  // showDeliveryDate(): boolean {
-  //   return this.item.deliveryDate != "Invalid Date"
-  // }
+  onBuyClick() {
+    this.buyClick.emit();
+  }
 }

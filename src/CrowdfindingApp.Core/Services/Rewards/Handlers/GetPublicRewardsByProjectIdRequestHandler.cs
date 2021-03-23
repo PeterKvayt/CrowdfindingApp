@@ -42,7 +42,7 @@ namespace CrowdfindingApp.Core.Services.Rewards.Handlers
                 return reply;
             }
             var project = await _projectRepository.GetByIdAsync(new Guid(requestMessage.ProjectId));
-            if(project == null || project.Status == (int)ProjectStatus.Active)
+            if(project == null || project.Status != (int)ProjectStatus.Active)
             {
                 reply.AddObjectNotFoundError();
                 return reply;
@@ -82,7 +82,7 @@ namespace CrowdfindingApp.Core.Services.Rewards.Handlers
             {
                 return;
             }
-            reward.Image = $"{Configuration["FileStorageConfiguration:PermanentFolderName"]}/Projects/{reward.Id}/{reward.Image}";
+            reward.Image = $"{Configuration["FileStorageConfiguration:PermanentFolderName"]}/Projects/{reward.ProjectId}/{reward.Image}";
         }
     }
 }

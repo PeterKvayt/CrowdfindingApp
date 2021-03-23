@@ -21,7 +21,7 @@ namespace CrowdfindingApp.Api.Controllers
             _getPublicRewardsByProjectIdRequestHandler = getPublicRewardsByProjectIdRequestHandler ?? throw new NullReferenceException(nameof(getPublicRewardsByProjectIdRequestHandler));
         }
 
-        [HttpPost(Endpoints.Reward.GetByProjectId + "/{projectId}")]
+        [HttpGet(Endpoints.Reward.GetByProjectId + "/{projectId}")]
         public async Task<IActionResult> Search([FromRoute] string projectId)
         {
             var reply = await _getPublicRewardsByProjectIdRequestHandler.HandleAsync(new GetPublicRewardsByProjectIdRequestMessage(projectId), User);

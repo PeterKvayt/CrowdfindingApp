@@ -1,5 +1,3 @@
-<div class="col-12">
-
   <div class="reward-card-box">
 
     <img class="reward-img" [src]='imageUrl' />
@@ -47,8 +45,13 @@
           </div>
         </div>
       </ng-container>
+      <ng-container *ngIf='showBuyOption'>
+          <div class="row">
+            <div class="col">
+              <app-link empty value='Приобрести' (click)='onBuyClick()'></app-link>
+            </div>
+          </div>
+        </ng-container>
 
     </div>
   </div>
-
-</div>
