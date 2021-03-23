@@ -2,7 +2,7 @@
 using CrowdfindingApp.Common.Mappings;
 using CrowdfindingApp.Data.Common.BusinessModels;
 
-namespace CrowdfindingApp.Core.Services.Projects.Mappings
+namespace CrowdfindingApp.Core.Services.Rewards.Mappings
 {
     public class RewardProfile : ProfileBase<Reward>
     {

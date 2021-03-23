@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace CrowdfindingApp.Api.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("[controller]")]
     public class FilesController : BaseController
     {
@@ -24,6 +23,7 @@ namespace CrowdfindingApp.Api.Controllers
             _saveImageRequestHandler = saveImageRequestHandler ?? throw new NullReferenceException(nameof(saveImageRequestHandler));
         }
 
+        [Authorize]
         [DisableRequestSizeLimit]
         [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
         [HttpPut(Endpoints.Files.SaveImage)]
