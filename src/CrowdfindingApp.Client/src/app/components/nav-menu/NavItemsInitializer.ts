@@ -10,7 +10,6 @@ export class NavItemInitializer {
       this.helpNav,
       this.searchNav,
     ];
-    
     this.rightNavs = [
       this.profileNav,
       this.signInNav,
@@ -20,7 +19,7 @@ export class NavItemInitializer {
   public centralNavs: NavItem[];
   public rightNavs: NavItem[];
 
-  public allProjectsNav = new NavItem('Все проекты', 'all-projects', 'fas fa-stream', true );
+  public allProjectsNav = new NavItem('Все проекты', Routes.allProjects, 'fas fa-stream', true );
   public createProjectNav = new NavItem('Правила проекта', Routes.projectRules, 'fas fa-book-open', true );
   public helpNav = new NavItem('Помощь', 'help', 'fas fa-info', true );
   public searchNav = new NavItem('Поиск', 'search', 'fas fa-search', true );

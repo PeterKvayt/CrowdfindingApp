@@ -4,11 +4,10 @@ import { PagingInfo } from 'src/app/models/common/PagingInfo';
 import { PagingControl } from './PagingControl';
 import { ProjectCard } from '../project-card/ProjectCard';
 import { GenericLookupItem } from 'src/app/models/common/GenericLookupItem';
-import { ProjectFilterInfo } from 'src/app/models/replies/projects/ProjectFilterInfo';
 import { ProjectSearchRequestMessage } from 'src/app/models/requests/projects/ProjectSearchRequestMessage';
-import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
 import { PagedReplyMessage } from 'src/app/models/replies/common/PagedReplyMessage';
 import { Subscription } from 'rxjs';
+import { GetFuncEnum } from 'src/app/models/enums/GetFuncEnum';
 
 @Component({
   selector: 'app-paging',
@@ -18,6 +17,7 @@ import { Subscription } from 'rxjs';
 export class PagingComponent implements OnInit, OnDestroy {
 
   @Input() control: PagingControl<ProjectCard>;
+  @Input() getFuncType: GetFuncEnum;
   @Input() loadingOn: boolean;
 
   constructor(
@@ -50,14 +50,18 @@ export class PagingComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  isNormalCount(): boolean {
-    return this.pageCount <= 12;
-  }
+  // isNormalCount(): boolean {
+  //   return this.pageCount <= 12;
+  // }
 
   getPageCount(): number {
     if (!this.control) { return 1; }
     if (this.control.paging.pageSize <= 0) { this.control.paging.pageSize = 9; }
-    return Math.ceil(this.control.paging.totalCount / this.control.paging.pageSize);
+    if (this.control.paging.totalCount) {
+      return Math.ceil(this.control.paging.totalCount / this.control.paging.pageSize);
+    } else {
+      return 1;
+    }
   }
 
   onPageClick(item: GenericLookupItem<number, string>) {
@@ -96,13 +100,40 @@ export class PagingComponent implements OnInit, OnDestroy {
       filter: this.control.filter,
       paging: new PagingInfo(this.control.paging.pageNumber, this.control.paging.pageSize)
      };
-    this.subscriptions.add(
-      this.projectService.ownerProjects(request).subscribe(
-        (reply: PagedReplyMessage<ProjectCard[]>) => {
-          this.control.collection = reply.value;
-          this.control.paging = reply.paging;
-        }
-      )
-    );
+     switch (this.getFuncType) {
+       case GetFuncEnum.opened: {
+         this.subscriptions.add(
+           this.projectService.openedProjects(request).subscribe(
+             (reply: PagedReplyMessage<ProjectCard[]>) => {
+               this.control.collection = reply.value;
+               this.control.paging = reply.paging;
+             }
+           )
+         );
+         break;
+       }
+       case GetFuncEnum.search: {
+        this.subscriptions.add(
+          this.projectService.search(request).subscribe(
+            (reply: PagedReplyMessage<ProjectCard[]>) => {
+              this.control.collection = reply.value;
+              this.control.paging = reply.paging;
+            }
+          )
+        );
+        break;
+      }
+       default:{
+          this.subscriptions.add(
+            this.projectService.ownerProjects(request).subscribe(
+              (reply: PagedReplyMessage<ProjectCard[]>) => {
+                this.control.collection = reply.value;
+                this.control.paging = reply.paging;
+              }
+            )
+          );
+          break;
+       }
+     }
   }
 }
