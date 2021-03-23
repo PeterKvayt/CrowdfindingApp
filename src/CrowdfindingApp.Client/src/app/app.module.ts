@@ -56,6 +56,7 @@ import { AllProjectsComponent } from './pages/all-projects/all-projects.componen
 import { CategoryItemComponent } from './components/category-item/category-item.component';
 import { RewardsPageComponent } from './pages/rewards-page/rewards-page.component';
 import { RewardService } from './services/reward.service';
+import { CreateOrderPageComponent } from './pages/create-order-page/create-order-page.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { RewardService } from './services/reward.service';
     ProjectPageComponent,
     AllProjectsComponent,
     CategoryItemComponent,
-    RewardsPageComponent
+    RewardsPageComponent,
+    CreateOrderPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -117,6 +119,7 @@ import { RewardService } from './services/reward.service';
       { path: Routes.emailConfirmed, component: EmailConfirmedComponent },
       { path: Routes.projectRules, component: CreateProjectRulesComponent },
       { path: Routes.projectCreate, component: CreateProjectComponent, canActivate: [AuthenticationGuardService] },
+      { path: Routes.order + '/:rewardId', component: CreateOrderPageComponent, canActivate: [AuthenticationGuardService] },
       { path: Routes.projectEdit + '/:projectId', component: CreateProjectComponent, canActivate: [AuthenticationGuardService] },
       { path: Routes.moderationList,  component: ModerationListComponent,  canActivate: [AuthenticationGuardService],
         data: { role: Roles.admin } },

@@ -6,4 +6,5 @@ export class TextInput {
   public max?: number;
   public min?: number;
   public valid?: boolean;
+  public example?: string;
 }

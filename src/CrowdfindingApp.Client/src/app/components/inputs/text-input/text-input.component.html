@@ -10,7 +10,7 @@
     [ngModel]='item.value' 
     (ngModelChange)='onValueChange($event)' 
     class="form-control" />
-
+  <div *ngIf='item.example'>{{item.example}}</div>
   <span *ngIf='!item.valid' class="text-danger">{{item.errorText}}</span>
 
 </div>

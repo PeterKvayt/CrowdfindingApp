@@ -6,6 +6,7 @@ import { RewardService } from 'src/app/services/reward.service';
 import { ReplyMessage } from 'src/app/models/replies/common/ReplyMessage';
 import { RewardInfo } from 'src/app/models/replies/rewards/RewardInfo';
 import { RewardCard } from 'src/app/components/reward-card/RewardCard';
+import { Routes } from 'src/app/models/immutable/Routes';
 
 @Component({
   selector: 'app-rewards-page',
@@ -58,7 +59,8 @@ export class RewardsPageComponent extends Base implements OnInit {
   }
 
   onBuyClick(reward: RewardInfo) {
-    console.log(reward.id);
+    console.log(this.rewards[0].getCard);
+    this.redirect(Routes.order + '/' + reward.id);
   }
 
 }

@@ -14,6 +14,7 @@ export class Routes {
   public static profile = 'profile';
   public static profileProjects = 'profile/projects';
   public static rewards = 'project/:projectId/rewards';
+  public static order = 'project/support';
   // public static signIn = 'profile/create-project';
   // public static signIn = 'profile/info';
   // public static signIn = 'profile/security';

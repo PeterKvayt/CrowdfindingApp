@@ -1,0 +1,62 @@
+<div [hidden]='!showLoader' class="global-loader-global-box">
+  <app-preloader></app-preloader>
+</div>
+
+<div class="container global-top-padding">
+  <div class="row">
+    <div class="col-12 global-title">Подтверждение заказа</div>
+    <div class="col-lg-8">
+      <div class="row">
+          <div class="col-12 global-sub-title">Оформление количества</div>
+          <div class="col-lg-6 col-12">
+            <app-decimal-input [item]='countInput'></app-decimal-input>
+          </div>
+        <ng-container *ngIf='hasDelivery()'>
+          <div class="col-12 global-sub-title">Оформление доставки</div>
+          <div class="col-12">
+            <app-text-input [item]='surnameInput'></app-text-input>
+          </div>
+          <div class="col-lg-6 col-12">
+            <app-text-input [item]='nameInput'></app-text-input>
+          </div>
+          <div class="col-lg-6 col-12">
+            <app-text-input [item]='middleNameInput'></app-text-input>
+          </div>
+          <div class="col-lg-6 col-12">
+            <app-select [item]='countrySelect'></app-select>
+          </div>
+          <div class="col-lg-6 col-12">
+            <app-text-input [item]='postIndexInput'></app-text-input>
+          </div>
+        </ng-container>
+        <div class="col-12">
+          <div class="global-box ">
+            <p class="delicate-text">
+              «Poless Invest» не является магазином. Это способ реализовывать творческие проекты. Ответственность за
+              исполнение обязательств полностью лежит на авторе проекта. «Poless Invest» не гарантирует реализацию проекта
+              и не оценивает способность автора справиться с данными обещаниями. Подробнее о работе «Poless Invest» вы
+              можете узнать <app-link value='Здесь' empty></app-link>.
+          </p>
+          <app-regular-btn value='Продолжить'></app-regular-btn>
+          </div>
+        </div>
+        <div class="col-12">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="global-box">
+          <p class="delicate-text" *ngIf='hasDelivery()'>Стоимость доставки: {{getDeliveryPrice() ? getDeliveryPrice() : 'Выберите страну доставки'}}</p>
+          <p class="delicate-text" >Итого: {{getTotal()}}</p>
+          </div>
+        </div>
+        <div class="col-12" *ngIf='reward'>
+          <app-reward-card [item]='getCard(reward)'>
+          </app-reward-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

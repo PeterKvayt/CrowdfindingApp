@@ -12,4 +12,8 @@ export class RewardService {
   public getRewardsByProjectId(projectId: string) {
     return this.http.get(this.controller + 'GetByProjectId/' + projectId);
   }
+
+  public getById(rewardId: string) {
+    return this.http.get(this.controller + rewardId);
+  }
 }
