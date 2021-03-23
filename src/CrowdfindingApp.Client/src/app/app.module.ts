@@ -119,7 +119,7 @@ import { RewardsPageComponent } from './pages/rewards-page/rewards-page.componen
       { path: Routes.projectEdit + '/:projectId', component: CreateProjectComponent, canActivate: [AuthenticationGuardService] },
       { path: Routes.moderationList,  component: ModerationListComponent,  canActivate: [AuthenticationGuardService],
         data: { role: Roles.admin } },
-      { path: Routes.project + '/:projectId', component: ProjectPageComponent, canActivate: [AuthenticationGuardService] },
+      { path: Routes.project + '/:projectId', component: ProjectPageComponent },
       { path: Routes.profile, component: ProfileComponent, canActivate: [AuthenticationGuardService] },
       { path: Routes.profile + '/:userId', component: ProfileComponent, canActivate: [AuthenticationGuardService] },
       { path: 'profile/projects', component: ProfileProjectsComponent, canActivate: [AuthenticationGuardService] },

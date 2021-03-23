@@ -38,6 +38,12 @@ namespace CrowdfindingApp.Common.Immutable
 
         }
 
+        public static class Reward
+        {
+            public const string GetByProjectId = nameof(GetByProjectId);
+
+        }
+
         public static class Files
         {
             public const string SaveImage = "save-image";

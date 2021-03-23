@@ -106,7 +106,7 @@ namespace CrowdfindingApp.Api.Controllers
         }
 
         [HttpPost(Endpoints.Project.OpenedProjects)]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> OpenedProjectSearch(ProjectSearchRequestMessage request)
         {
             var reply = await _openedProjectCardSearchRequestHandler.HandleAsync(request, User);
@@ -114,7 +114,7 @@ namespace CrowdfindingApp.Api.Controllers
         }
 
         [HttpGet(Endpoints.Project.Countries)]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Countries()
         {
             var reply = await _getCountriesRequestHandler.HandleAsync(new CountriesSearchRequestMessage(), User);
@@ -122,7 +122,7 @@ namespace CrowdfindingApp.Api.Controllers
         }
 
         [HttpGet(Endpoints.Project.Cities)]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Cities()
         {
             var reply = await _getCitiesRequestHandler.HandleAsync(new CitiesSearchRequestMessage(), User);
@@ -130,7 +130,7 @@ namespace CrowdfindingApp.Api.Controllers
         }
 
         [HttpGet(Endpoints.Project.Categories)]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Categories()
         {
             var reply = await _getCategoriesRequestHandler.HandleAsync(new CategoriesSearchRequestMessage(), User);
@@ -146,7 +146,7 @@ namespace CrowdfindingApp.Api.Controllers
         }
 
         [HttpGet(Endpoints.Project.ProjectView +"/{projectId}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetViewById([FromRoute] string projectId)
         {
             var reply = await _getProjectInfoViewByIdRequestHandler.HandleAsync(new GetProjectByIdRequestMessage(projectId), User);

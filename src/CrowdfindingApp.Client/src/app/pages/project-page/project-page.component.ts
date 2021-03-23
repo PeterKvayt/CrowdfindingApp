@@ -31,10 +31,11 @@ export class ProjectPageComponent extends Base implements OnInit {
   public ownerProfileRoute: string;
   public view: ProjectInfoView;
   public user: UserInfo;
+  public projectId: string;
 
   ngOnInit () {
-    const projectId = this.activatedRoute.snapshot.paramMap.get('projectId');
-    if (projectId) { this.setProjectInfo(projectId); }
+    this.projectId = this.activatedRoute.snapshot.paramMap.get('projectId');
+    if (this.projectId) { this.setProjectInfo(this.projectId); }
   }
 
   setUserInfo(userId: string): void {

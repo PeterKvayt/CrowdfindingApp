@@ -13,7 +13,6 @@ namespace CrowdfindingApp.Core.Services.Projects
             RegisterHandlers(builder);
 
             builder.RegisterType<ProjectProfile>().As<Profile>();
-            builder.RegisterType<RewardProfile>().As<Profile>();
             builder.RegisterType<QuestionProfile>().As<Profile>();
         }
 

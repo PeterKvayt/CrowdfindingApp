@@ -11,6 +11,7 @@ using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
 using CrowdfindingApp.Common.Mappings;
 using CrowdfindingApp.Core.Services.FileService;
 using CrowdfindingApp.Core.Services.Projects;
+using CrowdfindingApp.Core.Services.Rewards;
 using CrowdfindingApp.Core.Services.Roles;
 using CrowdfindingApp.Core.Services.Users;
 using CrowdfindingApp.Data.Repositories;
@@ -69,6 +70,7 @@ namespace CrowdfindingApp.Api
             builder.RegisterModule<UserModule>();
             builder.RegisterModule<ProjectModule>();
             builder.RegisterModule<FileServiceModule>();
+            builder.RegisterModule<RewardsModule>();
             builder.RegisterModule<CommonModule>();
 
             return builder;

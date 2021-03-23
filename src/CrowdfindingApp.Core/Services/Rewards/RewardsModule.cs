@@ -5,7 +5,7 @@ using CrowdfindingApp.Core.Services.Rewards.Mappings;
 
 namespace CrowdfindingApp.Core.Services.Rewards
 {
-    class RewardsModule : Module
+    public class RewardsModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

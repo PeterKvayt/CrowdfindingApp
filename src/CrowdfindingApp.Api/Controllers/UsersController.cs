@@ -101,7 +101,7 @@ namespace CrowdfindingApp.Api.Controllers
         /// Return uset info by id.
         /// </summary>
         [HttpGet("{userId}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetById([FromRoute] string userId)
         {
             var reply = await _getUserInfoByIdRequestHandler.HandleAsync(new GetUserInfoByIdRequestMessage(userId), User);
