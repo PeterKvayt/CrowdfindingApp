@@ -54,6 +54,7 @@ import { Roles } from './models/immutable/Roles';
 import { ProjectPageComponent } from './pages/project-page/project-page.component';
 import { AllProjectsComponent } from './pages/all-projects/all-projects.component';
 import { CategoryItemComponent } from './components/category-item/category-item.component';
+import { RewardsPageComponent } from './pages/rewards-page/rewards-page.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { CategoryItemComponent } from './components/category-item/category-item.
     ModerationListComponent,
     ProjectPageComponent,
     AllProjectsComponent,
-    CategoryItemComponent
+    CategoryItemComponent,
+    RewardsPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -107,6 +109,7 @@ import { CategoryItemComponent } from './components/category-item/category-item.
       { path: Routes.signIn, component: SignInComponent },
       { path: Routes.signUp, component: SignUpComponent },
       { path: Routes.allProjects, component: AllProjectsComponent },
+      { path: Routes.rewards, component: RewardsPageComponent },
       { path: Routes.forgotPassword, component: ForgotPasswordComponent },
       { path: Routes.resetPassword, component: ResetPasswordComponent },
       { path: Routes.emailConfirmation, component: EmailConfirmationComponent },
