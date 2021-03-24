@@ -1,55 +1,48 @@
 <div [hidden]='!showLoader' class="global-loader-box">
   <app-preloader></app-preloader>
 </div>
-<div class="container global-top-padding">
 
+<div class="container global-top-padding">
   <div class="row">
 
-    <div class="col-12 profile-section">
+    <div class="col-12 ">
 
       <div class="row">
 
         <div class="col-lg-3 col-mg-6 col-sm-12">
           <!-- <img class="profile-photo" *ngIf='!userInfo.photo' src="assets/img/default-avatar.png" alt="avatar2"> -->
-          <img class="profile-photo" [src]='userInfo ? userInfo.photo : "assets/img/default-avatar.png"'
-            alt="avatar">
+          <img class="profile-photo" [src]='userInfo ? userInfo.photo : "assets/img/default-avatar.png"' alt="avatar">
         </div>
 
         <div class="col-lg-8">
           <div class="row">
 
             <div class="col-12">
-              <span class="profile-name">{{userInfo ? userInfo.name : userInfo.email}} {{userInfo ? userInfo.surname : ''}}</span>
-            </div>
-
-            <div class="col-12">
-              <div class="profile-full-info">
-                <i class="fas fa-info fa-fw"></i>
-                <app-link empty value='Подробная информация'></app-link>
-              </div>
+              <span class="profile-name">{{userInfo ? userInfo.name : userInfo.email}}
+                {{userInfo ? userInfo.surname : ''}}</span>
             </div>
 
             <ng-container *ngIf='isMyProfile || authService.isAdmin()'>
               <div class="col-12">
                 <div class="row">
-  
+
                   <div class="col-lg-6 col-md-6 col-sm-12">
                     <app-regular-btn value='Редактировать данные' ico='fas fa-cog' fluid='true'></app-regular-btn>
                   </div>
                   <div *ngIf='!authService.isAdmin() && isMyProfile' class="col-lg-6 col-md-5"></div>
                   <div *ngIf='authService.isAdmin() && isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
-                      <app-regular-btn value='Ожидающие модерации' ico='fas fa-sign-out-alt' (click)='onToModerationClick()'
-                        fluid='true'></app-regular-btn>
-                    </div>
-                    <div *ngIf='authService.isAdmin() && !isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
-                        <app-regular-btn [value]='roleEditTitle.value' ico='fas fa-sign-out-alt' (click)='onRoleEditClick()'
-                          fluid='true'></app-regular-btn>
-                      </div>
-                  <div *ngIf='isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
-                    <app-regular-btn value='Выйти из учетной записи' ico='fas fa-sign-out-alt' (click)='onSignOutClick()'
+                    <app-regular-btn value='Ожидающие модерации' ico='fas fa-sign-out-alt'
+                      (click)='onToModerationClick()' fluid='true'></app-regular-btn>
+                  </div>
+                  <div *ngIf='authService.isAdmin() && !isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
+                    <app-regular-btn [value]='roleEditTitle.value' ico='fas fa-sign-out-alt' (click)='onRoleEditClick()'
                       fluid='true'></app-regular-btn>
                   </div>
-  
+                  <div *ngIf='isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
+                    <app-regular-btn value='Выйти из учетной записи' ico='fas fa-sign-out-alt'
+                      (click)='onSignOutClick()' fluid='true'></app-regular-btn>
+                  </div>
+
                 </div>
               </div>
             </ng-container>
@@ -62,7 +55,8 @@
 
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-12">
-            <app-tab [value]='myProjectsTab.value' [active]='myProjectsTab.isActive' (click)='onTabClick(myProjectsTab)'>
+            <app-tab [value]='myProjectsTab.value' [active]='myProjectsTab.isActive'
+              (click)='onTabClick(myProjectsTab)'>
             </app-tab>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12">
@@ -73,82 +67,55 @@
             <app-tab [value]='draftsTab.value' [active]='draftsTab.isActive' (click)='onTabClick(draftsTab)'>
             </app-tab>
           </div>
-         </div>
-        
-         <ng-container *ngIf='myProjectsTab.isActive'>
-           <div class="col">
-             <ng-container *ngIf='myProjectsPaging && myProjectsPaging.collection'>
-               <div class="row">
-                 <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of myProjectsPaging.collection'>
-                   <app-project-card [card]='card'>
-                   </app-project-card>
-                 </div>
-               </div>
-             </ng-container>
-             <div class="row">
-               <div class="col">
-                 <app-paging [control]='myProjectsPaging' [loadingOn]='showLoader'></app-paging>
-               </div>
-             </div>
-           </div>
-         </ng-container>
-   
-         <ng-container *ngIf='supportedTab.isActive'>
-           <div class="col">
-             <ng-container *ngIf='supportedPaging && supportedPaging.collection'>
-               <div class="row">
-                 <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of supportedPaging.collection'>
-                   <app-project-card [card]='card'>
-                   </app-project-card>
-                 </div>
-               </div>
-             </ng-container>
-             <div class="row">
-               <div class="col">
-                 <app-paging [control]='supportedPaging' [loadingOn]='showLoader'></app-paging>
-               </div>
-             </div>
-           </div>
-         </ng-container>
-   
-         <ng-container *ngIf='draftsTab.isActive'>
-           <div class="col">
-             <ng-container *ngIf='draftsPaging && draftsPaging.collection'>
-               <div class="row">
-                 <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of draftsPaging.collection'>
-                   <app-project-card [editable]='isEditable(card)' [card]='card' (editClick)='onCardEditClick(card)'
-                     (deleteClick)='onCardDeleteClick(card, draftsPaging.collection)'>
-                   </app-project-card>
-                 </div>
-               </div>
-             </ng-container>
-             <div class="row">
-               <div class="col">
-                 <app-paging [control]='draftsPaging' [loadingOn]='showLoader'></app-paging>
-               </div>
-             </div>
-           </div>
-         </ng-container>
+        </div>
 
-      </ng-container>
-
-      <ng-container *ngIf='!isMyProfile'>
-        <div class="col-12 global-sub-title">Проекты</div>
+        <div class="row" *ngIf='myProjectsTab.isActive && myProjectsPaging && myProjectsPaging.collection'>
+          <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of myProjectsPaging.collection'>
+            <app-project-card [card]='card'>
+            </app-project-card>
+          </div>
           <div class="col-12">
-              <ng-container *ngIf='myProjectsPaging && myProjectsPaging.collection'>
-                <div class="row">
-                  <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of myProjectsPaging.collection'>
-                    <app-project-card [card]='card'>
-                    </app-project-card>
-                  </div>
-                </div>
-              </ng-container>
-              <div class="row">
-                <div class="col">
-                  <app-paging [control]='myProjectsPaging' [loadingOn]='showLoader'></app-paging>
-                </div>
-              </div>
-            </div>
+            <app-paging [control]='myProjectsPaging' [loadingOn]='showLoader'></app-paging>
+          </div>
+        </div>
+
+        <div class="row" *ngIf='supportedTab.isActive && supportedPaging && supportedPaging.collection'>
+          <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of supportedPaging.collection'>
+            <app-project-card [card]='card'>
+            </app-project-card>
+          </div>
+          <div class="col-12">
+            <app-paging [control]='supportedPaging' [loadingOn]='showLoader'></app-paging>
+          </div>
+        </div>
+
+        <div class="row" *ngIf='draftsTab.isActive && draftsPaging && draftsPaging.collection'>
+          <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of draftsPaging.collection'>
+            <app-project-card [editable]='isEditable(card)' [card]='card' (editClick)='onCardEditClick(card)'
+              (deleteClick)='onCardDeleteClick(card, draftsPaging.collection)'>
+            </app-project-card>
+          </div>
+          <div class="col-12">
+            <app-paging [control]='draftsPaging' [loadingOn]='showLoader'></app-paging>
+          </div>
+        </div>
+
       </ng-container>
+
+      <div class="row" *ngIf='!isMyProfile'>
+        <div class="col-12 global-sub-title">Проекты</div>
+        <div class="col-12" *ngIf='myProjectsPaging && myProjectsPaging.collection'>
+          <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of myProjectsPaging.collection'>
+              <app-project-card [card]='card'>
+              </app-project-card>
+            </div>
+            <div class="col-12">
+              <app-paging [control]='myProjectsPaging' [loadingOn]='showLoader'></app-paging>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>

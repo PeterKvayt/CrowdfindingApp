@@ -19,15 +19,12 @@ import { CreateProjectComponent } from './pages/create-project/create-project.co
 import { ProjectService } from './services/project.service';
 import { ErrorComponent } from './pages/error/error.component';
 import { ParamInterceptor } from './services/request.interceptor.service';
-import { ProfileProjectsComponent } from './pages/profile-projects/profile-projects.component';
 import { TextInputComponent } from './components/inputs/text-input/text-input.component';
 import { PasswordInputComponent } from './components/inputs/password-input/password-input.component';
 import { DecimalInputComponent } from './components/inputs/decimal-input/decimal-input.component';
 import { RegularBtnComponent } from './components/buttons/regular-btn/regular-btn.component';
 import { PreloaderComponent } from './components/preloader/preloader.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
-import { ProfileInfoComponent } from './pages/profile-info/profile-info.component';
-import { ProfileSecurityComponent } from './pages/profile-security/profile-security.component';
 import { EmailConfirmationComponent } from './pages/email-confirmation/email-confirmation.component';
 import { EmailConfirmedComponent } from './pages/email-confirmed/email-confirmed.component';
 import { AuthenticationService } from './services/auth.service';
@@ -71,13 +68,10 @@ import { OrderService } from './services/order.service';
     ProfileComponent,
     CreateProjectComponent,
     ErrorComponent,
-    ProfileProjectsComponent,
     TextInputComponent,
     PasswordInputComponent,
     DecimalInputComponent,
     ResetPasswordComponent,
-    ProfileInfoComponent,
-    ProfileSecurityComponent,
     RegularBtnComponent,
     PreloaderComponent,
     EmailConfirmationComponent,
@@ -127,9 +121,6 @@ import { OrderService } from './services/order.service';
       { path: Routes.project + '/:projectId', component: ProjectPageComponent },
       { path: Routes.profile, component: ProfileComponent, canActivate: [AuthenticationGuardService] },
       { path: Routes.profile + '/:userId', component: ProfileComponent, canActivate: [AuthenticationGuardService] },
-      { path: 'profile/projects', component: ProfileProjectsComponent, canActivate: [AuthenticationGuardService] },
-      { path: 'profile/info', component: ProfileInfoComponent, canActivate: [AuthenticationGuardService] },
-      { path: 'profile/security', component: ProfileSecurityComponent, canActivate: [AuthenticationGuardService] },
       { path: 'error/:status', component: ErrorComponent },
       { path: '**', component: HomeComponent }
     ]),
