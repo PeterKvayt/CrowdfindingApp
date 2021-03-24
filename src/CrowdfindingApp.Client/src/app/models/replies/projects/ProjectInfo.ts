@@ -1,5 +1,6 @@
 import { RewardInfo } from '../rewards/RewardInfo';
 import { QuestionInfo } from './QuestionInfo';
+import { ProjectStatusEnum } from '../../enums/ProjectStatus';
 
 export class ProjectInfo {
   public id?: string;
@@ -25,4 +26,5 @@ export class ProjectInfo {
   public authorPhone?: string;
   public rewards?: RewardInfo[];
   public questions?: QuestionInfo[];
+  public status?: ProjectStatusEnum;
 }

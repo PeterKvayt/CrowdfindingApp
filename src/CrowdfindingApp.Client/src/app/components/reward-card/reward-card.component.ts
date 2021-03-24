@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RewardCard } from './RewardCard';
 import { DeliveryTypeEnum } from 'src/app/models/enums/DeliveryTypeEnum';
 import { FileService } from 'src/app/services/file.service';
+import { Routes } from 'src/app/models/immutable/Routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reward-card',
@@ -19,10 +21,11 @@ export class RewardCardComponent implements OnInit {
   @Output() buyClick = new EventEmitter();
 
   public deliveryTypeName: string;
-  public imageUrl: string = 'assets/img/stock-reward.jpg';
+  public imageUrl = 'assets/img/stock-reward.jpg';
 
   constructor(
-    private fileService: FileService
+    private fileService: FileService,
+    private router: Router,
   ) { }
   ngOnInit() {
     this.setImageUrl();;
@@ -58,6 +61,8 @@ export class RewardCardComponent implements OnInit {
   }
 
   onBuyClick() {
-    this.buyClick.emit();
+    if (this.item.id) {
+      this.router.navigate([Routes.order + '/' + this.item.id]);
+    }
   }
 }

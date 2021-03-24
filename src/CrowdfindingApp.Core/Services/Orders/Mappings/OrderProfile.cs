@@ -2,6 +2,7 @@
 using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Common.Mappings;
+using CrowdfindingApp.Common.Messages.Orders;
 
 namespace CrowdfindingApp.Core.Services.Orders.Mappings
 {
@@ -12,6 +13,8 @@ namespace CrowdfindingApp.Core.Services.Orders.Mappings
             CreateMap<OrderFilter, OrderFilterInfo>();
 
             CreateMap<Order, OrderInfo>().ReverseMap();
+
+            CreateMap<AcceptOrderRequestMessage, Order>();
         }
     }
 }

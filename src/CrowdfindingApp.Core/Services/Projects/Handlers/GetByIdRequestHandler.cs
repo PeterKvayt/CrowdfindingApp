@@ -18,7 +18,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             IRewardRepository rewardRepository,
             IRewardGeographyRepository rewardGeographyRepository,
             Microsoft.Extensions.Configuration.IConfiguration configuration,
-            IQuestionRepository questionRepository) : base(mapper, projectRepository, rewardRepository, rewardGeographyRepository, configuration, questionRepository)
+            IQuestionRepository questionRepository, IOrderRepository orderRepository) : base(mapper, projectRepository, rewardRepository, rewardGeographyRepository, configuration, questionRepository, orderRepository)
         {
             
         }

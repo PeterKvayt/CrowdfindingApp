@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Extensions;
@@ -41,6 +42,11 @@ namespace CrowdfindingApp.Data.Repositories
         public async Task<List<Order>> GetOrdersAsync(OrderFilter filter, Paging paging = null)
         {
             return await GetQuery(filter).ToPagedListAsync(paging);
+        }
+
+        public async Task<List<Order>> GetByRewardIdAsync(Guid rewardId)
+        {
+            return await GetQuery().Where(x => x.RewardId == rewardId).ToListAsync();
         }
     }
 }

@@ -108,13 +108,13 @@ namespace CrowdfindingApp.Data.Repositories
         public async Task<decimal> GetProgressAsync(Guid projectId)
         {
             var rewards = await Storage.Rewards.Where(x => x.ProjectId == projectId).ToListAsync();
-            if(rewards?.Any() ?? true)
+            if(!rewards?.Any() ?? true)
             {
                 return 0;
             }
 
-            var orders = await Storage.Orders.Where(x => rewards.Select(x => x.Id).Contains(x.RewardId)).ToListAsync();
-            if(orders?.Any() ?? true)
+            var orders = await Storage.Orders.Where(x => rewards.Select(r => r.Id).Contains(x.RewardId)).ToListAsync();
+            if(!orders?.Any() ?? true)
             {
                 return 0;
             }

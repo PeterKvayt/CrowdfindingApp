@@ -14,7 +14,7 @@ using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
-    public class ProjectModerationRequestHandler : SaveProjectRequestHandlerBase<ProjectModerationRequestMessage, ReplyMessageBase>
+    public class ProjectModerationRequestHandler : SaveProjectRequestHandlerBase<ProjectModerationRequestMessage, ReplyMessage<string>>
     {
         public ProjectModerationRequestHandler(IMapper mapper, 
             IProjectRepository projectRepository, 
@@ -36,7 +36,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             return reply;
         }
 
-        protected override async Task<ReplyMessageBase> ExecuteAsync(ProjectModerationRequestMessage request)
+        protected override async Task<ReplyMessage<string>> ExecuteAsync(ProjectModerationRequestMessage request)
         {
             return await ProcessAsync(request);
         }

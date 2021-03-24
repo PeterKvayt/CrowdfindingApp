@@ -12,7 +12,7 @@ using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
-    public class SaveDraftProjectRequestHandler : SaveProjectRequestHandlerBase<SaveDraftProjectRequestMessage, ReplyMessageBase>
+    public class SaveDraftProjectRequestHandler : SaveProjectRequestHandlerBase<SaveDraftProjectRequestMessage, ReplyMessage<string>>
     {
         public SaveDraftProjectRequestHandler(IMapper mapper,
             IProjectRepository projectRepository,
@@ -41,7 +41,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             return reply;
         }
 
-        protected override async Task<ReplyMessageBase> ExecuteAsync(SaveDraftProjectRequestMessage request)
+        protected override async Task<ReplyMessage<string>> ExecuteAsync(SaveDraftProjectRequestMessage request)
         {
             return await ProcessAsync(request);
         }

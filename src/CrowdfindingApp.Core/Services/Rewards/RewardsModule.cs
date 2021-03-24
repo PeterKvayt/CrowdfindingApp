@@ -17,7 +17,8 @@ namespace CrowdfindingApp.Core.Services.Rewards
         private void RegisterHandlers(ContainerBuilder builder)
         {
             builder.RegisterType<GetPublicRewardsByProjectIdRequestHandler>().AsSelf();
-            
+            builder.RegisterType<GetPublicRewardByIdRequestHandler>().AsSelf();
+
         }
     }
 }

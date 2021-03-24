@@ -57,6 +57,7 @@ import { CategoryItemComponent } from './components/category-item/category-item.
 import { RewardsPageComponent } from './pages/rewards-page/rewards-page.component';
 import { RewardService } from './services/reward.service';
 import { CreateOrderPageComponent } from './pages/create-order-page/create-order-page.component';
+import { OrderService } from './services/order.service';
 
 @NgModule({
   declarations: [
@@ -141,6 +142,7 @@ import { CreateOrderPageComponent } from './pages/create-order-page/create-order
   providers: [
     MessageService,
     HttpService,
+    OrderService,
     UserService,
     RewardService,
     ProjectService,

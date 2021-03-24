@@ -34,7 +34,7 @@
             <span class="little-text">ДНЕЙ</span>
             <div class="little-text progress-info-title">ДО ОКОНЧАНИЯ СБОРА</div>
           </div>
-          <div class="col-12">
+          <div class="col-12" *ngIf='showAbilityToSupport()'>
             <app-regular-btn value='Поддержать проект' [link]='"project/"+ projectId + "/rewards"'></app-regular-btn>
           </div>
         </div>
@@ -90,7 +90,7 @@
           <span>ВОЗНАГРАЖДЕНИЯ</span>
         </div>
         <div class="row">
-          <app-reward-card *ngFor='let reward of view.rewards' [item]='getRewardCardFromInfo(reward)'></app-reward-card>
+          <app-reward-card *ngFor='let reward of view.rewards' [item]='getRewardCardFromInfo(reward)' [showBuyOption]='showAbilityToSupport()'></app-reward-card>
         </div>
       </div>
 

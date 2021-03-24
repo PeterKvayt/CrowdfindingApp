@@ -7,26 +7,29 @@
     <div class="col-12 global-title">Подтверждение заказа</div>
     <div class="col-lg-8">
       <div class="row">
+        <div class="col-12">
+          <app-text-input [item]='surnameInput'></app-text-input>
+        </div>
+        <div class="col-lg-6 col-12">
+          <app-text-input [item]='nameInput'></app-text-input>
+        </div>
+        <div class="col-lg-6 col-12">
+          <app-text-input [item]='middleNameInput'></app-text-input>
+        </div>
           <div class="col-12 global-sub-title">Оформление количества</div>
           <div class="col-lg-6 col-12">
             <app-decimal-input [item]='countInput'></app-decimal-input>
           </div>
-        <ng-container *ngIf='hasDelivery()'>
+        <ng-container *ngIf='reward && hasDelivery()'>
           <div class="col-12 global-sub-title">Оформление доставки</div>
-          <div class="col-12">
-            <app-text-input [item]='surnameInput'></app-text-input>
-          </div>
           <div class="col-lg-6 col-12">
-            <app-text-input [item]='nameInput'></app-text-input>
-          </div>
-          <div class="col-lg-6 col-12">
-            <app-text-input [item]='middleNameInput'></app-text-input>
-          </div>
-          <div class="col-lg-6 col-12">
-            <app-select [item]='countrySelect'></app-select>
+            <app-select [item]='countrySelect' (selectedValue)='onSelectValue($event)'></app-select>
           </div>
           <div class="col-lg-6 col-12">
             <app-text-input [item]='postIndexInput'></app-text-input>
+          </div>
+          <div class="col-12">
+            <app-text-input [item]='fullAddressInput'></app-text-input>
           </div>
         </ng-container>
         <div class="col-12">
@@ -37,7 +40,7 @@
               и не оценивает способность автора справиться с данными обещаниями. Подробнее о работе «Poless Invest» вы
               можете узнать <app-link value='Здесь' empty></app-link>.
           </p>
-          <app-regular-btn value='Продолжить'></app-regular-btn>
+          <app-regular-btn value='Продолжить' (click)='onContinueClick()'></app-regular-btn>
           </div>
         </div>
         <div class="col-12">
@@ -48,8 +51,8 @@
       <div class="row">
         <div class="col-12">
           <div class="global-box">
-          <p class="delicate-text" *ngIf='hasDelivery()'>Стоимость доставки: {{getDeliveryPrice() ? getDeliveryPrice() : 'Выберите страну доставки'}}</p>
-          <p class="delicate-text" >Итого: {{getTotal()}}</p>
+          <p class="delicate-text" *ngIf='reward && hasDelivery()'>Стоимость доставки: {{getDeliveryPrice() ? getDeliveryPrice() : 'Выберите страну доставки'}}</p>
+          <p class="delicate-text" *ngIf='reward'>Итого: {{getTotal()}}</p>
           </div>
         </div>
         <div class="col-12" *ngIf='reward'>

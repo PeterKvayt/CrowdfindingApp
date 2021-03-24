@@ -13,7 +13,7 @@ export class RewardService {
     return this.http.get(this.controller + 'GetByProjectId/' + projectId);
   }
 
-  public getById(rewardId: string) {
+  public getPublicById(rewardId: string) {
     return this.http.get(this.controller + rewardId);
   }
 }

@@ -14,12 +14,15 @@ namespace CrowdfindingApp.Api.Controllers
     public class OrdersController : BaseController
     {
         private readonly OrderSearchRequestHandler _orderSearchRequestHandler;
+        private readonly AcceptOrderRequestHandler _acceptOrderRequestHandler;
 
         public OrdersController(IResourceProvider resourceProvider,
-            OrderSearchRequestHandler orderSearchRequestHandler
+            OrderSearchRequestHandler orderSearchRequestHandler,
+            AcceptOrderRequestHandler acceptOrderRequestHandler
             ) : base(resourceProvider)
         {
             _orderSearchRequestHandler = orderSearchRequestHandler ?? throw new NullReferenceException(nameof(orderSearchRequestHandler));
+            _acceptOrderRequestHandler = acceptOrderRequestHandler ?? throw new NullReferenceException(nameof(acceptOrderRequestHandler));
         }
 
         [HttpPost(Endpoints.Order.Search)]
@@ -27,6 +30,14 @@ namespace CrowdfindingApp.Api.Controllers
         public async Task<IActionResult> Search(OrderSearchRequestMessage request)
         {
             var reply = await _orderSearchRequestHandler.HandleAsync(request, User);
+            return Respond(reply);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Search(AcceptOrderRequestMessage request)
+        {
+            var reply = await _acceptOrderRequestHandler.HandleAsync(request, User);
             return Respond(reply);
         }
     }

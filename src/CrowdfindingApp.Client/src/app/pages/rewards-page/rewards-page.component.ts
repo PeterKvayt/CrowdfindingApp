@@ -54,13 +54,9 @@ export class RewardsPageComponent extends Base implements OnInit {
       reward.image,
       reward.deliveryType,
       reward.deliveryDate,
-      reward.limit
+      reward.limit,
+      reward.id
     );
-  }
-
-  onBuyClick(reward: RewardInfo) {
-    console.log(this.rewards[0].getCard);
-    this.redirect(Routes.order + '/' + reward.id);
   }
 
 }

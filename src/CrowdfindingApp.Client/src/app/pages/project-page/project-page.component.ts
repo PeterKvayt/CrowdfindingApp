@@ -10,6 +10,7 @@ import { UserInfo } from 'src/app/models/replies/users/UserInfo';
 import { UserService } from 'src/app/services/user.service';
 import { RewardInfo } from 'src/app/models/replies/rewards/RewardInfo';
 import { RewardCard } from 'src/app/components/reward-card/RewardCard';
+import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
 
 @Component({
   selector: 'app-project-page',
@@ -80,7 +81,12 @@ export class ProjectPageComponent extends Base implements OnInit {
       reward.image,
       reward.deliveryType,
       reward.deliveryDate,
-      reward.limit
+      reward.limit,
+      reward.id
     );
+  }
+
+  showAbilityToSupport(): boolean {
+    return this.view.status === ProjectStatusEnum.Active;
   }
 }

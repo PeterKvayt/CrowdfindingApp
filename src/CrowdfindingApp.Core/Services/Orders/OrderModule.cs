@@ -18,7 +18,8 @@ namespace CrowdfindingApp.Core.Services.Orders
         private void RegisterHandlers(ContainerBuilder builder)
         {
             builder.RegisterType<OrderSearchRequestHandler>().AsSelf();
-            
+            builder.RegisterType<AcceptOrderRequestHandler>().AsSelf();
+
         }
     }
 }

@@ -44,9 +44,9 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             FileProvider = fileProvider ?? throw new NullReferenceException(nameof(fileProvider));
         }
 
-        protected async Task<ReplyMessageBase> ProcessAsync(SaveDraftProjectRequestMessage request)
+        protected async Task<ReplyMessage<string>> ProcessAsync(SaveDraftProjectRequestMessage request)
         {
-            var reply = new ReplyMessageBase();
+            var reply = new ReplyMessage<string>();
             
             if(request.Data == null)
             {
@@ -59,19 +59,20 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
                 if(projectFromDb == null)
                 {
                     reply.AddObjectNotFoundError();
-                    return reply;
+                    return null;
                 }
 
                 if(projectFromDb.OwnerId != User.GetUserId() && !User.HasRole(Common.Immutable.Roles.Admin))
                 {
                     reply.AddSecurityError();
-                    return reply;
+                    return null;
                 }
             }
 
             var projectId = await SaveProjectAsync(request.Data);
             await SaveQuestionsAsync(request.Data, projectId);
             await SaveRewardsAsync(request.Data, projectId);
+            reply.Value = projectId.ToString();
 
             return reply;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CrowdfindingApp.Common.DataTransfers.Questions;
 using CrowdfindingApp.Common.DataTransfers.Rewards;
+using CrowdfindingApp.Common.Enums;
 
 namespace CrowdfindingApp.Common.DataTransfers.Projects
 {
@@ -29,6 +30,7 @@ namespace CrowdfindingApp.Common.DataTransfers.Projects
         public string AuthorAddress { get; set; }
         public string AuthorPhone { get; set; }
         public string OwnerId { get; set; }
+        public ProjectStatus Status { get; set; }
         public List<RewardInfo> Rewards { get; set; }
         public List<QuestionInfo> Questions { get; set; }
     }

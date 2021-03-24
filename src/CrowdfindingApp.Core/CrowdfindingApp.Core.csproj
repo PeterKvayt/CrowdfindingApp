@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Services\Orders\Resources\OrderErrorMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OrderErrorMessages.resx</DependentUpon>
+    </Compile>
     <Compile Update="Services\Projects\Resources\ValidationErrorMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -31,6 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Services\Orders\Resources\OrderErrorMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OrderErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Services\Projects\Resources\ValidationErrorMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ValidationErrorMessages.Designer.cs</LastGenOutput>

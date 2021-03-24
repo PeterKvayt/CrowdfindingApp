@@ -24,13 +24,15 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         protected readonly IRewardGeographyRepository RewardGeographyRepository;
         protected readonly IQuestionRepository QuestionRepository;
         protected readonly Microsoft.Extensions.Configuration.IConfiguration Configuration;
+        protected readonly IOrderRepository OrderRepository;
 
         public GetProjectInfoByIdRequestHandlerBase(IMapper mapper,
             IProjectRepository projectRepository,
             IRewardRepository rewardRepository,
             IRewardGeographyRepository rewardGeographyRepository,
             Microsoft.Extensions.Configuration.IConfiguration configuration,
-            IQuestionRepository questionRepository)
+            IQuestionRepository questionRepository,
+            IOrderRepository orderRepository)
         {
             ProjectRepository = projectRepository ?? throw new NullReferenceException(nameof(projectRepository));
             Mapper = mapper ?? throw new NullReferenceException(nameof(mapper));
@@ -38,6 +40,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             RewardGeographyRepository = rewardGeographyRepository ?? throw new NullReferenceException(nameof(rewardGeographyRepository));
             QuestionRepository = questionRepository ?? throw new NullReferenceException(nameof(questionRepository));
             Configuration = configuration ?? throw new NullReferenceException(nameof(configuration));
+            OrderRepository = orderRepository ?? throw new NullReferenceException(nameof(orderRepository));
         }
 
         protected override async Task<(ReplyMessageBase, Project)> ValidateRequestMessageAsync(GetProjectByIdRequestMessage requestMessage)
@@ -67,10 +70,19 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             var rewards = await RewardRepository.GetRewardsByProjectIdAsync(project.Id);
             foreach(var reward in rewards)
             {
-                var deliveryCountries = await RewardGeographyRepository.GetByRewardIdAsync(reward.Id);
                 var info = Mapper.Map<RewardInfo>(reward);
-                info.Image = GetImageUrl(project.Id, info.Image);
+
+                var orders = await OrderRepository.GetByRewardIdAsync(reward.Id);
+                if(orders?.Any() ?? false)
+                {
+                    info.Limit -= orders.Count;
+                }
+
+                var deliveryCountries = await RewardGeographyRepository.GetByRewardIdAsync(reward.Id);
                 info.DeliveryCountries = deliveryCountries.Select(x => new Common.DataTransfers.KeyValue<string, decimal?>(x.CountryId.ToString(), x.Price)).ToList();
+                
+                info.Image = GetImageUrl(project.Id, info.Image);
+                
                 projectInfo.Rewards.Add(info);
             }
 

@@ -10,6 +10,7 @@ using CrowdfindingApp.Common.Localization;
 using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
 using CrowdfindingApp.Common.Mappings;
 using CrowdfindingApp.Core.Services.FileService;
+using CrowdfindingApp.Core.Services.Orders;
 using CrowdfindingApp.Core.Services.Projects;
 using CrowdfindingApp.Core.Services.Rewards;
 using CrowdfindingApp.Core.Services.Roles;
@@ -70,6 +71,7 @@ namespace CrowdfindingApp.Api
             builder.RegisterModule<UserModule>();
             builder.RegisterModule<ProjectModule>();
             builder.RegisterModule<FileServiceModule>();
+            builder.RegisterModule<OrderModule>();
             builder.RegisterModule<RewardsModule>();
             builder.RegisterModule<CommonModule>();
 
@@ -93,6 +95,7 @@ namespace CrowdfindingApp.Api
             {
                 ("CrowdfindingApp.Core.Services.Users.Resources.ActionMessages", typeof(UserModule).Assembly),
                 ("CrowdfindingApp.Core.Services.Projects.Resources.ValidationErrorMessages", typeof(ProjectModule).Assembly),
+                ("CrowdfindingApp.Core.Services.Orders.Resources.OrderErrorMessages", typeof(OrderModule).Assembly),
                 ("CrowdfindingApp.Common.Resources.EmailResources", typeof(CommonModule).Assembly),
                 ("CrowdfindingApp.Common.Resources.CommonErrorMessages", typeof(CommonModule).Assembly),
             };

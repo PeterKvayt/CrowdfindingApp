@@ -355,6 +355,11 @@ export class CreateProjectComponent extends Base implements OnInit {
     if (this.selectedYear && this.selectedMonth) {
       deliveryDate = new Date(<number><any>this.selectedYear, <number><any>this.selectedMonth);
     }
+
+    let image = this.rewardImageInput.fileName;
+    if(image === 'assets/img/stock-reward.jpg') {
+      image = null;
+    }
     const rewardInfo: RewardInfo = {
       id: this.rewardId,
       projectId: this.projectId,
@@ -364,7 +369,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       deliveryDate: deliveryDate,
       isLimited: this.rewardCountRestrictionsInput.value ? true : false,
       limit: this.rewardCountRestrictionsInput.value,
-      image: this.rewardImageInput.fileName,
+      image: image,
       deliveryType: deliveryType,
       deliveryCountries: this.rewardDeliveryCountries
     };
@@ -379,7 +384,6 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.rewardCountRestrictionsInput.value = undefined;
     this.rewardWholeWorldDeliveryCostInput.value = undefined;
     this.rewardImageInput.fileName = 'assets/img/stock-reward.jpg';
-    console.log(this.rewardImageInput.fileName);
     this.rewardDeliveryCountries = [];
     this.countrySelectInput.list.forEach(country => country.disabled = false);
   }
@@ -463,7 +467,9 @@ export class CreateProjectComponent extends Base implements OnInit {
     const model = new ProjectModerationRequestMessage(this.getProjectModel());
     this.subscriptions.add(
       this.projectService.moderate(model).subscribe(
-        () => { this.showLoader = false; },
+        (reply: ReplyMessage<string>) => {
+          this.redirect('profile');
+        this.showLoader = false; },
         () => { this.showLoader = false; }
       )
     );
@@ -474,8 +480,10 @@ export class CreateProjectComponent extends Base implements OnInit {
     const model = new SaveDraftProjectRequestMessage(this.getProjectModel());
     this.subscriptions.add(
       this.projectService.save(model).subscribe(
-        () => {
-          this.redirect('profile');
+        (reply: ReplyMessage<string>) => {
+          if (!this.projectId && reply.value) {
+            this.redirect(Routes.projectEdit + '/' + reply.value);
+          }
           this.showLoader = false;
         },
         () => { this.showLoader = false; }

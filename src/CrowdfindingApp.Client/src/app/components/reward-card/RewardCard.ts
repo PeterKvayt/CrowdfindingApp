@@ -8,6 +8,7 @@ export class RewardCard {
     public image: string,
     public deliveryType: DeliveryTypeEnum,
     public deliveryDate: Date,
-    public availableCount?: number
+    public availableCount?: number,
+    public id?: string
   ) { }
 }
