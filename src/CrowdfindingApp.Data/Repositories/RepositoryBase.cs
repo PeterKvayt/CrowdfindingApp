@@ -39,11 +39,14 @@ namespace CrowdfindingApp.Data.Repositories
             return Repository;
         }
 
-        public virtual async Task UpdateAsync(TModel changes, IMapper mapper)
+        public virtual async Task UpdateAsync(TModel changes, IMapper mapper, TModel target = null)
         {
-            var modelFromDb = await GetByIdAsync(changes.Id);
-            mapper.Map(changes, modelFromDb);
-            Repository.Update(modelFromDb);
+            if(target == null)
+            {
+                target = await GetByIdAsync(changes.Id);
+                mapper.Map(changes, target);
+            }
+            Repository.Update(target);
             await Storage.SaveChangesAsync();
         }
 

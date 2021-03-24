@@ -10,6 +10,8 @@ namespace CrowdfindingApp.Common.Maintainers.FileStorageProvider
 
         Task SaveProjectImageAsync(string tempFileName, Guid projectId);
 
+        Task SaveUserImageAsync(string tempFileName, Guid userId);
+
         void ClearExpiredTemporaryStorageFiles();
     }
 }

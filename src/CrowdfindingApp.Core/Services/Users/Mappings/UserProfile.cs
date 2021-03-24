@@ -6,7 +6,7 @@ using CrowdfindingApp.Common.Mappings;
 using CrowdfindingApp.Common.Messages.Users;
 using CrowdfindingApp.Data.Common.BusinessModels;
 
-namespace CrowdfindingApp.Core.Services.Users
+namespace CrowdfindingApp.Core.Services.Users.Mappings
 {
     public class UserProfile : ProfileBase<User>
     {
@@ -16,7 +16,8 @@ namespace CrowdfindingApp.Core.Services.Users
                 .ForMember(dest => dest.Photo, opt => opt.MapFrom(source => source.Image))
                 .ForMember(dest => dest.Role, opt => opt.MapFrom((src, dest, destMember, ctx) => GetRoleName(src.RoleId, ctx.Items.ToDictionary(_ => _.Key, _ => _.Value.ToString()))));
 
-            CreateMap<UpdateUserRequestMessage, User>();
+            CreateMap<UpdateUserRequestMessage, User>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
         }
 

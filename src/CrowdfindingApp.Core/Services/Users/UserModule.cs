@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using AutoMapper;
 using CrowdfindingApp.Core.Services.Users.Handlers;
+using CrowdfindingApp.Core.Services.Users.Mappings;
 
 namespace CrowdfindingApp.Core.Services.Users
 {

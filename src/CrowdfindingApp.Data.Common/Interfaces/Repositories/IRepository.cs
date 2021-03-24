@@ -9,7 +9,7 @@ namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
     {
         Task<Guid> AddAsync(TModel model);
 
-        Task UpdateAsync(TModel changes, IMapper mapper);
+        Task UpdateAsync(TModel changes, IMapper mapper, TModel target = null);
 
         Task<TModel> GetByIdAsync(Guid id);
     }

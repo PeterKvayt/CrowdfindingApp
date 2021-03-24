@@ -120,7 +120,17 @@ namespace CrowdfindingApp.Common.Maintainers.FileStorageProvider
             return Path.Combine(subDrectories.ToArray());
         }
 
-        public Task SaveProjectImageAsync(string tempFileName, Guid projectId)
+        public async Task SaveProjectImageAsync(string tempFileName, Guid projectId)
+        {
+            await SaveImageAsync(tempFileName, projectId, "Projects");
+        }
+
+        public async Task SaveUserImageAsync(string tempFileName, Guid userId)
+        {
+            await SaveImageAsync(tempFileName, userId, "Users");
+         }
+
+        private Task SaveImageAsync(string tempFileName, Guid userId, string subFolderName)
         {
             var tempFile = GetFullTempPath(tempFileName);
             if(!File.Exists(tempFile))
@@ -128,7 +138,7 @@ namespace CrowdfindingApp.Common.Maintainers.FileStorageProvider
                 return Task.CompletedTask;
             }
 
-            var file = GetFullPermanentPath(tempFileName, "Projects", projectId.ToString());
+            var file = GetFullPermanentPath(tempFileName, subFolderName, userId.ToString());
 
             File.Move(tempFile, file);
 

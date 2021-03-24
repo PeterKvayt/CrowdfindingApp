@@ -14,5 +14,8 @@ namespace CrowdfindingApp.Common.Messages.Users
         /// <example>Middle name</example>
         public string MiddleName { get; set; }
         public string Image { get; set; }
+        public string CurrentPassword { get; set; }
+        public string NewPassword { get; set; }
+        public string ConfirmPassword { get; set; }
     }
 }

@@ -86,7 +86,7 @@ namespace CrowdfindingApp.Data.Repositories
                 .ToListAsync();
         }
 
-        public override Task UpdateAsync(Project model, IMapper mapper)
+        public override Task UpdateAsync(Project model, IMapper mapper, Project project = null)
         {
             model.LastModifiedDateTime = DateTime.UtcNow;
             return base.UpdateAsync(model, mapper);

@@ -18,6 +18,7 @@ import { PagedReplyMessage } from 'src/app/models/replies/common/PagedReplyMessa
 import { PagingControl } from 'src/app/components/paging/PagingControl';
 import { Roles } from 'src/app/models/immutable/Roles';
 import { GenericLookupItem } from 'src/app/models/common/GenericLookupItem';
+import { FileService } from 'src/app/services/file.service';
 
 @Component({
   selector: 'app-profile',
@@ -40,7 +41,8 @@ export class ProfileComponent extends Base implements OnInit {
     public userService: UserService,
     private titleService: Title,
     public authService: AuthenticationService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    public fileService: FileService
   ) {
     super(router, activatedRoute);
   }
@@ -222,7 +224,7 @@ export class ProfileComponent extends Base implements OnInit {
 
   getProfileName(): string {
     if (this.userInfo) {
-      return this.userInfo.userName ? this.userInfo.userName : this.userInfo.email;
+      return this.userInfo.name ? this.userInfo.name + ' ' + this.userInfo.surname : this.userInfo.email;
     }
     return '';
   }
