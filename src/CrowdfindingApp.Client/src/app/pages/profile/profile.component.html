@@ -18,8 +18,7 @@
           <div class="row">
 
             <div class="col-12">
-              <span class="profile-name">{{userInfo ? userInfo.name : userInfo.email}}
-                {{userInfo ? userInfo.surname : ''}}</span>
+              <span class="profile-name">{{getProfileName()}}</span>
             </div>
 
             <ng-container *ngIf='isMyProfile || authService.isAdmin()'>
@@ -27,7 +26,7 @@
                 <div class="row">
 
                   <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-regular-btn value='Редактировать данные' ico='fas fa-cog' fluid='true'></app-regular-btn>
+                    <app-regular-btn value='Редактировать данные' ico='fas fa-cog' fluid='true' (click)='onEditSettingsClick()'></app-regular-btn>
                   </div>
                   <div *ngIf='!authService.isAdmin() && isMyProfile' class="col-lg-6 col-md-5"></div>
                   <div *ngIf='authService.isAdmin() && isMyProfile' class="col-lg-6 col-md-6 col-sm-12">

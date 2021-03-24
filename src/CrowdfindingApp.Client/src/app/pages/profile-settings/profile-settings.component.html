@@ -1,0 +1,53 @@
+<div [hidden]='!showLoader' class="global-loader-box">
+  <app-preloader></app-preloader>
+</div>
+
+<div class="container global-top-padding">
+  <div class="row">
+
+    <div class="col-12 global-title">Настройки профиля</div>
+    <div class="col-lg-8">
+      <div class="global-box">
+        <div class="row">
+
+          <div class="col-12 global-sub-title">Общие настройки</div>
+          <div class="col-12">
+            <app-text-input [item]='surnameInput'></app-text-input>
+          </div>
+          <div class="col-lg-6 col-12">
+            <app-text-input [item]='nameInput'></app-text-input>
+          </div>
+          <div class="col-lg-6 col-12">
+            <app-text-input [item]='middleNameInput'></app-text-input>
+          </div>
+
+          <div class="col-12 global-sub-title">Настройки почты</div>
+          <div class="col-12">
+            <app-text-input [item]='emailInput'></app-text-input>
+          </div>
+
+          <div class="col-12 global-sub-title">Настройки пароля</div>
+          <div class="col-12">
+            <app-password-input [item]='currentPasswordInput'></app-password-input>
+            <app-password-input [item]='newPasswordInput'></app-password-input>
+            <app-password-input [item]='confirmPasswordInput'></app-password-input>
+          </div>
+          <div class="col-lg-4">
+            <app-regular-btn value='Сохранить изменения' (click)='onSaveClick()'></app-regular-btn>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="global-box">
+        <div class="global-img-wrapper">
+          <img class="global-img" [src]='userInfo && userInfo.photo && userInfo.photo !== "assets/img/default-avatar.png" 
+                ? fileService.absoluteFileStoragePath + userInfo.photo
+                : "assets/img/default-avatar.png"' alt="user image" />
+        </div>
+        <app-file-input [item]='imageInput' (change)='onUploadImgClick()'></app-file-input>
+      </div>
+    </div>
+  </div>
+</div>

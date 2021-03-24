@@ -18,7 +18,6 @@ import { PagedReplyMessage } from 'src/app/models/replies/common/PagedReplyMessa
 import { PagingControl } from 'src/app/components/paging/PagingControl';
 import { Roles } from 'src/app/models/immutable/Roles';
 import { GenericLookupItem } from 'src/app/models/common/GenericLookupItem';
-import { LookupItem } from 'src/app/models/common/LookupItem';
 
 @Component({
   selector: 'app-profile',
@@ -215,5 +214,16 @@ export class ProfileComponent extends Base implements OnInit {
         }
       )
     );
+  }
+
+  onEditSettingsClick() {
+    this.redirect(Routes.profileSettings);
+  }
+
+  getProfileName(): string {
+    if (this.userInfo) {
+      return this.userInfo.userName ? this.userInfo.userName : this.userInfo.email;
+    }
+    return '';
   }
 }

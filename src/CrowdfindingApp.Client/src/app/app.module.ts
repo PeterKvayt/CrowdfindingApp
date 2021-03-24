@@ -55,6 +55,7 @@ import { RewardsPageComponent } from './pages/rewards-page/rewards-page.componen
 import { RewardService } from './services/reward.service';
 import { CreateOrderPageComponent } from './pages/create-order-page/create-order-page.component';
 import { OrderService } from './services/order.service';
+import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { OrderService } from './services/order.service';
     AllProjectsComponent,
     CategoryItemComponent,
     RewardsPageComponent,
-    CreateOrderPageComponent
+    CreateOrderPageComponent,
+    ProfileSettingsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -120,6 +122,7 @@ import { OrderService } from './services/order.service';
         data: { role: Roles.admin } },
       { path: Routes.project + '/:projectId', component: ProjectPageComponent },
       { path: Routes.profile, component: ProfileComponent, canActivate: [AuthenticationGuardService] },
+      { path: Routes.profileSettings, component: ProfileSettingsComponent, canActivate: [AuthenticationGuardService] },
       { path: Routes.profile + '/:userId', component: ProfileComponent, canActivate: [AuthenticationGuardService] },
       { path: 'error/:status', component: ErrorComponent },
       { path: '**', component: HomeComponent }
