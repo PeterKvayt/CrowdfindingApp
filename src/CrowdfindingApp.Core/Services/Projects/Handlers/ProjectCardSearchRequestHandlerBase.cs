@@ -82,29 +82,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         {
             if(card.Status == ProjectStatus.Active)
             {
-                var restTime = project.StartDateTime + new TimeSpan(project.Duration.Value, 0, 1, 0, 0) - DateTime.UtcNow;
-                if(restTime.Value.Days > 0)
-                {
-                    card.RestTimeToEnd = $"{restTime.Value.Days} д.";
-                    return;
-                }
-
-                if(restTime.Value.Hours > 1)
-                {
-                    card.RestTimeToEnd = $"{restTime.Value.Hours} ч.";
-                    return;
-                }
-
-                if(restTime.Value.Minutes > 1)
-                {
-                    card.RestTimeToEnd = $"{restTime.Value.Minutes} м.";
-                    return;
-                }
-                else
-                {
-                    card.RestTimeToEnd = $"Меньше 1 м.";
-                    return;
-                }
+                card.RestTimeToEnd = project.GetRestTime();
             }
             if(card.Status == ProjectStatus.Complited)
             {

@@ -1,7 +1,7 @@
 import { ProjectInfo } from './ProjectInfo';
 
 export class ProjectInfoView extends ProjectInfo {
-  public restProjectDays: number;
+  public restProjectTime: string;
   public categoryName: string;
   public locationName: string;
   public ownerId: string;

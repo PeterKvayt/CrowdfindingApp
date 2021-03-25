@@ -26,13 +26,17 @@
             <div class="little-text progress-info-title">ЦЕЛЬ ПРОЕКТА</div>
           </div>
           <div class="col-12">
-            <span class="global-title ">{{view.restProjectDays}} </span>
-            <span class="little-text">ДНЕЙ</span>
+            <span class="global-title ">{{view.restProjectTime.split(' ')[0]}} </span>
+          <span class="little-text">{{view.restProjectTime.split(' ')[1].toUpperCase()}}</span>
             <div class="little-text progress-info-title">ДО ОКОНЧАНИЯ СБОРА</div>
           </div>
           <div class="col-12" *ngIf='showAbilityToSupport()'>
             <app-regular-btn value='Поддержать проект' [link]='"project/"+ projectId + "/rewards"'></app-regular-btn>
           </div>
+          <div class="col-12" *ngIf='!showAbilityToSupport()'>
+            <p class="delicate-text">Войдите, чтобы поддержать проект</p>
+              <app-regular-btn value='Войти' [link]='signInRoute'></app-regular-btn>
+            </div>
         </div>
       </div>
     </div>
@@ -46,10 +50,10 @@
               <span class="delicate-text">{{view.shortDescription}}</span>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
-                <app-img alt="user image" [src]='user.photo' default="assets/img/default-avatar.png"></app-img>
+                <app-img *ngIf='user' alt="user image" [src]='user.photo' default="assets/img/default-avatar.png"></app-img>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
-              <app-link [value]='getNickName()' [route]='ownerProfileRoute'></app-link>
+              <app-link *ngIf='user' [value]='getNickName()' [route]='ownerProfileRoute'></app-link>
               <div class="little-text">АВТОР ПРОЕКТА</div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">

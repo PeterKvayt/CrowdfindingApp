@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 import { RewardInfo } from 'src/app/models/replies/rewards/RewardInfo';
 import { RewardCard } from 'src/app/components/reward-card/RewardCard';
 import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
+import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-project-page',
@@ -24,7 +25,8 @@ export class ProjectPageComponent extends Base implements OnInit {
     public activatedRoute: ActivatedRoute,
     public projectService: ProjectService,
     public userService: UserService,
-    public fileService: FileService
+    public fileService: FileService,
+    private authService: AuthenticationService
   ) {
     super(router, activatedRoute);
   }
@@ -33,6 +35,8 @@ export class ProjectPageComponent extends Base implements OnInit {
   public view: ProjectInfoView;
   public user: UserInfo;
   public projectId: string;
+
+  public signInRoute = Routes.signIn;
 
   ngOnInit () {
     this.projectId = this.activatedRoute.snapshot.paramMap.get('projectId');
@@ -88,6 +92,6 @@ export class ProjectPageComponent extends Base implements OnInit {
   }
 
   showAbilityToSupport(): boolean {
-    return this.view.status === ProjectStatusEnum.Active;
+    return this.view.status === ProjectStatusEnum.Active && this.authService.isAuthenticated();
   }
 }

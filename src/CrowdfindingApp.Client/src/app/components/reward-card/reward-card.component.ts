@@ -4,6 +4,7 @@ import { DeliveryTypeEnum } from 'src/app/models/enums/DeliveryTypeEnum';
 import { FileService } from 'src/app/services/file.service';
 import { Routes } from 'src/app/models/immutable/Routes';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-reward-card',
@@ -26,6 +27,7 @@ export class RewardCardComponent implements OnInit {
   constructor(
     private fileService: FileService,
     private router: Router,
+    public authService: AuthenticationService
   ) { }
   ngOnInit() {
     this.setImageUrl();;
@@ -64,7 +66,7 @@ export class RewardCardComponent implements OnInit {
   }
 
   hasBuyOption(): boolean {
-    if (this.showBuyOption) {
+    if (this.showBuyOption && this.authService.isAuthenticated()) {
       if (this.item.isLimited) {
         return this.item.availableCount > 0;
       } else {

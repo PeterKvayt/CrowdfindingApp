@@ -62,15 +62,15 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         {
             if(view.StartDateTime.HasValue && view.Duration.HasValue)
             {
-                view.RestProjectDays = view.Duration.Value - (DateTime.Now - view.StartDateTime.Value).Days;
+                view.RestProjectTime = view.GetRestTime();
             }
             else if(view.Duration.HasValue)
             {
-                view.RestProjectDays = view.Duration.Value;
+                view.RestProjectTime = $"{view.Duration.Value} д.";
             }
             else
             {
-                view.RestProjectDays = 0;
+                view.RestProjectTime = "0 д.";
             }
         }
     }
