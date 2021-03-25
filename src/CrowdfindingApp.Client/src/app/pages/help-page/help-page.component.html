@@ -1,0 +1,44 @@
+<div [hidden]='!showLoader' class="global-loader-global-box">
+  <app-preloader></app-preloader>
+</div>
+
+<div class="container global-top-padding">
+  <div class="row">
+
+    <div class="col-12 global-title">Помощь</div>
+
+    <div class="col-lg-9">
+      <div class="global-box">
+
+        <!--Introduction-->
+        <ng-container *ngIf='tabs[0].key'>
+          <div class="global-sub-title">Введение</div>
+          <p class='delicate-text'>
+            «Краудфандинг» является эффективным инструментом сбора средств, который подходит для
+            проектов любой тематики. Ваш проект может быть новой книгой, фильмом, фестивалем, уникальной 
+            технологией или
+            программой, инновационным бизнесом или социальной инициативой и многим-многим другим.
+          </p>
+          <p class='delicate-text'></p>
+          <p class='delicate-text'></p>
+          <p class='delicate-text'></p>
+          <p class='delicate-text'></p>
+          <p class='delicate-text'></p>
+        </ng-container>
+
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="global-box">
+        <div class="tab-control" *ngFor='let tab of tabs' (click)='onTabClick(tab)'>
+          <span class="activeTab" *ngIf='tab.key'></span>
+          <div class="tab-link" [ngClass]='{tabLinkActive: tab.key}'>
+            <app-link empty [value]='tab.value'></app-link>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

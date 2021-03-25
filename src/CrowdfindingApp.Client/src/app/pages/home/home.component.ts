@@ -43,9 +43,10 @@ export class HomeComponent extends Base implements OnInit {
       this.projectService.openedProjects(request).subscribe(
         (reply: PagedReplyMessage<ProjectCard[]>) => {
           this.projects = reply.value;
-        }
+          this.showLoader = false;
+        },
+        () => {this.showLoader = false; }
       )
     );
-    this.showLoader = false;
   }
 }

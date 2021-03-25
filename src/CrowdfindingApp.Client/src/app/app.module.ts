@@ -56,6 +56,7 @@ import { RewardService } from './services/reward.service';
 import { CreateOrderPageComponent } from './pages/create-order-page/create-order-page.component';
 import { OrderService } from './services/order.service';
 import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
+import { HelpPageComponent } from './pages/help-page/help-page.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { ProfileSettingsComponent } from './pages/profile-settings/profile-setti
     CategoryItemComponent,
     RewardsPageComponent,
     CreateOrderPageComponent,
-    ProfileSettingsComponent
+    ProfileSettingsComponent,
+    HelpPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -106,6 +108,7 @@ import { ProfileSettingsComponent } from './pages/profile-settings/profile-setti
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: Routes.help, component: HelpPageComponent },
       { path: Routes.signIn, component: SignInComponent },
       { path: Routes.signUp, component: SignUpComponent },
       { path: Routes.allProjects, component: AllProjectsComponent },

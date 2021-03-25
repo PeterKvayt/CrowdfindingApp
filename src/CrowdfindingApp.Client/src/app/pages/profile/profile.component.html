@@ -24,7 +24,7 @@
               <span class="profile-name">{{getProfileName()}}</span>
             </div>
             <div class="col-12">
-              <span class="email delicate-text">{{userInfo.email}}</span>
+              <span class="email delicate-text">{{userInfo ? userInfo.email : ''}}</span>
             </div>
 
             <ng-container *ngIf='isMyProfile || authService.isAdmin()'>

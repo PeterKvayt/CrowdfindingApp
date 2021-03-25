@@ -1,0 +1,23 @@
+.tab-control{
+  margin: 5px 0;
+}
+
+.tab-link, .tabLinkActive{
+  display: inline-block;
+  position: relative;
+}
+
+.tabLinkActive{
+  right: 6px;
+}
+
+.activeTab{
+  display: inline-block;
+  position: relative;
+  height: 20px;
+  width: 6px;
+  background-color: var(--regular);
+  top: 2px;
+  right: 16px;
+  border-radius: 0 4px 4px 0;
+}
