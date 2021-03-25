@@ -8,7 +8,6 @@ using CrowdfindingApp.Common.DataTransfers.Projects;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Projects;
 using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
@@ -17,7 +16,8 @@ using Microsoft.Extensions.Configuration;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
-    public abstract class ProjectCardSearchRequestHandlerBase : NullOperationContextRequestHandler<ProjectSearchRequestMessage, PagedReplyMessage<List<ProjectCard>>>
+    public abstract class ProjectCardSearchRequestHandlerBase<TRequest> : NullOperationContextRequestHandler<TRequest, PagedReplyMessage<List<ProjectCard>>>
+        where TRequest : MessageBase, new()
     {
         protected readonly IProjectRepository ProjectRepository;
         protected readonly IMapper Mapper;

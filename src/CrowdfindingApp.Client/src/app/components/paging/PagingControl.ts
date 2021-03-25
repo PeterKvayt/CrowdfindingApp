@@ -6,6 +6,6 @@ import { ProjectSearchRequestMessage } from 'src/app/models/requests/projects/Pr
 
 export class PagingControl<TCollection> {
   public paging: PagingInfo;
-  public filter: ProjectFilterInfo;
+  public filter?: ProjectFilterInfo;
   public collection?: TCollection[];
 }

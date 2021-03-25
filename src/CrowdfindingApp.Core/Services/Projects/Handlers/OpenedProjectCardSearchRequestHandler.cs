@@ -16,7 +16,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
-    public class OpenedProjectCardSearchRequestHandler : ProjectCardSearchRequestHandlerBase
+    public class OpenedProjectCardSearchRequestHandler : ProjectCardSearchRequestHandlerBase<ProjectSearchRequestMessage>
     {
         public OpenedProjectCardSearchRequestHandler(IProjectRepository projectRepository, IMapper mapper, IRewardRepository rewardRepository, IOrderRepository orderRepository,
             IConfiguration configuration) : base(projectRepository, mapper, rewardRepository, orderRepository, configuration)

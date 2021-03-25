@@ -7,5 +7,6 @@ namespace CrowdfindingApp.Data.Common.Filters
     {
         public List<Guid> Id { get; set; }
         public List<Guid> RewardId { get; set; }
+        public List<Guid> UserId { get; set; }
     }
 }

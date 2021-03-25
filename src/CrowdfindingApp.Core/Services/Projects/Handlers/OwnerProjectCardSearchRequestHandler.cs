@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {
-    public class OwnerProjectCardSearchRequestHandler : ProjectCardSearchRequestHandlerBase
+    public class OwnerProjectCardSearchRequestHandler : ProjectCardSearchRequestHandlerBase<ProjectSearchRequestMessage>
     {
         public OwnerProjectCardSearchRequestHandler(IProjectRepository projectRepository, IMapper mapper, IRewardRepository rewardRepository, IOrderRepository orderRepository,
             IConfiguration configuration) : base(projectRepository, mapper, rewardRepository, orderRepository, configuration)

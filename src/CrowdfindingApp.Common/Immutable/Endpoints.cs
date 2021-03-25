@@ -29,6 +29,7 @@ namespace CrowdfindingApp.Common.Immutable
             public const string Cities = "cities";
             public const string Categories = nameof(Categories);
             public const string Moderate = nameof(Moderate);
+            public const string MySupportedProjects = "mySupportedProjects";
 
         }
 

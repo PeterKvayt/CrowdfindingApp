@@ -122,22 +122,16 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   fetchSupportedProjects() {
-    const filter: ProjectFilterInfo = { status: [ ProjectStatusEnum.Draft, ProjectStatusEnum.Moderation]};
-    // const request: ProjectSearchRequestMessage = {
-    //   filter: filter,
-    //   paging: new PagingInfo(1, 6)
-    //  };
-    // this.subscriptions.add(
-    //   this.projectService.cards(request).subscribe(
-    //     (reply: PagedReplyMessage<ProjectCard[]>) => {
-    //       this.supportedPaging = {
-    //         paging: reply.paging,
-    //         collection: reply.value,
-    //         filter: filter
-    //       };
-    //     }
-    //   )
-    // );
+    this.subscriptions.add(
+      this.projectService.getMySupportedProjects(new PagingInfo(1, 6)).subscribe(
+        (reply: PagedReplyMessage<ProjectCard[]>) => {
+          this.supportedPaging = {
+            paging: reply.paging,
+            collection: reply.value
+          };
+        }
+      )
+    );
   }
 
   fetchMyProjects() {

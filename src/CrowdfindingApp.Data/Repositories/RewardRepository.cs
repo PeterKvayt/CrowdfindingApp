@@ -30,5 +30,10 @@ namespace CrowdfindingApp.Data.Repositories
             Repository.RemoveRange(rewards);
             await Storage.SaveChangesAsync();
         }
+
+        public async Task<List<Reward>> GetByIdsAsync(IEnumerable<Guid> guids)
+        {
+            return await GetQuery().Where(x => guids.Contains(x.Id)).ToListAsync();
+        }
     }
 }

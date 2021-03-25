@@ -5,6 +5,8 @@ import { ProjectModerationRequestMessage } from '../models/requests/projects/Pro
 import { ProjectSearchRequestMessage } from '../models/requests/projects/ProjectSearchRequestMessage';
 import { ProjectStatusEnum } from '../models/enums/ProjectStatus';
 import { SetProjectStatusRequestMessage } from '../models/requests/projects/SetProjectStatusRequestMessage';
+import { PagingInfo } from '../models/common/PagingInfo';
+import { GetSupportedProjectCardsRequestMessage } from '../models/requests/projects/GetSupportedProjectCardsRequestMessage';
 
 
 @Injectable()
@@ -71,5 +73,9 @@ export class ProjectService {
   public setStatus(status: ProjectStatusEnum, projectId: string) {
     return this.http.post<SetProjectStatusRequestMessage>(this.controller + 'set-status',
       new SetProjectStatusRequestMessage(status, projectId));
+  }
+
+  public getMySupportedProjects(paging: PagingInfo) {
+    return this.http.post(this.controller + 'mySupportedProjects/', new GetSupportedProjectCardsRequestMessage(paging));
   }
 }

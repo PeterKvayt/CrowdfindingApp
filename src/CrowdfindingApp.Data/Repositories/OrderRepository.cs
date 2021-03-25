@@ -36,6 +36,11 @@ namespace CrowdfindingApp.Data.Repositories
                 query = query.Where(x => filter.RewardId.Contains(x.RewardId));
             }
 
+            if(filter.UserId.AnyNonEmpty())
+            {
+                query = query.Where(x => filter.UserId.Contains(x.UserId));
+            }
+
             return query;
         }
 
