@@ -178,6 +178,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     public authService: AuthenticationService,
     private titleService: Title
   ) { super(router, activatedRoute); }
+
   public ngOnInit(): void {
     this.setCities();
     this.setCategories();
@@ -240,7 +241,7 @@ export class CreateProjectComponent extends Base implements OnInit {
           this.projectCard.currentResult = 0;
           this.projectCard.description = reply.value.shortDescription ? reply.value.shortDescription : 'Описание';
           this.projectCard.name = reply.value.title ? reply.value.title : 'Название';
-          this.projectCard.currentResult = ProjectStatusEnum.Draft;
+          this.projectCard.status = ProjectStatusEnum.Draft;
           this.projectCard.imgPath = reply.value.image;
 
           this.showLoader = false;

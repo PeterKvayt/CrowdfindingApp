@@ -62,13 +62,13 @@
           <app-file-input [item]='projectImageInput' (change)='onImageUpload(projectImageInput)'></app-file-input>
         </div>
 
-        <div class="global-box">
+        <!-- <div class="global-box">
           <span class="global-sub-title">Видео проекта</span>
           <app-text-input [item]='projectVideoInput'></app-text-input>
           <div class="delicate-text">Вам необходимо предварительно загрузить свое видео на YouTube, а затем нажать на
             кнопку поделиться и скопировать сюда ссылку.
           </div>
-        </div>
+        </div> -->
 
         <div class="global-box">
           <span class="global-sub-title">Бюджет и продолжительность компании</span>
@@ -145,11 +145,11 @@
           <span class="global-sub-title">География доставки</span>
 
           <div (click)='onDeliverySubTabClick(withoutDeliverySubTab)'>
-            <span class="delicate-text"> Доставка отсутствует</span>
+            <app-link empty value='Доставка отсутствует'></app-link>
           </div>
 
           <div (click)='onDeliverySubTabClick(someCountriesDeliverySubTab)'>
-            <span class="delicate-text"> Некоторые страны</span>
+            <app-link empty value='Некоторые страны'></app-link>
             <ng-container *ngIf='someCountriesDeliverySubTab.isActive'>
               <app-select [item]='countrySelectInput' (selectedValue)='onCountrySelect($event)'></app-select>
               <app-decimal-input [item]='countryDeliveryCostInput'></app-decimal-input>
@@ -164,7 +164,7 @@
           </div>
 
           <div (click)='onDeliverySubTabClick(wholeWorldDeliverySubTab)'>
-            <span class="delicate-text"> Весь мир</span>
+            <app-link empty value='Весь мир'></app-link>
             <ng-container *ngIf='wholeWorldDeliverySubTab.isActive'>
               <app-decimal-input [item]='rewardWholeWorldDeliveryCostInput'></app-decimal-input>
               <app-select [item]='countrySelectInput' (selectedValue)='onCountrySelect($event)'></app-select>
