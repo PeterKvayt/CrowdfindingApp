@@ -66,8 +66,8 @@ export class ProjectPageComponent extends Base implements OnInit {
   }
 
   getNickName(): string {
-    if (this.user.name && this.user.middleName) {
-      return this.user.name + ' ' + this.user.middleName;
+    if (this.user.name && this.user.surname) {
+      return this.user.name + ' ' + this.user.surname;
     } else {
       return this.user.email;
     }

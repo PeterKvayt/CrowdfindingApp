@@ -51,7 +51,7 @@
       <div class="row">
         <div class="col-12">
           <div class="global-box">
-          <p class="delicate-text" *ngIf='reward && hasDelivery()'>Стоимость доставки: {{getDeliveryPrice() ? getDeliveryPrice() : 'Выберите страну доставки'}}</p>
+          <p class="delicate-text" *ngIf='reward && hasDelivery()'>Стоимость доставки: {{getDeliveryPrice() ? getDeliveryPrice() + " BYN" : 'Выберите страну доставки'}}</p>
           <p class="delicate-text" *ngIf='reward'>Итого: {{getTotal()}}</p>
           </div>
         </div>

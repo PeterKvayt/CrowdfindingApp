@@ -50,11 +50,12 @@ export class ProjectCardComponent implements OnInit {
     return result + '%';
   }
 
-  public getProgress(): number {
+  public getProgress(): string {
     if (!this.card.purpose || this.card.purpose === 0 || this.card.currentResult < 0) {
-      return 0;
+      return '0';
     } else {
-      return (this.card.currentResult / this.card.purpose) * 100;
+      const result = (this.card.currentResult / this.card.purpose * 100).toString().split('.');
+      return result[0] + (result[1] ? '.' + result[1].substr(0, 3) : '');
     }
   }
 

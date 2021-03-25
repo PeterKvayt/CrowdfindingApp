@@ -16,6 +16,8 @@ import { Routes } from 'src/app/models/immutable/Routes';
 import { LookupItem } from 'src/app/models/common/LookupItem';
 import { SelectItem } from 'src/app/components/selectors/select/SelectItem';
 import { ProjectService } from 'src/app/services/project.service';
+import { Data } from 'src/app/models/immutable/Data';
+import { GenericLookupItem } from 'src/app/models/common/GenericLookupItem';
 
 @Component({
   selector: 'app-create-order-page',
@@ -48,8 +50,7 @@ export class CreateOrderPageComponent extends Base implements OnInit {
 
   public countrySelect: SelectInput = { list: [], defaultValue: 'Выберите страну' };
   public currentCountryId: string;
-  
-  // public countries: LookupItem[] = [];
+  public wholeWorldDelivery: GenericLookupItem<string, number>;
 
   ngOnInit() {
     this.titleService.setTitle('Оформление заказа');
@@ -62,14 +63,7 @@ export class CreateOrderPageComponent extends Base implements OnInit {
     this.subscriptions.add(
       this.projectService.getCountries().subscribe(
         (reply: ReplyMessage<LookupItem[]>) => {
-          if (reply.value) {
-            this.reward.deliveryCountries.forEach(x => {
-              const country = reply.value.find(c => c.key === x.key);
-              if (country) {
-                this.countrySelect.list.push(new SelectItem(country.key, country.value));
-              }
-            });
-          }
+          if (reply.value) { this.setCountrySelect(reply.value); }
           this.showLoader = false;
         },
         () => {this.showLoader = false; }
@@ -98,8 +92,11 @@ export class CreateOrderPageComponent extends Base implements OnInit {
 
   getDeliveryPrice(): number {
     if (this.currentCountryId) {
-      const delivery = this.reward.deliveryCountries.find(x => x.key === this.currentCountryId);
-      return delivery ? delivery.value : null;
+      let delivery = this.reward.deliveryCountries.find(x => x.key === this.currentCountryId);
+      if (this.wholeWorldDelivery && !delivery) {
+        delivery = new GenericLookupItem<string, number>(this.currentCountryId, this.wholeWorldDelivery.value);
+      }
+      return delivery.value * this.countInput.value;
     } else {
       return null;
     }
@@ -109,11 +106,11 @@ export class CreateOrderPageComponent extends Base implements OnInit {
     let result: number = this.reward.price * (this.countInput.value ? this.countInput.value : 1);
     if (this.currentCountryId && this.hasDelivery()) {
       result += this.getDeliveryPrice();
-      return result;
+      return result + ' BYN';
     } else if (this.hasDelivery()) {
       return 'Выберите страну доставки';
     } else {
-      return result;
+      return result + ' BYN';
     }
   }
 
@@ -155,5 +152,17 @@ export class CreateOrderPageComponent extends Base implements OnInit {
 
   onSelectValue(value: string) {
     this.currentCountryId = value;
+  }
+
+  setCountrySelect(counries: LookupItem[]): void {
+    this.wholeWorldDelivery = this.reward.deliveryCountries.find(x => x.key === Data.wholeWorldDeliveryId);
+    if (this.wholeWorldDelivery) {
+      counries.forEach(x => this.countrySelect.list.push(new SelectItem(x.key, x.value)));
+    } else {
+      this.reward.deliveryCountries.forEach(x => {
+        const country = counries.find(c => c.key === x.key);
+        if (country) { this.countrySelect.list.push(new SelectItem(country.key, country.value)); }
+      });
+    }
   }
 }
