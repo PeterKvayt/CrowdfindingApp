@@ -19,6 +19,8 @@ import { PagingControl } from 'src/app/components/paging/PagingControl';
 import { Roles } from 'src/app/models/immutable/Roles';
 import { GenericLookupItem } from 'src/app/models/common/GenericLookupItem';
 import { FileService } from 'src/app/services/file.service';
+import { OrderInfo } from 'src/app/models/replies/orders/OrderInfo';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-profile',
@@ -32,9 +34,11 @@ export class ProfileComponent extends Base implements OnInit {
   public myProjectsTab = new TabElement('Мои проекты', true);
   public supportedTab = new TabElement('Поддержал', false);
   public draftsTab = new TabElement('Черновики', false);
+  public ordersTab = new TabElement('Заказы', false);
   public myProjectsPaging: PagingControl<ProjectCard>;
   public supportedPaging: PagingControl<ProjectCard>;
   public draftsPaging: PagingControl<ProjectCard>;
+  public orders: OrderInfo[] = []
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
@@ -42,11 +46,13 @@ export class ProfileComponent extends Base implements OnInit {
     private titleService: Title,
     public authService: AuthenticationService,
     private projectService: ProjectService,
-    public fileService: FileService
+    public fileService: FileService,
+    private orderService: OrderService
   ) {
     super(router, activatedRoute);
   }
 
+  public projectRoute = Routes.project + '/';
   public userInfo: UserInfo;
   private toAdmin = 'Сделать администратором';
   private toDefaultUser = 'Сделать пользователем';
@@ -61,9 +67,23 @@ export class ProfileComponent extends Base implements OnInit {
       this.fetchMyProjects();
       this.fetchSupportedProjects();
       this.fetchDraftProjects();
+      this.setOrders();
     } else {
       this.fetchPublicProjects();
     }
+  }
+
+  setOrders(): void {
+    this.showLoader = true;
+    this.subscriptions.add(
+      this.orderService.getOrders().subscribe(
+        (reply: ReplyMessage<OrderInfo[]>) => {
+          this.orders = reply.value;
+          this.showLoader = false;
+        },
+        () => { this.showLoader = false; }
+      )
+    );
   }
 
   setIsMyProfile() {
@@ -82,7 +102,7 @@ export class ProfileComponent extends Base implements OnInit {
         (reply: ReplyMessage<UserInfo>) => {
           this.userInfo = reply.value;
           this.editRoleTitle(this.userInfo.role);
-           this.showLoader = false;
+          this.showLoader = false;
         },
         () => { this.showLoader = false; }
       )
@@ -99,15 +119,16 @@ export class ProfileComponent extends Base implements OnInit {
     this.myProjectsTab.isActive = false;
     this.supportedTab.isActive = false;
     this.draftsTab.isActive = false;
+    this.ordersTab.isActive = false;
     tab.isActive = true;
   }
 
   fetchDraftProjects() {
-    const filter: ProjectFilterInfo = { status: [ ProjectStatusEnum.Draft, ProjectStatusEnum.Moderation]};
+    const filter: ProjectFilterInfo = { status: [ProjectStatusEnum.Draft, ProjectStatusEnum.Moderation] };
     const request: ProjectSearchRequestMessage = {
       filter: filter,
       paging: new PagingInfo(1, 6)
-     };
+    };
     this.subscriptions.add(
       this.projectService.ownerProjects(request).subscribe(
         (reply: PagedReplyMessage<ProjectCard[]>) => {
@@ -135,11 +156,11 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   fetchMyProjects() {
-    const filter: ProjectFilterInfo = { status: [ ProjectStatusEnum.Active]};
+    const filter: ProjectFilterInfo = { status: [ProjectStatusEnum.Active] };
     const request: ProjectSearchRequestMessage = {
       filter: filter,
       paging: new PagingInfo(1, 6)
-     };
+    };
     this.subscriptions.add(
       this.projectService.ownerProjects(request).subscribe(
         (reply: PagedReplyMessage<ProjectCard[]>) => {
@@ -154,11 +175,11 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   fetchPublicProjects() {
-    const filter: ProjectFilterInfo = { ownerId: [ this.currentUserId ]};
+    const filter: ProjectFilterInfo = { ownerId: [this.currentUserId] };
     const request: ProjectSearchRequestMessage = {
       filter: filter,
       paging: new PagingInfo(1, 6)
-     };
+    };
     this.subscriptions.add(
       this.projectService.openedProjects(request).subscribe(
         (reply: PagedReplyMessage<ProjectCard[]>) => {
@@ -193,7 +214,7 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   editRoleTitle(roleName: string) {
-     if (roleName === Roles.defaultUser) {
+    if (roleName === Roles.defaultUser) {
       this.roleEditTitle.key = Roles.admin;
       this.roleEditTitle.value = this.toAdmin;
     } else {

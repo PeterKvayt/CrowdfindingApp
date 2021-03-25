@@ -58,6 +58,7 @@ import { OrderService } from './services/order.service';
 import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
 import { HelpPageComponent } from './pages/help-page/help-page.component';
 import { ImgComponent } from './components/img/img.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { ImgComponent } from './components/img/img.component';
     CreateOrderPageComponent,
     ProfileSettingsComponent,
     HelpPageComponent,
-    ImgComponent
+    ImgComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

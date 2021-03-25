@@ -13,4 +13,8 @@ export class OrderService {
   public accept(model: AcceptOrderRequestMessage) {
     return this.http.post<AcceptOrderRequestMessage>(this.controller, model);
   }
+
+  public getOrders() {
+    return this.http.get(this.controller);
+  }
 }

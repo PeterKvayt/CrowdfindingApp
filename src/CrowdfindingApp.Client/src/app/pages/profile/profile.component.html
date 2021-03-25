@@ -27,7 +27,8 @@
                 <div class="row">
 
                   <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-regular-btn value='Редактировать данные' ico='fas fa-cog' fluid='true' (click)='onEditSettingsClick()'></app-regular-btn>
+                    <app-regular-btn value='Редактировать данные' ico='fas fa-cog' fluid='true'
+                      (click)='onEditSettingsClick()'></app-regular-btn>
                   </div>
                   <div *ngIf='!authService.isAdmin() && isMyProfile' class="col-lg-6 col-md-5"></div>
                   <div *ngIf='authService.isAdmin() && isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
@@ -54,17 +55,21 @@
       <ng-container *ngIf='isMyProfile'>
 
         <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="col-lg-3 col-md-3 col-sm-12">
             <app-tab [value]='myProjectsTab.value' [active]='myProjectsTab.isActive'
               (click)='onTabClick(myProjectsTab)'>
             </app-tab>
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="col-lg-3 col-md-3 col-sm-12">
             <app-tab [value]='supportedTab.value' [active]='supportedTab.isActive' (click)='onTabClick(supportedTab)'>
             </app-tab>
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="col-lg-3 col-md-3 col-sm-12">
             <app-tab [value]='draftsTab.value' [active]='draftsTab.isActive' (click)='onTabClick(draftsTab)'>
+            </app-tab>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <app-tab [value]='ordersTab.value' [active]='ordersTab.isActive' (click)='onTabClick(ordersTab)'>
             </app-tab>
           </div>
         </div>
@@ -97,6 +102,57 @@
           </div>
           <div class="col-12">
             <app-paging [control]='draftsPaging' [loadingOn]='showLoader'></app-paging>
+          </div>
+        </div>
+
+        <div class="row" *ngIf='ordersTab.isActive'>
+          <div class="col-lg-6" *ngFor='let order of orders'>
+            <div class="global-box">
+              <p>
+                <span class="sub-title">Id заказа: </span>
+                <span class="delicate-text">{{order.id}}</span>
+              </p>
+              <p>
+                <span class="sub-title">Проект: </span>
+                <app-link [value]='order.projectName' [route]='projectRoute + order.projectId'></app-link>
+              </p>
+              <p>
+                <span class="sub-title">Вознаграждение: </span>
+                <span class="delicate-text">{{order.rewardName}}</span>
+              </p>
+              <p>
+                <span class="sub-title">Количество: </span>
+                <span class="delicate-text">{{order.count}}</span>
+              </p>
+              <p>
+                <span class="sub-title">Дата оформления: </span>
+                <span class="delicate-text">{{order.paymentDateTime | date: 'yyyy MMMM dd, HH:mm'}}</span>
+              </p>
+              <p>
+                <span class="sub-title">Ф.И.О. получателя: </span>
+                <span class="delicate-text">{{order.surname + ' ' + order.name + ' ' + order.middleName}}</span>
+              </p>
+              <p *ngIf='order.countryName'>
+                <span class="sub-title">Страна доставки: </span>
+                <span class="delicate-text">{{order.countryName}}</span>
+              </p>
+              <p *ngIf='order.fullAddress'>
+                <span class="sub-title">Адрес доставки: </span>
+                <span class="delicate-text">{{order.fullAddress}}</span>
+              </p>
+              <p *ngIf='order.postCode'>
+                <span class="sub-title">Почтовый индекс: </span>
+                <span class="delicate-text">{{order.postCode}}</span>
+              </p>
+              <p *ngIf='order.deliveryCost'>
+                <span class="sub-title">Стоимость доставки: </span>
+                <span class="delicate-text">{{order.deliveryCost}}</span>
+              </p>
+              <p>
+                <span class="sub-title">Итого: </span>
+                <span class="delicate-text">{{order.total}}</span>
+              </p>
+            </div>
           </div>
         </div>
 
