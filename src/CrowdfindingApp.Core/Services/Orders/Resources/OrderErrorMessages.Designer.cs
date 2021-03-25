@@ -106,6 +106,15 @@ namespace CrowdfindingApp.Core.Services.Orders.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы превысили ограничение. Количество должно быть меньше чем {0}.
+        /// </summary>
+        internal static string OrderErrorMessageKeys_GreaterThanLimit {
+            get {
+                return ResourceManager.GetString("OrderErrorMessageKeys_GreaterThanLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Количество вознаграждении должно быть больше чем 0.
         /// </summary>
         internal static string OrderErrorMessageKeys_RewardCountLessThanOne {

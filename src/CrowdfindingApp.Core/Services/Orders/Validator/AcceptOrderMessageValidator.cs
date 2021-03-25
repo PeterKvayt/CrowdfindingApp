@@ -1,5 +1,7 @@
 ﻿
+using System.Threading.Tasks;
 using CrowdfindingApp.Common.Enums;
+using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Messages.Orders;
 using CrowdfindingApp.Common.Validators;
 using CrowdfindingApp.Data.Common.BusinessModels;
@@ -11,14 +13,14 @@ namespace CrowdfindingApp.Core.Services.Orders.Validator
     {
         private readonly IdValidator _idValidator = new IdValidator();
 
-        public AcceptOrderMessageValidator(Reward reward)
+        public AcceptOrderMessageValidator(Reward reward, int orderedCount, int orderCount)
         {
             RuleFor(x => x.Count).GreaterThanOrEqualTo(1)
                 .WithErrorCode(OrderErrorMessageKeys.RewardCountLessThanOne);
 
             RuleFor(x => x.CountryId)
                 .SetValidator(_idValidator)
-                .When(x =>  reward.DeliveryType == (int)DeliveryType.SomeCountries || reward.DeliveryType == (int)DeliveryType.WholeWorld);
+                .When(x => reward.DeliveryType == (int)DeliveryType.SomeCountries || reward.DeliveryType == (int)DeliveryType.WholeWorld);
 
             RuleFor(x => x.FullAddress).NotEmpty()
                 .WithErrorCode(OrderErrorMessageKeys.EmptyFullAddress)
@@ -36,6 +38,11 @@ namespace CrowdfindingApp.Core.Services.Orders.Validator
             RuleFor(x => x.PostCode).NotEmpty()
                 .WithErrorCode(OrderErrorMessageKeys.EmptyPostCode)
                 .When(x => reward.DeliveryType == (int)DeliveryType.SomeCountries || reward.DeliveryType == (int)DeliveryType.WholeWorld);
+
+            RuleFor(x => reward.Limit.Value).GreaterThanOrEqualTo(orderedCount + orderCount)
+                .WithErrorCode(OrderErrorMessageKeys.GreaterThanLimit)
+                .WithCustomMessageParameters(x => Task.FromResult((reward.Limit - orderedCount).ToString()))
+                .When(_ => reward.IsLimited);
         }
     }
 }

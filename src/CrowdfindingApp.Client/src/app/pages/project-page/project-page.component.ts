@@ -81,6 +81,7 @@ export class ProjectPageComponent extends Base implements OnInit {
       reward.image,
       reward.deliveryType,
       reward.deliveryDate,
+      reward.isLimited,
       reward.limit,
       reward.id
     );

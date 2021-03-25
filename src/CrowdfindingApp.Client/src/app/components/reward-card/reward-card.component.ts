@@ -62,4 +62,16 @@ export class RewardCardComponent implements OnInit {
       this.router.navigate([Routes.order + '/' + this.item.id]);
     }
   }
+
+  hasBuyOption(): boolean {
+    if (this.showBuyOption) {
+      if (this.item.isLimited) {
+        return this.item.availableCount > 0;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
 }

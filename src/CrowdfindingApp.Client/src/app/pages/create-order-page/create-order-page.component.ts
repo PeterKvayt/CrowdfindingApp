@@ -77,6 +77,9 @@ export class CreateOrderPageComponent extends Base implements OnInit {
       this.rewardService.getPublicById(this.rewardId).subscribe(
         (reply: ReplyMessage<RewardInfo>) => {
           this.reward = reply.value;
+          if (this.reward.isLimited) {
+            this.countInput.max = this.reward.limit;
+          }
           this.setCountries();
           this.showLoader = false;
         },
@@ -122,6 +125,7 @@ export class CreateOrderPageComponent extends Base implements OnInit {
       reward.image,
       reward.deliveryType,
       reward.deliveryDate,
+      reward.isLimited,
       reward.limit,
       reward.id
     );

@@ -40,7 +40,8 @@ namespace CrowdfindingApp.Core.Services.Orders.Handlers
                 return reply;
             }
 
-            var validator = new AcceptOrderMessageValidator(reward);
+            var orderedCount = await _orderRepository.GetOrdersCountByRewardIdAsync(reward.Id);
+            var validator = new AcceptOrderMessageValidator(reward, orderedCount, requestMessage.Count);
             var validationResult = await validator.ValidateAsync(requestMessage);
             await reply.MergeAsync(validationResult);
 

@@ -35,6 +35,12 @@ namespace CrowdfindingApp.Common.Extensions
                 {
                     message.AddValidationError(error.ErrorCode, null, await parametersTask);
                 }
+
+                var parameterTask = error.CustomState as Task<string>;
+                if(parameterTask != null)
+                {
+                    message.AddValidationError(error.ErrorCode, null, await parameterTask);
+                }
                 else
                 {
                     message.AddValidationError(error.ErrorCode, null, error.AttemptedValue);

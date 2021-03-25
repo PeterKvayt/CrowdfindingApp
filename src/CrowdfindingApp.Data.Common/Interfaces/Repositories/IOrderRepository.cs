@@ -12,5 +12,7 @@ namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
         Task<List<Order>> GetOrdersAsync(OrderFilter filter, Paging paging = null);
 
         Task<List<Order>> GetByRewardIdAsync(Guid rewardId);
+
+        Task<int> GetOrdersCountByRewardIdAsync(Guid rewardId);
     }
 }

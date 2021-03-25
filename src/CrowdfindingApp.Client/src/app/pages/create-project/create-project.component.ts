@@ -421,6 +421,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       reward.image,
       reward.deliveryType,
       reward.deliveryDate,
+      reward.isLimited,
       reward.limit
     );
   }
@@ -442,10 +443,6 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.questionInput.value = question.question;
     this.answerInput.value = question.answer;
     this.faqList.remove(question);
-  }
-
-  public onProjectImageUpload(): void {
-    
   }
 
   public toStartClick() {

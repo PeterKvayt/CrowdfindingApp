@@ -29,7 +29,7 @@
             <div class="reward-price">{{item.price}} BYN</div>
           </div>
           <div class="col">
-            <div *ngIf='item.availableCount' class="rewards-count">ОСТАЛОСЬ {{item.availableCount}}</div>
+            <div *ngIf='item.isLimited' class="rewards-count">ОСТАЛОСЬ {{item.availableCount}}</div>
           </div>
         </div>
 
@@ -45,7 +45,7 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf='showBuyOption'>
+      <ng-container *ngIf='hasBuyOption()'>
           <div class="row">
             <div class="col">
               <app-link empty value='Приобрести' (click)='onBuyClick()'></app-link>

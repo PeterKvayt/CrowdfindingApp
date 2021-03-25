@@ -132,6 +132,9 @@
   <data name="OrderErrorMessageKeys_EmptySurname" xml:space="preserve">
     <value>Заполните поле Фамилия получателя"</value>
   </data>
+  <data name="OrderErrorMessageKeys_GreaterThanLimit" xml:space="preserve">
+    <value>Вы превысили ограничение. Количество должно быть меньше чем {0}</value>
+  </data>
   <data name="OrderErrorMessageKeys_RewardCountLessThanOne" xml:space="preserve">
     <value>Количество вознаграждении должно быть больше чем 0</value>
   </data>

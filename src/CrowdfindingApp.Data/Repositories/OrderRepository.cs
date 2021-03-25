@@ -53,5 +53,10 @@ namespace CrowdfindingApp.Data.Repositories
         {
             return await GetQuery().Where(x => x.RewardId == rewardId).ToListAsync();
         }
+
+        public async Task<int> GetOrdersCountByRewardIdAsync(Guid rewardId)
+        {
+            return await Task.Run(() => GetQuery().Where(x => x.RewardId == rewardId).Sum(x => x.Count));
+        }
     }
 }
