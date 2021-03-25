@@ -75,9 +75,9 @@
 }
 
 .filter{
-  font-size: 13px;
+  font-size: 14px;
   margin-bottom: 0px;
-  z-index: 2;
+  font-weight: 100;
 }
 
 .card-description{
@@ -102,11 +102,10 @@
 .projectName{
   display: inline-block;
   text-decoration: none;
-  color: var(--greenPoles);
+  color: var(--regular);
   text-align: left;
   font-weight: 600;
   font-size: 17px;
-  /* font-size: 1.1vw; */
   width: 100%;
   z-index: 2;
   background-color: transparent;
@@ -114,7 +113,7 @@
 
 .projectName:hover{
   text-decoration: none;
-  color: var(--greenPoles);
+  color: var(--regular);
 }
 
 .card-progress-box{
@@ -127,9 +126,8 @@
 }
 
 .progress-bar{
-  /* width: 0%; */
   height: 100%;
-  background-color: red;
+  background-color: var(--regular);
 }
 
 .card-right-status{
@@ -140,7 +138,7 @@
   display: inline-block;
   width: 100%;
   text-decoration: none;
-  color: var(--greenPoles);
+  color: var(--regular);
   font-weight: 600;
   font-size: 18px;
 
@@ -148,7 +146,7 @@
 
 .card-up-status:hover{
   text-decoration: none;
-  color: var(--greenPoles);
+  color: var(--regular);
 }
 
 .card-down-status{
@@ -163,16 +161,17 @@
   text-decoration: none;
 }
 
-.project-card-status-pict{
+/* FUTURE */
+/* .project-card-status-pict{
   position:absolute;
   right: 9%;
   text-align:end;
   z-index: 0;
   display: none;
   color: lightblue;
-}
+} */
 
-.project-card-status-pict-check{
+/* .project-card-status-pict-check{
   position:absolute;
   right: 10.5%;
   top:  51%;
@@ -180,4 +179,4 @@
   display: none;
   z-index: 1;
   color: #fff;
-}
+} */

@@ -12,7 +12,7 @@
       <!-- <span class="fa fa-certificate fa-2x project-card-status-pict"></span> -->
       <!-- <span class="link filter"> {{card.category}} </span> -->
       <!-- <app-link empty [value]='card.categoryName'></app-link> -->
-      <span class="delicate-text">{{card.categoryName}}</span>
+      <span class="filter">{{card.categoryName}}</span>
       <span class="card-description">
         <span class="projectName"> {{card.name}} </span>
         {{card.description}}
@@ -41,7 +41,7 @@
           </div>
           <div class="row">
             <div class="col card-right-status">
-              <span class="card-down-status"><span class="fas fa-clock-o fa-fw"></span> time </span>
+              <span class="card-down-status"><span class="far fa-clock fa-fw"></span> {{card.restTimeToEnd ? card.restTimeToEnd : ''}} </span>
             </div>
           </div>
         </div>

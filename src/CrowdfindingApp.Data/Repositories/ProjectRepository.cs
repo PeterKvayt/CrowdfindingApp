@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Extensions;
@@ -101,8 +102,21 @@ namespace CrowdfindingApp.Data.Repositories
         {
             var project = await GetQuery().FirstAsync(x => x.Id == projectId);
             project.Status = status;
+            ApplyStatus(project);
             Repository.Update(project);
             await Storage.SaveChangesAsync();
+        }
+
+        private void ApplyStatus(Project project)
+        {
+            switch(project.Status)
+            {
+                case (int)ProjectStatus.Active: 
+                    project.StartDateTime = DateTime.UtcNow;
+                    break;
+                default:
+                    break;
+            }
         }
 
         public async Task<decimal> GetProgressAsync(Guid projectId)

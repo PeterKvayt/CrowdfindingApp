@@ -14,5 +14,6 @@ namespace CrowdfindingApp.Common.DataTransfers.Projects
         public decimal? Purpose { get; set; }
         public decimal? CurrentResult { get; set; }
         public ProjectStatus Status { get; set; }
+        public string RestTimeToEnd { get; set; }
     }
 }

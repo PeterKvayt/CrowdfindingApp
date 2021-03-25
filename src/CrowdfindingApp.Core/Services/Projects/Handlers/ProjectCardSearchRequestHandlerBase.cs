@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CrowdfindingApp.Common.DataTransfers;
 using CrowdfindingApp.Common.DataTransfers.Projects;
+using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Messages;
@@ -59,6 +60,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         {
             PrepareProjectImage(project);
             var card = Mapper.Map<ProjectCard>(project);
+            SetRestTimeToEnd(card, project);
             card.CurrentResult = await ProjectRepository.GetProgressAsync(project.Id);
             if(card.CategoryId.NonNullOrWhiteSpace())
             {
@@ -74,6 +76,46 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
                 return;
             }
             project.Image = $"{Configuration["FileStorageConfiguration:PermanentFolderName"]}/Projects/{project.Id}/{project.Image}";
+        }
+
+        private void SetRestTimeToEnd(ProjectCard card, Project project)
+        {
+            if(card.Status == ProjectStatus.Active)
+            {
+                var restTime = project.StartDateTime + new TimeSpan(project.Duration.Value, 0, 1, 0, 0) - DateTime.UtcNow;
+                if(restTime.Value.Days > 0)
+                {
+                    card.RestTimeToEnd = $"{restTime.Value.Days} д.";
+                    return;
+                }
+
+                if(restTime.Value.Hours > 1)
+                {
+                    card.RestTimeToEnd = $"{restTime.Value.Hours} ч.";
+                    return;
+                }
+
+                if(restTime.Value.Minutes > 1)
+                {
+                    card.RestTimeToEnd = $"{restTime.Value.Minutes} м.";
+                    return;
+                }
+                else
+                {
+                    card.RestTimeToEnd = $"Меньше 1 м.";
+                    return;
+                }
+            }
+            if(card.Status == ProjectStatus.Complited)
+            {
+                card.RestTimeToEnd = "Завершен";
+                return;
+            }
+            if(card.Status == ProjectStatus.Stopped)
+            {
+                card.RestTimeToEnd = "Остановлен";
+                return;
+            }
         }
     }
 }
