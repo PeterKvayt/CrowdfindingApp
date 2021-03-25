@@ -19,5 +19,12 @@ namespace CrowdfindingApp.Common.DataTransfers.Orders
         public string CountryId { get; set; }
         public string FullAddress { get; set; }
         public string PostCode { get; set; }
+
+        public string ProjectName { get; set; }
+        public string ProjectId { get; set; }
+        public string RewardName { get; set; }
+        public string CountryName { get; set; }
+        public decimal Total { get; set; }
+        public decimal DeliveryCost { get; set; }
     }
 }

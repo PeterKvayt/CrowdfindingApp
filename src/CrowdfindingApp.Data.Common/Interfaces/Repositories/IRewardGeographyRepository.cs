@@ -10,5 +10,6 @@ namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
     {
         Task SubstituteRangeAsync(List<RewardGeography> geographies, Guid rewardId);
         Task<List<RewardGeography>> GetByRewardIdAsync(Guid id);
+        Task<List<RewardGeography>> GetListAsync(IEnumerable<Guid> rewardIds, IEnumerable<Guid> countryIds);
     }
 }

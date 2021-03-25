@@ -38,5 +38,22 @@ namespace CrowdfindingApp.Data.Repositories
         {
             return await GetQuery().Where(x => x.RewardId == id).ToListAsync();
         }
+
+        public async Task<List<RewardGeography>> GetListAsync(IEnumerable<Guid> rewardIds, IEnumerable<Guid> countryIds)
+        {
+            var query = GetQuery();
+
+            if(rewardIds?.Any() ?? false)
+            {
+                query = query.Where(x => rewardIds.Contains(x.RewardId));
+            }
+
+            if(countryIds?.Any() ?? false)
+            {
+                query = query.Where(x => countryIds.Contains(x.CountryId));
+            }
+
+            return await query.ToListAsync();
+        }
     }
 }

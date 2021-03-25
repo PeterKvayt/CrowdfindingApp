@@ -60,6 +60,7 @@ namespace CrowdfindingApp.Api
             builder.RegisterType<QuestionRepository>().AsImplementedInterfaces();
             builder.RegisterType<RewardGeographyRepository>().AsImplementedInterfaces();
             builder.RegisterType<RewardRepository>().AsImplementedInterfaces();
+            builder.RegisterType<CountryRepository>().AsImplementedInterfaces();
             builder.RegisterType<OrderRepository>().AsImplementedInterfaces();
 
             return builder;
