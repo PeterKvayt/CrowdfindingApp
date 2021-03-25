@@ -123,7 +123,7 @@ namespace CrowdfindingApp.Data.Repositories
             decimal progress = 0;
             foreach(var group in groupedOrders)
             {
-                progress += group.Count() * rewards.First(x => x.Id == group.Key).Price.Value;
+                progress += group.Sum(x => x.Count) * rewards.First(x => x.Id == group.Key).Price.Value;
             }
 
             return progress;

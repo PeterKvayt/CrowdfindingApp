@@ -75,7 +75,7 @@ namespace CrowdfindingApp.Core.Services.Rewards.Handlers
             var orders = await _orderRepository.GetOrdersAsync(new OrderFilter { RewardId = new List<Guid> { reward.Id } });
             if(orders != null)
             {
-                info.Limit -= orders.Count;
+                info.Limit -= orders.Sum(x => x.Count);
             }
 
             var deliveryCountries = await _rewardGeographyRepository.GetByRewardIdAsync(reward.Id);
