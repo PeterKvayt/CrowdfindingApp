@@ -82,7 +82,6 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             var isNew = projectInfo.Id.IsNullOrWhiteSpace();
             var project = Mapper.Map<Project>(projectInfo);
             PrepareValues(project, isNew);
-            project.Image = await SaveImageAsync(project.Id, project.Image);
             var projectId = project.Id;
             if(isNew)
             {
@@ -92,6 +91,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             {
                 await ProjectRepository.UpdateAsync(project, Mapper);
             }
+            await SaveImageAsync(projectId, project.Image);
             return projectId;
         }
 
@@ -109,6 +109,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         protected virtual void PrepareValues(Project project, bool isNew)
         {
             project.OwnerId = User.GetUserId();
+            project.Image = project.Image.Split('/').Last();
         }
 
         private async Task SaveQuestionsAsync(ProjectInfo projectInfo, Guid projectId)
