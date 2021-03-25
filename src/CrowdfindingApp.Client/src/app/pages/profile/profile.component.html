@@ -10,13 +10,8 @@
       <div class="row">
 
         <div class="col-lg-3 col-mg-6 col-sm-12">
-          <div class="global-img-wrapper">
-            <img class="global-img" [src]='userInfo && userInfo.photo && userInfo.photo !== "assets/img/default-avatar.png" 
-                  ? fileService.absoluteFileStoragePath + userInfo.photo
-                  : "assets/img/default-avatar.png"' alt="user image" />
-          </div>
+          <app-img default='assets/img/default-avatar.png' alt='user image' [src]='userInfo.photo'></app-img>
         </div>
-
         <div class="col-lg-8">
           <div class="row">
 

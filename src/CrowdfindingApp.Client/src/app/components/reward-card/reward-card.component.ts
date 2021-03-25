@@ -34,9 +34,6 @@ export class RewardCardComponent implements OnInit {
 
   setImageUrl(): void {
     if (this.item.image) {
-      console.log(this.item.image !== this.imageUrl)
-      console.log(this.item.image)
-      console.log(this.imageUrl)
       if (this.item.image !== this.imageUrl) {
         this.imageUrl = this.fileService.absoluteFileStoragePath + this.item.image;
       }

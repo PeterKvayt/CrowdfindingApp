@@ -41,11 +41,7 @@
     </div>
     <div class="col-lg-4">
       <div class="global-box">
-        <div class="global-img-wrapper">
-          <img class="global-img" [src]='userInfo && userInfo.photo && userInfo.photo !== "assets/img/default-avatar.png" 
-                ? fileService.absoluteFileStoragePath + userInfo.photo
-                : "assets/img/default-avatar.png"' alt="user image" />
-        </div>
+        <app-img default='assets/img/default-avatar.png' alt='user image' [src]='userInfo.photo'></app-img>
         <app-file-input [item]='imageInput' (change)='onUploadImgClick()'></app-file-input>
       </div>
     </div>

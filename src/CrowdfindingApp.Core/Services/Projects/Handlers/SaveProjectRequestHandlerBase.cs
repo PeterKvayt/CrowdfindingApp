@@ -109,7 +109,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         protected virtual void PrepareValues(Project project, bool isNew)
         {
             project.OwnerId = User.GetUserId();
-            project.Image = project.Image.Split('/').Last();
+            project.Image = project.Image?.Split('/').Last();
         }
 
         private async Task SaveQuestionsAsync(ProjectInfo projectInfo, Guid projectId)

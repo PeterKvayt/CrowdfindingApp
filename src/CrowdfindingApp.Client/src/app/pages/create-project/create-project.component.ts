@@ -52,11 +52,11 @@ export class CreateProjectComponent extends Base implements OnInit {
   public projectOwnerSurnameInput: TextInput = { placeholder: 'Фамилия' };
   public projectOwnerNameInput: TextInput = { placeholder: 'Имя' };
   public projectOwnerMiddleNameInput: TextInput = { placeholder: 'Отчество' };
-  public projectOwnerPassportNumberInput: TextInput = { placeholder: 'Серия и номер', label: 'Паспортные данные', min: 9, max: 9 };
-  public projectOwnerPrivateNumberInput: TextInput = { placeholder: 'Личный номер', min: 14, max: 14 };
-  public projectOwnerWhomIssuedDocInput: TextInput = { placeholder: 'Кем  выдан документ' };
-  public projectOwnerPhoneNumberInput: TextInput = { placeholder: 'Контактный номер', min: 13, max: 13 };
-  public projectOwnerAddressInput: TextInput = { placeholder: 'Адрес регистрации' };
+  public projectOwnerPassportNumberInput: TextInput = { placeholder: 'Серия и номер', label: 'Паспортные данные', min: 9, max: 9, example: 'Пример: AB1234567' };
+  public projectOwnerPrivateNumberInput: TextInput = { placeholder: 'Личный номер', min: 14, max: 14, example: 'Пример: 1234567A012PB0' };
+  public projectOwnerWhomIssuedDocInput: TextInput = { placeholder: 'Кем  выдан документ', example: 'Пример: Советское РУВД г.Минска' };
+  public projectOwnerPhoneNumberInput: TextInput = { placeholder: 'Контактный номер', min: 12, max: 12, example: 'Пример: 375291234567' };
+  public projectOwnerAddressInput: TextInput = { placeholder: 'Адрес регистрации', example: 'Пример: г.Минск, ул. Е. Полоцкой, д.3, кв. 16' };
   public projectOwnerWhenIssuedDocInput: DateInput = { label: 'Дата выдачи документа' };
   public projectRewardsList: RewardInfo[] = [];
   public projectOwnerBirthdayInput: DateInput = {
@@ -200,9 +200,7 @@ export class CreateProjectComponent extends Base implements OnInit {
           this.projectCategory = reply.value.categoryId;
           if (reply.value.categoryId) {
             let category = this.categorySelectInput.list.find(x => x.value === reply.value.categoryId);
-            if (category) {
-              category.selected = true;
-            }
+            if (category) { category.selected = true; }
           }
 
           this.projectNameInput.value = reply.value.title;
@@ -243,7 +241,7 @@ export class CreateProjectComponent extends Base implements OnInit {
           this.projectCard.description = reply.value.shortDescription ? reply.value.shortDescription : 'Описание';
           this.projectCard.name = reply.value.title ? reply.value.title : 'Название';
           this.projectCard.currentResult = ProjectStatusEnum.Draft;
-          this.projectCard.imgPath = reply.value.image ? reply.value.image : 'assets/img/stock-project.png';
+          this.projectCard.imgPath = reply.value.image;
 
           this.showLoader = false;
         },
@@ -356,10 +354,6 @@ export class CreateProjectComponent extends Base implements OnInit {
       deliveryDate = new Date(<number><any>this.selectedYear, <number><any>this.selectedMonth);
     }
 
-    let image = this.rewardImageInput.fileName;
-    if(image === 'assets/img/stock-reward.jpg') {
-      image = null;
-    }
     const rewardInfo: RewardInfo = {
       id: this.rewardId,
       projectId: this.projectId,
@@ -369,7 +363,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       deliveryDate: deliveryDate,
       isLimited: this.rewardCountRestrictionsInput.value ? true : false,
       limit: this.rewardCountRestrictionsInput.value,
-      image: image,
+      image: this.rewardImageInput.fileName,
       deliveryType: deliveryType,
       deliveryCountries: this.rewardDeliveryCountries
     };
@@ -383,7 +377,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.rewardDescriptionInput.value = undefined;
     this.rewardCountRestrictionsInput.value = undefined;
     this.rewardWholeWorldDeliveryCostInput.value = undefined;
-    this.rewardImageInput.fileName = 'assets/img/stock-reward.jpg';
+    this.rewardImageInput.fileName = undefined;
     this.rewardDeliveryCountries = [];
     this.countrySelectInput.list.forEach(country => country.disabled = false);
   }
