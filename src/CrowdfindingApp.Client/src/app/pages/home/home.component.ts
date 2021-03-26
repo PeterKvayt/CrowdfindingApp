@@ -9,10 +9,13 @@ import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
 import { ProjectFilterInfo } from 'src/app/models/replies/projects/ProjectFilterInfo';
 import { ProjectSearchRequestMessage } from 'src/app/models/requests/projects/ProjectSearchRequestMessage';
 import { PagingInfo } from 'src/app/models/common/PagingInfo';
+import { FileService } from 'src/app/services/file.service';
+import { Routes } from 'src/app/models/immutable/Routes';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent extends Base implements OnInit {
 
@@ -20,11 +23,13 @@ export class HomeComponent extends Base implements OnInit {
     private projectService: ProjectService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
+    public fileService: FileService
     ) {
       super(router, activatedRoute);
   }
   
+  // public imgHost = fileService.
   public projects: ProjectCard[] = [];
 
   public ngOnInit(): void {
@@ -48,5 +53,9 @@ export class HomeComponent extends Base implements OnInit {
         () => {this.showLoader = false; }
       )
     );
+  }
+
+  onSlideClick(card: ProjectCard): void {
+    this.redirect(Routes.project + '/' + card.id);
   }
 }

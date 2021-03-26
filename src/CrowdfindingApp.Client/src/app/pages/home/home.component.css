@@ -1,0 +1,12 @@
+.slider-description {
+  margin: 2vh;
+  padding: 1rem;
+  border-radius: 4px;
+  background-color: var(--regular);
+  color: #fff;
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* bottom: 20rem; */
+}

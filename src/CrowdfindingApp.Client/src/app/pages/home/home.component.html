@@ -4,6 +4,31 @@
 
 <div class="container global-top-padding">
   <div class="row">
+
+    <div class="col-12">
+      <div id="projectSlider" class="carousel slide" data-ride="carousel">
+        <div class="slider-wrapper">
+          <div class="carousel-inner">
+            <div class="carousel-item" [ngClass]='{active: card === projects[0]}' *ngFor='let card of projects' (click)='onSlideClick(card)'>
+              <div class="wrapper">
+                <app-img [src]='card.imgPath' default='assets/img/stock-project.png' alt="welcome"></app-img>
+                <div class="slider-description">
+                  <span class="global-sub-title">{{card.name}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#projectSlider" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#projectSlider" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-12 global-title">Популярные проекты</div>
     <ng-container *ngIf='projects'>
       <div class="col-lg-4 col-md-6 col-sm-12" *ngFor='let card of projects'>
         <app-project-card [card]='card'>
@@ -11,4 +36,6 @@
       </div>
     </ng-container>
   </div>
+
+
 </div>
