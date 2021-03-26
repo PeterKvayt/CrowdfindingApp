@@ -2,6 +2,10 @@ body{
   background-color: var(--bg-ligth);
 }
 
+.global-page-wrapper{
+  min-height: 100vh;
+}
+
 input{
   font-weight: 100;
 }

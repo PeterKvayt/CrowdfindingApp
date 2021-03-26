@@ -3,7 +3,7 @@
 </ng-container>
 
 <ng-container *ngIf='route'>
-  <a class="link delicate-text" [routerLink]='[route]'>{{value}}</a>
+  <a class="link delicate-text" [routerLink]='[route]' [queryParams]='params'>{{value}}</a>
 </ng-container>
 
 <ng-container *ngIf='empty !== null && empty !== undefined'>

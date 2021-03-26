@@ -1,8 +1,39 @@
 <div class="container-fluid footer-container">
   <div class="container footer-inner">
     <div class="row">
-      <div class="col">
-        <p>footer works!</p>
+      <div class="col-lg-3">
+        <p class="global-sub-title">Crowdfinding App</p>
+        <p class="delicate-text">ул. Днепровской флотилии, 23, 225710 Пинск, Брестская область, Республика Беларусь.</p>
+      </div>
+      <div class="col-lg-3">
+        <p class="global-sub-title">О нас</p>
+        <p>
+          <app-link value='О платформе' [route]='helpRoute' [params]='{tab: "1"}'></app-link>
+        </p>
+        <p>
+          <app-link value='Как работает платформа' [route]='helpRoute' [params]='{tab: "0"}'></app-link>
+        </p>
+        <p>
+          <app-link value='Trust & Safety' [route]='helpRoute' [params]='{tab: "3"}'></app-link>
+        </p>
+      </div>
+      <div class="col-lg-3">
+        <p class="global-sub-title">Помощь</p>
+        <p>
+          <app-link value='Правила платформы' [route]='helpRoute' [params]='{tab: "2"}'></app-link>
+        </p>
+        <p>
+          <app-link value='Ответы на вопросы' [route]='helpRoute' [params]='{tab: "4"}'></app-link>
+        </p>
+        <p>
+          <app-link value='Гайд по созданию проекта' [route]='helpRoute' [params]='{tab: "5"}'></app-link>
+        </p>
+      </div>
+      <div class="col-lg-3">
+        <p class="global-sub-title">Контакты</p>
+        <p class="delicate-text">+375 29 123 45 67</p>
+        <p class="delicate-text">Telegram: @crowdapp</p>
+        <p class="delicate-text">Email: email@mail.com</p>
       </div>
     </div>
   </div>

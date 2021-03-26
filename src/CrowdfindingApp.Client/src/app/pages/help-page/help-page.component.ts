@@ -18,6 +18,11 @@ export class HelpPageComponent extends Base implements OnInit {
   ) { super(router, activatedRoute); }
 
   public tabs: GenericLookupItem<boolean, string>[] = [
+    {key: false, value: 'Как работает платформа'},
+    {key: false, value: 'О платформе'},
+    {key: false, value: 'Парвила платформы'},
+    {key: false, value: 'Trust & Safety'},
+    {key: false, value: 'FAQ'},
     {key: true, value: 'Введение'},
     {key: false, value: 'Оформление проекта'},
     {key: false, value: 'Вознаграждения'},
@@ -28,6 +33,10 @@ export class HelpPageComponent extends Base implements OnInit {
   ];
 
   ngOnInit() {
+    const currentTabIndex = this.activatedRoute.snapshot.queryParams.tab;
+    if (currentTabIndex && this.tabs[currentTabIndex]) {
+      this.onTabClick(this.tabs[currentTabIndex]);
+    }
   }
 
   onTabClick(tab: GenericLookupItem<boolean, string>) {

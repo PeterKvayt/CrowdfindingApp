@@ -13,8 +13,10 @@ export class LinkComponent implements OnInit {
   @Input() href: string;
   @Input() value: string;
   @Input() empty: string;
+  @Input() params: any;
 
   ngOnInit() {
+    console.log(this.route);
     this.route = this.route === undefined ? null : '/' + this.route;
   }
 
