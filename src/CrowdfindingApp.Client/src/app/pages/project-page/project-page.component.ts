@@ -26,7 +26,7 @@ export class ProjectPageComponent extends Base implements OnInit {
     public projectService: ProjectService,
     public userService: UserService,
     public fileService: FileService,
-    private authService: AuthenticationService
+    public authService: AuthenticationService
   ) {
     super(router, activatedRoute);
   }
@@ -92,6 +92,6 @@ export class ProjectPageComponent extends Base implements OnInit {
   }
 
   showAbilityToSupport(): boolean {
-    return this.view.status === ProjectStatusEnum.Active && this.authService.isAuthenticated();
+    return this.view.status === ProjectStatusEnum.Active;
   }
 }

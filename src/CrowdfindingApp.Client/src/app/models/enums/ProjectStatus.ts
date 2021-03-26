@@ -5,5 +5,6 @@ export enum ProjectStatusEnum {
   Stopped = 4,
   Complited = 5,
   Deleted = 6,
-  Blocked = 7
+  Blocked = 7,
+  Finalized = 8
 }

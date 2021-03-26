@@ -80,11 +80,11 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         private void SetRestTimeToEnd(ProjectCard card, Project project)
         {
-            if(card.Status == ProjectStatus.Active)
+            if(card.Status == ProjectStatus.Active || card.Status == ProjectStatus.Complited)
             {
                 card.RestTimeToEnd = project.GetRestTime();
             }
-            if(card.Status == ProjectStatus.Complited)
+            if(card.Status == ProjectStatus.Finalized)
             {
                 card.RestTimeToEnd = "Завершен";
                 return;

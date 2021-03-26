@@ -98,7 +98,7 @@ namespace CrowdfindingApp.Data.Repositories
             return await GetQuery().FirstOrDefaultAsync(x => x.Id == projectId && x.OwnerId == ownerId);
         }
 
-        public async Task SetStatus(int status, Guid projectId)
+        public async Task SetStatusAsync(int status, Guid projectId)
         {
             var project = await GetQuery().FirstAsync(x => x.Id == projectId);
             project.Status = status;

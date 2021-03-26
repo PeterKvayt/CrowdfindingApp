@@ -33,7 +33,7 @@
           <div class="col-12" *ngIf='showAbilityToSupport()'>
             <app-regular-btn value='Поддержать проект' [link]='"project/"+ projectId + "/rewards"'></app-regular-btn>
           </div>
-          <div class="col-12" *ngIf='!showAbilityToSupport()'>
+          <div class="col-12" *ngIf='showAbilityToSupport() && !authService.isAuthenticated()'>
             <p class="delicate-text">Войдите, чтобы поддержать проект</p>
               <app-regular-btn value='Войти' [link]='signInRoute'></app-regular-btn>
             </div>
@@ -88,7 +88,7 @@
           <span>ВОЗНАГРАЖДЕНИЯ</span>
         </div>
         <div class="row">
-          <app-reward-card *ngFor='let reward of view.rewards' [item]='getRewardCardFromInfo(reward)' [showBuyOption]='showAbilityToSupport()'></app-reward-card>
+          <app-reward-card *ngFor='let reward of view.rewards' [item]='getRewardCardFromInfo(reward)' [showBuyOption]='showAbilityToSupport() '></app-reward-card>
         </div>
       </div>
 

@@ -61,6 +61,15 @@ namespace CrowdfindingApp.Core.Services.Orders.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Проект не доступен для поддержки.
+        /// </summary>
+        internal static string OrderErrorMessageKeys_DisallowToSupportProject {
+            get {
+                return ResourceManager.GetString("OrderErrorMessageKeys_DisallowToSupportProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Заполните поле &quot;Полный адрес&quot;.
         /// </summary>
         internal static string OrderErrorMessageKeys_EmptyFullAddress {

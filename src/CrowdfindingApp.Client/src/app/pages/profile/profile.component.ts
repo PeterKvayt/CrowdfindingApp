@@ -156,7 +156,7 @@ export class ProfileComponent extends Base implements OnInit {
   }
 
   fetchMyProjects() {
-    const filter: ProjectFilterInfo = { status: [ProjectStatusEnum.Active] };
+    const filter: ProjectFilterInfo = { status: [ProjectStatusEnum.Active, ProjectStatusEnum.Complited, ProjectStatusEnum.Finalized] };
     const request: ProjectSearchRequestMessage = {
       filter: filter,
       paging: new PagingInfo(1, 6)

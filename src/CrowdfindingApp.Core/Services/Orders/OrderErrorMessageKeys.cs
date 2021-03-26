@@ -10,5 +10,6 @@ namespace CrowdfindingApp.Core.Services.Orders
         public static string EmptyName => $"{nameof(OrderErrorMessageKeys)}_{nameof(EmptyName)}";
         public static string EmptyPostCode => $"{nameof(OrderErrorMessageKeys)}_{nameof(EmptyPostCode)}";
         public static string GreaterThanLimit => $"{nameof(OrderErrorMessageKeys)}_{nameof(GreaterThanLimit)}";
+        public static string DisallowToSupportProject => $"{nameof(OrderErrorMessageKeys)}_{nameof(DisallowToSupportProject)}";
     }
 }
