@@ -52,7 +52,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             var filter = new ProjectFilter { OwnerId = new List<Guid> { User.GetUserId() } };
             _mapper.Map(request.Filter, filter);
             var paging = _mapper.Map<Paging>(request.Paging);
-            var projects = await _repository.GetProjects(filter, paging);
+            var projects = await _repository.GetProjectsAsync(filter, paging);
 
             return new ReplyMessage<List<ProjectInfo>> { Value = projects.Select(_mapper.Map<ProjectInfo>).ToList() };
         }

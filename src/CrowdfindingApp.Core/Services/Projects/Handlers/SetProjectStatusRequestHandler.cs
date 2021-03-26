@@ -42,7 +42,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         protected override async Task<ReplyMessageBase> ExecuteAsync(SetProjectStatusRequestMessage request, Guid projectId)
         {
-            await _repository.SetStatusAsync((int)request.Status, projectId);
+            await _repository.SetStatusAsync((int)request.Status, new Guid[] { projectId });
             return new ReplyMessageBase();
         }
     }

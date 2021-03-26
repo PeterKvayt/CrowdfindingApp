@@ -62,10 +62,11 @@ export class ProjectCardComponent implements OnInit {
   public getStatus(): string {
     switch (this.card.status) {
       case ProjectStatusEnum.Active: return 'ИДЕТ СБОР';
-      case ProjectStatusEnum.Complited: return 'УСПЕХ';
+      case ProjectStatusEnum.Complited: return 'УСПЕШНЫЙ';
       case ProjectStatusEnum.Draft: return 'ЧЕРНОВИК';
       case ProjectStatusEnum.Moderation: return 'МОДЕРАЦИЯ';
       case ProjectStatusEnum.Stopped: return 'ПРИОСТАНОВЛЕН';
+      case ProjectStatusEnum.Finalized: return this.card.currentResult >= this.card.purpose ? 'УСПЕШНЫЙ' : 'ПРОВАЛ';
       default:
         break;
     }

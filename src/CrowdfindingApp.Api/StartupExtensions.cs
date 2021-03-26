@@ -9,6 +9,7 @@ using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Localization;
 using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
 using CrowdfindingApp.Common.Mappings;
+using CrowdfindingApp.Core.Services.BackgroundTasks;
 using CrowdfindingApp.Core.Services.FileService;
 using CrowdfindingApp.Core.Services.Orders;
 using CrowdfindingApp.Core.Services.Projects;
@@ -16,6 +17,8 @@ using CrowdfindingApp.Core.Services.Rewards;
 using CrowdfindingApp.Core.Services.Roles;
 using CrowdfindingApp.Core.Services.Users;
 using CrowdfindingApp.Data.Repositories;
+using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -74,6 +77,7 @@ namespace CrowdfindingApp.Api
             builder.RegisterModule<FileServiceModule>();
             builder.RegisterModule<OrderModule>();
             builder.RegisterModule<RewardsModule>();
+            builder.RegisterModule<BackgroundTaskModule>();
             builder.RegisterModule<CommonModule>();
 
             return builder;
@@ -174,6 +178,16 @@ namespace CrowdfindingApp.Api
             });
 
             return app;
+        }
+
+        public static IServiceCollection UseHangfire(this IServiceCollection services, IConfigurationRoot config)
+        {
+            JobStorage.Current = new SqlServerStorage(config.GetConnectionString(Configuration.Connection));
+
+            services.AddHangfire(config => { });
+            services.AddHangfireServer();
+
+            return services;
         }
     }
 }

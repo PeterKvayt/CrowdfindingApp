@@ -77,7 +77,7 @@ namespace CrowdfindingApp.Core.Services.Orders.Handlers
             var progress = await _projectRepository.GetProgressAsync(project.Id);
             if(progress >= project.Budget)
             {
-                await _projectRepository.SetStatusAsync((int)ProjectStatus.Complited, project.Id);
+                await _projectRepository.SetStatusAsync((int)ProjectStatus.Complited, new Guid[] { project.Id });
             }
 
             return new ReplyMessageBase();

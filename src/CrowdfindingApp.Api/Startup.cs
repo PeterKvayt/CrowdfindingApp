@@ -4,6 +4,7 @@ using CrowdfindingApp.Api.Middlewares;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Data;
 using CrowdfindingApp.Data.Common.Interfaces;
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +46,8 @@ namespace CrowdfindingApp.Api
                     .ConfigureSwagger()
                     .AddSingleton(Config)
                     .AddControllers();
+
+            services.UseHangfire(Config);
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -56,9 +59,11 @@ namespace CrowdfindingApp.Api
             builder.RegisterAutoMapper();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionInterceptor>();
+
+            app.UseHangfireDashboard();
 
             app.ConfigureStaticFiles(Config);
             //app.UseDeveloperExceptionPage();
@@ -84,6 +89,7 @@ namespace CrowdfindingApp.Api
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

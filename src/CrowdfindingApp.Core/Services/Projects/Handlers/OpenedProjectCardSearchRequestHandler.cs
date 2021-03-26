@@ -23,7 +23,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         {
         }
 
-        public List<ProjectStatus> _allowedStatuses = new List<ProjectStatus> { ProjectStatus.Active, ProjectStatus.Complited };
+        public List<ProjectStatus> _allowedStatuses = new List<ProjectStatus> { ProjectStatus.Active, ProjectStatus.Complited, ProjectStatus.Finalized };
 
         protected override async Task<PagedReplyMessage<List<ProjectCard>>> ExecuteAsync(ProjectSearchRequestMessage request)
         {

@@ -61,7 +61,7 @@ namespace CrowdfindingApp.Data.Repositories
             return query;
         }
 
-        public async Task<List<Project>> GetProjects(ProjectFilter filter, Paging paging)
+        public async Task<List<Project>> GetProjectsAsync(ProjectFilter filter, Paging paging)
         {
             return await GetQuery(filter).ToPagedListAsync(paging);
         }
@@ -98,12 +98,15 @@ namespace CrowdfindingApp.Data.Repositories
             return await GetQuery().FirstOrDefaultAsync(x => x.Id == projectId && x.OwnerId == ownerId);
         }
 
-        public async Task SetStatusAsync(int status, Guid projectId)
+        public async Task SetStatusAsync(int status, IEnumerable<Guid> projectIds)
         {
-            var project = await GetQuery().FirstAsync(x => x.Id == projectId);
-            project.Status = status;
-            ApplyStatus(project);
-            Repository.Update(project);
+            var projects = await GetQuery().Where(x => projectIds.Contains(x.Id)).ToListAsync();
+            foreach(var project in projects)
+            {
+                project.Status = status;
+                ApplyStatus(project);
+            }
+            Repository.UpdateRange(projects);
             await Storage.SaveChangesAsync();
         }
 

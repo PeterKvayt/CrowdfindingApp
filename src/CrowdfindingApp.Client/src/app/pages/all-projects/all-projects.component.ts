@@ -37,6 +37,7 @@ export class AllProjectsComponent extends Base implements OnInit {
   public filters: CategoryItem[] = [
     new CategoryItem(ProjectStatusEnum.Complited, 'Успешные', false),
     new CategoryItem(ProjectStatusEnum.Active, 'Активные', false),
+    new CategoryItem(ProjectStatusEnum.Finalized, 'Завершенные', false),
   ];
   ngOnInit() {
     this.titleService.setTitle('Все проекты');

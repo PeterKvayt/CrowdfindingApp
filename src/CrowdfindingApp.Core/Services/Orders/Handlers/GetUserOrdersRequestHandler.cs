@@ -46,7 +46,7 @@ namespace CrowdfindingApp.Core.Services.Orders.Handlers
 
             var rewards = await _rewardRepository.GetByIdsAsync(orders.Select(x => x.RewardId).Distinct());
             var countries = await _countryRepository.GetByIdsAsync(orders.Where(_ => _.CountryId.HasValue).Select(x => x.CountryId.Value).Distinct());
-            var projects = await _projectRepository.GetProjects(new ProjectFilter { Id = rewards.Select(x => x.ProjectId).Distinct().ToList() }, null);
+            var projects = await _projectRepository.GetProjectsAsync(new ProjectFilter { Id = rewards.Select(x => x.ProjectId).Distinct().ToList() }, null);
             
             var reply = new ReplyMessage<List<OrderInfo>> { Value = new List<OrderInfo>() };
             foreach(var order in orders) reply.Value.Add(await MapToOrderInfo(order, rewards, countries, projects));

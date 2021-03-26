@@ -38,7 +38,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         protected async Task<PagedReplyMessage<List<ProjectCard>>> SearchAsync(ProjectFilter filter, Paging paging)
         {
-            var projects = await ProjectRepository.GetProjects(filter, paging);
+            var projects = await ProjectRepository.GetProjectsAsync(filter, paging);
             var categories = await ProjectRepository.GetCategoriesByIdsAsync(projects.Select(x => x.CategoryId)
                 .Distinct()
                 .ToList());
