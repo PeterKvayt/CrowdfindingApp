@@ -30,7 +30,7 @@
           <span class="little-text">{{view.restProjectTime.split(' ')[1].toUpperCase()}}</span>
             <div class="little-text progress-info-title">ДО ОКОНЧАНИЯ СБОРА</div>
           </div>
-          <div class="col-12" *ngIf='showAbilityToSupport()'>
+          <div class="col-12" *ngIf='showAbilityToSupport() && authService.isAuthenticated()'>
             <app-regular-btn value='Поддержать проект' [link]='"project/"+ projectId + "/rewards"'></app-regular-btn>
           </div>
           <div class="col-12" *ngIf='showAbilityToSupport() && !authService.isAuthenticated()'>

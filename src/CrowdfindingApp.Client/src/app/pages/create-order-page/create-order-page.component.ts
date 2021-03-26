@@ -52,6 +52,8 @@ export class CreateOrderPageComponent extends Base implements OnInit {
   public currentCountryId: string;
   public wholeWorldDelivery: GenericLookupItem<string, number>;
 
+  public aboutHalpPageRoute = Routes.help;
+
   ngOnInit() {
     this.titleService.setTitle('Оформление заказа');
     this.rewardId = this.activatedRoute.snapshot.params.rewardId;
