@@ -214,6 +214,15 @@ namespace CrowdfindingApp.Core.Services.Projects.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Проект не может быть пустым.
+        /// </summary>
+        internal static string ProjectValidationErrorKeys_MissingProject {
+            get {
+                return ResourceManager.GetString("ProjectValidationErrorKeys_MissingProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Добавьте хотя бы один часто задаваемый вопрос.
         /// </summary>
         internal static string ProjectValidationErrorKeys_MissingQuestions {
@@ -277,6 +286,24 @@ namespace CrowdfindingApp.Core.Services.Projects.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Автор должен быть совершеннолетним и младше 90 лет.
+        /// </summary>
+        internal static string ProjectValidationErrorKeys_WrongAuthorDateOfBirth {
+            get {
+                return ResourceManager.GetString("ProjectValidationErrorKeys_WrongAuthorDateOfBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дата выдачи документа должна находится в периоде с {0} по {1}.
+        /// </summary>
+        internal static string ProjectValidationErrorKeys_WrongDocumentIssuedDate {
+            get {
+                return ResourceManager.GetString("ProjectValidationErrorKeys_WrongDocumentIssuedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ответ на вопрос не может быть пустым.
         /// </summary>
         internal static string QuestionValidationErrorKeys_MissingAnswer {
@@ -291,6 +318,33 @@ namespace CrowdfindingApp.Core.Services.Projects.Resources {
         internal static string QuestionValidationErrorKeys_MissingQuestion {
             get {
                 return ResourceManager.GetString("QuestionValidationErrorKeys_MissingQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Примерная дата доставки должна находится в периоде с {0} по {1}.
+        /// </summary>
+        internal static string RewardValidationErrorKeys_DeliveryDateOutOfRange {
+            get {
+                return ResourceManager.GetString("RewardValidationErrorKeys_DeliveryDateOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Стоимость вознаграждения должна быть больше чем 1 BYN.
+        /// </summary>
+        internal static string RewardValidationErrorKeys_DeliveryPriceLessThanOne {
+            get {
+                return ResourceManager.GetString("RewardValidationErrorKeys_DeliveryPriceLessThanOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите стоимость вознаграждения.
+        /// </summary>
+        internal static string RewardValidationErrorKeys_DeliveryPriceMissing {
+            get {
+                return ResourceManager.GetString("RewardValidationErrorKeys_DeliveryPriceMissing", resourceCulture);
             }
         }
         
@@ -345,6 +399,15 @@ namespace CrowdfindingApp.Core.Services.Projects.Resources {
         internal static string RewardValidationErrorKeys_MissingTitle {
             get {
                 return ResourceManager.GetString("RewardValidationErrorKeys_MissingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Стоимость вознаграждения должна быть больше 1 BYN.
+        /// </summary>
+        internal static string RewardValidationErrorKeys_PriceLessThanOne {
+            get {
+                return ResourceManager.GetString("RewardValidationErrorKeys_PriceLessThanOne", resourceCulture);
             }
         }
         

@@ -4,7 +4,7 @@ export class SelectInput {
 
   constructor(
     public list: SelectItem[],
-    public defaultValue?: string
-  ) {
-  }
+    public defaultValue?: string,
+    public currentValue?: SelectItem
+  ) { }
 }

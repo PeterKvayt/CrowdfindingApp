@@ -15,7 +15,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Validators
         public ProjectModerationValidator()
         {
             // ToDo: add error
-            RuleFor(x => x).NotNull();
+            RuleFor(x => x).NotNull().WithErrorCode(Keys.MissingProject);
 
             RuleFor(x => x.Id).Must(x => Guid.TryParse(x, out var _))
                 .When(x => x.Id.NonNullOrWhiteSpace())
@@ -57,9 +57,12 @@ namespace CrowdfindingApp.Core.Services.Projects.Validators
 
             RuleFor(x => x.AuthorName).NotEmpty().WithErrorCode(Keys.MissingAuthorName);
 
-            RuleFor(x => x.AuthorDateOfBirth).NotEmpty().WithErrorCode(Keys.MissingAuthorDateOfBirth);
-
             RuleFor(x => x.AuthorMiddleName).NotEmpty().WithErrorCode(Keys.MissingAuthorMiddleName);
+
+            RuleFor(x => x.AuthorDateOfBirth).NotEmpty().WithErrorCode(Keys.MissingAuthorDateOfBirth);
+            RuleFor(x => x.AuthorDateOfBirth).InclusiveBetween(DateTime.UtcNow.AddYears(-90), DateTime.UtcNow.AddYears(-18))
+                .When(x => x.AuthorDateOfBirth.HasValue)
+                .WithErrorCode(Keys.WrongAuthorDateOfBirth);
 
             RuleFor(x => x.AuthorPersonalNo).NotEmpty().WithErrorCode(Keys.MissingAuthorPersonalNumber);
             RuleFor(x => x.AuthorPersonalNo).Matches(RegexPatterns.PassportNo)
@@ -76,6 +79,11 @@ namespace CrowdfindingApp.Core.Services.Projects.Validators
             RuleFor(x => x.WhomGivenDocument).NotEmpty().WithErrorCode(Keys.MissingWhomGivenDocument);
 
             RuleFor(x => x.WhenGivenDocument).NotEmpty().WithErrorCode(Keys.MissingWhenGivenDocument);
+            RuleFor(x => x.WhenGivenDocument).InclusiveBetween(DateTime.UtcNow.AddYears(-50), DateTime.UtcNow)
+                .When(x => x.WhenGivenDocument.HasValue)
+                .WithErrorCode(Keys.WrongDocumentIssuedDate)
+                .WithCustomMessageParameters(x => 
+                    Task.FromResult(new[] { string.Format("{0:dd.MM.yyyy}", DateTime.UtcNow.AddYears(-50)), string.Format("{0:dd.MM.yyyy}", DateTime.UtcNow) }));
 
             RuleFor(x => x.AuthorAddress).NotEmpty().WithErrorCode(Keys.MissingAuthorAddress);
 
@@ -90,10 +98,10 @@ namespace CrowdfindingApp.Core.Services.Projects.Validators
             RuleForEach(x => x.Rewards).SetValidator(new RewardValidator())
                 .When(x => x.Rewards.Any());
 
-            RuleFor(x => x.Questions).NotNull().Must(x => x.Any())
-                .WithErrorCode(Keys.MissingQuestions);
+            //RuleFor(x => x.Questions).NotNull().Must(x => x.Any())
+            //    .WithErrorCode(Keys.MissingQuestions);
             RuleForEach(x => x.Questions).SetValidator(new QuestionValidator())
-                .When(x => x.Questions.Any());
+                .When(x => x.Questions?.Any() ?? false);
         }
     }
 }

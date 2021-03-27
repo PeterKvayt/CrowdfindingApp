@@ -27,5 +27,8 @@ namespace CrowdfindingApp.Core.Services.Projects.ValidationErrorKeys
         public static string MissingAuthorIdentificationNumber => $"{nameof(ProjectValidationErrorKeys)}_{nameof(MissingAuthorIdentificationNumber)}";
         public static string DurationLessThanZero => $"{nameof(ProjectValidationErrorKeys)}_{nameof(DurationLessThanZero)}";
         public static string InvalidPhoneNumber => $"{nameof(ProjectValidationErrorKeys)}_{nameof(InvalidPhoneNumber)}";
+        public static string WrongAuthorDateOfBirth => $"{nameof(ProjectValidationErrorKeys)}_{nameof(WrongAuthorDateOfBirth)}";
+        public static string WrongDocumentIssuedDate => $"{nameof(ProjectValidationErrorKeys)}_{nameof(WrongDocumentIssuedDate)}";
+        public static string MissingProject => $"{nameof(ProjectValidationErrorKeys)}_{nameof(MissingProject)}";
     }
 }

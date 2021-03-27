@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CrowdfindingApp.Core.Services.Projects.ValidationErrorKeys
+﻿namespace CrowdfindingApp.Core.Services.Projects.ValidationErrorKeys
 {
     public static class RewardValidationErrorKeys
     {
@@ -16,5 +10,9 @@ namespace CrowdfindingApp.Core.Services.Projects.ValidationErrorKeys
         public static string EmptyDeliveryCountries => $"{nameof(RewardValidationErrorKeys)}_{nameof(EmptyDeliveryCountries)}";
         public static string WrongDeliveryCountriesIds => $"{nameof(RewardValidationErrorKeys)}_{nameof(WrongDeliveryCountriesIds)}";
         public static string WrongLimitValue => $"{nameof(RewardValidationErrorKeys)}_{nameof(WrongLimitValue)}";
+        public static string PriceLessThanOne => $"{nameof(RewardValidationErrorKeys)}_{nameof(PriceLessThanOne)}";
+        public static string DeliveryDateOutOfRange => $"{nameof(RewardValidationErrorKeys)}_{nameof(DeliveryDateOutOfRange)}";
+        public static string DeliveryPriceMissing => $"{nameof(RewardValidationErrorKeys)}_{nameof(DeliveryPriceMissing)}";
+        public static string DeliveryPriceLessThanOne => $"{nameof(RewardValidationErrorKeys)}_{nameof(DeliveryPriceLessThanOne)}";
     }
 }

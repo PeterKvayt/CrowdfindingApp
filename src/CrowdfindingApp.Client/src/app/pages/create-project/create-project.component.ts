@@ -9,7 +9,6 @@ import { TabElement } from 'src/app/components/tab/Tabelement';
 import { TextArea } from 'src/app/components/inputs/text-area/TextArea';
 import { LookupItem } from 'src/app/models/common/LookupItem';
 import { GenericLookupItem } from 'src/app/models/common/GenericLookupItem';
-import { DateInput } from 'src/app/components/inputs/date-input/DateInput';
 import { ProjectCard } from 'src/app/components/project-card/ProjectCard';
 import { SelectInput } from 'src/app/components/selectors/select/SelectInput';
 import { SelectItem } from 'src/app/components/selectors/select/SelectItem';
@@ -25,9 +24,10 @@ import { ProjectModerationRequestMessage } from 'src/app/models/requests/project
 import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
 import { FileInput } from 'src/app/components/inputs/file-input/FileInput';
 import { FileService } from 'src/app/services/file.service';
-import { SaveImageRequestMessage } from 'src/app/models/requests/files/SaveImageRequestMessage';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { Routes } from 'src/app/models/immutable/Routes';
+import { ProjectInputs } from './ProjectInputs';
+import { RewardInputs } from './RewardInputs';
 
 @Component({
   selector: 'app-create-project',
@@ -38,51 +38,29 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   private currentDate = new Date();
 
+  public projectInputs = new ProjectInputs();
+  public rewardInputs = new RewardInputs();
+
   // project fields
   public projectId: string = null;
-  private projectCategory: string;
-  public projectImageInput = new FileInput('Загрузить изображение', 'fas fa-upload');
-  public projectNameInput: TextInput = { placeholder: 'Введите название проекта' };
-  public projectShortDescriptionInput: TextArea = { placeholder: 'Кратко опишите проект (до 280 символов)', max: 280 };
-  public projectDescriptionInput: TextArea = { placeholder: 'Введите полное описание проекта ...' };
-  public projectVideoInput: TextInput = { placeholder: 'Введите ссылку на видео' };
-  public projectPurposeInput: DecimalInput = { placeholder: 'Введите финансовую цель (BYN)', min: 1 };
-  public projectDurationInput: DecimalInput = { placeholder: 'Введите продолжительность проекта в днях', min: 1, max: 180 };
   public faqList: QuestionInfo[] = [];
-  public projectOwnerSurnameInput: TextInput = { placeholder: 'Фамилия' };
-  public projectOwnerNameInput: TextInput = { placeholder: 'Имя' };
-  public projectOwnerMiddleNameInput: TextInput = { placeholder: 'Отчество' };
-  public projectOwnerPassportNumberInput: TextInput = { placeholder: 'Серия и номер', label: 'Паспортные данные', min: 9, max: 9, example: 'Пример: AB1234567' };
-  public projectOwnerPrivateNumberInput: TextInput = { placeholder: 'Личный номер', min: 14, max: 14, example: 'Пример: 1234567A012PB0' };
-  public projectOwnerWhomIssuedDocInput: TextInput = { placeholder: 'Кем  выдан документ', example: 'Пример: Советское РУВД г.Минска' };
-  public projectOwnerPhoneNumberInput: TextInput = { placeholder: 'Контактный номер', min: 12, max: 12, example: 'Пример: 375291234567' };
-  public projectOwnerAddressInput: TextInput = { placeholder: 'Адрес регистрации', example: 'Пример: г.Минск, ул. Е. Полоцкой, д.3, кв. 16' };
-  public projectOwnerWhenIssuedDocInput: DateInput = { label: 'Дата выдачи документа' };
   public projectRewardsList: RewardInfo[] = [];
-  public projectOwnerBirthdayInput: DateInput = {
-    label: 'Дата рождения',
-    max: new Date(this.currentDate.getFullYear() - 18, this.currentDate.getMonth(), this.currentDate.getDay()),
-    value: new Date(this.currentDate.getFullYear() - 18, this.currentDate.getMonth(), this.currentDate.getDay())
-  };
 
   // reward fields
   private rewardId: string = null;
-  public rewardImageInput = new FileInput('Загрузить изображение', 'fas fa-download');
-  public rewardNameInput: TextInput = { placeholder: 'Введите название вознаграждения' };
-  public rewardCostInput: DecimalInput = { placeholder: 'Введите стоимость (BYN)', min: 1 };
-  public rewardCountRestrictionsInput: DecimalInput = { placeholder: 'Введите количество', min: 1 };
-  public rewardDescriptionInput: TextArea = { placeholder: 'Введите описание вознаграждения' };
   public rewardDeliveryCountries: GenericLookupItem<string, number>[] = [];
-  public rewardWholeWorldDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки по всему миру (BYN)', min: 1 };
+  // public rewardInputs.rewardImageInput = new FileInput('Загрузить изображение', 'fas fa-download');
+  // public rewardInputs.rewardNameInput: TextInput = { placeholder: 'Введите название вознаграждения' };
+  // public rewardInputs.rewardCostInput: DecimalInput = { placeholder: 'Введите стоимость (BYN)', min: 1 };
+  // public rewardInputs.rewardCountRestrictionsInput: DecimalInput = { placeholder: 'Введите количество', min: 1 };
+  // public rewardInputs.rewardDescriptionInput: TextArea = { placeholder: 'Введите описание вознаграждения' };
+  // public rewardInputs.rewardWholeWorldDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки по всему миру (BYN)', min: 1 };
 
   // common
   public countryDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки (BYN)', min: 1 };
   public questionInput: TextInput = { placeholder: 'Введите вопрос' };
   public answerInput: TextArea = { placeholder: 'Введите ответ на вопрос' };
-  public categorySelectInput: SelectInput = {
-    list: [],
-    defaultValue: 'Выберите категорию'
-  };
+
   public citiesSelectInput: SelectInput = {
     list: [],
     defaultValue: 'Выберите город'
@@ -100,38 +78,38 @@ export class CreateProjectComponent extends Base implements OnInit {
   private selectedYear: string;
   public feedBackModalShow = false;
   public projectCard: ProjectCard = {
-    name: this.projectNameInput.value ? this.projectNameInput.value : 'Название',
-    description: this.projectDescriptionInput.value ? this.projectDescriptionInput.value : 'Описание',
-    categoryName: this.projectCategory ? this.categorySelectInput.list.find(x => x.value === this.projectCategory === undefined).name : 'Категория',
-    categoryId: this.projectCategory,
-    imgPath: this.projectImageInput.fileName
-      ? this.fileService.absoluteFileStoragePath + this.projectImageInput.fileName
+    name: this.projectInputs.name.value ? this.projectInputs.name.value : 'Название',
+    description: this.projectInputs.description.value ? this.projectInputs.description.value : 'Описание',
+    categoryName: this.projectInputs.categorySelect.currentValue ? this.projectInputs.categorySelect.currentValue.name : 'Категория',
+    categoryId: this.projectInputs.categorySelect.currentValue ? this.projectInputs.categorySelect.currentValue.value : undefined,
+    imgPath: this.projectInputs.image.fileName
+      ? this.fileService.absoluteFileStoragePath + this.projectInputs.image.fileName
       : 'assets/img/stock-project.png',
-    purpose: this.projectPurposeInput.value ? this.projectPurposeInput.value : 0,
+    purpose: this.projectInputs.purpose.value ? this.projectInputs.purpose.value : 0,
     currentResult: 0,
     status: ProjectStatusEnum.Draft,
     id: null,
   };
 
   public onProjectNameChange(): void {
-    if (this.projectNameInput.value) {
-      this.projectCard.name = this.projectNameInput.value;
+    if (this.projectInputs.name.value) {
+      this.projectCard.name = this.projectInputs.name.value;
     } else {
       this.projectCard.name = 'Название';
     }
   }
 
   public onProjectShortDecriptionChange(): void {
-    if (this.projectShortDescriptionInput.value) {
-      this.projectCard.description = this.projectShortDescriptionInput.value;
+    if (this.projectInputs.shortDescription.value) {
+      this.projectCard.description = this.projectInputs.shortDescription.value;
     } else {
       this.projectCard.description = 'Описание';
     }
   }
 
   public onProjectPurposeChange(): void {
-    if (this.projectPurposeInput.value) {
-      this.projectCard.purpose = this.projectPurposeInput.value;
+    if (this.projectInputs.purpose.value) {
+      this.projectCard.purpose = this.projectInputs.purpose.value;
     } else {
       this.projectCard.purpose = 0;
     }
@@ -198,43 +176,45 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.subscriptions.add(
       this.projectService.getProjectById(projectId).subscribe(
         (reply: ReplyMessage<ProjectInfo>) => {
-          this.projectCategory = reply.value.categoryId;
           if (reply.value.categoryId) {
-            let category = this.categorySelectInput.list.find(x => x.value === reply.value.categoryId);
-            if (category) { category.selected = true; }
+            let category = this.projectInputs.categorySelect.list.find(x => x.value === reply.value.categoryId);
+            if (category) {
+              category.selected = true;
+              this.projectInputs.categorySelect.currentValue = category;
+            }
           }
 
-          this.projectNameInput.value = reply.value.title;
-          this.projectShortDescriptionInput.value = reply.value.shortDescription;
-          this.projectDescriptionInput.value = reply.value.fullDescription;
+          this.projectInputs.name.value = reply.value.title;
+          this.projectInputs.shortDescription.value = reply.value.shortDescription;
+          this.projectInputs.description.value = reply.value.fullDescription;
 
           this.selectedCity = reply.value.location;
           if (reply.value.location) {
             this.citiesSelectInput.list.find(x => x.value === reply.value.location).selected = true;
           }
 
-          this.projectVideoInput.value = reply.value.videoUrl;
-          this.projectImageInput.fileName = reply.value.image,
+          this.projectInputs.video.value = reply.value.videoUrl;
+          this.projectInputs.image.fileName = reply.value.image,
           //startDateTime: null,
-          this.projectDurationInput.value = reply.value.duration;
-          this.projectPurposeInput.value = reply.value.budget;
-          this.projectOwnerSurnameInput.value = reply.value.authorSurname;
-          this.projectOwnerNameInput.value = reply.value.authorName;
-          this.projectOwnerBirthdayInput.value = reply.value.authorDateOfBirth
+          this.projectInputs.duration.value = reply.value.duration;
+          this.projectInputs.purpose.value = reply.value.budget;
+          this.projectInputs.ownerSurname.value = reply.value.authorSurname;
+          this.projectInputs.ownerName.value = reply.value.authorName;
+          this.projectInputs.ownerBirthday.value = reply.value.authorDateOfBirth
             ? reply.value.authorDateOfBirth
             : new Date(this.currentDate.getFullYear() - 18, this.currentDate.getMonth(), this.currentDate.getDay());
-          this.projectOwnerMiddleNameInput.value = reply.value.authorMiddleName;
-          this.projectOwnerPassportNumberInput.value = reply.value.authorPersonalNo;
-          this.projectOwnerPrivateNumberInput.value = reply.value.authorIdentificationNo;
-          this.projectOwnerWhomIssuedDocInput.value = reply.value.whomGivenDocument;
-          this.projectOwnerWhenIssuedDocInput.value = reply.value.whenGivenDocument;
-          this.projectOwnerAddressInput.value = reply.value.authorAddress;
-          this.projectOwnerPhoneNumberInput.value = reply.value.authorPhone;
+          this.projectInputs.ownerMiddleName.value = reply.value.authorMiddleName;
+          this.projectInputs.ownerPassportNumber.value = reply.value.authorPersonalNo;
+          this.projectInputs.ownerPrivateNumber.value = reply.value.authorIdentificationNo;
+          this.projectInputs.ownerWhomIssuedDoc.value = reply.value.whomGivenDocument;
+          this.projectInputs.ownerWhenIssuedDoc.value = reply.value.whenGivenDocument;
+          this.projectInputs.ownerAddress.value = reply.value.authorAddress;
+          this.projectInputs.ownerPhoneNumber.value = reply.value.authorPhone;
           this.projectRewardsList = reply.value.rewards ? reply.value.rewards : [];
           this.faqList = reply.value.questions ? reply.value.questions : [];
           
           this.projectCard.id = reply.value.id;
-          const category = this.categorySelectInput.list.find(x => x.value === reply.value.categoryId);
+          const category = this.projectInputs.categorySelect.list.find(x => x.value === reply.value.categoryId);
           this.projectCard.categoryName = category ? category.name : 'Категория';
           this.projectCard.categoryId = reply.value.categoryId;
           this.projectCard.purpose = reply.value.budget;
@@ -290,7 +270,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       this.projectService.getCategories().subscribe(
         (reply: ReplyMessage<LookupItem[]>) => {
           reply.value.forEach(category => {
-            this.categorySelectInput.list.push(new SelectItem(category.key, category.value));
+            this.projectInputs.categorySelect.list.push(new SelectItem(category.key, category.value));
           });
         }
       )
@@ -299,8 +279,7 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   // General Tab functional
   public onCategorySelect(value: string): void {
-    this.projectCategory = value;
-    this.projectCard.categoryName = this.categorySelectInput.list.find(x => x.value === value).name;
+    this.projectCard.categoryName = this.projectInputs.categorySelect.currentValue.name;
   }
 
   public onCitySelect(value: string): void {
@@ -347,7 +326,7 @@ export class CreateProjectComponent extends Base implements OnInit {
     }
 
     if (deliveryType === DeliveryTypeEnum.WholeWorld) {
-      this.rewardDeliveryCountries.push(new GenericLookupItem(Data.wholeWorldDeliveryId, this.rewardWholeWorldDeliveryCostInput.value));
+      this.rewardDeliveryCountries.push(new GenericLookupItem(Data.wholeWorldDeliveryId, this.rewardInputs.wholeWorldDeliveryCost.value));
     }
 
     let deliveryDate = new Date();
@@ -358,13 +337,13 @@ export class CreateProjectComponent extends Base implements OnInit {
     const rewardInfo: RewardInfo = {
       id: this.rewardId,
       projectId: this.projectId,
-      title: this.rewardNameInput.value,
-      price: this.rewardCostInput.value,
-      description: this.rewardDescriptionInput.value,
+      title: this.rewardInputs.name.value,
+      price: this.rewardInputs.cost.value,
+      description: this.rewardInputs.description.value,
       deliveryDate: deliveryDate,
-      isLimited: this.rewardCountRestrictionsInput.value ? true : false,
-      limit: this.rewardCountRestrictionsInput.value,
-      image: this.rewardImageInput.fileName,
+      isLimited: this.rewardInputs.countRestrictions.value ? true : false,
+      limit: this.rewardInputs.countRestrictions.value,
+      image: this.rewardInputs.image.fileName,
       deliveryType: deliveryType,
       deliveryCountries: this.rewardDeliveryCountries
     };
@@ -373,12 +352,12 @@ export class CreateProjectComponent extends Base implements OnInit {
     }
     this.projectRewardsList.push(rewardInfo);
 
-    this.rewardNameInput.value = undefined;
-    this.rewardCostInput.value = undefined;
-    this.rewardDescriptionInput.value = undefined;
-    this.rewardCountRestrictionsInput.value = undefined;
-    this.rewardWholeWorldDeliveryCostInput.value = undefined;
-    this.rewardImageInput.fileName = undefined;
+    this.rewardInputs.name.value = undefined;
+    this.rewardInputs.cost.value = undefined;
+    this.rewardInputs.description.value = undefined;
+    this.rewardInputs.countRestrictions.value = undefined;
+    this.rewardInputs.wholeWorldDeliveryCost.value = undefined;
+    this.rewardInputs.image.fileName = undefined;
     this.rewardDeliveryCountries = [];
     this.countrySelectInput.list.forEach(country => country.disabled = false);
   }
@@ -394,13 +373,13 @@ export class CreateProjectComponent extends Base implements OnInit {
     } else if (reward.deliveryType === DeliveryTypeEnum.WithoutDelivery) {
       this.onDeliverySubTabClick(this.withoutDeliverySubTab);
     }
-    this.rewardNameInput.value = reward.title;
-    this.rewardCostInput.value = reward.price;
-    this.rewardDescriptionInput.value = reward.description;
-    this.rewardCountRestrictionsInput.value = reward.limit;
-    this.rewardWholeWorldDeliveryCostInput.value = wholeWorldDeliveryPrice;
+    this.rewardInputs.name.value = reward.title;
+    this.rewardInputs.cost.value = reward.price;
+    this.rewardInputs.description.value = reward.description;
+    this.rewardInputs.countRestrictions.value = reward.limit;
+    this.rewardInputs.wholeWorldDeliveryCost.value = wholeWorldDeliveryPrice;
     this.rewardDeliveryCountries = reward.deliveryCountries;
-    this.rewardImageInput.fileName = reward.image;
+    this.rewardInputs.image.fileName = reward.image;
     this.countrySelectInput.list.forEach(country => {
       if (reward.deliveryCountries.find(x => x.key === country.value)) {
         country.disabled = true;
@@ -486,26 +465,26 @@ export class CreateProjectComponent extends Base implements OnInit {
   private getProjectModel(): ProjectInfo {
     const draft: ProjectInfo = {
       id: this.projectId,
-      categoryId: this.projectCategory,
-      title: this.projectNameInput.value,
-      shortDescription: this.projectShortDescriptionInput.value,
-      fullDescription: this.projectDescriptionInput.value,
+      categoryId: this.projectInputs.categorySelect.currentValue ? this.projectInputs.categorySelect.currentValue.value : undefined,
+      title: this.projectInputs.name.value,
+      shortDescription: this.projectInputs.shortDescription.value,
+      fullDescription: this.projectInputs.description.value,
       location: this.selectedCity,
-      videoUrl: this.projectVideoInput.value,
-      image: this.projectImageInput.fileName ? this.projectImageInput.fileName : null,
+      videoUrl: this.projectInputs.video.value,
+      image: this.projectInputs.image.fileName ? this.projectInputs.image.fileName : null,
       //startDateTime: null,
-      duration: this.projectDurationInput.value ? this.projectDurationInput.value : null,
-      budget: this.projectPurposeInput.value ? this.projectPurposeInput.value : null,
-      authorSurname: this.projectOwnerSurnameInput.value,
-      authorName: this.projectOwnerNameInput.value,
-      authorDateOfBirth: this.projectOwnerBirthdayInput.value,
-      authorMiddleName: this.projectOwnerMiddleNameInput.value,
-      authorPersonalNo: this.projectOwnerPassportNumberInput.value,
-      authorIdentificationNo: this.projectOwnerPrivateNumberInput.value,
-      whomGivenDocument: this.projectOwnerWhomIssuedDocInput.value,
-      whenGivenDocument: new Date(this.projectOwnerWhenIssuedDocInput.value),
-      authorAddress: this.projectOwnerAddressInput.value,
-      authorPhone: this.projectOwnerPhoneNumberInput.value,
+      duration: this.projectInputs.duration.value ? this.projectInputs.duration.value : null,
+      budget: this.projectInputs.purpose.value ? this.projectInputs.purpose.value : null,
+      authorSurname: this.projectInputs.ownerSurname.value,
+      authorName: this.projectInputs.ownerName.value,
+      authorDateOfBirth: this.projectInputs.ownerBirthday.value,
+      authorMiddleName: this.projectInputs.ownerMiddleName.value,
+      authorPersonalNo: this.projectInputs.ownerPassportNumber.value,
+      authorIdentificationNo: this.projectInputs.ownerPrivateNumber.value,
+      whomGivenDocument: this.projectInputs.ownerWhomIssuedDoc.value,
+      whenGivenDocument: new Date(this.projectInputs.ownerWhenIssuedDoc.value),
+      authorAddress: this.projectInputs.ownerAddress.value,
+      authorPhone: this.projectInputs.ownerPhoneNumber.value,
       rewards: this.projectRewardsList,
       questions: this.faqList
     };

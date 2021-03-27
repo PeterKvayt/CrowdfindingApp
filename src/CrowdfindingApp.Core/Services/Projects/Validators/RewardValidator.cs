@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using CrowdfindingApp.Common.DataTransfers.Rewards;
 using CrowdfindingApp.Common.Enums;
+using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Core.Services.Projects.ValidationErrorKeys;
 using FluentValidation;
-using CrowdfindingApp.Common.Extensions;
 
 namespace CrowdfindingApp.Core.Services.Projects.Validators
 {
@@ -13,26 +14,28 @@ namespace CrowdfindingApp.Core.Services.Projects.Validators
         public RewardValidator()
         {
             RuleFor(x => x.Title).NotEmpty().WithErrorCode(RewardValidationErrorKeys.MissingTitle);
-            RuleFor(x => x.Price).NotEmpty().WithErrorCode(RewardValidationErrorKeys.MissingPrice);
-            RuleFor(x => x.Description).NotEmpty().WithErrorCode(RewardValidationErrorKeys.MissingDescription);
-            RuleFor(x => x.DeliveryDate).NotEmpty().WithErrorCode(RewardValidationErrorKeys.MissingDeliveryDate);
 
-            RuleFor(x => x.DeliveryCountries)
-                .NotNull().Must(x => x.Any())
+            RuleFor(x => x.Price).NotEmpty().WithErrorCode(RewardValidationErrorKeys.MissingPrice);
+            RuleFor(x => x.Price).GreaterThanOrEqualTo(1)
+                .When(x => x.Price.HasValue)
+                .WithErrorCode(RewardValidationErrorKeys.PriceLessThanOne);
+
+            RuleFor(x => x.Description).NotEmpty().WithErrorCode(RewardValidationErrorKeys.MissingDescription);
+
+            RuleFor(x => x.DeliveryDate).NotEmpty().WithErrorCode(RewardValidationErrorKeys.MissingDeliveryDate);
+            RuleFor(x => x.DeliveryDate).InclusiveBetween(DateTime.UtcNow, DateTime.UtcNow.AddYears(3))
+                .When(x => x.DeliveryDate.HasValue)
+                .WithErrorCode(RewardValidationErrorKeys.DeliveryDateOutOfRange)
+                .WithCustomMessageParameters(_ => 
+                    Task.FromResult(new[] { string.Format("{0:dd.MM.yyyy}", DateTime.UtcNow), string.Format("{0:dd.MM.yyyy}", DateTime.UtcNow.AddYears(3)) }));
+
+            RuleFor(x => x.DeliveryCountries).NotNull().Must(x => x.Any())
                 .When(x => x.DeliveryType == DeliveryType.SomeCountries || x.DeliveryType == DeliveryType.WholeWorld)
                 .WithErrorCode(RewardValidationErrorKeys.MissingDeliveryCountries);
+            RuleForEach(x => x.DeliveryCountries).SetValidator(new DeliveryCountryValidator())
+                .When(x => (x.DeliveryType == DeliveryType.SomeCountries || x.DeliveryType == DeliveryType.WholeWorld) && (x.DeliveryCountries?.Any() ?? false));
 
-            RuleFor(x => x.DeliveryCountries)
-                .Must(countries => countries.All(country => country.Key.NonNullOrWhiteSpace() && country.Value.HasValue))
-                .When(x => (x.DeliveryType == DeliveryType.SomeCountries || x.DeliveryType == DeliveryType.WholeWorld) && x.DeliveryCountries.Any())
-                .WithErrorCode(RewardValidationErrorKeys.EmptyDeliveryCountries);
-
-            RuleFor(x => x.DeliveryCountries)
-                .Must(countries => countries.All(country => Guid.TryParse(country.Key, out var _)))
-                .When(x => (x.DeliveryType == DeliveryType.SomeCountries || x.DeliveryType == DeliveryType.WholeWorld) && x.DeliveryCountries.Any())
-                .WithErrorCode(RewardValidationErrorKeys.EmptyDeliveryCountries);
-
-            RuleFor(x => x.Limit).Must(x => x.Value > 0)
+            RuleFor(x => x.Limit).GreaterThanOrEqualTo(1)
                 .When(x => x.Limit.HasValue)
                 .WithErrorCode(RewardValidationErrorKeys.WrongLimitValue);
         }

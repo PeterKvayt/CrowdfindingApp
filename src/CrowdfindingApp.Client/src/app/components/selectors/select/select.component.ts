@@ -12,10 +12,10 @@ export class SelectComponent implements OnInit {
   @Output() selectedValue = new EventEmitter<string>();
 
   public onValueSelect(value: string): void {
-      this.selectedValue.emit(value);
+    this.item.currentValue = this.item.list.find(x => x.value === value);
+    this.selectedValue.emit(value);
   }
 
   public ngOnInit(): void {
-    
-  }
+   }
 }

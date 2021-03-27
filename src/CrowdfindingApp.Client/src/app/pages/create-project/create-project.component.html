@@ -31,7 +31,7 @@
 
         <div class="global-box">
           <span class="global-sub-title">Название проекта</span>
-          <app-text-input [item]='projectNameInput' (valueChange)='onProjectNameChange()'></app-text-input>
+          <app-text-input [item]='projectInputs.name' (valueChange)='onProjectNameChange()'></app-text-input>
           <div class="delicate-text">Название должно быть лаконичным, уникальным и запоминающимся. Будьте уверены в том,
             что название проекта отражает его суть.
           </div>
@@ -39,7 +39,7 @@
 
         <div class="global-box">
           <span class="global-sub-title">Краткое описание проекта</span>
-          <app-text-area [item]='projectShortDescriptionInput' (valueChange)='onProjectShortDecriptionChange()'>
+          <app-text-area [item]='projectInputs.shortDescription' (valueChange)='onProjectShortDecriptionChange()'>
           </app-text-area>
           <div class="delicate-text">
             Опишите в одном предложении цель вашего проекта.
@@ -48,7 +48,7 @@
 
         <div class="global-box">
           <span class="global-sub-title">Категория проекта</span>
-          <app-select [item]='categorySelectInput' (selectedValue)='onCategorySelect($event)'></app-select>
+          <app-select [item]='projectInputs.categorySelect' (selectedValue)='onCategorySelect($event)'></app-select>
         </div>
 
         <div class="global-box">
@@ -58,13 +58,13 @@
 
         <div class="global-box">
           <span class="global-sub-title">Обложка проекта</span>
-          <app-img default='assets/img/stock-project.png' alt='project image' [input]='projectImageInput'></app-img>
-          <app-file-input [item]='projectImageInput' (change)='onImageUpload(projectImageInput)'></app-file-input>
+          <app-img default='assets/img/stock-project.png' alt='project image' [input]='projectInputs.image'></app-img>
+          <app-file-input [item]='projectInputs.image' (change)='onImageUpload(projectInputs.image)'></app-file-input>
         </div>
 
         <!-- <div class="global-box">
           <span class="global-sub-title">Видео проекта</span>
-          <app-text-input [item]='projectVideoInput'></app-text-input>
+          <app-text-input [item]='projectInputs.video'></app-text-input>
           <div class="delicate-text">Вам необходимо предварительно загрузить свое видео на YouTube, а затем нажать на
             кнопку поделиться и скопировать сюда ссылку.
           </div>
@@ -72,8 +72,8 @@
 
         <div class="global-box">
           <span class="global-sub-title">Бюджет и продолжительность компании</span>
-          <app-decimal-input [item]='projectPurposeInput' (valueChange)='onProjectPurposeChange()'></app-decimal-input>
-          <app-decimal-input [item]='projectDurationInput'></app-decimal-input>
+          <app-decimal-input [item]='projectInputs.purpose' (valueChange)='onProjectPurposeChange()'></app-decimal-input>
+          <app-decimal-input [item]='projectInputs.duration'></app-decimal-input>
           <div class="delicate-text">Мы рекомендуем указывать минимальную сумму, необходимую для реализации проекта.
             Платформа использует модель «все или ничего», а это значит, что для получения средств вам обязательно
             необходимо собрать от 100% и выше.
@@ -120,9 +120,9 @@
 
         <div class="global-box">
           <span class="global-sub-title">Новое вознаграждение</span>
-          <app-text-input [item]='rewardNameInput'></app-text-input>
-          <app-decimal-input [item]='rewardCostInput'></app-decimal-input>
-          <app-text-area [item]='rewardDescriptionInput'></app-text-area>
+          <app-text-input [item]='rewardInputs.name'></app-text-input>
+          <app-decimal-input [item]='rewardInputs.cost'></app-decimal-input>
+          <app-text-area [item]='rewardInputs.description'></app-text-area>
         </div>
 
         <div class="global-box">
@@ -131,8 +131,8 @@
             Загружать изображение для вознаграждения необязательно, но оно привлекает внимание, что может помочь вам
             собрать нужную сумму.
           </div>
-          <app-img default='assets/img/stock-reward.jpg' alt='reward image' [input]='rewardImageInput'></app-img>
-          <app-file-input [item]='rewardImageInput' (change)='onImageUpload(rewardImageInput)'></app-file-input>
+          <app-img default='assets/img/stock-reward.jpg' alt='reward image' [input]='rewardInputs.image'></app-img>
+          <app-file-input [item]='rewardInputs.image' (change)='onImageUpload(rewardInputs.image)'></app-file-input>
         </div>
 
         <div class="global-box">
@@ -166,7 +166,7 @@
           <div (click)='onDeliverySubTabClick(wholeWorldDeliverySubTab)'>
             <app-link empty value='Весь мир'></app-link>
             <ng-container *ngIf='wholeWorldDeliverySubTab.isActive'>
-              <app-decimal-input [item]='rewardWholeWorldDeliveryCostInput'></app-decimal-input>
+              <app-decimal-input [item]='rewardInputs.wholeWorldDeliveryCost'></app-decimal-input>
               <app-select [item]='countrySelectInput' (selectedValue)='onCountrySelect($event)'></app-select>
               <app-decimal-input [item]='countryDeliveryCostInput'></app-decimal-input>
               <app-regular-btn value='Добавить страну исключение' (click)='onDeliveryAddClick()'>
@@ -187,7 +187,7 @@
           <div class="delicate-text">
             Если у вознаграждения есть ограничение по количеству, то укажите его.
           </div>
-          <app-decimal-input [item]='rewardCountRestrictionsInput'></app-decimal-input>
+          <app-decimal-input [item]='rewardInputs.countRestrictions'></app-decimal-input>
 
         </div>
         <app-regular-btn value='Добавить вознаграждение' (click)='onRewardAddClick()'></app-regular-btn>
@@ -245,7 +245,7 @@
             Совет: по объему текст-описание должен быть примерно
             наравне с колонкой вознаграждений – идеально, если они заканчиваются на одном уровне.
           </div>
-          <app-text-area [item]='projectDescriptionInput'></app-text-area>
+          <app-text-area [item]='projectInputs.description'></app-text-area>
         </div>
 
         <div class="global-box">
@@ -301,16 +301,16 @@
             вы
             передаете в платформу, является конфиденциальной и не подлежит разглашению.
           </div>
-          <app-text-input [item]='projectOwnerSurnameInput'></app-text-input>
-          <app-text-input [item]='projectOwnerNameInput'></app-text-input>
-          <app-text-input [item]='projectOwnerMiddleNameInput'></app-text-input>
-          <app-date-input [item]='projectOwnerBirthdayInput'></app-date-input>
-          <app-text-input [item]='projectOwnerPassportNumberInput'></app-text-input>
-          <app-text-input [item]='projectOwnerPrivateNumberInput'></app-text-input>
-          <app-text-input [item]='projectOwnerWhomIssuedDocInput'></app-text-input>
-          <app-date-input [item]='projectOwnerWhenIssuedDocInput'></app-date-input>
-          <app-text-input [item]='projectOwnerAddressInput'></app-text-input>
-          <app-text-input [item]='projectOwnerPhoneNumberInput'></app-text-input>
+          <app-text-input [item]='projectInputs.ownerSurname'></app-text-input>
+          <app-text-input [item]='projectInputs.ownerName'></app-text-input>
+          <app-text-input [item]='projectInputs.ownerMiddleName'></app-text-input>
+          <app-date-input [item]='projectInputs.ownerBirthday'></app-date-input>
+          <app-text-input [item]='projectInputs.ownerPassportNumber'></app-text-input>
+          <app-text-input [item]='projectInputs.ownerPrivateNumber'></app-text-input>
+          <app-text-input [item]='projectInputs.ownerWhomIssuedDoc'></app-text-input>
+          <app-date-input [item]='projectInputs.ownerWhenIssuedDoc'></app-date-input>
+          <app-text-input [item]='projectInputs.ownerAddress'></app-text-input>
+          <app-text-input [item]='projectInputs.ownerPhoneNumber'></app-text-input>
         </div>
 
       </div>

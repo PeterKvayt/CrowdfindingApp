@@ -168,6 +168,9 @@
   <data name="ProjectValidationErrorKeys_MissingLocation" xml:space="preserve">
     <value>Поле "Место проведения проекта" должно быть заполнено</value>
   </data>
+  <data name="ProjectValidationErrorKeys_MissingProject" xml:space="preserve">
+    <value>Проект не может быть пустым</value>
+  </data>
   <data name="ProjectValidationErrorKeys_MissingQuestions" xml:space="preserve">
     <value>Добавьте хотя бы один часто задаваемый вопрос</value>
   </data>
@@ -189,11 +192,26 @@
   <data name="ProjectValidationErrorKeys_ToLargeShortdescriptionLength" xml:space="preserve">
     <value>Превышена максимальная длина ({0}) поля "Краткое описание проекта"</value>
   </data>
+  <data name="ProjectValidationErrorKeys_WrongAuthorDateOfBirth" xml:space="preserve">
+    <value>Автор должен быть совершеннолетним и младше 90 лет</value>
+  </data>
+  <data name="ProjectValidationErrorKeys_WrongDocumentIssuedDate" xml:space="preserve">
+    <value>Дата выдачи документа должна находится в периоде с {0} по {1}</value>
+  </data>
   <data name="QuestionValidationErrorKeys_MissingAnswer" xml:space="preserve">
     <value>Ответ на вопрос не может быть пустым</value>
   </data>
   <data name="QuestionValidationErrorKeys_MissingQuestion" xml:space="preserve">
     <value>Вопрос не может быть пустым</value>
+  </data>
+  <data name="RewardValidationErrorKeys_DeliveryDateOutOfRange" xml:space="preserve">
+    <value>Примерная дата доставки должна находится в периоде с {0} по {1}</value>
+  </data>
+  <data name="RewardValidationErrorKeys_DeliveryPriceLessThanOne" xml:space="preserve">
+    <value>Стоимость вознаграждения должна быть больше чем 1 BYN</value>
+  </data>
+  <data name="RewardValidationErrorKeys_DeliveryPriceMissing" xml:space="preserve">
+    <value>Введите стоимость вознаграждения</value>
   </data>
   <data name="RewardValidationErrorKeys_EmptyDeliveryCountries" xml:space="preserve">
     <value>Страны доставки не могут содержать пустых значений</value>
@@ -212,6 +230,9 @@
   </data>
   <data name="RewardValidationErrorKeys_MissingTitle" xml:space="preserve">
     <value>Поле "Название вознаграждения" должно быть заполнено</value>
+  </data>
+  <data name="RewardValidationErrorKeys_PriceLessThanOne" xml:space="preserve">
+    <value>Стоимость вознаграждения должна быть больше 1 BYN</value>
   </data>
   <data name="RewardValidationErrorKeys_WrongDeliveryCountriesIds" xml:space="preserve">
     <value>Страны доставки содержат невалидные идентификаторы</value>

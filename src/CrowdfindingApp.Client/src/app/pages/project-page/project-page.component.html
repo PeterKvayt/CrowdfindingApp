@@ -21,7 +21,7 @@
             <div class="little-text progress-info-title">СОБРАНО</div>
           </div>
           <div class="col-12">
-            <span class="global-title ">{{view.budget}} </span>
+            <span class="global-title ">{{view.budget ? view.budget : 0}} </span>
             <span class="little-text">BYN</span>
             <div class="little-text progress-info-title">ЦЕЛЬ ПРОЕКТА</div>
           </div>
@@ -75,7 +75,7 @@
           <div class="global-sub-title">Описание</div>
           <div class="delicate-text">{{view.fullDescription}}</div>
         </div>
-        <div class="global-box">
+        <div class="global-box" *ngIf='view.questions.length > 0'>
           <div class="global-sub-title">FAQ</div>
           <div class="question-wrapper" *ngFor='let question of view.questions'>
             <div class="question-header">{{question.question}}</div>

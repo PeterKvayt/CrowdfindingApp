@@ -92,6 +92,6 @@ export class ProjectPageComponent extends Base implements OnInit {
   }
 
   showAbilityToSupport(): boolean {
-    return this.view.status === ProjectStatusEnum.Active;
+    return this.view.status === ProjectStatusEnum.Active || this.view.status === ProjectStatusEnum.Complited;
   }
 }
