@@ -2,6 +2,7 @@ using System.IO;
 using Autofac;
 using CrowdfindingApp.Api.Middlewares;
 using CrowdfindingApp.Common.Immutable;
+using CrowdfindingApp.Core.Services.BackgroundTasks.Filters;
 using CrowdfindingApp.Data;
 using CrowdfindingApp.Data.Common.Interfaces;
 using Hangfire;
@@ -13,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 
 namespace CrowdfindingApp.Api
 {
@@ -63,7 +65,8 @@ namespace CrowdfindingApp.Api
         {
             app.UseMiddleware<ExceptionInterceptor>();
 
-            app.UseHangfireDashboard();
+
+            //app.UseHangfireDashboard(pathMatch: "/hangfire");
 
             app.ConfigureStaticFiles(Config);
             //app.UseDeveloperExceptionPage();
@@ -89,6 +92,18 @@ namespace CrowdfindingApp.Api
             {
                 endpoints.MapControllers();
             });
+
+            if(Environment.IsDevelopment())
+            {
+                app.UseHangfireDashboard();
+            }
+            else
+            {
+                app.UseHangfireDashboard(options: new DashboardOptions
+                {
+                    Authorization = new[] { new AuthorizationFilter() }
+                });
+            }
 
         }
     }
