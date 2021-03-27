@@ -31,4 +31,8 @@ export class AppComponent extends Base {
       }
     ));
   }
+
+  onActivate(event) {
+
+}
 }

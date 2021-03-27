@@ -133,7 +133,7 @@ import { FooterComponent } from './components/footer/footer.component';
       { path: Routes.profile + '/:userId', component: ProfileComponent, canActivate: [AuthenticationGuardService] },
       { path: 'error/:status', component: ErrorComponent },
       { path: '**', component: HomeComponent }
-    ]),
+    ], { scrollPositionRestoration: 'enabled' }),
     JwtModule.forRoot({
       config: {
         tokenGetter: () => sessionStorage.getItem('authToken'),
