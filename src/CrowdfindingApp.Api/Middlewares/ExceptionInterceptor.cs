@@ -4,18 +4,22 @@ using System.Threading.Tasks;
 using CrowdfindingApp.Common.DataTransfers.Errors;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Messages;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
 namespace CrowdfindingApp.Api.Middlewares
 {
     public class ExceptionInterceptor
     {
         private readonly RequestDelegate _next;
+        private readonly IWebHostEnvironment _environment;
 
-        public ExceptionInterceptor(RequestDelegate next)
+        public ExceptionInterceptor(RequestDelegate next, IWebHostEnvironment env)
         {
             _next = next;
+            _environment = env;
         }
 
         public async Task Invoke(HttpContext httpContext)
@@ -33,11 +37,16 @@ namespace CrowdfindingApp.Api.Middlewares
         private async Task WriteErrorResponseAsync(HttpContext httpContext, Exception ex)
         {
             //var (statusCode, message) = GetErrorDetailsByExceptionType(ex);
-            var errors = new List<ErrorInfo>
+            var errors = new List<ErrorInfo>();
+            if(_environment.IsDevelopment())
             {
-                new ErrorInfo(ex.Message),
-                new ErrorInfo(ex.StackTrace)
-            };
+                errors.Add(new ErrorInfo(ex.Message));
+                errors.Add(new ErrorInfo(ex.StackTrace));
+            }
+            else
+            {
+                errors.Add(new ErrorInfo("Oops, something went wrong!"));
+            }
 
             var reply = new ReplyMessageBase { Errors = errors };
             httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
