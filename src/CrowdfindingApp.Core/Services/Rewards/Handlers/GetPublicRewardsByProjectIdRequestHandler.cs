@@ -13,6 +13,7 @@ using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Schema;
 
 namespace CrowdfindingApp.Core.Services.Rewards.Handlers
 {
@@ -42,7 +43,7 @@ namespace CrowdfindingApp.Core.Services.Rewards.Handlers
                 return reply;
             }
             var project = await _projectRepository.GetByIdAsync(new Guid(requestMessage.ProjectId));
-            if(project == null || project.Status != (int)ProjectStatus.Active)
+            if(project == null || (project.Status != (int)ProjectStatus.Active && project.Status != (int)ProjectStatus.Complited))
             {
                 reply.AddObjectNotFoundError();
                 return reply;

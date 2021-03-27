@@ -59,7 +59,7 @@ namespace CrowdfindingApp.Core.Services.Rewards.Handlers
             }
 
             var project = await _projectRepository.GetByIdAsync(reward.ProjectId);
-            if(project == null || project.Status != (int)ProjectStatus.Active)
+            if(project == null || (project.Status != (int)ProjectStatus.Active && project.Status != (int)ProjectStatus.Complited))
             {
                 reply.AddObjectNotFoundError();
                 return (reply, reward);
