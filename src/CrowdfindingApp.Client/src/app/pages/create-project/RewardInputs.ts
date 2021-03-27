@@ -8,20 +8,23 @@ export class RewardInputs {
   public image = new FileInput('Загрузить изображение', 'fas fa-download');
 
   public name: TextInput = {
+    label: 'Название вознаграждения',
     placeholder: 'Введите название вознаграждения'
   };
 
   public cost: DecimalInput = {
+    label: 'Стоимость вознаграждения',
     placeholder: 'Введите стоимость (BYN)',
     min: 1
   };
 
   public countRestrictions: DecimalInput = {
-    placeholder: 'Введите количество',
+    placeholder: 'Введите количество вознаграждений',
     min: 1
   };
 
   public description: TextArea = {
+    label: 'Описание вознаграждения',
     placeholder: 'Введите описание вознаграждения'
   };
 

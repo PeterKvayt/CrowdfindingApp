@@ -13,6 +13,7 @@ export class FileInputComponent implements OnInit, OnDestroy {
 
   public subscriptions = new Subscription();
   @Input() item: FileInput;
+  @Input() fluid: boolean;
 
   @Output() valueChange = new EventEmitter();
 

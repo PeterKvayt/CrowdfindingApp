@@ -1,8 +1,7 @@
-<div class="form-group">
+<div class="">
 
-    <label class="control-label delicate-text">{{item.label}}</label>
-  
-    <textarea 
+    <label class="lable-input delicate-text" *ngIf='item.label'>{{item.label}}</label>
+      <textarea 
       type='text' 
       [placeholder]='item.placeholder'
       [maxLength]='item.max' 

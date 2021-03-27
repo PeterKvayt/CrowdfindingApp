@@ -32,8 +32,8 @@
             <app-password-input [item]='newPasswordInput'></app-password-input>
             <app-password-input [item]='confirmPasswordInput'></app-password-input>
           </div>
-          <div class="col-lg-4">
-            <app-regular-btn value='Сохранить изменения' (click)='onSaveClick()'></app-regular-btn>
+          <div class="col-12">
+            <app-regular-btn value='Сохранить изменения' (click)='onSaveClick()' ico='fas fa-user-edit'></app-regular-btn>
           </div>
 
         </div>
@@ -42,7 +42,7 @@
     <div class="col-lg-4">
       <div class="global-box">
         <app-img default='assets/img/default-avatar.png' alt='user image' [src]='userInfo.photo'></app-img>
-        <app-file-input [item]='imageInput' (change)='onUploadImgClick()'></app-file-input>
+        <app-file-input [item]='imageInput' (change)='onUploadImgClick()' fluid='true'></app-file-input>
       </div>
     </div>
   </div>

@@ -1,8 +1,7 @@
-<div class="form-group">
+<div class="input-box">
 
-    <label class="control-label delicate-text">{{item.label}}</label>
-  
-    <input 
+    <label class="lable-input delicate-text" *ngIf='item.label'>{{item.label}}</label>
+      <input 
       type='date' 
       [max]='max' 
       [min]='min' 

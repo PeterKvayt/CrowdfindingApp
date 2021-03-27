@@ -37,6 +37,7 @@ export class ProjectPageComponent extends Base implements OnInit {
   public projectId: string;
 
   public signInRoute = Routes.signIn;
+  public isFinlized: boolean;
 
   ngOnInit () {
     this.projectId = this.activatedRoute.snapshot.paramMap.get('projectId');
@@ -62,6 +63,7 @@ export class ProjectPageComponent extends Base implements OnInit {
       this.projectService.getViewById(projectId).subscribe(
         (reply: ReplyMessage<ProjectInfoView>) => {
           this.view = reply.value;
+          this.isFinlized = reply.value.status === ProjectStatusEnum.Finalized;
           if (this.view.ownerId) { this.setUserInfo(this.view.ownerId); }
         }
       )

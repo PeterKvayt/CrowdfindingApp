@@ -1,5 +1,5 @@
 .regular-btn, .fluid-regular-btn{
-  margin-bottom: 5px;
+  margin: 5px 0;
   color: var(--regular);
   background-color: var(--bg-ligth);
   border: 1px solid var(--border-btn);

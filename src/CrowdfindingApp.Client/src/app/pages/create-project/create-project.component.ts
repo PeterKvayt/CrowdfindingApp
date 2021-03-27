@@ -41,6 +41,8 @@ export class CreateProjectComponent extends Base implements OnInit {
   // project fields
   public projectId: string = null;
   public projectInputs = new ProjectInputs();
+  public questionInput: TextInput = { label: 'Вопрос', placeholder: 'Введите вопрос' };
+  public answerInput: TextArea = { label: 'Ответ', placeholder: 'Введите ответ на вопрос' };
   public citiesSelectInput: SelectInput = {
     list: [],
     defaultValue: 'Выберите город'
@@ -51,7 +53,6 @@ export class CreateProjectComponent extends Base implements OnInit {
   public rewardInputs = new RewardInputs();
   public rewardDeliveryCountries: GenericLookupItem<string, number>[] = [];
   public countryDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки (BYN)', min: 1 };
-  public questionInput: TextInput = { placeholder: 'Введите вопрос' };
   public countrySelectInput: SelectInput = {
     list: [],
     defaultValue: 'Выберите страну'
@@ -60,7 +61,6 @@ export class CreateProjectComponent extends Base implements OnInit {
   // common
   public faqList: QuestionInfo[] = [];
   public rewardsList: RewardInfo[] = [];
-  public answerInput: TextArea = { placeholder: 'Введите ответ на вопрос' };
 
   // help props
   public projectPageRoute = Routes.project;

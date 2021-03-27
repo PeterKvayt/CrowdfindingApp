@@ -25,10 +25,13 @@
             <span class="little-text">BYN</span>
             <div class="little-text progress-info-title">ЦЕЛЬ ПРОЕКТА</div>
           </div>
-          <div class="col-12">
-            <span class="global-title ">{{view.restProjectTime.split(' ')[0]}} </span>
-          <span class="little-text">{{view.restProjectTime.split(' ')[1].toUpperCase()}}</span>
+          <div class="col-12" *ngIf='!isFinlized'>
+            <span class="global-title ">{{ view.restProjectTime.split(' ')[0] }} </span>
+            <span class="little-text">{{ view.restProjectTime.split(' ')[1].toUpperCase() }}</span>
             <div class="little-text progress-info-title">ДО ОКОНЧАНИЯ СБОРА</div>
+          </div>
+          <div class="col-12" *ngIf='isFinlized'>
+              <div class="global-sub-title">СБОР ЗАВЕРШЕН</div>
           </div>
           <div class="col-12" *ngIf='showAbilityToSupport() && authService.isAuthenticated()'>
             <app-regular-btn value='Поддержать проект' [link]='"project/"+ projectId + "/rewards"'></app-regular-btn>
