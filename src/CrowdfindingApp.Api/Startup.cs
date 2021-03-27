@@ -64,12 +64,9 @@ namespace CrowdfindingApp.Api
         public void Configure(IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionInterceptor>();
-
-
-            //app.UseHangfireDashboard(pathMatch: "/hangfire");
+            //app.UseDeveloperExceptionPage();
 
             app.ConfigureStaticFiles(Config);
-            //app.UseDeveloperExceptionPage();
 
             app.UseCors(config => 
                 config.AllowAnyOrigin()
