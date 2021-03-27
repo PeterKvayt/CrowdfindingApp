@@ -12,10 +12,10 @@
       <!-- <span class="fa fa-certificate fa-2x project-card-status-pict"></span> -->
       <!-- <span class="link filter"> {{card.category}} </span> -->
       <!-- <app-link empty [value]='card.categoryName'></app-link> -->
-      <span class="filter">{{card.categoryName}}</span>
+      <span class="filter">{{card.categoryName ? card.categoryName : 'Категория'}}</span>
       <p class="card-description">
-        <span class="projectName"> {{card.name}} </span>
-        <span class="description">{{card.description}}</span>
+        <span class="projectName"> {{card.name ? card.name : 'Название'}} </span>
+        <span class="description">{{card.description ? card.description : 'Описание'}}</span>
       </p>
       <div class="card-progress-box">
         <span class="progress-bar" [style.width]='getWidth()'></span>

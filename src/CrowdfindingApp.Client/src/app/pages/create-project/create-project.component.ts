@@ -38,45 +38,37 @@ export class CreateProjectComponent extends Base implements OnInit {
 
   private currentDate = new Date();
 
-  public projectInputs = new ProjectInputs();
-  public rewardInputs = new RewardInputs();
-
   // project fields
   public projectId: string = null;
-  public faqList: QuestionInfo[] = [];
-  public projectRewardsList: RewardInfo[] = [];
-
-  // reward fields
-  private rewardId: string = null;
-  public rewardDeliveryCountries: GenericLookupItem<string, number>[] = [];
-  // public rewardInputs.rewardImageInput = new FileInput('Загрузить изображение', 'fas fa-download');
-  // public rewardInputs.rewardNameInput: TextInput = { placeholder: 'Введите название вознаграждения' };
-  // public rewardInputs.rewardCostInput: DecimalInput = { placeholder: 'Введите стоимость (BYN)', min: 1 };
-  // public rewardInputs.rewardCountRestrictionsInput: DecimalInput = { placeholder: 'Введите количество', min: 1 };
-  // public rewardInputs.rewardDescriptionInput: TextArea = { placeholder: 'Введите описание вознаграждения' };
-  // public rewardInputs.rewardWholeWorldDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки по всему миру (BYN)', min: 1 };
-
-  // common
-  public countryDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки (BYN)', min: 1 };
-  public questionInput: TextInput = { placeholder: 'Введите вопрос' };
-  public answerInput: TextArea = { placeholder: 'Введите ответ на вопрос' };
-
+  public projectInputs = new ProjectInputs();
   public citiesSelectInput: SelectInput = {
     list: [],
     defaultValue: 'Выберите город'
   };
+
+  // reward fields
+  private rewardId: string = null;
+  public rewardInputs = new RewardInputs();
+  public rewardDeliveryCountries: GenericLookupItem<string, number>[] = [];
+  public countryDeliveryCostInput: DecimalInput = { placeholder: 'Введите стоимость доставки (BYN)', min: 1 };
+  public questionInput: TextInput = { placeholder: 'Введите вопрос' };
   public countrySelectInput: SelectInput = {
     list: [],
     defaultValue: 'Выберите страну'
   };
 
+  // common
+  public faqList: QuestionInfo[] = [];
+  public rewardsList: RewardInfo[] = [];
+  public answerInput: TextArea = { placeholder: 'Введите ответ на вопрос' };
+
   // help props
   public projectPageRoute = Routes.project;
   private selectedCountry: string;
-  private selectedCity: string;
   private selectedMonth: string;
   private selectedYear: string;
-  public feedBackModalShow = false;
+  // public feedBackModalShow = false;
+
   public projectCard: ProjectCard = {
     name: this.projectInputs.name.value ? this.projectInputs.name.value : 'Название',
     description: this.projectInputs.description.value ? this.projectInputs.description.value : 'Описание',
@@ -85,35 +77,11 @@ export class CreateProjectComponent extends Base implements OnInit {
     imgPath: this.projectInputs.image.fileName
       ? this.fileService.absoluteFileStoragePath + this.projectInputs.image.fileName
       : 'assets/img/stock-project.png',
-    purpose: this.projectInputs.purpose.value ? this.projectInputs.purpose.value : 0,
+    purpose: 0,
     currentResult: 0,
     status: ProjectStatusEnum.Draft,
     id: null,
   };
-
-  public onProjectNameChange(): void {
-    if (this.projectInputs.name.value) {
-      this.projectCard.name = this.projectInputs.name.value;
-    } else {
-      this.projectCard.name = 'Название';
-    }
-  }
-
-  public onProjectShortDecriptionChange(): void {
-    if (this.projectInputs.shortDescription.value) {
-      this.projectCard.description = this.projectInputs.shortDescription.value;
-    } else {
-      this.projectCard.description = 'Описание';
-    }
-  }
-
-  public onProjectPurposeChange(): void {
-    if (this.projectInputs.purpose.value) {
-      this.projectCard.purpose = this.projectInputs.purpose.value;
-    } else {
-      this.projectCard.purpose = 0;
-    }
-  }
 
   // tabs
   public generalInfoTab = new TabElement('Общая информация', true);
@@ -125,28 +93,6 @@ export class CreateProjectComponent extends Base implements OnInit {
   public withoutDeliverySubTab = new TabElement('Доставка отсутствует', true);
   public someCountriesDeliverySubTab = new TabElement('Некоторые страны', false);
   public wholeWorldDeliverySubTab = new TabElement('Весь мир', false);
-
-  public getCountryNameById(id: string): string {
-    return this.countrySelectInput.list.find(x => x.value === id).name;
-  }
-
-  public onTabClick(tab: TabElement): void {
-    this.generalInfoTab.isActive = false;
-    this.rewardsTab.isActive = false;
-    this.descriptionTab.isActive = false;
-    this.ownerInfoTab.isActive = false;
-    tab.isActive = true;
-  }
-
-  public onDeliverySubTabClick(tab: TabElement): void {
-    if (tab.isActive) { return; }
-    this.countrySelectInput.list.forEach(x => x.disabled = false);
-    this.rewardDeliveryCountries = [];
-    this.withoutDeliverySubTab.isActive = false;
-    this.someCountriesDeliverySubTab.isActive = false;
-    this.wholeWorldDeliverySubTab.isActive = false;
-    tab.isActive = true;
-  }
 
   constructor(
     public router: Router,
@@ -164,11 +110,41 @@ export class CreateProjectComponent extends Base implements OnInit {
     if (this.projectId) {
       this.titleService.setTitle('Редактирование проекта');
       this.setProjectInfo(this.projectId);
-      this.setCountries(this.projectRewardsList[0] ? this.projectRewardsList[0].deliveryCountries : null);
+      this.setCountries(this.rewardsList[0] ? this.rewardsList[0].deliveryCountries : null);
     } else {
       this.titleService.setTitle('Создание проекта');
       this.setCountries(null);
     }
+  }
+
+  onProjectNameChange(): void {
+    this.projectCard.name = this.projectInputs.name.value;
+  }
+
+  onProjectShortDecriptionChange(): void {
+    this.projectCard.description = this.projectInputs.shortDescription.value;
+  }
+
+  getCountryNameById(id: string): string {
+    return this.countrySelectInput.list.find(x => x.value === id).name;
+  }
+
+  onTabClick(tab: TabElement): void {
+    this.generalInfoTab.isActive = false;
+    this.rewardsTab.isActive = false;
+    this.descriptionTab.isActive = false;
+    this.ownerInfoTab.isActive = false;
+    tab.isActive = true;
+  }
+
+  onDeliverySubTabClick(tab: TabElement): void {
+    if (tab.isActive) { return; }
+    this.countrySelectInput.list.forEach(x => x.disabled = false);
+    this.rewardDeliveryCountries = [];
+    this.withoutDeliverySubTab.isActive = false;
+    this.someCountriesDeliverySubTab.isActive = false;
+    this.wholeWorldDeliverySubTab.isActive = false;
+    tab.isActive = true;
   }
 
   setProjectInfo(projectId: string): void {
@@ -176,27 +152,26 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.subscriptions.add(
       this.projectService.getProjectById(projectId).subscribe(
         (reply: ReplyMessage<ProjectInfo>) => {
+
           if (reply.value.categoryId) {
-            let category = this.projectInputs.categorySelect.list.find(x => x.value === reply.value.categoryId);
-            if (category) {
-              category.selected = true;
-              this.projectInputs.categorySelect.currentValue = category;
+            this.projectInputs.categorySelect.currentValue =
+              this.projectInputs.categorySelect.list.find(x => x.value === reply.value.categoryId);
+            if (this.projectInputs.categorySelect.currentValue) {
+              this.projectInputs.categorySelect.currentValue.selected = true;
             }
+          }
+
+          if (reply.value.location) {
+            this.citiesSelectInput.currentValue = this.citiesSelectInput.list.find(x => x.value === reply.value.location);
+            if (this.citiesSelectInput.currentValue) { this.citiesSelectInput.currentValue.selected = true; }
           }
 
           this.projectInputs.name.value = reply.value.title;
           this.projectInputs.shortDescription.value = reply.value.shortDescription;
           this.projectInputs.description.value = reply.value.fullDescription;
-
-          this.selectedCity = reply.value.location;
-          if (reply.value.location) {
-            this.citiesSelectInput.list.find(x => x.value === reply.value.location).selected = true;
-          }
-
           this.projectInputs.video.value = reply.value.videoUrl;
           this.projectInputs.image.fileName = reply.value.image,
-          //startDateTime: null,
-          this.projectInputs.duration.value = reply.value.duration;
+            this.projectInputs.duration.value = reply.value.duration;
           this.projectInputs.purpose.value = reply.value.budget;
           this.projectInputs.ownerSurname.value = reply.value.authorSurname;
           this.projectInputs.ownerName.value = reply.value.authorName;
@@ -210,17 +185,18 @@ export class CreateProjectComponent extends Base implements OnInit {
           this.projectInputs.ownerWhenIssuedDoc.value = reply.value.whenGivenDocument;
           this.projectInputs.ownerAddress.value = reply.value.authorAddress;
           this.projectInputs.ownerPhoneNumber.value = reply.value.authorPhone;
-          this.projectRewardsList = reply.value.rewards ? reply.value.rewards : [];
+          this.rewardsList = reply.value.rewards ? reply.value.rewards : [];
           this.faqList = reply.value.questions ? reply.value.questions : [];
-          
+
           this.projectCard.id = reply.value.id;
-          const category = this.projectInputs.categorySelect.list.find(x => x.value === reply.value.categoryId);
-          this.projectCard.categoryName = category ? category.name : 'Категория';
+          this.projectCard.categoryName = this.projectInputs.categorySelect.currentValue
+            ? this.projectInputs.categorySelect.currentValue.name
+            : 'Категория';
           this.projectCard.categoryId = reply.value.categoryId;
           this.projectCard.purpose = reply.value.budget;
           this.projectCard.currentResult = 0;
-          this.projectCard.description = reply.value.shortDescription ? reply.value.shortDescription : 'Описание';
-          this.projectCard.name = reply.value.title ? reply.value.title : 'Название';
+          this.projectCard.description = reply.value.shortDescription;
+          this.projectCard.name = reply.value.title;
           this.projectCard.status = ProjectStatusEnum.Draft;
           this.projectCard.imgPath = reply.value.image;
 
@@ -231,7 +207,8 @@ export class CreateProjectComponent extends Base implements OnInit {
     );
   }
 
-  private setCountries(countries: GenericLookupItem<string, number>[]): void {
+  setCountries(countries: GenericLookupItem<string, number>[]): void {
+    this.showLoader = true;
     this.subscriptions.add(
       this.projectService.getCountries().subscribe(
         (reply: ReplyMessage<LookupItem[]>) => {
@@ -248,58 +225,60 @@ export class CreateProjectComponent extends Base implements OnInit {
               this.countrySelectInput.list.push(new SelectItem(country.key, country.value));
             });
           }
-        }
+          this.showLoader = false;
+        },
+        () => {this.showLoader = false; }
       )
     );
   }
 
-  private setCities(): void {
+  setCities(): void {
+    this.showLoader = true;
     this.subscriptions.add(
       this.projectService.getCities().subscribe(
         (reply: ReplyMessage<LookupItem[]>) => {
-          reply.value.forEach(city => {
-            this.citiesSelectInput.list.push(new SelectItem(city.key, city.value));
-          });
-        }
+          reply.value.forEach(city => { this.citiesSelectInput.list.push(new SelectItem(city.key, city.value)); });
+          this.showLoader = false;
+        },
+        () => { this.showLoader = false; }
       )
     );
   }
 
-  private setCategories(): void {
+  setCategories(): void {
+    this.showLoader = true;
     this.subscriptions.add(
       this.projectService.getCategories().subscribe(
         (reply: ReplyMessage<LookupItem[]>) => {
           reply.value.forEach(category => {
             this.projectInputs.categorySelect.list.push(new SelectItem(category.key, category.value));
+            this.showLoader = false;
           });
-        }
+        },
+        () => { this.showLoader = false; }
       )
     );
   }
 
-  // General Tab functional
-  public onCategorySelect(value: string): void {
+  onCategorySelect(value: string): void {
     this.projectCard.categoryName = this.projectInputs.categorySelect.currentValue.name;
   }
 
-  public onCitySelect(value: string): void {
-    this.selectedCity = value;
-  }
-
-  public onMonthSelect(value: string): void {
+  onMonthSelect(value: string): void {
     this.selectedMonth = value;
   }
 
-  public onYearSelect(value: string): void {
+  onYearSelect(value: string): void {
     this.selectedYear = value;
   }
 
-  public onCountrySelect(value: string): void {
+  onCountrySelect(value: string): void {
     this.selectedCountry = value;
   }
 
-  public onDeliveryAddClick(): void {
+  onDeliveryAddClick(): void {
     if (!this.countryDeliveryCostInput.value || !this.selectedCountry) { return; }
+
     this.countrySelectInput.list.find(x => x.value === this.selectedCountry).disabled = true;
     this.rewardDeliveryCountries.push(
       new GenericLookupItem<string, number>(this.selectedCountry, this.countryDeliveryCostInput.value));
@@ -312,12 +291,12 @@ export class CreateProjectComponent extends Base implements OnInit {
     }
   }
 
-  public onRemoveCountryFromIncludedList(country: GenericLookupItem<string, number>): void {
+  onRemoveCountryFromIncludedList(country: GenericLookupItem<string, number>): void {
     this.countrySelectInput.list.find(x => x.value === country.key).disabled = false;
     this.rewardDeliveryCountries.remove(country);
   }
 
-  public onRewardAddClick(): void {
+  onRewardAddClick(): void {
     let deliveryType = DeliveryTypeEnum.WithoutDelivery;
     if (this.wholeWorldDeliverySubTab.isActive) {
       deliveryType = DeliveryTypeEnum.WholeWorld;
@@ -347,10 +326,9 @@ export class CreateProjectComponent extends Base implements OnInit {
       deliveryType: deliveryType,
       deliveryCountries: this.rewardDeliveryCountries
     };
-    if (this.rewardId) {
-      this.projectRewardsList.remove(this.projectRewardsList.find(x => x.id === this.rewardId));
-    }
-    this.projectRewardsList.push(rewardInfo);
+
+    if (this.rewardId) { this.rewardsList.remove(this.rewardsList.find(x => x.id === this.rewardId)); }
+    this.rewardsList.push(rewardInfo);
 
     this.rewardInputs.name.value = undefined;
     this.rewardInputs.cost.value = undefined;
@@ -385,11 +363,11 @@ export class CreateProjectComponent extends Base implements OnInit {
         country.disabled = true;
       }
     });
-    this.projectRewardsList.remove(reward);
+    this.rewardsList.remove(reward);
   }
 
   onRewardDeleteClick(reward: RewardInfo) {
-    this.projectRewardsList.remove(reward);
+    this.rewardsList.remove(reward);
   }
 
   getRewardCardFromInfo(reward: RewardInfo): RewardCard {
@@ -405,56 +383,53 @@ export class CreateProjectComponent extends Base implements OnInit {
     );
   }
 
-  public onQuestionAddClick(): void {
+  onQuestionAddClick(): void {
     if (!this.questionInput.value || !this.answerInput.value) { return; }
-    this.faqList.push(
-      new QuestionInfo(this.questionInput.value, this.answerInput.value)
-    );
+
+    this.faqList.push(new QuestionInfo(this.questionInput.value, this.answerInput.value));
     this.questionInput.value = undefined;
     this.answerInput.value = undefined;
   }
 
-  public onQuestionRemoveClick(question: QuestionInfo): void {
+  onQuestionRemoveClick(question: QuestionInfo): void {
     this.faqList.remove(question);
   }
 
-  public onQuestionEditClick(question: QuestionInfo): void {
+  onQuestionEditClick(question: QuestionInfo): void {
     this.questionInput.value = question.question;
     this.answerInput.value = question.answer;
     this.faqList.remove(question);
   }
 
-  public toStartClick() {
+  toStartClick() {
     this.subscriptions.add(
       this.projectService.setStatus(ProjectStatusEnum.Active, this.projectId).subscribe(
-        () => { this.redirect(Routes.profile); },
-        () => { console.log('ewed')}
+        () => { this.redirect(Routes.profile); }
       )
     );
   }
 
-  public toModerationClick(): void {
+  toModerationClick(): void {
     this.showLoader = true;
     const model = new ProjectModerationRequestMessage(this.getProjectModel());
     this.subscriptions.add(
       this.projectService.moderate(model).subscribe(
         (reply: ReplyMessage<string>) => {
-          this.redirect('profile');
-        this.showLoader = false; },
+          this.redirect(Routes.profile);
+          this.showLoader = false;
+        },
         () => { this.showLoader = false; }
       )
     );
   }
 
-  public onSaveClick(): void {
+  onSaveClick(): void {
     this.showLoader = true;
     const model = new SaveDraftProjectRequestMessage(this.getProjectModel());
     this.subscriptions.add(
       this.projectService.save(model).subscribe(
         (reply: ReplyMessage<string>) => {
-          if (!this.projectId && reply.value) {
-            this.redirect(Routes.projectEdit + '/' + reply.value);
-          }
+          if (!this.projectId && reply.value) { this.redirect(Routes.projectEdit + '/' + reply.value); }
           this.showLoader = false;
         },
         () => { this.showLoader = false; }
@@ -469,10 +444,10 @@ export class CreateProjectComponent extends Base implements OnInit {
       title: this.projectInputs.name.value,
       shortDescription: this.projectInputs.shortDescription.value,
       fullDescription: this.projectInputs.description.value,
-      location: this.selectedCity,
+      location: this.citiesSelectInput.currentValue ? this.citiesSelectInput.currentValue.value : undefined,
       videoUrl: this.projectInputs.video.value,
       image: this.projectInputs.image.fileName ? this.projectInputs.image.fileName : null,
-      //startDateTime: null,
+      // startDateTime: null,
       duration: this.projectInputs.duration.value ? this.projectInputs.duration.value : null,
       budget: this.projectInputs.purpose.value ? this.projectInputs.purpose.value : null,
       authorSurname: this.projectInputs.ownerSurname.value,
@@ -485,7 +460,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       whenGivenDocument: new Date(this.projectInputs.ownerWhenIssuedDoc.value),
       authorAddress: this.projectInputs.ownerAddress.value,
       authorPhone: this.projectInputs.ownerPhoneNumber.value,
-      rewards: this.projectRewardsList,
+      rewards: this.rewardsList,
       questions: this.faqList
     };
     return draft;
@@ -496,12 +471,12 @@ export class CreateProjectComponent extends Base implements OnInit {
     const data = new FormData();
     data.append('file', input.file);
     this.subscriptions.add(
-    this.fileService.save(data).subscribe(
+      this.fileService.save(data).subscribe(
         (reply: ReplyMessage<string>) => {
           input.fileName = reply.value;
           this.showLoader = false;
         },
-        () => {this.showLoader = false; }
+        () => { this.showLoader = false; }
       )
     );
   }

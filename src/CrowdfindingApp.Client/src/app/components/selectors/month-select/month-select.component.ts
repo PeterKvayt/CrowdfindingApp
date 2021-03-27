@@ -30,6 +30,7 @@ export class MonthSelectComponent {
   @Output() selectedValue = new EventEmitter<string>();
 
   public onSelect(value: string): void {
+    this.select.currentValue = this.select.list.find(x => x.value === value);
     this.selectedValue.emit(value);
 }
 

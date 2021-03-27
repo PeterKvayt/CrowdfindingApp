@@ -28,6 +28,7 @@ export class YearSelectorComponent implements OnInit {
   }
 
   public onSelect(value: string): void {
+    this.select.currentValue = this.select.list.find(x => x.value === value);
     this.selectedValue.emit(value);
 }
 }

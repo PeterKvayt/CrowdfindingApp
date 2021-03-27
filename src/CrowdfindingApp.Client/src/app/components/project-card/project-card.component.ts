@@ -75,7 +75,8 @@ export class ProjectCardComponent implements OnInit {
   getHoverTitle() {
     switch (this.card.status) {
       case ProjectStatusEnum.Active: return 'ПОДДЕРЖАТЬ';
-      case ProjectStatusEnum.Complited: return 'ПРОСМОТРЕТЬ';
+      case ProjectStatusEnum.Complited: return 'ПОДДЕРЖАТЬ';
+      case ProjectStatusEnum.Finalized: return 'ПРОСМОТРЕТЬ';
       case ProjectStatusEnum.Draft: return 'ПРОСМОТРЕТЬ';
       case ProjectStatusEnum.Moderation: return 'ПРОСМОТРЕТЬ';
       case ProjectStatusEnum.Stopped: return 'ПРОСМОТРЕТЬ';
