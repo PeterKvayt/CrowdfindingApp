@@ -88,7 +88,7 @@
   font-size: 14px;
   text-decoration: none;
   color: #AFAFAF;
-  height: 137px;
+  height: 132px;
   overflow: hidden;
   text-align: justify;
   transition: 0.32s;
@@ -96,12 +96,22 @@
   z-index: 2;
 }
 
+.description{
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .card-description:hover{
   text-decoration: none;
 }
 
 .projectName{
-  display: inline-block;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   text-decoration: none;
   color: var(--regular);
   text-align: left;

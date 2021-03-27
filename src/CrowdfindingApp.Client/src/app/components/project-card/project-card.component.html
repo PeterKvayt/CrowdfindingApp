@@ -13,10 +13,10 @@
       <!-- <span class="link filter"> {{card.category}} </span> -->
       <!-- <app-link empty [value]='card.categoryName'></app-link> -->
       <span class="filter">{{card.categoryName}}</span>
-      <span class="card-description">
+      <p class="card-description">
         <span class="projectName"> {{card.name}} </span>
-        {{card.description}}
-      </span>
+        <span class="description">{{card.description}}</span>
+      </p>
       <div class="card-progress-box">
         <span class="progress-bar" [style.width]='getWidth()'></span>
       </div>
