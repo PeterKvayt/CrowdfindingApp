@@ -22,15 +22,14 @@
               <span class="email delicate-text">{{userInfo ? userInfo.email : ''}}</span>
             </div>
 
-            <ng-container *ngIf='isMyProfile || authService.isAdmin()'>
+            <!-- <ng-container *ngIf='isMyProfile || authService.isAdmin()'>
               <div class="col-12">
-                <div class="row">
+                <div class="row"> -->
 
-                  <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div *ngIf='isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
                     <app-regular-btn value='Редактировать данные' ico='fas fa-cog' fluid='true'
                       (click)='onEditSettingsClick()'></app-regular-btn>
                   </div>
-                  <div *ngIf='!authService.isAdmin() && isMyProfile' class="col-lg-6 col-md-5"></div>
                   <div *ngIf='authService.isAdmin() && isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
                     <app-regular-btn value='Ожидающие модерации' ico='fas fa-sign-out-alt'
                       (click)='onToModerationClick()' fluid='true'></app-regular-btn>
@@ -43,10 +42,14 @@
                     <app-regular-btn value='Выйти из учетной записи' ico='fas fa-sign-out-alt'
                       (click)='onSignOutClick()' fluid='true'></app-regular-btn>
                   </div>
+                  <div *ngIf='isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
+                    <app-regular-btn value='Создать новый проект' ico='fas fa-plus' fluid='true'
+                      link='project/create'></app-regular-btn>
+                  </div>
 
-                </div>
+                <!-- </div>
               </div>
-            </ng-container>
+            </ng-container> -->
 
           </div>
         </div>
