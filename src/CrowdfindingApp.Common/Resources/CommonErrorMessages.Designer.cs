@@ -88,6 +88,42 @@ namespace CrowdfindingApp.Common.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы неавторизованы.
+        /// </summary>
+        internal static string NotAuthorizedMessageKey {
+            get {
+                return ResourceManager.GetString("NotAuthorizedMessageKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Объект не найден.
+        /// </summary>
+        internal static string ObjectNotFoundMessageKey {
+            get {
+                return ResourceManager.GetString("ObjectNotFoundMessageKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Доступ запрещен.
+        /// </summary>
+        internal static string SecurityErrorMessageKey {
+            get {
+                return ResourceManager.GetString("SecurityErrorMessageKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Системная ошибка.
+        /// </summary>
+        internal static string SystemErrorMessageKey {
+            get {
+                return ResourceManager.GetString("SystemErrorMessageKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Невалидный формат Id.
         /// </summary>
         internal static string WrongIdFormat {

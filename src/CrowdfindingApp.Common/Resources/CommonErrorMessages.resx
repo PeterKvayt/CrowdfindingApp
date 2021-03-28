@@ -126,6 +126,18 @@
   <data name="InvalidIdFormat" xml:space="preserve">
     <value>Невалидный формат Id: "{0}"</value>
   </data>
+  <data name="NotAuthorizedMessageKey" xml:space="preserve">
+    <value>Вы неавторизованы</value>
+  </data>
+  <data name="ObjectNotFoundMessageKey" xml:space="preserve">
+    <value>Объект не найден</value>
+  </data>
+  <data name="SecurityErrorMessageKey" xml:space="preserve">
+    <value>Доступ запрещен</value>
+  </data>
+  <data name="SystemErrorMessageKey" xml:space="preserve">
+    <value>Системная ошибка</value>
+  </data>
   <data name="WrongIdFormat" xml:space="preserve">
     <value>Невалидный формат Id</value>
   </data>

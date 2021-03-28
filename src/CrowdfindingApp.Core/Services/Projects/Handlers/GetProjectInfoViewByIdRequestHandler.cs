@@ -25,17 +25,17 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         }
 
-        private int[] _broadcastStatuses = new int[] { (int)ProjectStatus.Active, (int)ProjectStatus.Complited };
+        private int[] _broadcastStatuses = new int[] { (int)ProjectStatus.Active, (int)ProjectStatus.Complited, (int)ProjectStatus.Finalized };
 
         protected override async Task<(ReplyMessageBase, Project)> ValidateRequestMessageAsync(GetProjectByIdRequestMessage requestMessage)
         {
             var (reply, project) = await base.ValidateRequestMessageAsync(requestMessage);
-            if(reply.Errors != null)
+            if(reply.Errors?.Any() ?? false)
             {
                 return (reply, project);
             }
 
-            if(project.OwnerId != User.GetUserId() && !User.HasRole(nameof(Common.Immutable.Roles.Admin)) && !_broadcastStatuses.Contains(project.Status))
+            if((project.OwnerId != User.GetUserId() && !User.HasRole(nameof(Common.Immutable.Roles.Admin))) || !_broadcastStatuses.Contains(project.Status))
             {
                 reply.AddSecurityError();
             }
