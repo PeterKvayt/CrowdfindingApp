@@ -8,7 +8,7 @@ using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.BackgroundTasks.Jobs
 {
-    public class UpdateStatusOfExpiriedProjectsJob
+    public class UpdateStatusOfExpiriedProjectsJob : IBackgroundJob
     {
         private readonly IProjectRepository _projectRepository;
 

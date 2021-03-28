@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using CrowdfindingApp.Core.Services.BackgroundTasks.Jobs;
 using Hangfire;
 
@@ -8,8 +9,14 @@ namespace CrowdfindingApp.Core.Services.BackgroundTasks
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<UpdateStatusOfExpiriedProjectsJob>().AsSelf().SingleInstance();
-            RecurringJob.AddOrUpdate<UpdateStatusOfExpiriedProjectsJob>(nameof(UpdateStatusOfExpiriedProjectsJob), job => job.Execute(), Cron.Hourly);
+            RegisterJob<UpdateStatusOfExpiriedProjectsJob>(builder, Cron.Hourly, nameof(UpdateStatusOfExpiriedProjectsJob));
+            RegisterJob<ClearExpiredTempFilesJob>(builder, Cron.Daily, nameof(ClearExpiredTempFilesJob));
+        }
+
+        private void RegisterJob<JobType>(ContainerBuilder builder, Func<string> frequency, string name) where JobType: IBackgroundJob
+        {
+            builder.RegisterType<JobType>().AsSelf().SingleInstance();
+            RecurringJob.AddOrUpdate<JobType>(name, job => job.Execute(), frequency);
         }
     }
 }
