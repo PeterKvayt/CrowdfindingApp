@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using CrowdfindingApp.Common.DataTransfers.Project;
+﻿using CrowdfindingApp.Common.DataTransfers.Project;
 using CrowdfindingApp.Common.DataTransfers.Projects;
-using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Mappings;
 using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Filters;
@@ -15,8 +13,6 @@ namespace CrowdfindingApp.Core.Services.Projects.Mappings
             CreateMap<ProjectFilterInfo, ProjectFilter>();
 
             CreateMap<Project, ProjectInfo>().ReverseMap(); 
-
-            //CreateMap<Project, Project>();
 
             CreateMap<Project, ProjectCard>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Title))

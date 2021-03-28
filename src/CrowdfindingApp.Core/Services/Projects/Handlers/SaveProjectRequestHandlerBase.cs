@@ -12,9 +12,6 @@ using System.Linq;
 using CrowdfindingApp.Common.DataTransfers.Rewards;
 using CrowdfindingApp.Common.DataTransfers.Questions;
 using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
-using System.Collections.Generic;
-using CrowdfindingApp.Data.Common.Filters;
-using CrowdfindingApp.Common.Immutable;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {

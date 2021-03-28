@@ -4,9 +4,7 @@ using AutoMapper;
 using CrowdfindingApp.Common.DataTransfers.Projects;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Projects;
-using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
-using CrowdfindingApp.Data.Common.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
@@ -20,10 +18,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         protected override async Task<PagedReplyMessage<List<ProjectCard>>> ExecuteAsync(ProjectSearchRequestMessage request)
         {
-            var filter = Mapper.Map<ProjectFilter>(request.Filter);
-            var paging = Mapper.Map<Paging>(request.Paging);
-
-            return await SearchAsync(filter, paging);
+            return await SearchAsync(request.Filter, request.Paging);
         }
     }
 }

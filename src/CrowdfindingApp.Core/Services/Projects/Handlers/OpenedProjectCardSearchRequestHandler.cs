@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CrowdfindingApp.Common.DataTransfers.Project;
 using CrowdfindingApp.Common.DataTransfers.Projects;
 using CrowdfindingApp.Common.Enums;
-using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Projects;
-using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
-using CrowdfindingApp.Data.Common.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
@@ -27,14 +23,10 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         protected override async Task<PagedReplyMessage<List<ProjectCard>>> ExecuteAsync(ProjectSearchRequestMessage request)
         {
-            SetRestrictions(request.Filter);
-            var filter = Mapper.Map<ProjectFilter>(request.Filter);
-            var paging = Mapper.Map<Paging>(request.Paging);
-
-            return await SearchAsync(filter, paging);
+            return await SearchAsync(GetFilterWithRestrictions(request.Filter), request.Paging);
         }
 
-        private void SetRestrictions(ProjectFilterInfo filter)
+        private ProjectFilterInfo GetFilterWithRestrictions(ProjectFilterInfo filter)
         {
             filter = filter ?? new ProjectFilterInfo();
             filter.Status = filter.Status?.Where(x => _allowedStatuses.Contains(x)).ToList();
@@ -42,6 +34,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             {
                 filter.Status = _allowedStatuses;
             }
+            return filter;
         }
     }
 }

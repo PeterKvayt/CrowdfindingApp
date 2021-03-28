@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CrowdfindingApp.Common.DataTransfers.Project;
 using CrowdfindingApp.Common.DataTransfers.Projects;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Projects;
 using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
-using CrowdfindingApp.Data.Common.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
@@ -30,9 +30,13 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
                 return new PagedReplyMessage<List<ProjectCard>> { Value = new List<ProjectCard>(), Paging = request.Paging };
             }
 
-            var paging = Mapper.Map<Paging>(request.Paging);
             var rewards = await RewardRepository.GetByIdsAsync(orders.Select(x => x.RewardId).Distinct());
-            return await SearchAsync(new ProjectFilter { Id = rewards.Select(x => x.ProjectId).Distinct().ToList() }, paging);
+            return await SearchAsync(new ProjectFilterInfo 
+            { 
+                Id = rewards.Select(x => x.ProjectId.ToString())
+                .Distinct()
+                .ToList() 
+            }, request.Paging);
         }
     }
 }

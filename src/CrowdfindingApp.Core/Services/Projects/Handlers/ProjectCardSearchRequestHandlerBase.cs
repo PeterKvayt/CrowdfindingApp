@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CrowdfindingApp.Common.DataTransfers;
+using CrowdfindingApp.Common.DataTransfers.Project;
 using CrowdfindingApp.Common.DataTransfers.Projects;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
@@ -34,6 +35,11 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
             RewardRepository = rewardRepository ?? throw new NullReferenceException(nameof(rewardRepository));
             OrderRepository = orderRepository ?? throw new NullReferenceException(nameof(orderRepository));
             Configuration = configuration ?? throw new NullReferenceException(nameof(configuration));
+        }
+
+        protected async Task<PagedReplyMessage<List<ProjectCard>>> SearchAsync(ProjectFilterInfo filter, PagingInfo paging)
+        {
+            return await SearchAsync(Mapper.Map<ProjectFilter>(filter), Mapper.Map<Paging>(paging));
         }
 
         protected async Task<PagedReplyMessage<List<ProjectCard>>> SearchAsync(ProjectFilter filter, Paging paging)
