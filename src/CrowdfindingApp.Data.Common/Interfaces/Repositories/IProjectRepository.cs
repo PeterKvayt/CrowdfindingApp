@@ -17,5 +17,6 @@ namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
         Task<Project> GetByIdAsync(Guid projectId, Guid ownerId);
         Task SetStatusAsync(int status, IEnumerable<Guid> projectId);
         Task<decimal> GetProgressAsync(Guid projectId);
+        Task RemoveAsync(Guid id);
     }
 }

@@ -158,5 +158,31 @@ namespace CrowdfindingApp.Data.Repositories
 
             return progress;
         }
+
+        public async Task RemoveAsync(Guid id)
+        {
+            var questions = await Storage.Questions.Where(x => x.ProjectId == id).ToListAsync();
+            if(questions?.Any() ?? false)
+            {
+                Storage.Questions.RemoveRange(questions);
+            }
+
+            var rewards = await Storage.Rewards.Where(x => x.ProjectId == id).ToListAsync();
+            if(rewards?.Any() ?? false)
+            {
+                var deliveries = await Storage.RewardGeographies.Where(x => rewards.Select(r => r.Id).Contains(x.RewardId)).ToListAsync();
+                if(deliveries?.Any() ?? false)
+                {
+                    Storage.RewardGeographies.RemoveRange(deliveries);
+                }
+                Storage.Rewards.RemoveRange(rewards);
+            }
+
+            var project = await Repository.FirstOrDefaultAsync(x => x.Id == id);
+            if(project != null)
+            {
+                Repository.Remove(project);
+            }
+        }
     }
 }

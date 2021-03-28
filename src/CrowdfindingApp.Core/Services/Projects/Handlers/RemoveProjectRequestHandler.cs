@@ -20,19 +20,26 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
 
         protected override async Task<ReplyMessageBase> ExecuteAsync(RemoveProjectRequestMessage request)
         {
+            var reply = new ReplyMessageBase();
             var isId = Guid.TryParse(request.ProjectId, out var projectId);
             if(request.ProjectId.IsNullOrWhiteSpace() || !isId)
             {
-                return new ReplyMessageBase();
+                return reply;
             }
 
             var project = await _projectRepository.GetByIdAsync(projectId);
             if(project is null || project.OwnerId != User.GetUserId())
             {
-                return new ReplyMessageBase();
+                return reply;
             }
 
-            await _projectRepository.SetStatusAsync((int)ProjectStatus.Deleted, new Guid[] { projectId });
+            if(project.Status != (int)ProjectStatus.Draft)
+            {
+                reply.AddSecurityError();
+                return reply;
+            }
+
+            await _projectRepository.RemoveAsync(projectId);
 
             return new ReplyMessageBase();
         }
