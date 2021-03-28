@@ -35,7 +35,7 @@
                       (click)='onToModerationClick()' fluid='true'></app-regular-btn>
                   </div>
                   <div *ngIf='authService.isAdmin() && !isMyProfile' class="col-lg-6 col-md-6 col-sm-12">
-                    <app-regular-btn [value]='roleEditTitle.value' ico='fas fa-sign-out-alt' (click)='onRoleEditClick()'
+                    <app-regular-btn [value]='roleEditTitle.value' ico='fas fa-user-tag' (click)='onRoleEditClick()'
                       fluid='true'></app-regular-btn>
                   </div>
                   <div *ngIf='isMyProfile' class="col-lg-6 col-md-6 col-sm-12">

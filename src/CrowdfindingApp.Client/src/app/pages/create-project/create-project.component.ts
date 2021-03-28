@@ -67,6 +67,10 @@ export class CreateProjectComponent extends Base implements OnInit {
   private selectedCountry: string;
   private selectedMonth: string;
   private selectedYear: string;
+  public isAdmin: boolean;
+  public isOwner: boolean;
+  public isProjectDraft = true;
+  public isProjectOnModeration = false;
   // public feedBackModalShow = false;
 
   public projectCard: ProjectCard = {
@@ -100,10 +104,11 @@ export class CreateProjectComponent extends Base implements OnInit {
     public activatedRoute: ActivatedRoute,
     public fileService: FileService,
     public authService: AuthenticationService,
-    private titleService: Title
+    private titleService: Title,
   ) { super(router, activatedRoute); }
 
   public ngOnInit(): void {
+    this.isAdmin = this.authService.isAdmin();
     this.setCities();
     this.setCategories();
     this.projectId = this.activatedRoute.snapshot.paramMap.get('projectId');
@@ -152,6 +157,9 @@ export class CreateProjectComponent extends Base implements OnInit {
     this.subscriptions.add(
       this.projectService.getProjectById(projectId).subscribe(
         (reply: ReplyMessage<ProjectInfo>) => {
+          this.isOwner = reply.value.ownerId === this.authService.getMyId();
+          this.isProjectDraft = reply.value.status === ProjectStatusEnum.Draft;
+          this.isProjectOnModeration = reply.value.status === ProjectStatusEnum.Moderation;
 
           if (reply.value.categoryId) {
             this.projectInputs.categorySelect.currentValue =
@@ -430,6 +438,19 @@ export class CreateProjectComponent extends Base implements OnInit {
       this.projectService.save(model).subscribe(
         (reply: ReplyMessage<string>) => {
           if (!this.projectId && reply.value) { this.redirect(Routes.projectEdit + '/' + reply.value); }
+          this.showLoader = false;
+        },
+        () => { this.showLoader = false; }
+      )
+    );
+  }
+
+  toReworkClick(): void {
+    this.showLoader = true;
+    this.subscriptions.add(
+      this.projectService.setStatus(ProjectStatusEnum.Draft, this.projectId).subscribe(
+        (reply: ReplyMessage<string>) => {
+          this.redirect(Routes.profile);
           this.showLoader = false;
         },
         () => { this.showLoader = false; }

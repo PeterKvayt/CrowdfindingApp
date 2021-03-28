@@ -102,13 +102,15 @@
                   <app-decimal-input [item]='projectInputs.duration'></app-decimal-input>
                 </div>
                 <div class="col-12">
-                  <div class="delicate-text">Мы рекомендуем указывать минимальную сумму, необходимую для реализации проекта.
-                    Платформа использует модель «все или ничего», а это значит, что для получения средств вам обязательно
+                  <div class="delicate-text">Мы рекомендуем указывать минимальную сумму, необходимую для реализации
+                    проекта.
+                    Платформа использует модель «все или ничего», а это значит, что для получения средств вам
+                    обязательно
                     необходимо собрать от 100% и выше.
                   </div>
-                    <p class="delicate-text">
-                      Обращаем ваше внимание на то, что платформа берет комиссию только с успешных проектов.
-                    </p>
+                  <p class="delicate-text">
+                    Обращаем ваше внимание на то, что платформа берет комиссию только с успешных проектов.
+                  </p>
                 </div>
               </div>
             </div>
@@ -118,35 +120,33 @@
         </div>
       </div>
 
-
-        <div class="col-4 tab-inner">
-          <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
-            (click)='onSaveClick()'>
-          </app-regular-btn>
-          <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
-            (click)='toModerationClick()'>
-          </app-regular-btn>
-          <ng-container *ngIf='authService.isAdmin() && projectId'>
-            <app-regular-btn value='Запустить проект' fluid='true' icoBefore='true' ico='fas fa-play'
-              (click)='toStartClick()'>
-            </app-regular-btn>
-          </ng-container>
-          <ng-container *ngIf='projectId'>
-            <app-regular-btn [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр' fluid='true'
-              icoBefore='true' ico='fas fa-ticket-alt'>
-            </app-regular-btn>
-          </ng-container>
-          <div class="row">
-            <div class="col">
-              <app-project-card [card]='projectCard'></app-project-card>
-            </div>
+      <div class="col-4 tab-inner">
+        <app-regular-btn *ngIf='isProjectDraft && isOwner' value='Сохранить изменения' fluid='true' icoBefore='true'
+          ico='fas fa-save' (click)='onSaveClick()'>
+        </app-regular-btn>
+        <app-regular-btn *ngIf='isProjectDraft && isOwner' value='Отправить на модерацию' fluid='true' icoBefore='true'
+          ico='fas fa-rocket' (click)='toModerationClick()'>
+        </app-regular-btn>
+        <app-regular-btn *ngIf='isAdmin && isProjectOnModeration && projectId' value='Запустить проект' fluid='true'
+          icoBefore='true' ico='fas fa-play' (click)='toStartClick()'>
+        </app-regular-btn>
+        <app-regular-btn *ngIf='isAdmin && isProjectOnModeration && projectId' value='Отправить на доработку'
+          fluid='true' icoBefore='true' ico='fas fa-reply' (click)='toReworkClick()'>
+        </app-regular-btn>
+        <app-regular-btn *ngIf='projectId' [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр'
+          fluid='true' icoBefore='true' ico='fas fa-ticket-alt'>
+        </app-regular-btn>
+        <div class="row">
+          <div class="col">
+            <app-project-card [card]='projectCard'></app-project-card>
           </div>
-          <!-- <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
+        </div>
+        <!-- <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
               <app-collapse header='Зачем записывать видео?'
                 body='Видео-обращение значительно повысит ваши шансы на успех. Это эффективный инструмент, который позволит лично обратиться к потенциальным спонсорам, рассказать о проекте и призвать к действию.'>
               </app-collapse> -->
-          <!-- <app-link empty value='Задать вопрос' (click)='feedBackModalShow = true'></app-link> -->
-        </div>
+        <!-- <app-link empty value='Задать вопрос' (click)='feedBackModalShow = true'></app-link> -->
+      </div>
 
     </ng-container>
 
@@ -226,9 +226,9 @@
                   <app-decimal-input [item]='countryDeliveryCostInput'></app-decimal-input>
                 </div>
                 <div class="col-12">
-                    <app-regular-btn value='Добавить страну исключение' (click)='onDeliveryAddClick()'></app-regular-btn>
-                  </div>
+                  <app-regular-btn value='Добавить страну исключение' (click)='onDeliveryAddClick()'></app-regular-btn>
                 </div>
+              </div>
               <div class="selected-countries">
                 <div class="selected-country-item" *ngFor='let country of rewardDeliveryCountries'>
                   {{getCountryNameById(country.key)}} {{country.value}} BYN
@@ -253,22 +253,21 @@
       </div>
 
       <div class="col-4 tab-inner">
-        <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
-          (click)='onSaveClick()'>
+        <app-regular-btn *ngIf='isProjectDraft && isOwner' value='Сохранить изменения' fluid='true' icoBefore='true'
+          ico='fas fa-save' (click)='onSaveClick()'>
         </app-regular-btn>
-        <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
-          (click)='toModerationClick()'>
+        <app-regular-btn *ngIf='isProjectDraft && isOwner' value='Отправить на модерацию' fluid='true' icoBefore='true'
+          ico='fas fa-rocket' (click)='toModerationClick()'>
         </app-regular-btn>
-        <ng-container *ngIf='authService.isAdmin() && projectId'>
-          <app-regular-btn value='Запустить проект' fluid='true' icoBefore='true' ico='fas fa-rocket'
-            (click)='toStartClick()'>
-          </app-regular-btn>
-        </ng-container>
-        <ng-container *ngIf='projectId'>
-          <app-regular-btn [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр' fluid='true'
-            icoBefore='true' ico='fas fa-rocket'>
-          </app-regular-btn>
-        </ng-container>
+        <app-regular-btn *ngIf='isAdmin && isProjectOnModeration && projectId' value='Запустить проект' fluid='true'
+          icoBefore='true' ico='fas fa-play' (click)='toStartClick()'>
+        </app-regular-btn>
+        <app-regular-btn *ngIf='isAdmin && isProjectOnModeration && projectId' value='Отправить на доработку'
+          fluid='true' icoBefore='true' ico='fas fa-reply' (click)='toReworkClick()'>
+        </app-regular-btn>
+        <app-regular-btn *ngIf='projectId' [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр'
+          fluid='true' icoBefore='true' ico='fas fa-ticket-alt'>
+        </app-regular-btn>
         <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Что такое лоты?'
           body='Лоты – это продукты, которые вы предлагаете в рамках крауд-кампании. Это то, ради чего люди перечисляют деньги в ваш проект.'>
@@ -324,22 +323,21 @@
       </div>
 
       <div class="col-4 tab-inner">
-        <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
-          (click)='onSaveClick()'>
+        <app-regular-btn *ngIf='isProjectDraft && isOwner' value='Сохранить изменения' fluid='true' icoBefore='true'
+          ico='fas fa-save' (click)='onSaveClick()'>
         </app-regular-btn>
-        <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
-          (click)='toModerationClick()'>
+        <app-regular-btn *ngIf='isProjectDraft && isOwner' value='Отправить на модерацию' fluid='true' icoBefore='true'
+          ico='fas fa-rocket' (click)='toModerationClick()'>
         </app-regular-btn>
-        <ng-container *ngIf='authService.isAdmin() && projectId'>
-          <app-regular-btn value='Запустить проект' fluid='true' icoBefore='true' ico='fas fa-rocket'
-            (click)='toStartClick()'>
-          </app-regular-btn>
-        </ng-container>
-        <ng-container *ngIf='projectId'>
-          <app-regular-btn [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр' fluid='true'
-            icoBefore='true' ico='fas fa-rocket'>
-          </app-regular-btn>
-        </ng-container>
+        <app-regular-btn *ngIf='isAdmin && isProjectOnModeration && projectId' value='Запустить проект' fluid='true'
+          icoBefore='true' ico='fas fa-play' (click)='toStartClick()'>
+        </app-regular-btn>
+        <app-regular-btn *ngIf='isAdmin && isProjectOnModeration && projectId' value='Отправить на доработку'
+          fluid='true' icoBefore='true' ico='fas fa-reply' (click)='toReworkClick()'>
+        </app-regular-btn>
+        <app-regular-btn *ngIf='projectId' [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр'
+          fluid='true' icoBefore='true' ico='fas fa-ticket-alt'>
+        </app-regular-btn>
         <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Что должно быть в описании?'
           body='Специально для вас мы подготовили рекомендации для написания грамотного и эффективного описания.'>
@@ -376,22 +374,21 @@
       </div>
 
       <div class="col-4 tab-inner">
-        <app-regular-btn value='Сохранить изменения' fluid='true' icoBefore='true' ico='fas fa-save'
-          (click)='onSaveClick()'>
+        <app-regular-btn *ngIf='isProjectDraft && isOwner' value='Сохранить изменения' fluid='true' icoBefore='true'
+          ico='fas fa-save' (click)='onSaveClick()'>
         </app-regular-btn>
-        <app-regular-btn value='Отправить на модерацию' fluid='true' icoBefore='true' ico='fas fa-rocket'
-          (click)='toModerationClick()'>
+        <app-regular-btn *ngIf='isProjectDraft && isOwner' value='Отправить на модерацию' fluid='true' icoBefore='true'
+          ico='fas fa-rocket' (click)='toModerationClick()'>
         </app-regular-btn>
-        <ng-container *ngIf='authService.isAdmin() && projectId'>
-          <app-regular-btn value='Запустить проект' fluid='true' icoBefore='true' ico='fas fa-rocket'
-            (click)='toStartClick()'>
-          </app-regular-btn>
-        </ng-container>
-        <ng-container *ngIf='projectId'>
-          <app-regular-btn [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр' fluid='true'
-            icoBefore='true' ico='fas fa-rocket'>
-          </app-regular-btn>
-        </ng-container>
+        <app-regular-btn *ngIf='isAdmin && isProjectOnModeration && projectId' value='Запустить проект' fluid='true'
+          icoBefore='true' ico='fas fa-play' (click)='toStartClick()'>
+        </app-regular-btn>
+        <app-regular-btn *ngIf='isAdmin && isProjectOnModeration && projectId' value='Отправить на доработку'
+          fluid='true' icoBefore='true' ico='fas fa-reply' (click)='toReworkClick()'>
+        </app-regular-btn>
+        <app-regular-btn *ngIf='projectId' [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр'
+          fluid='true' icoBefore='true' ico='fas fa-ticket-alt'>
+        </app-regular-btn>
         <span class="global-sub-title">Помощь <i class="fas fa-info-circle fa-xs"></i></span>
         <app-collapse header='Зачем вводить номер счета?'
           body='Номер счета необходим для перечисления средств в случае успеха вашей краудфандинговой кампании. '>

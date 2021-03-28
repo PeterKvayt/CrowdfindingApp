@@ -4,6 +4,7 @@ import { ProjectStatusEnum } from '../../enums/ProjectStatus';
 
 export class ProjectInfo {
   public id?: string;
+  public ownerId?: string;
   public categoryId?: string;
   public title?: string;
   public shortDescription?: string;

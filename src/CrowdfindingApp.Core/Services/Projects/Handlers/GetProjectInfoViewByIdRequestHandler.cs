@@ -35,7 +35,9 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
                 return (reply, project);
             }
 
-            if((project.OwnerId != User.GetUserId() && !User.HasRole(nameof(Common.Immutable.Roles.Admin))) || !_broadcastStatuses.Contains(project.Status))
+            if(project.OwnerId != User.GetUserId()
+                && !User.HasRole(nameof(Common.Immutable.Roles.Admin))
+                && !_broadcastStatuses.Contains(project.Status))
             {
                 reply.AddSecurityError();
             }
