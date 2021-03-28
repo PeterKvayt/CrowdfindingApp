@@ -15,7 +15,6 @@ namespace CrowdfindingApp.Api.Controllers
     {
         private readonly SaveDraftProjectRequestHandler _saveDraftProjectRequestHandler;
         private readonly ProjectModerationRequestHandler _projectModerationRequestHandler;
-        private readonly ProjectSearchRequestHandler _projectSearchRequestHandler;
         private readonly GetCountriesRequestHandler _getCountriesRequestHandler;
         private readonly GetCitiesRequestHandler _getCitiesRequestHandler;
         private readonly GetCategoriesRequestHandler _getCategoriesRequestHandler;
@@ -41,12 +40,10 @@ namespace CrowdfindingApp.Api.Controllers
             UnsafeProjectCardSearchRequestHandler usnafeProjectCardsearchRequestHandler,
             OpenedProjectCardSearchRequestHandler openedProjectCardSearchRequestHandler,
             GetProjectInfoViewByIdRequestHandler getProjectInfoViewByIdRequestHandler,
-            GetSupportedProjectCardsRequestHandler getSupportedProjectCardsRequestHandler,
-            ProjectSearchRequestHandler projectSearchRequestHandler) : base(resourceProvider)
+            GetSupportedProjectCardsRequestHandler getSupportedProjectCardsRequestHandler) : base(resourceProvider)
         {
             _saveDraftProjectRequestHandler = saveDraftProjectRequestHandler ?? throw new ArgumentNullException(nameof(saveDraftProjectRequestHandler));
             _projectModerationRequestHandler = projectModerationRequestHandler ?? throw new ArgumentNullException(nameof(projectModerationRequestHandler));
-            _projectSearchRequestHandler = projectSearchRequestHandler ?? throw new ArgumentNullException(nameof(projectSearchRequestHandler));
             _getCountriesRequestHandler = getCountriesRequestHandler ?? throw new ArgumentNullException(nameof(getCountriesRequestHandler));
             _getCitiesRequestHandler = getCitiesRequestHandler ?? throw new ArgumentNullException(nameof(getCitiesRequestHandler));
             _getCategoriesRequestHandler = getCategoriesRequestHandler ?? throw new ArgumentNullException(nameof(getCategoriesRequestHandler));

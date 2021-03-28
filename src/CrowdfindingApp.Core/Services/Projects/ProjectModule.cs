@@ -19,7 +19,6 @@ namespace CrowdfindingApp.Core.Services.Projects
         private void RegisterHandlers(ContainerBuilder builder)
         {
             builder.RegisterType<SaveDraftProjectRequestHandler>().AsSelf();
-            builder.RegisterType<ProjectSearchRequestHandler>().AsSelf();
             builder.RegisterType<GetCitiesRequestHandler>().AsSelf();
             builder.RegisterType<GetCountriesRequestHandler>().AsSelf();
             builder.RegisterType<GetCategoriesRequestHandler>().AsSelf();
