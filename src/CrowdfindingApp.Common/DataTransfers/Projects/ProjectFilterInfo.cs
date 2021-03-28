@@ -1,5 +1,8 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using CrowdfindingApp.Common.DataTransfers.Projects;
 using CrowdfindingApp.Common.Enums;
 
 namespace CrowdfindingApp.Common.DataTransfers.Project
@@ -11,5 +14,7 @@ namespace CrowdfindingApp.Common.DataTransfers.Project
         public List<string> CategoryId { get; set; }
         public List<string> OwnerId { get; set; }
         public List<ProjectStatus> Status { get; set; }
+        public Expression<Func<ProjectInfo, object>> OrderBy { get; set; }
+        public bool DescendingOrder { get; set; }
     }
 }

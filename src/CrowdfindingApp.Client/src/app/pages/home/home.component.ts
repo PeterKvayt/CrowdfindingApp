@@ -39,13 +39,8 @@ export class HomeComponent extends Base implements OnInit {
 
   private setProjects(): void {
     this.showLoader = true;
-    const filter: ProjectFilterInfo = { status: [ProjectStatusEnum.Active]};
-    const request: ProjectSearchRequestMessage = {
-      filter: filter,
-      paging: new PagingInfo(1, 3)
-     };
     this.subscriptions.add(
-      this.projectService.openedProjects(request).subscribe(
+      this.projectService.getTopProjectCards(new PagingInfo(1, 3)).subscribe(
         (reply: PagedReplyMessage<ProjectCard[]>) => {
           this.projects = reply.value;
           this.showLoader = false;

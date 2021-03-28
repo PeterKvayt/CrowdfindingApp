@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using CrowdfindingApp.Common.Enums;
@@ -56,6 +57,18 @@ namespace CrowdfindingApp.Data.Repositories
             if(filter.Status?.Any() ?? false)
             {
                 query = query.Where(_ => filter.Status.Contains(_.Status));
+            }
+
+            if(filter.OrderBy != null)
+            {
+                if(filter.DescendingOrder)
+                {
+                    query = query.OrderByDescending(filter.OrderBy);
+                }
+                else
+                {
+                    query = query.OrderBy(filter.OrderBy);
+                }
             }
 
             return query;

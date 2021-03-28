@@ -7,6 +7,7 @@ import { ProjectStatusEnum } from '../models/enums/ProjectStatus';
 import { SetProjectStatusRequestMessage } from '../models/requests/projects/SetProjectStatusRequestMessage';
 import { PagingInfo } from '../models/common/PagingInfo';
 import { GetSupportedProjectCardsRequestMessage } from '../models/requests/projects/GetSupportedProjectCardsRequestMessage';
+import { GetTopProjectCardsRequestMessage } from '../models/requests/projects/GetTopProjectCardsRequestMessage';
 
 
 @Injectable()
@@ -76,6 +77,12 @@ export class ProjectService {
   }
 
   public getMySupportedProjects(paging: PagingInfo) {
-    return this.http.post(this.controller + 'mySupportedProjects/', new GetSupportedProjectCardsRequestMessage(paging));
+    return this.http.post<GetSupportedProjectCardsRequestMessage>(this.controller + 'mySupportedProjects/', 
+    new GetSupportedProjectCardsRequestMessage(paging));
+  }
+
+  public getTopProjectCards(paging: PagingInfo) {
+    return this.http.post<GetTopProjectCardsRequestMessage>(this.controller + 'TopCards/',
+    new GetTopProjectCardsRequestMessage(paging));
   }
 }
