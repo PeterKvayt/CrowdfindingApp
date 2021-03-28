@@ -16,16 +16,19 @@ namespace CrowdfindingApp.Api.Controllers
         private readonly OrderSearchRequestHandler _orderSearchRequestHandler;
         private readonly AcceptOrderRequestHandler _acceptOrderRequestHandler;
         private readonly GetUserOrdersRequestHandler _getUserOrdersRequestHandler;
+        private readonly GetProjectOrdersRequestHandler _getProjectOrdersRequestHandler;
 
         public OrdersController(IResourceProvider resourceProvider,
             OrderSearchRequestHandler orderSearchRequestHandler,
             AcceptOrderRequestHandler acceptOrderRequestHandler,
+            GetProjectOrdersRequestHandler getProjectOrdersRequestHandler,
             GetUserOrdersRequestHandler getUserOrdersRequestHandler
             ) : base(resourceProvider)
         {
             _orderSearchRequestHandler = orderSearchRequestHandler ?? throw new NullReferenceException(nameof(orderSearchRequestHandler));
             _acceptOrderRequestHandler = acceptOrderRequestHandler ?? throw new NullReferenceException(nameof(acceptOrderRequestHandler));
             _getUserOrdersRequestHandler = getUserOrdersRequestHandler ?? throw new NullReferenceException(nameof(getUserOrdersRequestHandler));
+            _getProjectOrdersRequestHandler = getProjectOrdersRequestHandler ?? throw new NullReferenceException(nameof(getProjectOrdersRequestHandler));
         }
 
         [HttpPost(Endpoints.Order.Search)]
@@ -49,6 +52,14 @@ namespace CrowdfindingApp.Api.Controllers
         public async Task<IActionResult> GetOrders()
         {
             var reply = await _getUserOrdersRequestHandler.HandleAsync(new GetUserOrdersRequestMessage(), User);
+            return Respond(reply);
+        }
+
+        [HttpGet(Endpoints.Order.ProjectOrders + "/{projectId}")]
+        [Authorize]
+        public async Task<IActionResult> ProjectOrders([FromRoute] string projectId)
+        {
+            var reply = await _getProjectOrdersRequestHandler.HandleAsync(new GetProjectOrdersRequestMessage { Id = projectId }, User);
             return Respond(reply);
         }
     }

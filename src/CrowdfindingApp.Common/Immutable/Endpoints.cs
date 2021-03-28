@@ -37,6 +37,7 @@ namespace CrowdfindingApp.Common.Immutable
         public static class Order
         {
             public const string Search = nameof(Search);
+            public const string ProjectOrders = nameof(ProjectOrders);
 
         }
 

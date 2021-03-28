@@ -3,6 +3,7 @@ import { OrderStatusEnum } from '../../enums/OrderStatusEnum';
 export class OrderInfo {
   public id: string;
   public userId: string;
+  public userEmail: string;
   public rewardId: string;
   public count: number;
   public isPrivate: boolean;

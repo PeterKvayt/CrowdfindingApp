@@ -3,7 +3,6 @@
 </div>
 
 <ng-container *ngIf='view'>
-
   <div class="container global-top-padding">
 
     <div class="row">
@@ -31,70 +30,142 @@
             <div class="little-text progress-info-title">ДО ОКОНЧАНИЯ СБОРА</div>
           </div>
           <div class="col-12" *ngIf='isFinlized'>
-              <div class="global-sub-title">СБОР ЗАВЕРШЕН</div>
+            <div class="global-sub-title">СБОР ЗАВЕРШЕН</div>
           </div>
           <div class="col-12" *ngIf='showAbilityToSupport() && authService.isAuthenticated()'>
             <app-regular-btn value='Поддержать проект' [link]='"project/"+ projectId + "/rewards"'></app-regular-btn>
           </div>
           <div class="col-12" *ngIf='showAbilityToSupport() && !authService.isAuthenticated()'>
             <p class="delicate-text">Войдите, чтобы поддержать проект</p>
-              <app-regular-btn value='Войти' [link]='signInRoute'></app-regular-btn>
-            </div>
+            <app-regular-btn value='Войти' [link]='signInRoute'></app-regular-btn>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-12">
-        <br>
-        <div class="global-box">
+    <div class="row" *ngIf='isOwner'>
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <app-tab [value]='aboutTab.value' [active]='aboutTab.isActive' (click)='onTabClick(aboutTab)'>
+        </app-tab>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <app-tab [value]='supportedTab.value' [active]='supportedTab.isActive' (click)='onTabClick(supportedTab)'>
+        </app-tab>
+      </div>
+    </div>
+
+    <ng-container *ngIf='aboutTab.isActive'>
+
+      <div class="row">
+        <div class="col-12">
+          <br>
+          <div class="global-box">
+            <div class="row">
+              <div class="col-12">
+                <span class="delicate-text">{{view.shortDescription}}</span>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-12">
+                <app-img *ngIf='user' alt="user image" [src]='user.photo' default="assets/img/default-avatar.png">
+                </app-img>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-12">
+                <app-link *ngIf='user' [value]='getNickName()' [route]='ownerProfileRoute'></app-link>
+                <div class="little-text">АВТОР ПРОЕКТА</div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-12">
+                <span class="delicate-text">{{view.categoryName ? view.categoryName : 'Категория'}}</span>
+                <div class="little-text">КАТЕГОРИЯ</div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-12">
+                <span class="delicate-text">{{view.locationName ? view.locationName : 'Город'}}</span>
+                <div class="little-text">МЕСТОПОЛОЖЕНИЕ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="global-box">
+            <div class="global-sub-title">Описание</div>
+            <div class="delicate-text">{{view.fullDescription}}</div>
+          </div>
+          <div class="global-box" *ngIf='view.questions.length > 0'>
+            <div class="global-sub-title">FAQ</div>
+            <div class="question-wrapper" *ngFor='let question of view.questions'>
+              <div class="question-header">{{question.question}}</div>
+              <div class="delicate-text">{{question.answer}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="rewards-title">
+            <span>ВОЗНАГРАЖДЕНИЯ</span>
+          </div>
           <div class="row">
-            <div class="col-12">
-              <span class="delicate-text">{{view.shortDescription}}</span>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <app-img *ngIf='user' alt="user image" [src]='user.photo' default="assets/img/default-avatar.png"></app-img>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-              <app-link *ngIf='user' [value]='getNickName()' [route]='ownerProfileRoute'></app-link>
-              <div class="little-text">АВТОР ПРОЕКТА</div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-              <span class="delicate-text">{{view.categoryName ? view.categoryName : 'Категория'}}</span>
-              <div class="little-text">КАТЕГОРИЯ</div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-              <span class="delicate-text">{{view.locationName ? view.locationName : 'Город'}}</span>
-              <div class="little-text">МЕСТОПОЛОЖЕНИЕ</div>
-            </div>
+            <app-reward-card *ngFor='let reward of view.rewards' [item]='getRewardCardFromInfo(reward)'
+              [showBuyOption]='showAbilityToSupport() '></app-reward-card>
+          </div>
+        </div>
+
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngIf='supportedTab.isActive && isOwner'>
+      <br>
+      <div class="row">
+        <div class="col-lg-6" *ngFor='let order of orders'>
+          <div class="global-box">
+            <p>
+              <span class="sub-title">Id заказа: </span>
+              <span class="delicate-text">{{order.id}}</span>
+            </p>
+            <p>
+              <span class="sub-title">Вознаграждение: </span>
+              <span class="delicate-text">{{order.rewardName}}</span>
+            </p>
+            <p>
+              <span class="sub-title">Количество: </span>
+              <span class="delicate-text">{{order.count}}</span>
+            </p>
+            <p>
+              <span class="sub-title">Дата оформления: </span>
+              <span class="delicate-text">{{order.paymentDateTime | date: 'yyyy MMMM dd, HH:mm'}}</span>
+            </p>
+            <p>
+              <span class="sub-title">Ф.И.О. получателя: </span>
+              <span class="delicate-text">{{order.surname + ' ' + order.name + ' ' + order.middleName}}</span>
+            </p>
+            <p>
+              <span class="sub-title">Email получателя: </span>
+              <app-link [value]='order.userEmail' [route]='profileRoute + order.userId'></app-link>
+            </p>
+            <p *ngIf='order.countryName'>
+              <span class="sub-title">Страна доставки: </span>
+              <span class="delicate-text">{{order.countryName}}</span>
+            </p>
+            <p *ngIf='order.fullAddress'>
+              <span class="sub-title">Адрес доставки: </span>
+              <span class="delicate-text">{{order.fullAddress}}</span>
+            </p>
+            <p *ngIf='order.postCode'>
+              <span class="sub-title">Почтовый индекс: </span>
+              <span class="delicate-text">{{order.postCode}}</span>
+            </p>
+            <p *ngIf='order.deliveryCost'>
+              <span class="sub-title">Стоимость доставки: </span>
+              <span class="delicate-text">{{order.deliveryCost}}</span>
+            </p>
+            <p>
+              <span class="sub-title">Итого: </span>
+              <span class="delicate-text">{{order.total}}</span>
+            </p>
           </div>
         </div>
       </div>
-    </div>
+    </ng-container>
 
-    <div class="row">
-      <div class="col-lg-8">
-        <div class="global-box">
-          <div class="global-sub-title">Описание</div>
-          <div class="delicate-text">{{view.fullDescription}}</div>
-        </div>
-        <div class="global-box" *ngIf='view.questions.length > 0'>
-          <div class="global-sub-title">FAQ</div>
-          <div class="question-wrapper" *ngFor='let question of view.questions'>
-            <div class="question-header">{{question.question}}</div>
-            <div class="delicate-text">{{question.answer}}</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="rewards-title">
-          <span>ВОЗНАГРАЖДЕНИЯ</span>
-        </div>
-        <div class="row">
-          <app-reward-card *ngFor='let reward of view.rewards' [item]='getRewardCardFromInfo(reward)' [showBuyOption]='showAbilityToSupport() '></app-reward-card>
-        </div>
-      </div>
-
-    </div>
   </div>
 </ng-container>

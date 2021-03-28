@@ -20,7 +20,7 @@ namespace CrowdfindingApp.Core.Services.Orders
             builder.RegisterType<OrderSearchRequestHandler>().AsSelf();
             builder.RegisterType<AcceptOrderRequestHandler>().AsSelf();
             builder.RegisterType<GetUserOrdersRequestHandler>().AsSelf();
-
+            builder.RegisterType<GetProjectOrdersRequestHandler>().AsSelf();
         }
     }
 }

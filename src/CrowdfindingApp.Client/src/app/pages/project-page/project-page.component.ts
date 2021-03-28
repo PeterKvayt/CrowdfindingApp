@@ -12,6 +12,9 @@ import { RewardInfo } from 'src/app/models/replies/rewards/RewardInfo';
 import { RewardCard } from 'src/app/components/reward-card/RewardCard';
 import { ProjectStatusEnum } from 'src/app/models/enums/ProjectStatus';
 import { AuthenticationService } from 'src/app/services/auth.service';
+import { TabElement } from 'src/app/components/tab/Tabelement';
+import { OrderInfo } from 'src/app/models/replies/orders/OrderInfo';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-project-page',
@@ -20,28 +23,55 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 })
 export class ProjectPageComponent extends Base implements OnInit {
 
+  public ownerProfileRoute: string;
+  public view: ProjectInfoView;
+  public orders: OrderInfo[] = [];
+  public user: UserInfo;
+  public projectId: string;
+
+  public signInRoute = Routes.signIn;
+  public isFinlized: boolean;
+  public isOwner: boolean;
+
+  public aboutTab = new TabElement('О проекте', true);
+  public supportedTab = new TabElement('Поддержали', false);
+
+  public profileRoute = Routes.profile + '/';
+
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
     public projectService: ProjectService,
     public userService: UserService,
     public fileService: FileService,
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    private orderService: OrderService
   ) {
     super(router, activatedRoute);
   }
 
-  public ownerProfileRoute: string;
-  public view: ProjectInfoView;
-  public user: UserInfo;
-  public projectId: string;
-
-  public signInRoute = Routes.signIn;
-  public isFinlized: boolean;
-
   ngOnInit () {
     this.projectId = this.activatedRoute.snapshot.paramMap.get('projectId');
     if (this.projectId) { this.setProjectInfo(this.projectId); }
+  }
+
+  setOrders(): void {
+    this.showLoader = true;
+    this.subscriptions.add(
+      this.orderService.getProjectOrders(this.projectId).subscribe(
+        (reply: ReplyMessage<OrderInfo[]>) => {
+          this.orders = reply.value;
+        }
+      )
+    );
+    this.showLoader = false;
+  }
+
+  onTabClick(tab: TabElement) {
+    if (tab.isActive) { return; }
+    this.aboutTab.isActive = false;
+    this.supportedTab.isActive = false;
+    tab.isActive = true;
   }
 
   setUserInfo(userId: string): void {
@@ -50,6 +80,7 @@ export class ProjectPageComponent extends Base implements OnInit {
       this.userService.getById(userId).subscribe(
         (reply: ReplyMessage<UserInfo>) => {
           this.user = reply.value;
+          this.setOrders();
           this.ownerProfileRoute = Routes.profile + '/' + this.user.id;
         }
       )
@@ -64,6 +95,7 @@ export class ProjectPageComponent extends Base implements OnInit {
         (reply: ReplyMessage<ProjectInfoView>) => {
           this.view = reply.value;
           this.isFinlized = reply.value.status === ProjectStatusEnum.Finalized;
+          this.isOwner = reply.value.ownerId === this.authService.getMyId();
           if (this.view.ownerId) { this.setUserInfo(this.view.ownerId); }
         }
       )

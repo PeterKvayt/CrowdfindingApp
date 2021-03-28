@@ -17,4 +17,8 @@ export class OrderService {
   public getOrders() {
     return this.http.get(this.controller);
   }
+
+  public getProjectOrders(id: string) {
+    return this.http.get(this.controller + 'projectOrders/' + id);
+  }
 }
