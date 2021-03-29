@@ -22,14 +22,14 @@ namespace CrowdfindingApp.Common.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CommonErrorMessages {
+    internal class EmailResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CommonErrorMessages() {
+        internal EmailResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace CrowdfindingApp.Common.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CrowdfindingApp.Common.Resources.CommonErrorMessages", typeof(CommonErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CrowdfindingApp.Common.Resources.EmailResources", typeof(EmailResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,74 +61,56 @@ namespace CrowdfindingApp.Common.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Идентификатор не должен быть пустым.
+        ///   Ищет локализованную строку, похожую на Для подтвверждения почты перейдите по &lt;a href=&apos;{0}&apos; target=&apos;_blank&apos;&gt;ссылке&lt;/a&gt;&lt;br&gt;Ссылка: {0}.
         /// </summary>
-        internal static string EmptyId {
+        internal static string ConfirmEmailMessageBody {
             get {
-                return ResourceManager.GetString("EmptyId", resourceCulture);
+                return ResourceManager.GetString("ConfirmEmailMessageBody", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Категории с Id: &quot;{0}&quot; не найдено.
+        ///   Ищет локализованную строку, похожую на Подтверждение почты.
         /// </summary>
-        internal static string InvalidCategoryId {
+        internal static string ConfirmEmailMessageSubject {
             get {
-                return ResourceManager.GetString("InvalidCategoryId", resourceCulture);
+                return ResourceManager.GetString("ConfirmEmailMessageSubject", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Невалидный формат Id: &quot;{0}&quot;.
+        ///   Ищет локализованную строку, похожую на Для восстановления доступа перейдите по &lt;a href=&apos;{0}&apos; target=&apos;_blank&apos;&gt;ссылке&lt;/a&gt;..
         /// </summary>
-        internal static string InvalidIdFormat {
+        internal static string ResetPasswordEmailMessageBody {
             get {
-                return ResourceManager.GetString("InvalidIdFormat", resourceCulture);
+                return ResourceManager.GetString("ResetPasswordEmailMessageBody", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Вы неавторизованы.
+        ///   Ищет локализованную строку, похожую на Восстановление доступа.
         /// </summary>
-        internal static string NotAuthorizedMessageKey {
+        internal static string ResetPasswordEmailMessageSubject {
             get {
-                return ResourceManager.GetString("NotAuthorizedMessageKey", resourceCulture);
+                return ResourceManager.GetString("ResetPasswordEmailMessageSubject", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Объект не найден.
+        ///   Ищет локализованную строку, похожую на Ваш новый пароль: {0}.
         /// </summary>
-        internal static string ObjectNotFoundMessageKey {
+        internal static string ResettedPaswordKey {
             get {
-                return ResourceManager.GetString("ObjectNotFoundMessageKey", resourceCulture);
+                return ResourceManager.GetString("ResettedPaswordKey", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Доступ запрещен.
+        ///   Ищет локализованную строку, похожую на .
         /// </summary>
-        internal static string SecurityErrorMessageKey {
+        internal static string String1 {
             get {
-                return ResourceManager.GetString("SecurityErrorMessageKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Системная ошибка.
-        /// </summary>
-        internal static string SystemErrorMessageKey {
-            get {
-                return ResourceManager.GetString("SystemErrorMessageKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Невалидный формат Id.
-        /// </summary>
-        internal static string WrongIdFormat {
-            get {
-                return ResourceManager.GetString("WrongIdFormat", resourceCulture);
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
     }

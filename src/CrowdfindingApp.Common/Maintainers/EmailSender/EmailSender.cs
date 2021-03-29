@@ -19,6 +19,7 @@ namespace CrowdfindingApp.Common.Maintainers.EmailSender
         private const string ResetPasswordBodyKey = "ResetPasswordEmailMessageBody";
         private const string ConfirmSubjectKey = "ConfirmEmailMessageSubject";
         private const string ConfirmBodyKey = "ConfirmEmailMessageBody";
+        private const string ResettedPaswordKey = nameof(ResettedPaswordKey);
 
         private string _clientAppHost
         {
@@ -66,6 +67,19 @@ namespace CrowdfindingApp.Common.Maintainers.EmailSender
                 Subject = _resourceProvider.GetString(ResetPasswordSubjectKey),
                 Body = _resourceProvider.GetString(ResetPasswordBodyKey, url),
                 IsBodyHtml = true,
+            };
+
+            await _client.SendMailAsync(message);
+        }
+
+        public async Task SendResettedPasswordAsync(string email, string password)
+        {
+            var to = new MailAddress(email);
+            var message = new MailMessage(From, to)
+            {
+                Subject = _resourceProvider.GetString(ResetPasswordSubjectKey),
+                Body = _resourceProvider.GetString(ResetPasswordBodyKey, password),
+                IsBodyHtml = false,
             };
 
             await _client.SendMailAsync(message);

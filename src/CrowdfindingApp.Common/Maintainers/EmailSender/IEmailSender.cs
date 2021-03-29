@@ -6,5 +6,6 @@ namespace CrowdfindingApp.Common.Maintainers.EmailSender
     {
         Task SendEmailConfirmationAsync(string email, string token );
         Task SendResetPasswordUrlAsync(string email, string token);
+        Task SendResettedPasswordAsync(string email, string password);
     }
 }
