@@ -63,6 +63,9 @@ export class ProfileSettingsComponent extends Base implements OnInit {
   }
 
   onSaveClick() {
+    this.currentPasswordInput.value = undefined;
+    this.newPasswordInput.value = undefined;
+    this.confirmPasswordInput.value = undefined;
     this.showLoader = true;
     const request: UpdateUserRequestMessage = {
       name: this.nameInput.value,

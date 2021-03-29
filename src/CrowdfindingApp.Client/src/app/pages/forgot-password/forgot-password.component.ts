@@ -14,6 +14,7 @@ import { Routes } from 'src/app/models/immutable/Routes';
 export class ForgotPasswordComponent extends Base implements OnInit {
 
   public emailInput: TextInput = { label: 'Email' };
+  public showMessage = false;
 
   constructor(
     public router: Router,
@@ -29,9 +30,15 @@ export class ForgotPasswordComponent extends Base implements OnInit {
   }
 
   public onPasswordRecoveryClick(): void {
+    this.showLoader = true;
     this.subscriptions.add(
       this.accountService.forgotPassword(this.emailInput.value).subscribe(
-        () => { this.redirect(Routes.signIn); }
+        () => {
+          this.showLoader = false;
+          this.showMessage = true;
+          // this.redirect(Routes.signIn);
+        },
+        () => { this.showLoader = false; }
       )
     )
   }

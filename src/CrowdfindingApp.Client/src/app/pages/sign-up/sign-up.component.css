@@ -22,23 +22,11 @@
 }
 
 .row{
-  background-color: var(--regular);
-  height: calc(100vh - var(--nav-heigth));
-}
-
-.img-wrapper{
-  position: relative;
-  z-index: 10;
-  display: block;
-  margin-left: 5rem;
-  height: 100%;
+  /* background-color: var(--regular); */
+  /* height: calc(100vh - var(--nav-heigth)); */
 }
 .left-section{
-  z-index: 10;
-  margin-left: 5rem;
   margin-top: 5rem;
-  padding-right: 12rem;
-  padding-left: 5rem;
 }
 
 .right-section{

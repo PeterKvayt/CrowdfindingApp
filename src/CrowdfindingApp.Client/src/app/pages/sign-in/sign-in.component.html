@@ -1,33 +1,36 @@
-<div class="shape-up"></div>
-<div class="shape-down"></div>
 
 <div [hidden]='!showLoader' class="global-loader-box">
   <app-preloader></app-preloader>
 </div>
 
-<div class="row">
-  <div class="col-lg-5 left-section">
-    <span class="title">Вход</span>
-    <fieldset class="form-group">
-      <span class="delicate-text">У вас нет аккаунта? </span>
-      <app-link value='Зарегистрироваться' route='sign-up'></app-link>
-    </fieldset>
+<div class="container global-top-padding">
+  <div class="row">
+      <div class="col-lg-3 col-md-1"></div>
+      <div class="col-lg-6 col-md-10 left-section">
+        <span class="title">Вход</span>
+        <fieldset class="form-group">
+          <span class="delicate-text">У вас нет аккаунта? </span>
+          <app-link value='Зарегистрироваться' route='sign-up'></app-link>
+        </fieldset>
+    
+        <app-text-input [(item)]='emailInput' (keyup.enter)='onSignInClick()'></app-text-input>
+        <app-password-input [(item)]='passwordInput' (keyup.enter)='onSignInClick()'></app-password-input>
+    
+        <fieldset class="text-center">
+          <app-regular-btn value='Войти' fluid='true' ico='fas fa-sign-in-alt' (click)='onSignInClick()'></app-regular-btn>
+        </fieldset>
+    
+        <fieldset class="form-group">
+          <span class="delicate-text">Забыли пароль? </span>
+          <app-link value='Восстановить доступ' [route]='forgotPasswordRoute'></app-link>
+        </fieldset>
+      </div>
 
-    <app-text-input [(item)]='emailInput' (keyup.enter)='onSignInClick()'></app-text-input>
-    <app-password-input [(item)]='passwordInput' (keyup.enter)='onSignInClick()'></app-password-input>
+    <!-- <div class="col-lg-1"></div>
+      <div class="col-lg-5 right-section">
+        <app-img default='assets/img/sign-in.webp' alt="sign in image"></app-img>
+      </div>
+    
+    </div> -->
 
-    <fieldset class="text-center">
-      <app-regular-btn value='Войти' fluid='true' ico='fas fa-sign-in-alt' (click)='onSignInClick()'></app-regular-btn>
-    </fieldset>
-
-    <fieldset class="form-group">
-      <span class="delicate-text">Забыли пароль? </span>
-      <app-link value='Восстановить доступ' [route]='forgotPasswordRoute'></app-link>
-    </fieldset>
-  </div>
-  <div class="col-lg-6 right-section">
-    <div class="img-wrapper">
-      <img class="background-image" src="assets/img/sign-in.webp" alt="sign in image">
-    </div>
-  </div>
 </div>

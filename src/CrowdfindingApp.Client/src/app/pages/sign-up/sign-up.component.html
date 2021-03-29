@@ -1,31 +1,32 @@
-<div class="shape-up"></div>
-<div class="shape-down"></div>
 
 <div [hidden]='!showLoader' class="global-loader-box">
   <app-preloader></app-preloader>
 </div>
-
-<div class="row">
-  <div class="col-lg-5 left-section">
-    <span class="title">Регистрация</span>
-    <fieldset class="form-group">
-      <span class="delicate-text">У вас есть аккаунт? </span>
-      <app-link value='Войти' [route]='signInRoute'></app-link>
-    </fieldset>
-
-    <app-text-input [(item)]='emailInput' (keyup.enter)='onSignUpClick()'></app-text-input>
-    <app-password-input [(item)]='passwordInput' (keyup.enter)='onSignUpClick()'></app-password-input>
-    <app-password-input [(item)]='confirmPasswordInput' (keyup.enter)='onSignUpClick()'></app-password-input>
-
-    <fieldset class="text-center">
-      <app-regular-btn value='Зарегистрироваться' fluid='true' ico='fas fa-check' (click)='onSignUpClick()'>
-      </app-regular-btn>
-    </fieldset>
-
-  </div>
-  <div class="col-lg-6 right-section">
-    <div class="img-wrapper">
-      <img class="background-image" src="assets/img/sign-up.png" alt="sign up image">
+<div class="container global-top-padding">
+  <div class="row">
+    <div class="col-lg-3 col-md-1"></div>
+    <div class="col-lg-6 col-md-10 left-section">
+      <span class="title">Регистрация</span>
+      <fieldset class="form-group">
+        <span class="delicate-text">У вас есть аккаунт? </span>
+        <app-link value='Войти' [route]='signInRoute'></app-link>
+      </fieldset>
+  
+      <app-text-input [(item)]='emailInput' (keyup.enter)='onSignUpClick()'></app-text-input>
+      <app-password-input [(item)]='passwordInput' (keyup.enter)='onSignUpClick()'></app-password-input>
+      <app-password-input [(item)]='confirmPasswordInput' (keyup.enter)='onSignUpClick()'></app-password-input>
+  
+      <fieldset class="text-center">
+        <app-regular-btn value='Зарегистрироваться' fluid='true' ico='fas fa-check' (click)='onSignUpClick()'>
+        </app-regular-btn>
+      </fieldset>
+  
     </div>
+    <!-- <div class="col-lg-6 right-section">
+      <div class="img-wrapper">
+        <img class="background-image" src="assets/img/sign-up.png" alt="sign up image">
+      </div>
+    </div> -->
   </div>
+
 </div>
