@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CrowdfindingApp.Common.DataTransfers.Orders;
+using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Orders;
@@ -39,6 +40,13 @@ namespace CrowdfindingApp.Core.Services.Orders.Handlers
             {
                 reply.AddObjectNotFoundError();
                 return reply;
+            }
+
+            if(project.Status != (int)ProjectStatus.Active
+                && project.Status != (int)ProjectStatus.Finalized
+                && project.Status != (int)ProjectStatus.Complited)
+            {
+                return new ReplyMessage<List<OrderInfo>> { Value = new List<OrderInfo>() };
             }
 
             var rewards = await RewardRepository.GetRewardsByProjectIdAsync(project.Id);
