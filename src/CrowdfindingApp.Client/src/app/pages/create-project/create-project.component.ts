@@ -124,7 +124,7 @@ export class CreateProjectComponent extends Base implements OnInit {
       status: ProjectStatusEnum.Draft,
       id: null,
     };
-    console.log(card);
+
     this.projectCard = card;
   }
 
@@ -493,22 +493,6 @@ export class CreateProjectComponent extends Base implements OnInit {
       questions: this.faqList
     };
     return draft;
-  }
-
-  onChangeProjectImage(): void {
-    this.showLoader = true;
-    const data = new FormData();
-    data.append('file', this.projectInputs.image.file);
-    this.subscriptions.add(
-      this.fileService.save(data).subscribe(
-        (reply: ReplyMessage<string>) => {
-          this.projectInputs.image.fileName = reply.value;
-          this.setDefaultPreviewProjectCard();
-          this.showLoader = false;
-        },
-        () => { this.showLoader = false; }
-      )
-    );
   }
 
   onImageUpload(input: FileInput) {

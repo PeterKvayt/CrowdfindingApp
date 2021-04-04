@@ -72,8 +72,7 @@
               <app-img default='assets/img/stock-project.png' alt='project image' [input]='projectInputs.image'>
               </app-img>
               <p>
-                <app-file-input [item]='projectInputs.image' (change)='onChangeProjectImage()'
-                >
+                <app-file-input [item]='projectInputs.image' (change)='onImageUpload(projectInputs.image)'>
                 </app-file-input>
               </p>
             </div>
