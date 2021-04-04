@@ -73,19 +73,7 @@ export class CreateProjectComponent extends Base implements OnInit {
   public isProjectOnModeration = false;
   // public feedBackModalShow = false;
 
-  public projectCard: ProjectCard = {
-    name: this.projectInputs.name.value ? this.projectInputs.name.value : 'Название',
-    description: this.projectInputs.description.value ? this.projectInputs.description.value : 'Описание',
-    categoryName: this.projectInputs.categorySelect.currentValue ? this.projectInputs.categorySelect.currentValue.name : 'Категория',
-    categoryId: this.projectInputs.categorySelect.currentValue ? this.projectInputs.categorySelect.currentValue.value : undefined,
-    imgPath: this.projectInputs.image.fileName
-      ? this.fileService.absoluteFileStoragePath + this.projectInputs.image.fileName
-      : 'assets/img/stock-project.png',
-    purpose: 0,
-    currentResult: 0,
-    status: ProjectStatusEnum.Draft,
-    id: null,
-  };
+  public projectCard: ProjectCard;
 
   // tabs
   public generalInfoTab = new TabElement('Общая информация', true);
@@ -117,9 +105,27 @@ export class CreateProjectComponent extends Base implements OnInit {
       this.setProjectInfo(this.projectId);
       this.setCountries(this.rewardsList[0] ? this.rewardsList[0].deliveryCountries : null);
     } else {
+      this.isOwner = true;
+      this.setDefaultPreviewProjectCard();
       this.titleService.setTitle('Создание проекта');
       this.setCountries(null);
     }
+  }
+
+  setDefaultPreviewProjectCard(): void {
+    const card: ProjectCard = {
+      name: this.projectInputs.name.value ? this.projectInputs.name.value : 'Название',
+      description: this.projectInputs.description.value ? this.projectInputs.description.value : 'Описание',
+      categoryName: this.projectInputs.categorySelect.currentValue ? this.projectInputs.categorySelect.currentValue.name : 'Категория',
+      categoryId: this.projectInputs.categorySelect.currentValue ? this.projectInputs.categorySelect.currentValue.value : undefined,
+      imgPath: this.projectInputs.image.fileName,
+      purpose: 0,
+      currentResult: 0,
+      status: ProjectStatusEnum.Draft,
+      id: null,
+    };
+    console.log(card);
+    this.projectCard = card;
   }
 
   onProjectNameChange(): void {
@@ -196,17 +202,19 @@ export class CreateProjectComponent extends Base implements OnInit {
           this.rewardsList = reply.value.rewards ? reply.value.rewards : [];
           this.faqList = reply.value.questions ? reply.value.questions : [];
 
-          this.projectCard.id = reply.value.id;
-          this.projectCard.categoryName = this.projectInputs.categorySelect.currentValue
-            ? this.projectInputs.categorySelect.currentValue.name
-            : 'Категория';
-          this.projectCard.categoryId = reply.value.categoryId;
-          this.projectCard.purpose = reply.value.budget;
-          this.projectCard.currentResult = 0;
-          this.projectCard.description = reply.value.shortDescription;
-          this.projectCard.name = reply.value.title;
-          this.projectCard.status = ProjectStatusEnum.Draft;
-          this.projectCard.imgPath = reply.value.image;
+          this.projectCard = {
+            name: reply.value.title ? reply.value.title : 'Название',
+            description: reply.value.shortDescription ? reply.value.shortDescription : 'Описание',
+            categoryName: this.projectInputs.categorySelect.currentValue
+              ? this.projectInputs.categorySelect.currentValue.name
+              : 'Категория',
+            categoryId: reply.value.categoryId ? reply.value.categoryId : undefined,
+            imgPath: this.projectInputs.image.fileName,
+            purpose: reply.value.budget ? reply.value.budget : 0,
+            currentResult: 0,
+            status: ProjectStatusEnum.Draft,
+            id: reply.value.id,
+          };
 
           this.showLoader = false;
         },
@@ -485,6 +493,22 @@ export class CreateProjectComponent extends Base implements OnInit {
       questions: this.faqList
     };
     return draft;
+  }
+
+  onChangeProjectImage(): void {
+    this.showLoader = true;
+    const data = new FormData();
+    data.append('file', this.projectInputs.image.file);
+    this.subscriptions.add(
+      this.fileService.save(data).subscribe(
+        (reply: ReplyMessage<string>) => {
+          this.projectInputs.image.fileName = reply.value;
+          this.setDefaultPreviewProjectCard();
+          this.showLoader = false;
+        },
+        () => { this.showLoader = false; }
+      )
+    );
   }
 
   onImageUpload(input: FileInput) {

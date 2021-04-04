@@ -72,7 +72,8 @@
               <app-img default='assets/img/stock-project.png' alt='project image' [input]='projectInputs.image'>
               </app-img>
               <p>
-                <app-file-input [item]='projectInputs.image' (change)='onImageUpload(projectInputs.image)'>
+                <app-file-input [item]='projectInputs.image' (change)='onChangeProjectImage()'
+                >
                 </app-file-input>
               </p>
             </div>
@@ -136,7 +137,7 @@
         <app-regular-btn *ngIf='projectId' [link]='projectPageRoute  + "/" + this.projectId' value='Предпросмотр'
           fluid='true' icoBefore='true' ico='fas fa-ticket-alt'>
         </app-regular-btn>
-        <div class="row">
+        <div class="row" *ngIf='projectCard'>
           <div class="col">
             <app-project-card [card]='projectCard'></app-project-card>
           </div>
