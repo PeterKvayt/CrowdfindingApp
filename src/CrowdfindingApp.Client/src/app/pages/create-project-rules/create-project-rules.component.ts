@@ -29,16 +29,16 @@ export class CreateProjectRulesComponent extends Base implements OnInit  {
   ];
 
   public authorsRequirements: RuleCard[] = [
-    new RuleCard('Возраст', 'На момент создания проекта автору должно быть не менее 18 лет.', 'assets/img/artist.png'),
-    new RuleCard('Гражданство', 'Автор должен являтся гражданином Республики Беларусь.', 'assets/img/gift.png'),
-    new RuleCard('Банковский счет', 'Автор должен иметь расчетный счет в любом банке Республики Берарусь.', 'assets/img/budget.png'),
+    new RuleCard('Возраст', 'На момент создания проекта автору должно быть не менее 18 лет.', 'assets/img/age.png'),
+    new RuleCard('Гражданство', 'Автор должен являтся гражданином Республики Беларусь.', 'assets/img/nationality.png'),
+    new RuleCard('Банковский счет', 'Автор должен иметь расчетный счет в любом банке Республики Берарусь.', 'assets/img/bank.png'),
   ];
 
   public projectCreationProcesess: RuleCard[] = [
-    new RuleCard('1. Создание', 'Оформление проекта с помощью «редактора проектов».', 'assets/img/artist.png'),
-    new RuleCard('2. Модерация', 'Модерация оформленного проекта.', 'assets/img/gift.png'),
-    new RuleCard('3. Заключение договора', 'Подписание с автором договоров на публикацию проекта на платформе и сбор средств.', 'assets/img/budget.png'),
-    new RuleCard('4. Публикация', 'Размещение проекта на сайте.', 'assets/img/budget.png'),
+    new RuleCard('1. Создание', 'Оформление проекта с помощью «редактора проектов».', 'assets/img/creating.png'),
+    new RuleCard('2. Модерация', 'Модерация оформленного проекта.', 'assets/img/moderation.png'),
+    new RuleCard('3. Заключение договора', 'Подписание с автором договоров на публикацию проекта на платформе и сбор средств.', 'assets/img/handshake.png'),
+    new RuleCard('4. Публикация', 'Размещение проекта на сайте.', 'assets/img/publication.png'),
   ];
 
   ngOnInit() {
