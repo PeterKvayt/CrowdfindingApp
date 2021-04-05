@@ -99,18 +99,18 @@ namespace CrowdfindingApp.Common.Resources {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Ваш новый пароль: {0}.
         /// </summary>
-        internal static string ResettedPaswordKey {
+        internal static string ResettedPaswordBody {
             get {
-                return ResourceManager.GetString("ResettedPaswordKey", resourceCulture);
+                return ResourceManager.GetString("ResettedPaswordBody", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Ищет локализованную строку, похожую на Восстановление доступа.
         /// </summary>
-        internal static string String1 {
+        internal static string ResettedPaswordKey {
             get {
-                return ResourceManager.GetString("String1", resourceCulture);
+                return ResourceManager.GetString("ResettedPaswordKey", resourceCulture);
             }
         }
     }

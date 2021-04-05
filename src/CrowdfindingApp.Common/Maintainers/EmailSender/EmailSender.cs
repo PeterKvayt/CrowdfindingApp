@@ -20,6 +20,7 @@ namespace CrowdfindingApp.Common.Maintainers.EmailSender
         private const string ConfirmSubjectKey = "ConfirmEmailMessageSubject";
         private const string ConfirmBodyKey = "ConfirmEmailMessageBody";
         private const string ResettedPaswordKey = nameof(ResettedPaswordKey);
+        private const string ResettedPaswordBody = nameof(ResettedPaswordBody);
 
         private string _clientAppHost
         {
@@ -42,6 +43,8 @@ namespace CrowdfindingApp.Common.Maintainers.EmailSender
             _client.Port = int.Parse(_config[$"{EmailConfig.Section}:{EmailConfig.Port}"]);
             _client.Credentials = new NetworkCredential(_config[$"{EmailConfig.Section}:{EmailConfig.Mail}"], _config[$"{EmailConfig.Section}:{EmailConfig.Password}"]);
             _client.EnableSsl = true;
+            _client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            _client.UseDefaultCredentials = false;
         }
 
         public async Task SendEmailConfirmationAsync(string email, string token)
@@ -77,8 +80,8 @@ namespace CrowdfindingApp.Common.Maintainers.EmailSender
             var to = new MailAddress(email);
             var message = new MailMessage(From, to)
             {
-                Subject = _resourceProvider.GetString(ResetPasswordSubjectKey),
-                Body = _resourceProvider.GetString(ResetPasswordBodyKey, password),
+                Subject = _resourceProvider.GetString(ResettedPaswordKey),
+                Body = _resourceProvider.GetString(ResettedPaswordBody, password),
                 IsBodyHtml = false,
             };
 

@@ -129,10 +129,10 @@
   <data name="ResetPasswordEmailMessageSubject" xml:space="preserve">
     <value>Восстановление доступа</value>
   </data>
-  <data name="ResettedPaswordKey" xml:space="preserve">
+  <data name="ResettedPaswordBody" xml:space="preserve">
     <value>Ваш новый пароль: {0}</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="ResettedPaswordKey" xml:space="preserve">
+    <value>Восстановление доступа</value>
   </data>
 </root>

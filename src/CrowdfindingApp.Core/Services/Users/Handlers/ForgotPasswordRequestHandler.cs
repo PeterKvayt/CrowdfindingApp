@@ -40,7 +40,7 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
             {
                 return reply;
             }
-            var newPassword = new Guid();
+            var newPassword = Guid.NewGuid();
             var (passwordHash, salt) = _hasher.GetHashWithSalt(newPassword.ToString());
 
             await _userRepository.UpdatePasswordAsync(user.Id, passwordHash, salt);
