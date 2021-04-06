@@ -1,6 +1,6 @@
-using System.IO;
 using Autofac;
 using CrowdfindingApp.Api.Middlewares;
+using CrowdfindingApp.Common.Configs;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Core.Services.BackgroundTasks.Filters;
 using CrowdfindingApp.Data;
@@ -8,12 +8,9 @@ using CrowdfindingApp.Data.Common.Interfaces;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
 namespace CrowdfindingApp.Api
@@ -41,12 +38,15 @@ namespace CrowdfindingApp.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var config = new AppConfiguration();
+            Config.Bind(config);
+
             services.AddDbContext<IDataProvider, DataProvider>(options => 
                 options.UseSqlServer(Config.GetConnectionString(Configuration.Connection)), ServiceLifetime.Scoped);
 
             services.AddAuthentication(Environment)
                     .ConfigureSwagger()
-                    .AddSingleton(Config)
+                    .AddSingleton(config)
                     .AddControllers();
 
             services.UseHangfire(Config);
