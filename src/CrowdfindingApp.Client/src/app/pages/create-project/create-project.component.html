@@ -205,8 +205,8 @@
               </div>
               <div class="selected-countries">
                 <div class="selected-country-item" *ngFor='let country of rewardDeliveryCountries'>
-                  {{getCountryNameById(country.key)}} {{country.value}} BYN
-                  <app-regular-btn value='Удалить' (click)='onRemoveCountryFromIncludedList(country)'></app-regular-btn>
+                    <i class="fas fa-trash-alt fa-fw remove-delivery-btn" (click)='onRemoveCountryFromIncludedList(country)'></i>
+                    <span class="delicate-text"> {{getCountryNameById(country.key)}} {{country.value}} BYN</span>
                 </div>
               </div>
             </ng-container>
@@ -231,8 +231,8 @@
               </div>
               <div class="selected-countries">
                 <div class="selected-country-item" *ngFor='let country of rewardDeliveryCountries'>
-                  {{getCountryNameById(country.key)}} {{country.value}} BYN
-                  <app-regular-btn value='Удалить' (click)='onRemoveCountryFromIncludedList(country)'></app-regular-btn>
+                  <i class="fas fa-trash-alt fa-fw remove-delivery-btn" (click)='onRemoveCountryFromIncludedList(country)'></i>
+                  <span class="delicate-text"> {{getCountryNameById(country.key)}} {{country.value}} BYN</span>
                 </div>
               </div>
             </ng-container>
