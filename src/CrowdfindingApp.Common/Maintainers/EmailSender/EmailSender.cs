@@ -2,16 +2,16 @@
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using CrowdfindingApp.Common.Configs;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Localization;
-using Microsoft.Extensions.Configuration;
 
 namespace CrowdfindingApp.Common.Maintainers.EmailSender
 {
     public class EmailSender : IEmailSender
     {
         private readonly SmtpClient _client;
-        private readonly IConfigurationRoot _config;
+        private readonly Configs.EmailConfig _config;
         private readonly IResourceProvider _resourceProvider;
         private readonly MailAddress From;
 
@@ -22,26 +22,21 @@ namespace CrowdfindingApp.Common.Maintainers.EmailSender
         private const string ResettedPaswordKey = nameof(ResettedPaswordKey);
         private const string ResettedPaswordBody = nameof(ResettedPaswordBody);
 
-        private string _clientAppHost
-        {
-            get => _config[Configuration.ClientHost];
-        }
-
-        public EmailSender(SmtpClient client, IConfigurationRoot configuration, IResourceProvider resourceProvider)
+        public EmailSender(SmtpClient client, AppConfiguration configuration, IResourceProvider resourceProvider)
         {
             _resourceProvider = resourceProvider ?? throw new ArgumentNullException(nameof(resourceProvider));
-            _config = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _config = configuration?.EmailConfig ?? throw new ArgumentNullException(nameof(configuration));
             _client = client ?? throw new ArgumentNullException(nameof(client));
             ConfigureClient();
 
-            From = new MailAddress(_config[$"{EmailConfig.Section}:{EmailConfig.Mail}"], "Crowdfinding team");
+            From = new MailAddress(_config.Mail, "Crowdfinding team");
         }
 
         private void ConfigureClient()
         {
-            _client.Host = _config[$"{EmailConfig.Section}:{EmailConfig.Host}"];
-            _client.Port = int.Parse(_config[$"{EmailConfig.Section}:{EmailConfig.Port}"]);
-            _client.Credentials = new NetworkCredential(_config[$"{EmailConfig.Section}:{EmailConfig.Mail}"], _config[$"{EmailConfig.Section}:{EmailConfig.Password}"]);
+            _client.Host = _config.Host;
+            _client.Port = _config.Port;
+            _client.Credentials = new NetworkCredential(_config.Mail, _config.Password);
             _client.EnableSsl = true;
             _client.DeliveryMethod = SmtpDeliveryMethod.Network;
             _client.UseDefaultCredentials = false;
@@ -50,7 +45,7 @@ namespace CrowdfindingApp.Common.Maintainers.EmailSender
         public async Task SendEmailConfirmationAsync(string email, string token)
         {
             var to = new MailAddress(email);
-            var url = $"{_clientAppHost}/{Endpoints.User.EmailConfirmation}?token={token}";
+            var url = $"{_config.Host}/{Endpoints.User.EmailConfirmation}?token={token}";
             var message = new MailMessage(From, to)
             {
                 Subject = _resourceProvider.GetString(ConfirmSubjectKey),
@@ -64,7 +59,7 @@ namespace CrowdfindingApp.Common.Maintainers.EmailSender
         public async Task SendResetPasswordUrlAsync(string email, string token)
         {
             var to = new MailAddress(email);
-            var url = $"{_clientAppHost}/{Endpoints.User.ResetPassword}?token={token}";
+            var url = $"{_config.Host}/{Endpoints.User.ResetPassword}?token={token}";
             var message = new MailMessage(From, to)
             {
                 Subject = _resourceProvider.GetString(ResetPasswordSubjectKey),
