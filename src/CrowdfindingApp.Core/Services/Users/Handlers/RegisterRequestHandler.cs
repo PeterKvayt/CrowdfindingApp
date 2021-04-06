@@ -4,13 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Maintainers.EmailSender;
 using CrowdfindingApp.Common.Maintainers.Hasher;
 using CrowdfindingApp.Common.Maintainers.TokenManager;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Users;
-using CrowdfindingApp.Core.Services.Users.Helpers;
+using CrowdfindingApp.Core.Services.Users.Validators;
 using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Filters;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
@@ -23,7 +22,6 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
         private readonly IHasher _hasher;
         private readonly ITokenManager _tokenManager;
         private readonly IEmailSender _emailSender;
-        private readonly PasswordValidator _passwordValidator;
 
         public RegisterRequestHandler(IUserRepository userRepository, IHasher hasher, ITokenManager tokenManager, IEmailSender emailSender)
         {
@@ -31,7 +29,6 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
             _hasher = hasher ?? throw new ArgumentNullException(nameof(hasher));
             _tokenManager = tokenManager ?? throw new ArgumentNullException(nameof(tokenManager));
             _emailSender = emailSender ?? throw new ArgumentNullException(nameof(emailSender));
-            _passwordValidator = new PasswordValidator();
         }
 
         protected override async Task<ReplyMessageBase> ValidateRequestMessageAsync(RegisterRequestMessage requestMessage)
@@ -48,15 +45,16 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
                 return reply.AddValidationError(UserErrorKeys.EmptyPassword);
             }
 
-            if(!_passwordValidator.Confirm(requestMessage.Password, requestMessage.ConfirmPassword))
+            var validator = new PasswordValidator();
+            if(!validator.Confirm(requestMessage.Password, requestMessage.ConfirmPassword))
             {
                 return reply.AddValidationError(UserErrorKeys.PasswordConfirmationFail);
             }
 
-            var validationResult = _passwordValidator.Validate(requestMessage.Password);
-            if(!validationResult.Success)
+            var validationResult = await validator.ValidateAsync(requestMessage.Password);
+            if(!validationResult.IsValid)
             {
-                return reply.Merge(validationResult);
+                return await reply.MergeAsync(validationResult);
             }
 
             var userWithEmail = await _userRepository.GetUsersAsync(new UserFilter { Email = new List<string> { requestMessage.Email } });

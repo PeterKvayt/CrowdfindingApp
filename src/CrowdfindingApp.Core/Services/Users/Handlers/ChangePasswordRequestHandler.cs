@@ -5,7 +5,7 @@ using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Maintainers.Hasher;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Users;
-using CrowdfindingApp.Core.Services.Users.Helpers;
+using CrowdfindingApp.Core.Services.Users.Validators;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.Users.Handlers
@@ -14,13 +14,11 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
     {
         private IUserRepository _userRepository;
         private IHasher _hasher;
-        private PasswordValidator _passwordValidator;
 
         public ChangePasswordRequestHandler(IUserRepository userRepository, IHasher hasher)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _hasher = hasher ?? throw new ArgumentNullException(nameof(hasher));
-            _passwordValidator = new PasswordValidator();
         }
 
         protected override async Task<ReplyMessageBase> ValidateRequestMessageAsync(ChangePasswordRequestMessage requestMessage)
@@ -38,13 +36,14 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
                 return reply.AddSecurityError();
             }
 
-            var validationResult = _passwordValidator.Validate(requestMessage.NewPassword);
-            if(!validationResult.Success)
+            var validator = new PasswordValidator();
+            var validationResult = await validator.ValidateAsync(requestMessage.NewPassword);
+            if(!validationResult.IsValid)
             {
-                return reply.Merge(validationResult);
+                return await reply.MergeAsync(validationResult);
             }
 
-            if(!_passwordValidator.Confirm(requestMessage.NewPassword, requestMessage.ConfirmPassword))
+            if(!validator.Confirm(requestMessage.NewPassword, requestMessage.ConfirmPassword))
             {
                 return reply.AddValidationError(UserErrorKeys.PasswordConfirmationFail);
             }

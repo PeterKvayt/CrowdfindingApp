@@ -6,7 +6,7 @@ using CrowdfindingApp.Common.Maintainers.Hasher;
 using CrowdfindingApp.Common.Maintainers.TokenManager;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Users;
-using CrowdfindingApp.Core.Services.Users.Helpers;
+using CrowdfindingApp.Core.Services.Users.Validators;
 using CrowdfindingApp.Data.Common.BusinessModels;
 using CrowdfindingApp.Data.Common.Interfaces.Repositories;
 
@@ -17,14 +17,12 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
         private readonly IUserRepository _userRepository;
         private readonly IHasher _hasher;
         private readonly ITokenManager _tokenManager;
-        private readonly PasswordValidator _passwordValidator;
 
         public ResetPasswordRequestHandler(IUserRepository userRepository, ITokenManager tokenManager, IHasher hasher)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _hasher = hasher ?? throw new ArgumentNullException(nameof(hasher));
             _tokenManager = tokenManager ?? throw new ArgumentNullException(nameof(tokenManager));
-            _passwordValidator = new PasswordValidator();
         }
 
         protected override async Task<(ReplyMessageBase, User)> ValidateRequestMessageAsync(ResetPasswordRequestMessage requestMessage)
@@ -44,15 +42,15 @@ namespace CrowdfindingApp.Core.Services.Users.Handlers
                 reply.AddObjectNotFoundError();
                 return (reply, operationСontext);
             }
-
-            var validationResult = _passwordValidator.Validate(requestMessage.Password);
-            if(!validationResult.Success)
+            var validator = new PasswordValidator();
+            var validationResult = await validator.ValidateAsync(requestMessage.Password);
+            if(!validationResult.IsValid)
             {
-                reply.Merge(validationResult);
+                await reply.MergeAsync(validationResult);
                 return (reply, operationСontext);
             }
 
-            if(!_passwordValidator.Confirm(requestMessage.Password, requestMessage.ConfirmPassword))
+            if(!validator.Confirm(requestMessage.Password, requestMessage.ConfirmPassword))
             {
                 reply.AddValidationError(UserErrorKeys.PasswordConfirmationFail);
                 return (reply, operationСontext);
