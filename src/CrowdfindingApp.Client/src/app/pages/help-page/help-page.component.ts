@@ -41,6 +41,7 @@ export class HelpPageComponent extends Base implements OnInit {
   ];
 
   ngOnInit() {
+    this.titleService.setTitle('Помощь');
     const currentTabIndex = this.activatedRoute.snapshot.queryParams.tab;
     if (currentTabIndex && this.tabs[currentTabIndex]) {
       this.onTabClick(this.tabs[currentTabIndex]);
