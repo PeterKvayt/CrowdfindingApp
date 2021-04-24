@@ -21,3 +21,13 @@
   right: 16px;
   border-radius: 0 4px 4px 0;
 }
+
+.sub-title{
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.li-title{
+  display: block;
+  font-weight: 600;
+}

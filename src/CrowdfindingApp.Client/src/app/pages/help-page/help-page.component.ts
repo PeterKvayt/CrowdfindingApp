@@ -3,6 +3,7 @@ import { Base } from '../Base';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { GenericLookupItem } from 'src/app/models/common/GenericLookupItem';
+import { Routes } from 'src/app/models/immutable/Routes';
 
 @Component({
   selector: 'app-help-page',
@@ -17,19 +18,26 @@ export class HelpPageComponent extends Base implements OnInit {
     private titleService: Title
   ) { super(router, activatedRoute); }
 
+    public platformName = 'Crowdfinding app';
+    public maxValue = '4 947';
+    public tax = '13%';
+    public profitPercent = '10%';
+
+    public helpRoute = Routes.help;
+
   public tabs: GenericLookupItem<boolean, string>[] = [
-    {key: false, value: 'Как работает платформа'},
-    {key: false, value: 'О платформе'},
-    {key: false, value: 'Парвила платформы'},
-    {key: false, value: 'Trust & Safety'},
-    {key: false, value: 'FAQ'},
-    {key: true, value: 'Введение'},
-    {key: false, value: 'Оформление проекта'},
-    {key: false, value: 'Вознаграждения'},
-    {key: false, value: 'Бюджет проекта'},
-    {key: false, value: 'Стратегия продвижения'},
-    {key: false, value: 'Сбор средств'},
-    {key: false, value: 'Заключение'},
+    {key: true, value: 'Как работает платформа'}, // 0
+    {key: false, value: 'О платформе'}, // 1
+    {key: false, value: 'Правила платформы'}, // 2
+    {key: false, value: 'Trust & Safety'}, // 3
+    {key: false, value: 'FAQ'}, // 4
+    {key: false, value: 'Начало'}, // 5
+    {key: false, value: 'Оформление проекта'}, // 6
+    {key: false, value: 'Вознаграждения'}, // 7
+    {key: false, value: 'Бюджет проекта'}, // 8
+    {key: false, value: 'Стратегия продвижения'}, // 9
+    {key: false, value: 'Сбор средств'}, // 10
+    {key: false, value: 'Заключение'}, // 11
   ];
 
   ngOnInit() {
