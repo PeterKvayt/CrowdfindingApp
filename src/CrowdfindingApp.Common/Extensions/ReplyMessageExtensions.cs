@@ -31,21 +31,21 @@ namespace CrowdfindingApp.Common.Extensions
             foreach(var error in validationResults.Errors)
             {
                 var parametersTask = error.CustomState as Task<string[]>;
-                if(parametersTask != null)
-                {
-                    message.AddValidationError(error.ErrorCode, null, await parametersTask);
-                }
-
                 var parameterTask = error.CustomState as Task<string>;
-                if(parameterTask != null)
+                if(parametersTask is null && parameterTask is  null)
+                {
+                    message.AddValidationError(error.ErrorCode, null, error.AttemptedValue);
+                }
+                else if(parametersTask is null)
                 {
                     message.AddValidationError(error.ErrorCode, null, await parameterTask);
                 }
                 else
                 {
-                    message.AddValidationError(error.ErrorCode, null, error.AttemptedValue);
+                    message.AddValidationError(error.ErrorCode, null, await parametersTask);
                 }
             }
+
             return message;
         }
     }
