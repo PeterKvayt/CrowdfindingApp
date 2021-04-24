@@ -205,7 +205,7 @@
               </div>
               <div class="selected-countries">
                 <div class="selected-country-item" *ngFor='let country of rewardDeliveryCountries'>
-                    <i class="fas fa-trash-alt fa-fw remove-delivery-btn" (click)='onRemoveCountryFromIncludedList(country)'></i>
+                    <i class="fas fa-trash-alt fa-fw" (click)='onRemoveCountryFromIncludedList(country)'></i>
                     <span class="delicate-text"> {{getCountryNameById(country.key)}} {{country.value}} BYN</span>
                 </div>
               </div>
@@ -231,7 +231,7 @@
               </div>
               <div class="selected-countries">
                 <div class="selected-country-item" *ngFor='let country of rewardDeliveryCountries'>
-                  <i class="fas fa-trash-alt fa-fw remove-delivery-btn" (click)='onRemoveCountryFromIncludedList(country)'></i>
+                  <i class="fas fa-trash-alt fa-fw" (click)='onRemoveCountryFromIncludedList(country)'></i>
                   <span class="delicate-text"> {{getCountryNameById(country.key)}} {{country.value}} BYN</span>
                 </div>
               </div>
@@ -314,11 +314,14 @@
           <app-text-area [item]='answerInput'></app-text-area>
           <app-regular-btn value='Добавить вопрос' (click)='onQuestionAddClick()'></app-regular-btn>
           <div *ngFor='let question of faqList'>
-            <span class="delicate-text">{{question.question}}</span>
-            <br>
-            <span>{{question.answer}}</span>
-            <app-regular-btn value='Удалить' (click)='onQuestionRemoveClick(question)'></app-regular-btn>
-            <app-regular-btn value='Изменить' (click)='onQuestionEditClick(question)'></app-regular-btn>
+            <p>
+              <span class="question">
+                {{question.question}}
+                <i class="fas fa-pencil-alt fa-fw" (click)='onQuestionEditClick(question)'></i>
+                <i class="fas fa-trash-alt fa-fw" (click)='onQuestionRemoveClick(question)'></i>
+              </span>
+              <span class="delicate-text answer">{{question.answer}}</span>
+            </p>
           </div>
         </div>
 

@@ -11,11 +11,33 @@
   margin-top: 1rem;
 }
 
-.remove-delivery-btn{
+.fa-trash-alt{
   transition: 0.2s;
 }
 
-.remove-delivery-btn:hover{
+.fa-trash-alt:hover{
   color: red;
   cursor: pointer;
+}
+
+.fa-pencil-alt{
+  transition: 0.2s;
+}
+
+.fa-pencil-alt:hover{
+  color: darkorchid;
+  cursor: pointer;
+}
+
+.question{
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0;
+  padding-bottom: 5px;
+  display: block;
+}
+
+.answer{
+  display: block;
+
 }
