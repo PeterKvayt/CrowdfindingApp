@@ -77,7 +77,7 @@ export class ProjectService {
   }
 
   public getMySupportedProjects(paging: PagingInfo) {
-    return this.http.post<GetSupportedProjectCardsRequestMessage>(this.controller + 'mySupportedProjects/', 
+    return this.http.post<GetSupportedProjectCardsRequestMessage>(this.controller + 'mySupportedProjects/',
     new GetSupportedProjectCardsRequestMessage(paging));
   }
 

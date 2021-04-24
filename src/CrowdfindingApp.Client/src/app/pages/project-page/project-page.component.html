@@ -104,8 +104,10 @@
             <span>ВОЗНАГРАЖДЕНИЯ</span>
           </div>
           <div class="row">
-            <app-reward-card *ngFor='let reward of view.rewards' [item]='getRewardCardFromInfo(reward)'
-              [showBuyOption]='showAbilityToSupport() '></app-reward-card>
+            <div class="col">
+              <app-reward-card *ngFor='let reward of view.rewards' [item]='getRewardCardFromInfo(reward)'
+                [showBuyOption]='showAbilityToSupport() '></app-reward-card>
+            </div>
           </div>
         </div>
 

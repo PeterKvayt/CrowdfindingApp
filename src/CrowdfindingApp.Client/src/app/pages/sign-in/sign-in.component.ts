@@ -18,8 +18,8 @@ import { Routes } from 'src/app/models/immutable/Routes';
 })
 export class SignInComponent extends Base implements OnInit {
   public forgotPasswordRoute = Routes.forgotPassword;
-  public emailInput: TextInput = { label: 'Email', placeholder: 'test@user.com' };
-  public passwordInput: PasswordInput = { label: 'Пароль', placeholder: 'test'};
+  public emailInput: TextInput = { label: 'Email', placeholder: 'email' };
+  public passwordInput: PasswordInput = { label: 'Пароль', placeholder: 'пароль'};
 
   constructor(
     private accountService: UserService,

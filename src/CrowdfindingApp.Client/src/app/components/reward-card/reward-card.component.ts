@@ -30,7 +30,7 @@ export class RewardCardComponent implements OnInit {
     public authService: AuthenticationService
   ) { }
   ngOnInit() {
-    this.setImageUrl();;
+    this.setImageUrl();
     this.deliveryTypeName = this.getTypeName();
   }
 

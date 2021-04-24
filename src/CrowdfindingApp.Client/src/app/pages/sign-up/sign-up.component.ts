@@ -15,9 +15,9 @@ import { Routes } from 'src/app/models/immutable/Routes';
 })
 export class SignUpComponent extends Base implements OnInit {
   public signInRoute = Routes.signIn;
-  public emailInput: TextInput = { label: 'Email', placeholder: 'test@user.com' };
-  public passwordInput: PasswordInput = { label: 'Пароль', placeholder: 'test' };
-  public confirmPasswordInput: PasswordInput = { label: 'Подтвердите пароль', placeholder: 'test' };
+  public emailInput: TextInput = { label: 'Email', placeholder: 'email' };
+  public passwordInput: PasswordInput = { label: 'Пароль', placeholder: 'пароль' };
+  public confirmPasswordInput: PasswordInput = { label: 'Подтвердите пароль', placeholder: 'пароль' };
 
   constructor(
     private accountService: UserService,

@@ -277,9 +277,11 @@
         </app-collapse>
         <!-- <app-link empty value='Задать вопрос' (click)='feedBackModalShow = true'></app-link> -->
         <div class="row reward-container">
-          <app-reward-card *ngFor='let reward of rewardsList' [item]='getRewardCardFromInfo(reward)' editable='true'
-            (changeClick)='onRewardChangeClick(reward)' (deleteClick)='onRewardDeleteClick(reward)'>
-          </app-reward-card>
+          <div class="col">
+            <app-reward-card *ngFor='let reward of rewardsList' [item]='getRewardCardFromInfo(reward)' editable='true'
+              (changeClick)='onRewardChangeClick(reward)' (deleteClick)='onRewardDeleteClick(reward)'>
+            </app-reward-card>
+          </div>
         </div>
       </div>
 
