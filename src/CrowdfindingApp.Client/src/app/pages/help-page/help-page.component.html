@@ -239,6 +239,8 @@
 
           <p class="sub-title">Возможно, здесь вы найдете ответы на свои вопросы</p>
 
+          <app-collapse *ngFor='let item of faq' [header]='item.key' [body]='item.value'></app-collapse>
+
         </ng-container>
 
         <!-- Start -->
