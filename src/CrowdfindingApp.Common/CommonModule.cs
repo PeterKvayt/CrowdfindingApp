@@ -3,6 +3,7 @@ using Autofac;
 using CrowdfindingApp.Common.Maintainers.CryptoProvider;
 using CrowdfindingApp.Common.Maintainers.EmailSender;
 using CrowdfindingApp.Common.Maintainers.Hasher;
+using CrowdfindingApp.Common.Maintainers.Payment;
 using CrowdfindingApp.Common.Maintainers.TokenManager;
 
 namespace CrowdfindingApp.Common
@@ -15,6 +16,7 @@ namespace CrowdfindingApp.Common
             builder.RegisterType<EmailSender>().AsImplementedInterfaces();
             builder.RegisterType<CryptoProvider>().AsImplementedInterfaces();
             builder.RegisterType<TokenManager>().AsImplementedInterfaces();
+            builder.RegisterType<RobokassaManager>().AsImplementedInterfaces();
             builder.RegisterType<SmtpClient>().AsSelf();
 
 

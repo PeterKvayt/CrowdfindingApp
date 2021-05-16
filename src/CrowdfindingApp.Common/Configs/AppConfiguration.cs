@@ -8,6 +8,6 @@ namespace CrowdfindingApp.Common.Configs
         public ConnectionStrings ConnectionStrings { get; set; }
         public EmailConfig EmailConfig { get; set; }
         public FileStorageConfiguration FileStorageConfiguration { get; set; }
-
+        public PaymentConfig PaymentSettings { get; set; }
     }
 }

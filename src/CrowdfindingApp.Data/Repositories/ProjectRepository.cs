@@ -143,7 +143,10 @@ namespace CrowdfindingApp.Data.Repositories
                 return 0;
             }
 
-            var orders = await Storage.Orders.Where(x => rewards.Select(r => r.Id).Contains(x.RewardId)).ToListAsync();
+            var orders = await Storage.Orders
+                .Where(x => rewards.Select(r => r.Id).Contains(x.RewardId))
+                .Where(x => x.Status == (int)OrderStatus.Approved)
+                .ToListAsync();
             if(!orders?.Any() ?? true)
             {
                 return 0;

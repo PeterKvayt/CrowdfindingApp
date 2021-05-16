@@ -38,6 +38,7 @@ namespace CrowdfindingApp.Common.Immutable
         {
             public const string Search = nameof(Search);
             public const string ProjectOrders = nameof(ProjectOrders);
+            public const string PaymentResult = nameof(PaymentResult);
 
         }
 

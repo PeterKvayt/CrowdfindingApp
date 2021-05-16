@@ -147,9 +147,10 @@ export class CreateOrderPageComponent extends Base implements OnInit {
     };
     this.subscriptions.add(
       this.orderService.accept(request).subscribe(
-        () => {
+        (reply: ReplyMessage<string>) => {
           this.showLoader = false;
-          this.redirect(Routes.project + '/' + this.reward.projectId);
+          window.location.href = reply.value;
+          // this.redirect(Routes.project + '/' + this.reward.projectId);
         },
         () => { this.showLoader = false; }
       )
