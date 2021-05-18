@@ -11,7 +11,7 @@ namespace CrowdfindingApp.Core.Services.Users.Validators
         {
             RuleFor(x => x).NotEmpty().WithErrorCode(UserErrorKeys.EmptyPassword);
 
-            RuleFor(x => x).Must(x => x.Length < MinLength)
+            RuleFor(x => x.Length).GreaterThanOrEqualTo(MinLength)
                 .When(x => !x.IsNullOrWhiteSpace())
                 .WithErrorCode(UserErrorKeys.InvalidPasswordLength)
                 .WithCustomMessageParameters(x => Task.FromResult(new[] { MinLength.ToString() }));
@@ -22,7 +22,7 @@ namespace CrowdfindingApp.Core.Services.Users.Validators
             return password == confirmPassword;
         }
 
-        private const int MinLength = 2;
+        private const int MinLength = 6;
 
     }
 }

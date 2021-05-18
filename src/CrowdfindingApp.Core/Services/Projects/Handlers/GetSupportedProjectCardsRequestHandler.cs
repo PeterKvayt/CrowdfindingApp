@@ -25,7 +25,7 @@ namespace CrowdfindingApp.Core.Services.Projects.Handlers
         protected override async Task<PagedReplyMessage<List<ProjectCard>>> ExecuteAsync(GetSupportedProjectCardsRequestMessage request)
         {
             var orders = await OrderRepository.GetOrdersAsync(new OrderFilter { UserId = new List<Guid> { User.GetUserId() } });
-            if(orders == null)
+            if(!orders?.Any() ?? true)
             {
                 return new PagedReplyMessage<List<ProjectCard>> { Value = new List<ProjectCard>(), Paging = request.Paging };
             }
