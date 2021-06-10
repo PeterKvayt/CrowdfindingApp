@@ -186,6 +186,8 @@ namespace CrowdfindingApp.Data.Repositories
             {
                 Repository.Remove(project);
             }
+
+            await Storage.SaveChangesAsync();
         }
     }
 }
