@@ -9,8 +9,8 @@ namespace CrowdfindingApp.Core.Services.BackgroundTasks
     {
         protected override void Load(ContainerBuilder builder)
         {
-            RegisterJob<UpdateStatusOfExpiriedProjectsJob>(builder, Cron.Hourly, nameof(UpdateStatusOfExpiriedProjectsJob));
-            RegisterJob<ClearExpiredTempFilesJob>(builder, Cron.Daily, nameof(ClearExpiredTempFilesJob));
+            //RegisterJob<UpdateStatusOfExpiriedProjectsJob>(builder, Cron.Hourly, nameof(UpdateStatusOfExpiriedProjectsJob));
+            //RegisterJob<ClearExpiredTempFilesJob>(builder, Cron.Daily, nameof(ClearExpiredTempFilesJob));
         }
 
         private void RegisterJob<JobType>(ContainerBuilder builder, Func<string> frequency, string name) where JobType: IBackgroundJob
