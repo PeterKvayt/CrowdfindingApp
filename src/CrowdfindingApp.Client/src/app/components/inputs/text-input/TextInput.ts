@@ -7,4 +7,5 @@ export class TextInput {
   public min?: number;
   public valid?: boolean;
   public example?: string;
+  public pattern?: string;
 }

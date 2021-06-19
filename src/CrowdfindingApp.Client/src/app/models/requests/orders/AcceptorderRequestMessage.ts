@@ -7,4 +7,8 @@ export class AcceptOrderRequestMessage {
   public countryId: string;
   public fullAddress: string;
   public postCode: string;
+  public payCardNumber: string;
+  public payCardOwnerName: string;
+  public payCardCvv: string;
+  public payCardExpirationDate: Date;
 }

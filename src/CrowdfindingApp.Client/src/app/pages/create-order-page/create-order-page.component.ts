@@ -18,6 +18,7 @@ import { SelectItem } from 'src/app/components/selectors/select/SelectItem';
 import { ProjectService } from 'src/app/services/project.service';
 import { Data } from 'src/app/models/immutable/Data';
 import { GenericLookupItem } from 'src/app/models/common/GenericLookupItem';
+import { DateInput } from 'src/app/components/inputs/date-input/DateInput';
 
 @Component({
   selector: 'app-create-order-page',
@@ -47,6 +48,16 @@ export class CreateOrderPageComponent extends Base implements OnInit {
     example: 'Пример: г. Минск, ул. Первомайская, дом 1, кв.13'
   };
   public postIndexInput: TextInput = { placeholder: 'Почтовый индекс' };
+  public cardPayNumberInput: TextInput =
+  {
+    placeholder: '0123456789012345',
+    label: 'Введите номер карты',
+    min: 16,
+    max: 16
+  };
+  public cardPayNameInput: TextInput = { placeholder: 'NAME SURNAME', label: 'Введите имя владельца карты', min: 20, max: 20 };
+  public cardPayDateInput: DateInput = { label: 'Введите срок действия', min: new Date() };
+  public cardPayCvvInput: TextInput = { placeholder: '123', label: 'Введите CVC2/CVV2', max: 3, min: 3 };
 
   public countrySelect: SelectInput = { list: [], defaultValue: 'Выберите страну' };
   public currentCountryId: string;
@@ -143,14 +154,18 @@ export class CreateOrderPageComponent extends Base implements OnInit {
       middleName: this.middleNameInput.value,
       countryId: this.currentCountryId,
       fullAddress: this.fullAddressInput.value,
-      postCode: this.postIndexInput.value
+      postCode: this.postIndexInput.value,
+      payCardCvv: this.cardPayCvvInput.value,
+      payCardExpirationDate: this.cardPayDateInput.value,
+      payCardNumber: this.cardPayNumberInput.value,
+      payCardOwnerName: this.cardPayNameInput.value
     };
     this.subscriptions.add(
       this.orderService.accept(request).subscribe(
         (reply: ReplyMessage<string>) => {
           this.showLoader = false;
-          window.location.href = reply.value;
-          // this.redirect(Routes.project + '/' + this.reward.projectId);
+          // window.location.href = reply.value;
+          this.redirect(Routes.project + '/' + this.reward.projectId);
         },
         () => { this.showLoader = false; }
       )

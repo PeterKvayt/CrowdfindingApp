@@ -16,10 +16,10 @@
         <div class="col-lg-6 col-12">
           <app-text-input [item]='middleNameInput'></app-text-input>
         </div>
-          <div class="col-12 global-sub-title">Оформление количества</div>
-          <div class="col-lg-6 col-12">
-            <app-decimal-input [item]='countInput'></app-decimal-input>
-          </div>
+        <div class="col-12 global-sub-title">Оформление количества</div>
+        <div class="col-lg-6 col-12">
+          <app-decimal-input [item]='countInput'></app-decimal-input>
+        </div>
         <ng-container *ngIf='reward && hasDelivery()'>
           <div class="col-12 global-sub-title">Оформление доставки</div>
           <div class="col-lg-6 col-12">
@@ -32,15 +32,32 @@
             <app-text-input [item]='fullAddressInput'></app-text-input>
           </div>
         </ng-container>
+
+        <div class="col-12 global-sub-title">Платежные данные</div>
+        <div class="col-lg-6 col-12">
+          <app-text-input [item]='cardPayNumberInput'></app-text-input>
+        </div>
+        <div class="col-lg-6 col-12">
+          <app-text-input [item]='cardPayNameInput'></app-text-input>
+        </div>
+        <div class="col-lg-6 col-12">
+          <app-date-input [item]='cardPayDateInput'></app-date-input>
+        </div>
+        <div class="col-lg-6 col-12">
+          <app-text-input [item]='cardPayCvvInput'></app-text-input>
+        </div>
+
         <div class="col-12">
           <div class="global-box ">
             <p class="delicate-text">
               «Crowdfinding app» не является магазином. Это способ реализовывать творческие проекты. Ответственность за
-              исполнение обязательств полностью лежит на авторе проекта. «Crowdfinding app» не гарантирует реализацию проекта
-              и не оценивает способность автора справиться с данными обещаниями. Подробнее о работе «Crowdfinding app» вы
+              исполнение обязательств полностью лежит на авторе проекта. «Crowdfinding app» не гарантирует реализацию
+              проекта
+              и не оценивает способность автора справиться с данными обещаниями. Подробнее о работе «Crowdfinding app»
+              вы
               можете узнать <app-link value='Здесь' [route]='aboutHalpPageRoute' [params]='{tab: "1"}'></app-link>.
-          </p>
-          <app-regular-btn value='Продолжить' (click)='onContinueClick()'></app-regular-btn>
+            </p>
+            <app-regular-btn value='Продолжить' (click)='onContinueClick()'></app-regular-btn>
           </div>
         </div>
         <div class="col-12">
@@ -51,8 +68,9 @@
       <div class="row">
         <div class="col-12">
           <div class="global-box">
-          <p class="delicate-text" *ngIf='reward && hasDelivery()'>Стоимость доставки: {{getDeliveryPrice() ? getDeliveryPrice() + " BYN" : 'Выберите страну доставки'}}</p>
-          <p class="delicate-text" *ngIf='reward'>Итого: {{getTotal()}}</p>
+            <p class="delicate-text" *ngIf='reward && hasDelivery()'>Стоимость доставки:
+              {{getDeliveryPrice() ? getDeliveryPrice() + " BYN" : 'Выберите страну доставки'}}</p>
+            <p class="delicate-text" *ngIf='reward'>Итого: {{getTotal()}}</p>
           </div>
         </div>
         <div class="col-12" *ngIf='reward'>

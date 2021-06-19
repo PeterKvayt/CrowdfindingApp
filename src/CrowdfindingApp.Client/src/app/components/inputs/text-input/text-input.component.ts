@@ -13,8 +13,15 @@ export class TextInputComponent implements OnInit {
   @Output() valueChange = new EventEmitter<TextInput>();
 
   public onValueChange(value: string): void {
-      this.item.value = value;
-      this.valueChange.emit(this.item);
+    if (this.item.pattern) {
+      let regex = new RegExp(this.item.pattern);
+      if (!regex.test(value)) {
+        value = '';
+      }
+    }
+
+    this.item.value = value;
+    this.valueChange.emit(this.item);
   }
 
   public ngOnInit(): void {
