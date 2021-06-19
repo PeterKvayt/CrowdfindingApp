@@ -71,7 +71,7 @@ namespace CrowdfindingApp.Core.Services.Orders.Handlers
         {
             var order = _mapper.Map<Order>(request);
 
-            order.Status = (int)OrderStatus.Pending;
+            order.Status = (int)OrderStatus.Approved;
             order.UserId = User.GetUserId();
             order.PaymentDateTime = DateTime.UtcNow;
 

@@ -70,6 +70,15 @@ namespace CrowdfindingApp.Core.Services.Orders.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите CVC2/CVV2.
+        /// </summary>
+        internal static string OrderErrorMessageKeys_EmptyCvv {
+            get {
+                return ResourceManager.GetString("OrderErrorMessageKeys_EmptyCvv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Заполните поле &quot;Полный адрес&quot;.
         /// </summary>
         internal static string OrderErrorMessageKeys_EmptyFullAddress {
@@ -93,6 +102,33 @@ namespace CrowdfindingApp.Core.Services.Orders.Resources {
         internal static string OrderErrorMessageKeys_EmptyName {
             get {
                 return ResourceManager.GetString("OrderErrorMessageKeys_EmptyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите срок действия платежной карты.
+        /// </summary>
+        internal static string OrderErrorMessageKeys_EmptyPayCardExpirationDate {
+            get {
+                return ResourceManager.GetString("OrderErrorMessageKeys_EmptyPayCardExpirationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите номер платежной карты.
+        /// </summary>
+        internal static string OrderErrorMessageKeys_EmptyPayCardNumber {
+            get {
+                return ResourceManager.GetString("OrderErrorMessageKeys_EmptyPayCardNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите имя владельца карты.
+        /// </summary>
+        internal static string OrderErrorMessageKeys_EmptyPayCardOwnerName {
+            get {
+                return ResourceManager.GetString("OrderErrorMessageKeys_EmptyPayCardOwnerName", resourceCulture);
             }
         }
         
@@ -129,6 +165,42 @@ namespace CrowdfindingApp.Core.Services.Orders.Resources {
         internal static string OrderErrorMessageKeys_RewardCountLessThanOne {
             get {
                 return ResourceManager.GetString("OrderErrorMessageKeys_RewardCountLessThanOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Направильный формат CVC2/CVV2. Ожидалось 3 цифры.
+        /// </summary>
+        internal static string OrderErrorMessageKeys_WrongCvvValue {
+            get {
+                return ResourceManager.GetString("OrderErrorMessageKeys_WrongCvvValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Неверный срок действия платежной карты.
+        /// </summary>
+        internal static string OrderErrorMessageKeys_WrongPayCardExpirationDate {
+            get {
+                return ResourceManager.GetString("OrderErrorMessageKeys_WrongPayCardExpirationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Неправильны формат номера платежной карты. Ожидалось 16 цифр.
+        /// </summary>
+        internal static string OrderErrorMessageKeys_WrongPayCardNumber {
+            get {
+                return ResourceManager.GetString("OrderErrorMessageKeys_WrongPayCardNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Неправльный формат имени владельца карты. Ожидалось до 20 латинских букв.
+        /// </summary>
+        internal static string OrderErrorMessageKeys_WrongPayCardOwnerName {
+            get {
+                return ResourceManager.GetString("OrderErrorMessageKeys_WrongPayCardOwnerName", resourceCulture);
             }
         }
     }

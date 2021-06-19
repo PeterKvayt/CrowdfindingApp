@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
@@ -43,6 +44,34 @@ namespace CrowdfindingApp.Core.Services.Orders.Validator
                 .WithErrorCode(OrderErrorMessageKeys.GreaterThanLimit)
                 .WithCustomMessageParameters(x => Task.FromResult((reward.Limit - orderedCount).ToString()))
                 .When(_ => reward.IsLimited);
+
+            RuleFor(x => x.PayCardCvv).NotEmpty()
+                .WithErrorCode(OrderErrorMessageKeys.EmptyCvv);
+
+            RuleFor(x => x.PayCardCvv).Matches("^[0-9]{3}$")
+                .WithErrorCode(OrderErrorMessageKeys.WrongCvvValue)
+                .When(x => x.PayCardCvv.IsPresent());
+
+            RuleFor(x => x.PayCardExpirationDate).NotNull()
+                .WithErrorCode(OrderErrorMessageKeys.EmptyPayCardExpirationDate);
+
+            RuleFor(x => x.PayCardExpirationDate).GreaterThan(DateTime.UtcNow)
+                .WithErrorCode(OrderErrorMessageKeys.WrongPayCardExpirationDate)
+                .When(x => x.PayCardExpirationDate.HasValue);
+
+            RuleFor(x => x.PayCardNumber).NotEmpty()
+                .WithErrorCode(OrderErrorMessageKeys.EmptyPayCardNumber);
+
+            RuleFor(x => x.PayCardNumber).Matches("^[0-9]{16}$")
+                .WithErrorCode(OrderErrorMessageKeys.WrongPayCardNumber)
+                .When(x => x.PayCardNumber.IsPresent());
+
+            RuleFor(x => x.PayCardOwnerName).NotEmpty()
+                .WithErrorCode(OrderErrorMessageKeys.EmptyPayCardOwnerName);
+
+            RuleFor(x => x.PayCardOwnerName).Matches("^[a-zA-Z ]{1,20}$")
+                .WithErrorCode(OrderErrorMessageKeys.WrongPayCardOwnerName)
+                .When(x => x.PayCardOwnerName.IsPresent());
         }
     }
 }

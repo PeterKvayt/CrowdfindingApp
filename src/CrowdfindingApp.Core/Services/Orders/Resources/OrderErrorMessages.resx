@@ -120,6 +120,9 @@
   <data name="OrderErrorMessageKeys_DisallowToSupportProject" xml:space="preserve">
     <value>Проект не доступен для поддержки</value>
   </data>
+  <data name="OrderErrorMessageKeys_EmptyCvv" xml:space="preserve">
+    <value>Введите CVC2/CVV2</value>
+  </data>
   <data name="OrderErrorMessageKeys_EmptyFullAddress" xml:space="preserve">
     <value>Заполните поле "Полный адрес"</value>
   </data>
@@ -128,6 +131,15 @@
   </data>
   <data name="OrderErrorMessageKeys_EmptyName" xml:space="preserve">
     <value>Заполните поле "Имя получателя"</value>
+  </data>
+  <data name="OrderErrorMessageKeys_EmptyPayCardExpirationDate" xml:space="preserve">
+    <value>Введите срок действия платежной карты</value>
+  </data>
+  <data name="OrderErrorMessageKeys_EmptyPayCardNumber" xml:space="preserve">
+    <value>Введите номер платежной карты</value>
+  </data>
+  <data name="OrderErrorMessageKeys_EmptyPayCardOwnerName" xml:space="preserve">
+    <value>Введите имя владельца карты</value>
   </data>
   <data name="OrderErrorMessageKeys_EmptyPostCode" xml:space="preserve">
     <value>Заполните поле "Почтовый индекс"</value>
@@ -140,5 +152,17 @@
   </data>
   <data name="OrderErrorMessageKeys_RewardCountLessThanOne" xml:space="preserve">
     <value>Количество вознаграждении должно быть больше чем 0</value>
+  </data>
+  <data name="OrderErrorMessageKeys_WrongCvvValue" xml:space="preserve">
+    <value>Направильный формат CVC2/CVV2. Ожидалось 3 цифры</value>
+  </data>
+  <data name="OrderErrorMessageKeys_WrongPayCardExpirationDate" xml:space="preserve">
+    <value>Неверный срок действия платежной карты</value>
+  </data>
+  <data name="OrderErrorMessageKeys_WrongPayCardNumber" xml:space="preserve">
+    <value>Неправильны формат номера платежной карты. Ожидалось 16 цифр</value>
+  </data>
+  <data name="OrderErrorMessageKeys_WrongPayCardOwnerName" xml:space="preserve">
+    <value>Неправльный формат имени владельца карты. Ожидалось до 20 латинских букв</value>
   </data>
 </root>
