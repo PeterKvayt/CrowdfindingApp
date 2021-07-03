@@ -7,9 +7,9 @@ using CrowdfindingApp.Common.DataTransfers.Orders;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Data.Common.BusinessModels;
-using CrowdfindingApp.Data.Common.Filters;
-using CrowdfindingApp.Data.Common.Interfaces.Repositories;
+using CrowdfindingApp.Common.Data.BusinessModels;
+using CrowdfindingApp.Common.Data.Filters;
+using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.Orders.Handlers
 {

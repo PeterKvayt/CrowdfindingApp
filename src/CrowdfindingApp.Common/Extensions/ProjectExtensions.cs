@@ -1,7 +1,7 @@
 ﻿using System;
 using CrowdfindingApp.Common.DataTransfers.Projects;
 using CrowdfindingApp.Common.Enums;
-using CrowdfindingApp.Data.Common.BusinessModels;
+using CrowdfindingApp.Common.Data.BusinessModels;
 
 namespace CrowdfindingApp.Common.Extensions
 {

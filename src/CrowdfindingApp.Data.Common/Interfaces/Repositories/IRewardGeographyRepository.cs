@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using CrowdfindingApp.Data.Common.BusinessModels;
+using CrowdfindingApp.Common.Data.BusinessModels;
 
-namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
+namespace CrowdfindingApp.Common.Data.Interfaces.Repositories
 {
     public interface IRewardGeographyRepository : IRepository<RewardGeography>
     {

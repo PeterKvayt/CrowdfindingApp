@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using CrowdfindingApp.Data.Common.BusinessModels;
+using CrowdfindingApp.Common.Data.BusinessModels;
 
-namespace CrowdfindingApp.Data.Common.Filters
+namespace CrowdfindingApp.Common.Data.Filters
 {
     public class ProjectFilter
     {

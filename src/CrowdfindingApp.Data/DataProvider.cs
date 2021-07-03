@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrowdfindingApp.Data.Common.BusinessModels;
-using CrowdfindingApp.Data.Common.Interfaces;
-using CrowdfindingApp.Data.Common.Models;
+using CrowdfindingApp.Common.Data.BusinessModels;
+using CrowdfindingApp.Common.Data.Interfaces;
+using CrowdfindingApp.Common.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrowdfindingApp.Data

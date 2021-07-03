@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CrowdfindingApp.Core\CrowdfindingApp.Core.csproj" />
-    <ProjectReference Include="..\CrowdfindingApp.Data.Common\CrowdfindingApp.Data.Common.csproj" />
+    <ProjectReference Include="..\CrowdfindingApp.Data.Common\CrowdfindingApp.Common.Data.csproj" />
   </ItemGroup>
 
 </Project>

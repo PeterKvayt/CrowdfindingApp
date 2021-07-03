@@ -1,6 +1,6 @@
 ﻿using CrowdfindingApp.Common.DataTransfers.Rewards;
 using CrowdfindingApp.Common.Mappings;
-using CrowdfindingApp.Data.Common.BusinessModels;
+using CrowdfindingApp.Common.Data.BusinessModels;
 
 namespace CrowdfindingApp.Core.Services.Rewards.Mappings
 {

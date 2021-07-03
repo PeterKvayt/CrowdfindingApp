@@ -2,7 +2,7 @@
 using AutoMapper;
 using CrowdfindingApp.Common.DataTransfers;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Data.Common.Models;
+using CrowdfindingApp.Common.Data.Models;
 
 namespace CrowdfindingApp.Common.Mappings
 {

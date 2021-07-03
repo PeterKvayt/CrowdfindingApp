@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Data.Common.BusinessModels;
-using CrowdfindingApp.Data.Common.Extensions;
-using CrowdfindingApp.Data.Common.Filters;
-using CrowdfindingApp.Data.Common.Interfaces;
-using CrowdfindingApp.Data.Common.Interfaces.Repositories;
-using CrowdfindingApp.Data.Common.Models;
+using CrowdfindingApp.Common.Data.BusinessModels;
+using CrowdfindingApp.Common.Data.Extensions;
+using CrowdfindingApp.Common.Data.Filters;
+using CrowdfindingApp.Common.Data.Interfaces;
+using CrowdfindingApp.Common.Data.Interfaces.Repositories;
+using CrowdfindingApp.Common.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrowdfindingApp.Data.Repositories

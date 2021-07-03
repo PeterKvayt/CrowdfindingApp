@@ -5,10 +5,10 @@ using CrowdfindingApp.Common.Messages.Projects;
 using CrowdfindingApp.Core.Services.Projects.Validators;
 using CrowdfindingApp.Common.Extensions;
 using AutoMapper;
-using CrowdfindingApp.Data.Common.Interfaces.Repositories;
-using CrowdfindingApp.Data.Common.BusinessModels;
+using CrowdfindingApp.Common.Data.Interfaces.Repositories;
+using CrowdfindingApp.Common.Data.BusinessModels;
 using CrowdfindingApp.Common.Enums;
-using CrowdfindingApp.Data.Common.Filters;
+using CrowdfindingApp.Common.Data.Filters;
 using System.Collections.Generic;
 using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
 

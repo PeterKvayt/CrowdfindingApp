@@ -6,8 +6,8 @@ using CrowdfindingApp.Common.DataTransfers.Orders;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Orders;
-using CrowdfindingApp.Data.Common.Filters;
-using CrowdfindingApp.Data.Common.Interfaces.Repositories;
+using CrowdfindingApp.Common.Data.Filters;
+using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.Orders.Handlers
 {

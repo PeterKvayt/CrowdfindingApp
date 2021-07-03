@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CrowdfindingApp.Data.Common.Models;
+using CrowdfindingApp.Common.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrowdfindingApp.Data.Common.Extensions
+namespace CrowdfindingApp.Common.Data.Extensions
 {
     public static class IQueryableExtensions
     {

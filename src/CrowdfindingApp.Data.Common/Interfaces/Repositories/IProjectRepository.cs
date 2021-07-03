@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CrowdfindingApp.Data.Common.BusinessModels;
-using CrowdfindingApp.Data.Common.Filters;
-using CrowdfindingApp.Data.Common.Models;
+using CrowdfindingApp.Common.Data.BusinessModels;
+using CrowdfindingApp.Common.Data.Filters;
+using CrowdfindingApp.Common.Data.Models;
 
-namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
+namespace CrowdfindingApp.Common.Data.Interfaces.Repositories
 {
     public interface IProjectRepository : IRepository<Project>
     {

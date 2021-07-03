@@ -8,8 +8,8 @@ using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Orders;
 using CrowdfindingApp.Common.Validators;
 using CrowdfindingApp.Core.Services.Orders.Validator;
-using CrowdfindingApp.Data.Common.BusinessModels;
-using CrowdfindingApp.Data.Common.Interfaces.Repositories;
+using CrowdfindingApp.Common.Data.BusinessModels;
+using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 using CrowdfindingApp.Common.Maintainers.Payment;
 
 namespace CrowdfindingApp.Core.Services.Orders.Handlers
