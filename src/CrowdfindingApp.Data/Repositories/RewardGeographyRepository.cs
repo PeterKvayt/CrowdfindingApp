@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CrowdfindingApp.Data.Common.BusinessModels;
-using CrowdfindingApp.Data.Common.Interfaces;
-using CrowdfindingApp.Data.Common.Interfaces.Repositories;
+using CrowdfindingApp.Common.Data.BusinessModels;
+using CrowdfindingApp.Common.Data.Interfaces;
+using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrowdfindingApp.Data.Repositories

@@ -4,7 +4,7 @@ using System.Linq;
 using CrowdfindingApp.Common.DataTransfers.Users;
 using CrowdfindingApp.Common.Mappings;
 using CrowdfindingApp.Common.Messages.Users;
-using CrowdfindingApp.Data.Common.BusinessModels;
+using CrowdfindingApp.Common.Data.BusinessModels;
 
 namespace CrowdfindingApp.Core.Services.Users.Mappings
 {

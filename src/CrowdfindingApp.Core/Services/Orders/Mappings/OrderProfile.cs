@@ -1,6 +1,6 @@
 ﻿using CrowdfindingApp.Common.DataTransfers.Orders;
-using CrowdfindingApp.Data.Common.Filters;
-using CrowdfindingApp.Data.Common.BusinessModels;
+using CrowdfindingApp.Common.Data.Filters;
+using CrowdfindingApp.Common.Data.BusinessModels;
 using CrowdfindingApp.Common.Mappings;
 using CrowdfindingApp.Common.Messages.Orders;
 

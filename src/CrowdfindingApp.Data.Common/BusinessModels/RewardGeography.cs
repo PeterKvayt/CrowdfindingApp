@@ -1,7 +1,7 @@
 ﻿using System;
-using CrowdfindingApp.Data.Common.Models;
+using CrowdfindingApp.Common.Data.Models;
 
-namespace CrowdfindingApp.Data.Common.BusinessModels
+namespace CrowdfindingApp.Common.Data.BusinessModels
 {
     public sealed class RewardGeography : BaseModel
     {

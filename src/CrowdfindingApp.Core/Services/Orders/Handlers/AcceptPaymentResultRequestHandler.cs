@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using CrowdfindingApp.Common.Enums;
-using CrowdfindingApp.Data.Common.Interfaces.Repositories;
+using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 using CrowdfindingApp.Common.Maintainers.Payment;
 using CrowdfindingApp.Common.Messages.Payment;
 

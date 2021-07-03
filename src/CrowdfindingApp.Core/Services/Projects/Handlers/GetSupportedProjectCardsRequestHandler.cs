@@ -8,8 +8,8 @@ using CrowdfindingApp.Common.DataTransfers.Projects;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Projects;
-using CrowdfindingApp.Data.Common.Filters;
-using CrowdfindingApp.Data.Common.Interfaces.Repositories;
+using CrowdfindingApp.Common.Data.Filters;
+using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers

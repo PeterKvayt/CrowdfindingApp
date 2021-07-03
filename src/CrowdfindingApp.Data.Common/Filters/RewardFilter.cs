@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CrowdfindingApp.Data.Common.Filters
+namespace CrowdfindingApp.Common.Data.Filters
 {
     public class RewardFilter
     {

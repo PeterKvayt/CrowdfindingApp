@@ -7,8 +7,8 @@ using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
 using CrowdfindingApp.Common.Messages;
 using CrowdfindingApp.Common.Messages.Projects;
-using CrowdfindingApp.Data.Common.BusinessModels;
-using CrowdfindingApp.Data.Common.Interfaces.Repositories;
+using CrowdfindingApp.Common.Data.BusinessModels;
+using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {

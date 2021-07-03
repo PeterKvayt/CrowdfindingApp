@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using CrowdfindingApp.Data.Common.Models;
+using CrowdfindingApp.Common.Data.Models;
 
-namespace CrowdfindingApp.Data.Common.Interfaces.Repositories
+namespace CrowdfindingApp.Common.Data.Interfaces.Repositories
 {
     public interface IRepository<TModel> where TModel : BaseModel
     {

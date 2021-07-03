@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Data.Common.Models
+namespace CrowdfindingApp.Common.Data.Models
 {
     public class Paging
     {

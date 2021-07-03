@@ -4,7 +4,7 @@ using CrowdfindingApp.Common.Configs;
 using CrowdfindingApp.Common.Immutable;
 using CrowdfindingApp.Core.Services.BackgroundTasks.Filters;
 using CrowdfindingApp.Data;
-using CrowdfindingApp.Data.Common.Interfaces;
+using CrowdfindingApp.Common.Data.Interfaces;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

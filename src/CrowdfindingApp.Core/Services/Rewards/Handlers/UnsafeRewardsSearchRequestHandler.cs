@@ -5,7 +5,7 @@ using AutoMapper;
 using CrowdfindingApp.Common.DataTransfers.Rewards;
 using CrowdfindingApp.Common.Handlers;
 using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Data.Common.Interfaces.Repositories;
+using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
 
 namespace CrowdfindingApp.Core.Services.Rewards.Handlers
