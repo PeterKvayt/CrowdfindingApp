@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Core.Messages
+namespace CrowdfundingApp.Common.Core.Messages
 {
     public class ReplyMessage<T> : ReplyMessageBase
     {

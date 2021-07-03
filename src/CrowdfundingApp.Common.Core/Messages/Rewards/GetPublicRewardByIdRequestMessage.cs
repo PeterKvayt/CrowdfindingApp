@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Core.Messages.Rewards
+namespace CrowdfundingApp.Common.Core.Messages.Rewards
 {
     public class GetPublicRewardByIdRequestMessage : GetByIdRequestMessageBase
     {

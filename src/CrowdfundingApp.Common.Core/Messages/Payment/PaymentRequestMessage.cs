@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Core.Messages.Payment
+namespace CrowdfundingApp.Common.Core.Messages.Payment
 {
     public class PaymentRequestMessage : MessageBase
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Core.DataTransfers
+namespace CrowdfundingApp.Common.Core.DataTransfers
 {
     public class PagingInfo
     {

@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using CrowdfindingApp.Common.Core.DataTransfers.Projects;
-using CrowdfindingApp.Common.Enums;
+using CrowdfundingApp.Common.Core.DataTransfers.Projects;
+using CrowdfundingApp.Common.Enums;
 
-namespace CrowdfindingApp.Common.Core.DataTransfers.Project
+namespace CrowdfundingApp.Common.Core.DataTransfers.Project
 {
     public class ProjectFilterInfo
     {

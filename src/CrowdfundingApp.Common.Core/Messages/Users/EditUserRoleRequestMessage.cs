@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CrowdfindingApp.Common.Core.Messages.Users
+namespace CrowdfundingApp.Common.Core.Messages.Users
 {
     public class EditUserRoleRequestMessage : MessageBase
     {

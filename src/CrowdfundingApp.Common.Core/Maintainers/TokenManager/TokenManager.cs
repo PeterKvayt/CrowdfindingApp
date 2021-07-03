@@ -1,8 +1,8 @@
 ﻿using System;
-using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Common.Core.Maintainers.CryptoProvider;
+using CrowdfundingApp.Common.Extensions;
+using CrowdfundingApp.Common.Core.Maintainers.CryptoProvider;
 
-namespace CrowdfindingApp.Common.Core.Maintainers.TokenManager
+namespace CrowdfundingApp.Common.Core.Maintainers.TokenManager
 {
     public sealed class TokenManager : ITokenManager
     {

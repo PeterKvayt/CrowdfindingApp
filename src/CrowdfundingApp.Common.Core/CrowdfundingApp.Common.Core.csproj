@@ -1,15 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.2.0" />
     <PackageReference Include="FluentValidation" Version="9.5.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CrowdfindingApp.Common\CrowdfindingApp.Common.csproj" />
+    <ProjectReference Include="..\CrowdfundingApp.Common\CrowdfundingApp.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

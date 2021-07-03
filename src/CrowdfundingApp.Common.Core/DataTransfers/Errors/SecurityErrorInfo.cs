@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Core.DataTransfers.Errors
+namespace CrowdfundingApp.Common.Core.DataTransfers.Errors
 {
     class SecurityErrorInfo : ErrorInfo
     {

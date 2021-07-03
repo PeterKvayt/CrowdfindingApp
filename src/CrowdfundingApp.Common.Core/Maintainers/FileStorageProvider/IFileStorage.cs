@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace CrowdfindingApp.Common.Core.Maintainers.FileStorageProvider
+namespace CrowdfundingApp.Common.Core.Maintainers.FileStorageProvider
 {
     public interface IFileStorage
     {

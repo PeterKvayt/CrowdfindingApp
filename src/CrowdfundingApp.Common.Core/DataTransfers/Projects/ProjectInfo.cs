@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrowdfindingApp.Common.Core.DataTransfers.Questions;
-using CrowdfindingApp.Common.Core.DataTransfers.Rewards;
-using CrowdfindingApp.Common.Enums;
+using CrowdfundingApp.Common.Core.DataTransfers.Questions;
+using CrowdfundingApp.Common.Core.DataTransfers.Rewards;
+using CrowdfundingApp.Common.Enums;
 
-namespace CrowdfindingApp.Common.Core.DataTransfers.Projects
+namespace CrowdfundingApp.Common.Core.DataTransfers.Projects
 {
     public class ProjectInfo
     {

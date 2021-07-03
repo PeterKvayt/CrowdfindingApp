@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace CrowdfindingApp.Common.Core.Mappings
+namespace CrowdfundingApp.Common.Core.Mappings
 {
     public abstract class ProfileBase<TDbModel> : Profile
     {

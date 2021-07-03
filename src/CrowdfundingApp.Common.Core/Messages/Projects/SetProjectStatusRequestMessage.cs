@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using CrowdfindingApp.Common.Enums;
+using CrowdfundingApp.Common.Enums;
 
-namespace CrowdfindingApp.Common.Core.Messages.Projects
+namespace CrowdfundingApp.Common.Core.Messages.Projects
 {
     public class SetProjectStatusRequestMessage : MessageBase
     {

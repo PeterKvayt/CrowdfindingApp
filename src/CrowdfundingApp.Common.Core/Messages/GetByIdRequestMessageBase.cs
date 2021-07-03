@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CrowdfindingApp.Common.Core.Messages
+namespace CrowdfundingApp.Common.Core.Messages
 {
     public abstract class GetByIdRequestMessageBase : MessageBase
     {

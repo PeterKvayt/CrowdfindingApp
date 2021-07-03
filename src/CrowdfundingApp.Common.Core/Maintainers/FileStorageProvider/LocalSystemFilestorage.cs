@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
-namespace CrowdfindingApp.Common.Core.Maintainers.FileStorageProvider
+namespace CrowdfundingApp.Common.Core.Maintainers.FileStorageProvider
 {
     public class LocalSystemFilestorage : IFileStorage
     {

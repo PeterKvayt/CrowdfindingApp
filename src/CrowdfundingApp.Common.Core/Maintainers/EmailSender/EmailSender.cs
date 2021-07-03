@@ -2,11 +2,11 @@
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.Configs;
-using CrowdfindingApp.Common.Immutable;
-using CrowdfindingApp.Common.Core.Localization;
+using CrowdfundingApp.Common.Configs;
+using CrowdfundingApp.Common.Immutable;
+using CrowdfundingApp.Common.Core.Localization;
 
-namespace CrowdfindingApp.Common.Core.Maintainers.EmailSender
+namespace CrowdfundingApp.Common.Core.Maintainers.EmailSender
 {
     public class EmailSender : IEmailSender
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrowdfindingApp.Common.Core.DataTransfers
+namespace CrowdfundingApp.Common.Core.DataTransfers
 {
     public class KeyValue<TKey, TValue>
     {

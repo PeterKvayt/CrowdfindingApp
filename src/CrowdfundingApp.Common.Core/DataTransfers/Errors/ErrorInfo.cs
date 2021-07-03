@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CrowdfindingApp.Common.Core.DataTransfers.Errors
+namespace CrowdfundingApp.Common.Core.DataTransfers.Errors
 {
     public class ErrorInfo
     {

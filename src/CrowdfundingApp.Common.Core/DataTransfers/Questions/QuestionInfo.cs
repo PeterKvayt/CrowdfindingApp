@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Core.DataTransfers.Questions
+namespace CrowdfundingApp.Common.Core.DataTransfers.Questions
 {
     public class QuestionInfo
     {

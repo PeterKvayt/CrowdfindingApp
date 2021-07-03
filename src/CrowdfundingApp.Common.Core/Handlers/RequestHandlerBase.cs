@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.Core.Messages;
+using CrowdfundingApp.Common.Core.Messages;
 
-namespace CrowdfindingApp.Common.Core.Handlers
+namespace CrowdfundingApp.Common.Core.Handlers
 {
     public abstract class RequestHandlerBase<TRequest, TReply, TOperationContext>
         where TRequest : MessageBase, new()

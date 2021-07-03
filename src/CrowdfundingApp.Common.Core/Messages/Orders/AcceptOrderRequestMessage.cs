@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace CrowdfindingApp.Common.Core.Messages.Orders
+namespace CrowdfundingApp.Common.Core.Messages.Orders
 {
     public class AcceptOrderRequestMessage : MessageBase
     {

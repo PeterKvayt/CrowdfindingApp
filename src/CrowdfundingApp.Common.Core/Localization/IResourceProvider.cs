@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Core.Localization
+namespace CrowdfundingApp.Common.Core.Localization
 {
     public interface IResourceProvider
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CrowdfindingApp.Common.Core.Maintainers.EmailSender
+namespace CrowdfundingApp.Common.Core.Maintainers.EmailSender
 {
     public interface IEmailSender
     {

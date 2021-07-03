@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace CrowdfindingApp.Common.Core.Messages.Files
+namespace CrowdfundingApp.Common.Core.Messages.Files
 {
     public abstract class SaveFileRequestMessageBase : MessageBase
     {

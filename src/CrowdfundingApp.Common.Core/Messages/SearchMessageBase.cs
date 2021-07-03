@@ -1,6 +1,6 @@
-﻿using CrowdfindingApp.Common.Core.DataTransfers;
+﻿using CrowdfundingApp.Common.Core.DataTransfers;
 
-namespace CrowdfindingApp.Common.Core.Messages
+namespace CrowdfundingApp.Common.Core.Messages
 {
     public abstract class SearchMessageBase<TFilter> : MessageBase
     {

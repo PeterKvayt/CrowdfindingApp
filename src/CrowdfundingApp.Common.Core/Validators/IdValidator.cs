@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Common.Immutable;
+using CrowdfundingApp.Common.Extensions;
+using CrowdfundingApp.Common.Immutable;
 using FluentValidation;
 
-namespace CrowdfindingApp.Common.Core.Validators
+namespace CrowdfundingApp.Common.Core.Validators
 {
     public class IdValidator : AbstractValidator<string>
     {

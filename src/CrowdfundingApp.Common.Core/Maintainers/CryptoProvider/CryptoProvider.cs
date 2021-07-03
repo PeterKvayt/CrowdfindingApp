@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
-namespace CrowdfindingApp.Common.Core.Maintainers.CryptoProvider
+namespace CrowdfundingApp.Common.Core.Maintainers.CryptoProvider
 {
     public sealed class CryptoProvider : ICryptoProvider
     {

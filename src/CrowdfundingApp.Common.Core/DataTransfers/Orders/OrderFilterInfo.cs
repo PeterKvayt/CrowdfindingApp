@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CrowdfindingApp.Common.Core.DataTransfers.Orders
+namespace CrowdfundingApp.Common.Core.DataTransfers.Orders
 {
     public class OrderFilterInfo
     {

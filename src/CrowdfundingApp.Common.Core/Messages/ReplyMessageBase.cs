@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CrowdfindingApp.Common.Core.DataTransfers.Errors;
+using CrowdfundingApp.Common.Core.DataTransfers.Errors;
 
-namespace CrowdfindingApp.Common.Core.Messages
+namespace CrowdfundingApp.Common.Core.Messages
 {
     public class ReplyMessageBase : MessageBase
     {

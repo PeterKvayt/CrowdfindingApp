@@ -1,6 +1,6 @@
-﻿using CrowdfindingApp.Common.Core.DataTransfers;
+﻿using CrowdfundingApp.Common.Core.DataTransfers;
 
-namespace CrowdfindingApp.Common.Core.Messages.Projects
+namespace CrowdfundingApp.Common.Core.Messages.Projects
 {
     public class GetTopProjectCardsRequestMessage :MessageBase
     {

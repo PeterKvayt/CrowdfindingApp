@@ -1,8 +1,8 @@
 ﻿
 using System;
-using CrowdfindingApp.Common.Core.Messages.Payment;
+using CrowdfundingApp.Common.Core.Messages.Payment;
 
-namespace CrowdfindingApp.Common.Core.Maintainers.Payment
+namespace CrowdfundingApp.Common.Core.Maintainers.Payment
 {
     public interface IPaymentManager
     {

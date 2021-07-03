@@ -1,6 +1,6 @@
-﻿using CrowdfindingApp.Common.Core.DataTransfers.Projects;
+﻿using CrowdfundingApp.Common.Core.DataTransfers.Projects;
 
-namespace CrowdfindingApp.Common.Core.Messages.Projects
+namespace CrowdfundingApp.Common.Core.Messages.Projects
 {
     public class SaveDraftProjectRequestMessage : MessageBase
     {

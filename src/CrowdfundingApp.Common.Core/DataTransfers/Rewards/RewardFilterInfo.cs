@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrowdfindingApp.Common.Core.DataTransfers.Rewards
+namespace CrowdfundingApp.Common.Core.DataTransfers.Rewards
 {
     public class RewardFilterInfo
     {

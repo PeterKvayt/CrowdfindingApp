@@ -1,6 +1,6 @@
-﻿using CrowdfindingApp.Common.Core.DataTransfers.Orders;
+﻿using CrowdfundingApp.Common.Core.DataTransfers.Orders;
 
-namespace CrowdfindingApp.Common.Core.Messages.Orders
+namespace CrowdfundingApp.Common.Core.Messages.Orders
 {
     public class OrderSearchRequestMessage : SearchMessageBase<OrderFilterInfo>
     {

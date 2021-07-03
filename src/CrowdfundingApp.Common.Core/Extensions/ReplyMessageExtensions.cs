@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using CrowdfindingApp.Common.Core.Messages;
+using CrowdfundingApp.Common.Core.Messages;
 using FluentValidation.Results;
 
-namespace CrowdfindingApp.Common.Core.Extensions
+namespace CrowdfundingApp.Common.Core.Extensions
 {
     public static class ReplyMessageExtensions
     {

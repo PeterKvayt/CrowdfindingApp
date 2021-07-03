@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CrowdfindingApp.Common.Core.Messages.Rewards
+namespace CrowdfundingApp.Common.Core.Messages.Rewards
 {
     public class GetPublicRewardsByProjectIdRequestMessage : MessageBase
     {

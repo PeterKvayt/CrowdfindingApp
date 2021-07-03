@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Core.DataTransfers.Projects
+namespace CrowdfundingApp.Common.Core.DataTransfers.Projects
 {
     public class ProjectInfoView : ProjectInfo
     {

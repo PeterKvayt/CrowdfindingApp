@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Core.DataTransfers.Users
+namespace CrowdfundingApp.Common.Core.DataTransfers.Users
 {
     public class UserInfo
     {

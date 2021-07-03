@@ -2,11 +2,11 @@
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
-using CrowdfindingApp.Common.Configs;
-using CrowdfindingApp.Common.Enums;
-using CrowdfindingApp.Common.Core.Messages.Payment;
+using CrowdfundingApp.Common.Configs;
+using CrowdfundingApp.Common.Enums;
+using CrowdfundingApp.Common.Core.Messages.Payment;
 
-namespace CrowdfindingApp.Common.Core.Maintainers.Payment
+namespace CrowdfundingApp.Common.Core.Maintainers.Payment
 {
     public class RobokassaManager : IPaymentManager
     {

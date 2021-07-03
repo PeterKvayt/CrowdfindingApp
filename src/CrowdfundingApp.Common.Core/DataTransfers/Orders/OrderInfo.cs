@@ -1,7 +1,7 @@
 ﻿using System;
-using CrowdfindingApp.Common.Enums;
+using CrowdfundingApp.Common.Enums;
 
-namespace CrowdfindingApp.Common.Core.DataTransfers.Orders
+namespace CrowdfundingApp.Common.Core.DataTransfers.Orders
 {
     public class OrderInfo
     {

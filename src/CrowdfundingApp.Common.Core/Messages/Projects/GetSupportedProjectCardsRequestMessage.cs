@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.Core.DataTransfers;
+using CrowdfundingApp.Common.Core.DataTransfers;
 
-namespace CrowdfindingApp.Common.Core.Messages.Projects
+namespace CrowdfundingApp.Common.Core.Messages.Projects
 {
     public class GetSupportedProjectCardsRequestMessage : MessageBase
     {

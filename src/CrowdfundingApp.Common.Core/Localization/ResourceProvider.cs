@@ -4,9 +4,9 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
-using CrowdfindingApp.Common.Extensions;
+using CrowdfundingApp.Common.Extensions;
 
-namespace CrowdfindingApp.Common.Core.Localization
+namespace CrowdfundingApp.Common.Core.Localization
 {
     public class ResourceProvider : IResourceProvider
     {

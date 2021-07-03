@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CrowdfindingApp.Common.Core.Maintainers.TokenManager
+namespace CrowdfundingApp.Common.Core.Maintainers.TokenManager
 {
     public interface ITokenManager
     {

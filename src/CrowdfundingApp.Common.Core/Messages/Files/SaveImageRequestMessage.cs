@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 
-namespace CrowdfindingApp.Common.Core.Messages.Files
+namespace CrowdfundingApp.Common.Core.Messages.Files
 {
     public class SaveImageRequestMessage : SaveFileRequestMessageBase
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Core.Maintainers.FileStorageProvider
+namespace CrowdfundingApp.Common.Core.Maintainers.FileStorageProvider
 {
     public class FileStorageConfiguration
     {

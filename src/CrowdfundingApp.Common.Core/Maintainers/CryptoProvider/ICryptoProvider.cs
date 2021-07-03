@@ -1,5 +1,5 @@
 ﻿
-namespace CrowdfindingApp.Common.Core.Maintainers.CryptoProvider
+namespace CrowdfundingApp.Common.Core.Maintainers.CryptoProvider
 {
     public interface ICryptoProvider
     {

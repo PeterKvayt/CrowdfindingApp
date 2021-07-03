@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrowdfindingApp.Common.Enums;
+using CrowdfundingApp.Common.Enums;
 
-namespace CrowdfindingApp.Common.Core.DataTransfers.Rewards
+namespace CrowdfundingApp.Common.Core.DataTransfers.Rewards
 {
     public class RewardInfo
     {
