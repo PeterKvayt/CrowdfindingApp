@@ -1,2 +1,2 @@
-# CrowdfindingApp
+# CrowdfundingApp
 Repository for degree project.
