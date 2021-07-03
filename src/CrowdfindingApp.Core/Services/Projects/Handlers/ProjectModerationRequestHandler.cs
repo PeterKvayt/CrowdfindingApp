@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Projects;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Projects;
 using CrowdfindingApp.Core.Services.Projects.Validators;
 using CrowdfindingApp.Common.Extensions;
 using AutoMapper;
@@ -10,7 +10,7 @@ using CrowdfindingApp.Common.Data.BusinessModels;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Data.Filters;
 using System.Collections.Generic;
-using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
+using CrowdfindingApp.Common.Core.Maintainers.FileStorageProvider;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {

@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Orders;
-using CrowdfindingApp.Common.Validators;
+using CrowdfindingApp.Common.Core.Handlers;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Orders;
+using CrowdfindingApp.Common.Core.Validators;
 using CrowdfindingApp.Core.Services.Orders.Validator;
 using CrowdfindingApp.Common.Data.BusinessModels;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
-using CrowdfindingApp.Common.Maintainers.Payment;
+using CrowdfindingApp.Common.Core.Maintainers.Payment;
 
 namespace CrowdfindingApp.Core.Services.Orders.Handlers
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
-using CrowdfindingApp.Common.DataTransfers.Errors;
+using CrowdfindingApp.Common.Core.DataTransfers.Errors;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Common.Localization;
-using CrowdfindingApp.Common.Messages;
+using CrowdfindingApp.Common.Core.Localization;
+using CrowdfindingApp.Common.Core.Messages;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrowdfindingApp.Api.Controllers

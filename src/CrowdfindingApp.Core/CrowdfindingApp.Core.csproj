@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CrowdfindingApp.Common\CrowdfindingApp.Common.csproj" />
     <ProjectReference Include="..\CrowdfindingApp.Data.Common\CrowdfindingApp.Common.Data.csproj" />
+    <ProjectReference Include="..\CrowdfundingApp.Common.Core\CrowdfundingApp.Common.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

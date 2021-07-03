@@ -1,7 +1,7 @@
 ﻿using System;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Immutable;
-using CrowdfindingApp.Common.Messages.Projects;
+using CrowdfindingApp.Common.Core.Messages.Projects;
 using FluentValidation;
 
 namespace CrowdfindingApp.Core.Services.Projects.Validators

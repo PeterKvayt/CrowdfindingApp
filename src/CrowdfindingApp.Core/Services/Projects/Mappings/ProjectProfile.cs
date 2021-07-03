@@ -1,6 +1,6 @@
-﻿using CrowdfindingApp.Common.DataTransfers.Project;
-using CrowdfindingApp.Common.DataTransfers.Projects;
-using CrowdfindingApp.Common.Mappings;
+﻿using CrowdfindingApp.Common.Core.DataTransfers.Project;
+using CrowdfindingApp.Common.Core.DataTransfers.Projects;
+using CrowdfindingApp.Common.Core.Mappings;
 using CrowdfindingApp.Common.Data.BusinessModels;
 using CrowdfindingApp.Common.Data.Filters;
 

@@ -23,24 +23,5 @@
   <ItemGroup>
     <ProjectReference Include="..\CrowdfindingApp.Data.Common\CrowdfindingApp.Common.Data.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Update="Resources\EmailResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>EmailResources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\CommonErrorMessages.resx">
-      <LastGenOutput>EmailResources.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\EmailResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EmailResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
 
 </Project>

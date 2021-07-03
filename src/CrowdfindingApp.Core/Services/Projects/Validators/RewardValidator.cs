@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.DataTransfers.Rewards;
+using CrowdfindingApp.Common.Core.DataTransfers.Rewards;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Core.Services.Projects.ValidationErrorKeys;

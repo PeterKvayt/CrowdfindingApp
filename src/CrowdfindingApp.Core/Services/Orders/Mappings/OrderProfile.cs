@@ -1,8 +1,8 @@
-﻿using CrowdfindingApp.Common.DataTransfers.Orders;
+﻿using CrowdfindingApp.Common.Core.DataTransfers.Orders;
 using CrowdfindingApp.Common.Data.Filters;
 using CrowdfindingApp.Common.Data.BusinessModels;
-using CrowdfindingApp.Common.Mappings;
-using CrowdfindingApp.Common.Messages.Orders;
+using CrowdfindingApp.Common.Core.Mappings;
+using CrowdfindingApp.Common.Core.Messages.Orders;
 
 namespace CrowdfindingApp.Core.Services.Orders.Mappings
 {

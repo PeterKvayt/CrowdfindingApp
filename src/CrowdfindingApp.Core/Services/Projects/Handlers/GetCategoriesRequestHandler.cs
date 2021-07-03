@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.DataTransfers;
-using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Projects;
+using CrowdfindingApp.Common.Core.DataTransfers;
+using CrowdfindingApp.Common.Core.Handlers;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Projects;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers

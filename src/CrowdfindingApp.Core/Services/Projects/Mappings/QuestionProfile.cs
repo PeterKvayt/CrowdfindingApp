@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CrowdfindingApp.Common.DataTransfers.Questions;
-using CrowdfindingApp.Common.Mappings;
+using CrowdfindingApp.Common.Core.DataTransfers.Questions;
+using CrowdfindingApp.Common.Core.Mappings;
 using CrowdfindingApp.Common.Data.BusinessModels;
 
 namespace CrowdfindingApp.Core.Services.Projects.Mappings

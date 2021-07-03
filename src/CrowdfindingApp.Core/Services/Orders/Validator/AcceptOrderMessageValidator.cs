@@ -3,8 +3,8 @@ using System;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Common.Messages.Orders;
-using CrowdfindingApp.Common.Validators;
+using CrowdfindingApp.Common.Core.Messages.Orders;
+using CrowdfindingApp.Common.Core.Validators;
 using CrowdfindingApp.Common.Data.BusinessModels;
 using FluentValidation;
 

@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using CrowdfindingApp.Common.DataTransfers.Projects;
+using CrowdfindingApp.Common.Core.DataTransfers.Projects;
 using Keys = CrowdfindingApp.Core.Services.Projects.ValidationErrorKeys.ProjectValidationErrorKeys;
 using FluentValidation;
 using System;

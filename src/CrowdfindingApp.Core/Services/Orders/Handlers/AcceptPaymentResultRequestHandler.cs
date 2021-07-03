@@ -1,12 +1,12 @@
-﻿using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Messages;
+﻿using CrowdfindingApp.Common.Core.Handlers;
+using CrowdfindingApp.Common.Core.Messages;
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
-using CrowdfindingApp.Common.Maintainers.Payment;
-using CrowdfindingApp.Common.Messages.Payment;
+using CrowdfindingApp.Common.Core.Maintainers.Payment;
+using CrowdfindingApp.Common.Core.Messages.Payment;
 
 namespace CrowdfindingApp.Core.Services.Orders.Handlers
 {

@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CrowdfindingApp.Common.DataTransfers.Project;
-using CrowdfindingApp.Common.DataTransfers.Projects;
+using CrowdfindingApp.Common.Core.DataTransfers.Project;
+using CrowdfindingApp.Common.Core.DataTransfers.Projects;
 using CrowdfindingApp.Common.Enums;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Projects;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Projects;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
 

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.DataTransfers.Projects;
-using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Projects;
+using CrowdfindingApp.Common.Core.DataTransfers.Projects;
+using CrowdfindingApp.Common.Core.Handlers;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Projects;
 using CrowdfindingApp.Common.Extensions;
 using AutoMapper;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 using CrowdfindingApp.Common.Data.BusinessModels;
 using System.Linq;
-using CrowdfindingApp.Common.DataTransfers.Rewards;
-using CrowdfindingApp.Common.DataTransfers.Questions;
-using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
+using CrowdfindingApp.Common.Core.DataTransfers.Rewards;
+using CrowdfindingApp.Common.Core.DataTransfers.Questions;
+using CrowdfindingApp.Common.Core.Maintainers.FileStorageProvider;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers
 {

@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Projects;
+using CrowdfindingApp.Common.Core.Handlers;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Projects;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 
 namespace CrowdfindingApp.Core.Services.Projects.Handlers

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Users;
+using CrowdfindingApp.Common.Core.Handlers;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Users;
 using AutoMapper;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 using CrowdfindingApp.Common.Data.BusinessModels;
 using System.Linq;
 using CrowdfindingApp.Core.Services.Users.Validators;
-using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
+using CrowdfindingApp.Common.Core.Maintainers.FileStorageProvider;
 
 namespace CrowdfindingApp.Core.Services.Users.Handlers
 {

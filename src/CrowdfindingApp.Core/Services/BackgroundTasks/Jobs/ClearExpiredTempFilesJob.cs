@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
+using CrowdfindingApp.Common.Core.Maintainers.FileStorageProvider;
 
 namespace CrowdfindingApp.Core.Services.BackgroundTasks.Jobs
 {

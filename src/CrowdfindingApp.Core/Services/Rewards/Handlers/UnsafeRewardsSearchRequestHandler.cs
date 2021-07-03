@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using CrowdfindingApp.Common.DataTransfers.Rewards;
-using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Messages;
+using CrowdfindingApp.Common.Core.DataTransfers.Rewards;
+using CrowdfindingApp.Common.Core.Handlers;
+using CrowdfindingApp.Common.Core.Messages;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
 

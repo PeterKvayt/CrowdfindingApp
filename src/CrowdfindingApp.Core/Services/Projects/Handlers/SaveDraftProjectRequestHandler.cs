@@ -4,9 +4,9 @@ using AutoMapper;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
 using CrowdfindingApp.Common.Immutable;
-using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Projects;
+using CrowdfindingApp.Common.Core.Maintainers.FileStorageProvider;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Projects;
 using CrowdfindingApp.Common.Data.BusinessModels;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 

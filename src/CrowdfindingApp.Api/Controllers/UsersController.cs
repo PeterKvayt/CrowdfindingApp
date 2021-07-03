@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Immutable;
-using CrowdfindingApp.Common.Localization;
-using CrowdfindingApp.Common.Messages.Users;
+using CrowdfindingApp.Common.Core.Localization;
+using CrowdfindingApp.Common.Core.Messages.Users;
 using CrowdfindingApp.Core.Services.Users.Handlers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

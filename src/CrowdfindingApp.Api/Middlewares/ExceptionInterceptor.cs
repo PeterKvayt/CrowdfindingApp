@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.DataTransfers.Errors;
+using CrowdfindingApp.Common.Core.DataTransfers.Errors;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Common.Messages;
+using CrowdfindingApp.Common.Core.Messages;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

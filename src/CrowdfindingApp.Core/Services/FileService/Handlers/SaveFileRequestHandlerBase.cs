@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Maintainers.FileStorageProvider;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Files;
+using CrowdfindingApp.Common.Core.Handlers;
+using CrowdfindingApp.Common.Core.Maintainers.FileStorageProvider;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Files;
 
 namespace CrowdfindingApp.Core.Services.FileService.Handlers
 {

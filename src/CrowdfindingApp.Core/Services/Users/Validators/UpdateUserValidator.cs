@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CrowdfindingApp.Common.Messages.Users;
+using CrowdfindingApp.Common.Core.Messages.Users;
 using FluentValidation;
 
 namespace CrowdfindingApp.Core.Services.Users.Validators

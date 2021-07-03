@@ -1,10 +1,10 @@
 ﻿using System.Net.Mail;
 using Autofac;
-using CrowdfindingApp.Common.Maintainers.CryptoProvider;
-using CrowdfindingApp.Common.Maintainers.EmailSender;
-using CrowdfindingApp.Common.Maintainers.Hasher;
-using CrowdfindingApp.Common.Maintainers.Payment;
-using CrowdfindingApp.Common.Maintainers.TokenManager;
+using CrowdfindingApp.Common.Core.Maintainers.CryptoProvider;
+using CrowdfindingApp.Common.Core.Maintainers.EmailSender;
+using CrowdfindingApp.Common.Core.Maintainers.Hasher;
+using CrowdfindingApp.Common.Core.Maintainers.Payment;
+using CrowdfindingApp.Common.Core.Maintainers.TokenManager;
 
 namespace CrowdfindingApp.Common
 {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Common.Handlers;
-using CrowdfindingApp.Common.Maintainers.Hasher;
-using CrowdfindingApp.Common.Maintainers.TokenManager;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Users;
+using CrowdfindingApp.Common.Core.Handlers;
+using CrowdfindingApp.Common.Core.Maintainers.Hasher;
+using CrowdfindingApp.Common.Core.Maintainers.TokenManager;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Users;
 using CrowdfindingApp.Core.Services.Users.Validators;
 using CrowdfindingApp.Common.Data.BusinessModels;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;

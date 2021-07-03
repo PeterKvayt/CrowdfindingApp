@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CrowdfindingApp.Common.DataTransfers.Orders;
+using CrowdfindingApp.Common.Core.DataTransfers.Orders;
 using CrowdfindingApp.Common.Enums;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Orders;
-using CrowdfindingApp.Common.Validators;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Orders;
+using CrowdfindingApp.Common.Core.Validators;
 using CrowdfindingApp.Common.Data.Filters;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 namespace CrowdfindingApp.Core.Services.Orders.Handlers

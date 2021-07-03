@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using CrowdfindingApp.Common.DataTransfers.Orders;
+using CrowdfindingApp.Common.Core.DataTransfers.Orders;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Orders;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Orders;
 using CrowdfindingApp.Common.Data.Filters;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 

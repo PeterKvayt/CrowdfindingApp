@@ -1,5 +1,5 @@
-﻿using CrowdfindingApp.Common.DataTransfers;
-using CrowdfindingApp.Common.Validators;
+﻿using CrowdfindingApp.Common.Core.DataTransfers;
+using CrowdfindingApp.Common.Core.Validators;
 using CrowdfindingApp.Core.Services.Projects.ValidationErrorKeys;
 using FluentValidation;
 

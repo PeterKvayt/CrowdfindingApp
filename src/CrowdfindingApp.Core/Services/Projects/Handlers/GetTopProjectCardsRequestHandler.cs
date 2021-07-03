@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using CrowdfindingApp.Common.DataTransfers.Projects;
+using CrowdfindingApp.Common.Core.DataTransfers.Projects;
 using CrowdfindingApp.Common.Enums;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Projects;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Projects;
 using CrowdfindingApp.Common.Data.Filters;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 using CrowdfindingApp.Common.Data.Models;

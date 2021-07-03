@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using CrowdfindingApp.Common.DataTransfers.Projects;
+using CrowdfindingApp.Common.Core.DataTransfers.Projects;
 using CrowdfindingApp.Common.Extensions;
-using CrowdfindingApp.Common.Messages;
-using CrowdfindingApp.Common.Messages.Projects;
+using CrowdfindingApp.Common.Core.Messages;
+using CrowdfindingApp.Common.Core.Messages.Projects;
 using CrowdfindingApp.Common.Data.BusinessModels;
 using CrowdfindingApp.Common.Data.Interfaces.Repositories;
 

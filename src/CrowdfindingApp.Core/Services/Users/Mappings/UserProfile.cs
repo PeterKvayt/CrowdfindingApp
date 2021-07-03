@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CrowdfindingApp.Common.DataTransfers.Users;
-using CrowdfindingApp.Common.Mappings;
-using CrowdfindingApp.Common.Messages.Users;
+using CrowdfindingApp.Common.Core.DataTransfers.Users;
+using CrowdfindingApp.Common.Core.Mappings;
+using CrowdfindingApp.Common.Core.Messages.Users;
 using CrowdfindingApp.Common.Data.BusinessModels;
 
 namespace CrowdfindingApp.Core.Services.Users.Mappings

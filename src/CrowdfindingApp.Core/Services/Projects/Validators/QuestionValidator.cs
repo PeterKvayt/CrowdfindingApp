@@ -1,4 +1,4 @@
-﻿using CrowdfindingApp.Common.DataTransfers.Questions;
+﻿using CrowdfindingApp.Common.Core.DataTransfers.Questions;
 using CrowdfindingApp.Core.Services.Projects.ValidationErrorKeys;
 using FluentValidation;
 
